@@ -1,5 +1,6 @@
 const { GENESIS_DATA } = require('./config');
 
+// Class definition and defines the constructor with the parameters used to make a block
 class block {
     constructor({timestamp, lastHash, hash, data}){
         this.timestamp = timestamp;
