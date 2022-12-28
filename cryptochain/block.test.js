@@ -1,5 +1,6 @@
 const Block = require('./block');
 const { GENESIS_DATA } = require('./config.js');
+const cryptoHash = require('./crypto-hash');
 
 // This lays out the definitions and requirements for the block as a whole throughout the program
 // Describe keyword just lets me group tests. This is a new keyword to me I didn't cover in the 
@@ -60,6 +61,12 @@ describe('Block', () => {
 
         it('sets the `data`', () => {
             expect(minedBlock.timestamp).not.toEqual(undefined);
+        });
+
+        it('creates a SHA-256 `hash` based on the proper inputs', () => {
+
+            // verifies the newly mined block
+            expect(minedBlock.hash).toEqual(cryptoHash(minedBlock.timestamp, lastBlock.hash, data));
         });
     });
 
