@@ -85,12 +85,18 @@ describe('Blockchain', () => {
 
 
     describe('when the new chain is not longer', () => {
+        beforeEach(() => {
+            newChain.chain[0] = { new: 'chain' };
+
+            blockchain.replaceChain(newChain.chain);
+        });
+    
       it('does not replace the chain', () => {
-        newChain.chain[0] = { new: 'chain' };
-
-        blockchain.replaceChain(newChain.chain);
-
         expect(blockchain.chain).toEqual(originalChain);
+      });
+
+      it('logs an error', () => {
+        expect(errorMock).toHaveBeenCalled();
       });
     });
 
