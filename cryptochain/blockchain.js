@@ -27,7 +27,7 @@ class Blockchain{
             return;
         }
 
-        console.error('replacing chain with', chain);
+        console.log('replacing chain with', chain);
         this.chain = chain;
     }
 
