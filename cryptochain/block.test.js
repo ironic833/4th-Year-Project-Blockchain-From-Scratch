@@ -11,12 +11,17 @@ describe('Block', () => {
     const hash = 'bar-hash';
     const data = ['blockchain', 'data'];
 
+    const nonce = 1;
+    const difficulty = 1;
+
     // Defines the parameters required when the new block constructor is called
     const block = new Block({
         timestamp,
         lastHash,
         hash,
-        data
+        data,
+        nonce,
+        difficulty
     });
 
     // checks this test definition against a block to ensure that the block is correct
@@ -25,6 +30,8 @@ describe('Block', () => {
         expect(block.lastHash).toEqual(lastHash);
         expect(block.hash).toEqual(hash);
         expect(block.data).toEqual(data);
+        expect(block.nonce).toEqual(nonce);
+        expect(block.difficulty).toEqual(difficulty);
     });
 
     // Describes the definitions to verify the gensis block against
@@ -66,7 +73,17 @@ describe('Block', () => {
         it('creates a SHA-256 `hash` based on the proper inputs', () => {
 
             // verifies the newly mined block
-            expect(minedBlock.hash).toEqual(cryptoHash(minedBlock.timestamp, lastBlock.hash, data));
+            expect(minedBlock.hash).toEqual(
+                cryptoHash(
+                minedBlock.timestamp,
+                minedBlock.nonce,
+                minedBlock.difficulty,
+                lastBlock.hash,
+                data));
+        });
+
+        it('sets a `hash` that matches the difficulty criteria', () => {
+            expect(minedBlock.hash.substring(0, minedBlock.difficulty)).toEqual('0'.repeat(minedBlock.difficulty));
         });
     });
 

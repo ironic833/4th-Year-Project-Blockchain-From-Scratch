@@ -3,31 +3,46 @@ const cryptoHash = require('./crypto-hash');
 
 // Class definition and defines the constructor with the parameters used to make a block
 class block {
-    constructor({timestamp, lastHash, hash, data}){
+    constructor({timestamp, lastHash, hash, data, nonce, difficulty}){
         this.timestamp = timestamp;
         this.lastHash = lastHash;
         this.hash = hash;
         this.data = data;
+        this.nonce = nonce;
+        this.difficulty = difficulty;
     }
 
     // defines genesis as a static function allowing us to call it essentially out of scope
     static genesis() {
 
-        // this static function returns an instance of the class its in using the this keyword
+        // this static function returns an instance of the class its in using the this keyword.
+        // In this case it returns a genesis block object populated with the genesis data
         return new this(GENESIS_DATA);
     }
 
+
+    // The mineblock method performs proof of work and returns the newly mined block
     static mineBlock({ lastBlock, data}){
 
-        const timestamp = Date.now();
+        let hash, timestamp;
         const lastHash = lastBlock.hash;
+        const {difficulty} = lastBlock;
+        let nonce = 0;
+
+        do {
+            nonce++;
+            timestamp = Date.now();
+            hash = cryptoHash(timestamp, lastHash, data, nonce, difficulty);
+        } while (hash.substring(0, difficulty) !== '0'.repeat(difficulty));
 
         return new this({
             timestamp,
             lastHash,
             data,
-            hash: cryptoHash(timestamp, lastHash, data)
-        })
+            difficulty,
+            nonce,
+            hash
+        });
     }
 }
 

@@ -11,4 +11,5 @@ const cryptoHash = (...inputs) => {
     return hash.digest('hex');
 };
 
+// sets the default export from this javascript class to be the cryptoHash function
 module.exports = cryptoHash;

@@ -5,6 +5,7 @@ describe('Blockchain', () => {
 
   let blockchain, newChain, originalChain;
 
+  // Before every test it runs this block of code to make fresh chains to test against
   beforeEach(() => {
     blockchain = new Blockchain();
     newChain = new Blockchain();
@@ -12,11 +13,12 @@ describe('Blockchain', () => {
     originalChain = blockchain.chain;
   });
 
-    // checks if the blockchain chain property is an array instance
+    // checks if the blockchain chain property is an array instance. The blockchain has to be logically stored as an array
   it('contains a `chain` Array instance', () => {
     expect(blockchain.chain instanceof Array).toBe(true);
   });
 
+  // Checks that the chain starts with the geneisis block. If it doesnt we know its an invalid chain
   it('starts with the genesis block', () => {
     expect(blockchain.chain[0]).toEqual(Block.genesis());
   });
@@ -24,117 +26,167 @@ describe('Blockchain', () => {
 
     it('adds a new block to the chain', () => {
 
-        // Adds a dummy block to check if its added to the blockchain array
-    const newData = 'foo bar';
-    blockchain.addBlock({ data: newData });
+      // Adds a dummy block to check if its added to the blockchain array
+      const newData = 'foo bar';
+      blockchain.addBlock({ data: newData });
 
-    // checks if the most recent blocks data property matches the data we tried to add in the dummy block
-    expect(blockchain.chain[blockchain.chain.length-1].data).toEqual(newData);
+      // checks if the most recent blocks data property matches the data we tried to add in the dummy block
+      expect(blockchain.chain[blockchain.chain.length-1].data).toEqual(newData);
   });
 
   describe('isValidChain()', () => {
+
     describe('when the chain does not start with the genesis block', () => {
+
       it('returns false', () => {
         blockchain.chain[0] = { data: 'fake-genesis' };
 
         expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
       });
+
     });
 
     describe('when the chain starts with the genesis block and has multiple blocks', () => {
+
       beforeEach(() => {
+
         blockchain.addBlock({ data: 'Bears' });
         blockchain.addBlock({ data: 'Beets' });
         blockchain.addBlock({ data: 'Battlestar Galactica' });
+
       });
 
       describe('and a lastHash reference has changed', () => {
+
         it('returns false', () => {
+
           blockchain.chain[2].lastHash = 'broken-lastHash';
 
           expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
+
         });
+
       });
 
       describe('and the chain contains a block with an invalid field', () => {
+
         it('returns false', () => {
+
           blockchain.chain[2].data = 'some-bad-and-evil-data';
 
           expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
+
         });
+
       });
 
       describe('and the chain does not contain any invalid blocks', () => {
+
         it('returns true', () => {
+
           expect(Blockchain.isValidChain(blockchain.chain)).toBe(true);
+
         });
+
       });
+
     });
+
   });
 
   describe('replaceChain()', () => {
+
     let errorMock, logMock;
 
     beforeEach(() => {
+
         errorMock = jest.fn();
         logMock = jest.fn();
 
         global.console.error = errorMock;
         global.console.log = logMock;
+
     });
 
 
     describe('when the new chain is not longer', () => {
+
         beforeEach(() => {
+
             newChain.chain[0] = { new: 'chain' };
 
             blockchain.replaceChain(newChain.chain);
+
         });
     
       it('does not replace the chain', () => {
+
         expect(blockchain.chain).toEqual(originalChain);
+
       });
 
       it('logs an error', () => {
+
         expect(errorMock).toHaveBeenCalled();
+
       });
+
     });
 
     describe('when the new chain is longer', () => {
+
       beforeEach(() => {
+
         newChain.addBlock({ data: 'Bears' });
         newChain.addBlock({ data: 'Beets' });
         newChain.addBlock({ data: 'Battlestar Galactica' });
+
       });
 
       describe('and the chain is invalid', () => {
+
         beforeEach(() => {
+
             newChain.chain[2].hash = 'some-fake-hash';
 
             blockchain.replaceChain(newChain.chain);
+
           });
 
         it('does not replace the chain', () => {
+
          expect(blockchain.chain).toEqual(originalChain);
+
         });
 
         it('logs an error', () => {
+
             expect(errorMock).toHaveBeenCalled();
+
           });
+
       });
 
       describe('and the chain is valid', () => {
+
         beforeEach(() => {
+
             blockchain.replaceChain(newChain.chain);
+
         });        
 
-        it('replaces the chain', () => {expect(blockchain.chain).toEqual(newChain.chain);
+        it('replaces the chain', () => {
+          expect(blockchain.chain).toEqual(newChain.chain);
         });
 
         it('logs the successful replacement', () => {
             expect(logMock).toHaveBeenCalled();
           });
+
       });
+
     });
+
   });
+  
 });
