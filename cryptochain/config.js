@@ -17,4 +17,4 @@ const GENESIS_DATA = {
 
 // exports the genesis block data as a variable so it can be used to populate 
 // a  genesis block in other pieces 
-module.exports = { GENESIS_DATA };
+module.exports = { GENESIS_DATA, MINE_RATE };

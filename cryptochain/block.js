@@ -1,4 +1,4 @@
-const { GENESIS_DATA } = require('./config');
+const { GENESIS_DATA, MINE_RATE } = require('./config');
 const cryptoHash = require('./crypto-hash');
 
 // Class definition and defines the constructor with the parameters used to make a block
@@ -43,6 +43,14 @@ class block {
             nonce,
             hash
         });
+    }
+
+    static adjustDifficulty ({ originalBlock, timestamp }){
+        const { difficulty } = originalBlock;
+
+        if ((timestamp - originalBlock.timestamp) > MINE_RATE) return difficulty - 1;
+
+        return difficulty + 1;
     }
 }
 
