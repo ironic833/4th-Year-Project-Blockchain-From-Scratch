@@ -1,6 +1,7 @@
 const Block = require('./block');
 const { GENESIS_DATA, MINE_RATE } = require('./config.js');
 const cryptoHash = require('./crypto-hash');
+const hexToBinary = require('hex-to-binary');
 
 // This lays out the definitions and requirements for the block as a whole throughout the program
 // Describe keyword just lets me group tests. This is a new keyword to me I didn't cover in the 
@@ -83,7 +84,7 @@ describe('Block', () => {
         });
 
         it('sets a `hash` that matches the difficulty criteria', () => {
-            expect(minedBlock.hash.substring(0, minedBlock.difficulty)).toEqual('0'.repeat(minedBlock.difficulty));
+            expect(hexToBinary(minedBlock.hash).substring(0, minedBlock.difficulty)).toEqual('0'.repeat(minedBlock.difficulty));
         });
 
         it('adjusts the difficulty', () => {

@@ -1,4 +1,4 @@
-
+// Sets the intial mine rate for the mining system 
 const MINE_RATE = 1000;
 
 // sets the inital proof of work difficulty level. This is used in the genesis block and the

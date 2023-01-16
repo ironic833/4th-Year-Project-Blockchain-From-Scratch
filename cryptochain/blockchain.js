@@ -7,6 +7,7 @@ class Blockchain{
         this.chain = [Block.genesis()];
     }
 
+    // Adds the block to the overall chain. Called in various other methods
     addBlock({ data }){
         const newBlock = Block.mineBlock({
             lastBlock: this.chain[this.chain.length-1],
@@ -16,6 +17,7 @@ class Blockchain{
         this.chain.push(newBlock);
     }
 
+    // replaces the chain if it is valid
     replaceChain(chain){
         if(chain.length <= this.chain.length) {
             console.error('The incoming chain must be longer');
@@ -31,6 +33,7 @@ class Blockchain{
         this.chain = chain;
     }
 
+    // checks that a given chain is valid. This can be the current chain or an incoming chain
     static isValidChain(chain) {
 
         if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {
@@ -42,11 +45,15 @@ class Blockchain{
 
             const actualLastHash = chain[i-1].hash;
 
+            const lastDifficulty = chain[i-1].difficulty;
+
             if (lastHash !== actualLastHash) return false;
 
             const validatedHash = cryptoHash(timestamp, lastHash, data,nonce, difficulty);
 
             if(hash !== validatedHash) return false;
+
+            if(Math.abs(lastDifficulty - difficulty) > 1) return false;
         }
 
         return true;
