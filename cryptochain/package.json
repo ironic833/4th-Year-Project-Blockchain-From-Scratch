@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "dev": "nodemon index.js",
+    "start": "start npm run build-client && node index.js",
+    "dev": " start npm run dev-client && nodemon index.js",
     "dev-peer": "cross-env GENERATE_PEER_PORT='true' nodemon index.js",
-    "start": "node index.js"
-  },
+    "build-client": "npm run clean && parcel build client/src/index.html --out-dir client/dit",
+    "dev-client": "npm run clean && parcel client/src/index.html --out-dir client/dist",
+    "clean": "if exist (rmdir /s/q .cache client/dist)"
+},
   "jest": {
-    "testEnviroment": "node"
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +28,10 @@
     "elliptic": "^6.4.1",
     "express": "^4.16.3",
     "hex-to-binary": "^1.0.1",
+    "parcel-bundler": "^1.12.5",
     "pubnub": "^4.21.6",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
     "request": "^2.88.0",
     "uuid": "^3.3.2"
   }

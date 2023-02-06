@@ -71,9 +71,7 @@ describe('Blockchain', () => {
           const nonce = 0;
           const data = [];
           const difficulty = lastBlock.difficulty - 3;
-
           const hash = cryptoHash(timestamp, lastHash, difficulty, nonce, data);
-
           const badBlock = new Block({
             timestamp, lastHash, hash, nonce, difficulty, data
           });
@@ -132,8 +130,6 @@ describe('Blockchain', () => {
         });
 
         it('does not replace the chain', () => {
-          blockchain.replaceChain(newChain.chain);
-
           expect(blockchain.chain).toEqual(originalChain);
         });
 
@@ -158,15 +154,15 @@ describe('Blockchain', () => {
     });
 
     describe('and the `validateTransactions` flag is true', () => {
-      it('calls validateTransactionData()', () => {
-        const validateTransactionDataMock = jest.fn();
+      it('calls validTransactionData()', () => {
+        const validTransactionDataMock = jest.fn();
 
-        blockchain.validTransactionData = validateTransactionDataMock;
+        blockchain.validTransactionData = validTransactionDataMock;
 
         newChain.addBlock({ data: 'foo' });
         blockchain.replaceChain(newChain.chain, true);
 
-        expect(validateTransactionDataMock).toHaveBeenCalled();
+        expect(validTransactionDataMock).toHaveBeenCalled();
       });
     });
   });
@@ -203,14 +199,14 @@ describe('Blockchain', () => {
         it('returns false and logs an error', () => {
           transaction.outputMap[wallet.publicKey] = 999999;
 
-          newChain.addBlock({ data: [transaction, rewardTransaction ]});
+          newChain.addBlock({ data: [transaction, rewardTransaction] });
 
           expect(blockchain.validTransactionData({ chain: newChain.chain })).toBe(false);
           expect(errorMock).toHaveBeenCalled();
         });
       });
 
-      describe('and the transaction is a reward transaciton', () => {
+      describe('and the transaction is a reward transaction', () => {
         it('returns false and logs an error', () => {
           rewardTransaction.outputMap[wallet.publicKey] = 999999;
 
@@ -239,9 +235,10 @@ describe('Blockchain', () => {
             signature: wallet.sign(evilOutputMap)
           },
           outputMap: evilOutputMap
-        };
+        }
 
         newChain.addBlock({ data: [evilTransaction, rewardTransaction] });
+
         expect(blockchain.validTransactionData({ chain: newChain.chain })).toBe(false);
         expect(errorMock).toHaveBeenCalled();
       });

@@ -2,9 +2,9 @@ const PubNub = require('pubnub');
 
 // Sets the API keys for access to PubNub
 const credentials = {
-    publishKey: 'pub-c-4c3f545c-0dbc-4cc9-ab49-93e01030c359',
-    subscribeKey: 'sub-c-1a6dd668-345e-41b0-97c8-9e190b422e18',
-    secretKey: 'sec-c-NGE1ODdjOWMtODBjNC00MTI1LTg2YmUtNzUyNGY5MGRiYjQ5'
+    publishKey: 'pub-c-f0d1aece-b8ce-424d-93c5-057ce943ca34',
+    subscribeKey: 'sub-c-9586aba2-bcae-419c-a342-c7556ac00daf',
+    secretKey: 'sec-c-NzNiNGUzN2UtN2U3Yi00MzIyLWE2NDUtYWVjNTlmNjA2YWIx'
 };
 
 // Sets up our default channels to be used by the system to allow for transactions
@@ -17,8 +17,11 @@ const CHANNELS = {
  class PubSub {
 
     constructor({ blockchain, transactionPool, wallet }) {
+
         this.blockchain = blockchain;
+
         this.transactionPool = transactionPool;
+        
         this.wallet = wallet;
 
         this.pubnub = new PubNub(credentials);
@@ -37,11 +40,7 @@ const CHANNELS = {
 
         switch(channel){
             case CHANNELS.BLOCKCHAIN:
-                this.blockchain.replaceChain(parsedMessage, true, () => {
-                    this.transactionPool.clearBlockchainTransactions({
-                        chain: parsedMessage
-                    });
-                });
+                this.blockchain.replaceChain(parsedMessage);
             break;
             case CHANNELS.TRANSACTION:
                 if(!this.transactionPool.existingTransaction({ inputAddress: this.wallet.publicKey})){
