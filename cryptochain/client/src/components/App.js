@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Blocks from './Blocks';
+import index from '../assets/index.png';
 
 class App extends Component {
     state = { walletInfo: {} };
@@ -15,10 +16,17 @@ class App extends Component {
         const { address, balance } = this.state.walletInfo;
 
         return(
-            <div>
-                Welcome to the blockchain....
-                <div>Address: {address}</div>
-                <div>Balance: {balance}</div>
+            <div className="App">
+                <img className='logo' src={index}></img>
+                <br />
+                <div>
+                    Welcome to the blockchain....
+                </div>
+                <br />
+                <div className="WalletInfo">
+                    <div>Address: {address}</div>
+                    <div>Balance: {balance}</div>
+                </div>
                 <br />
                 <Blocks />
             </div>

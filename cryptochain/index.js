@@ -112,6 +112,46 @@ app.get('*', (req, res) => {
     });
 };
 
+// test wallets
+const walletFoo = new Wallet();
+const walletBar = new Wallet();
+
+// wallet helper method
+const generateWalletTransaction = ({ recipient, amount }) => {
+  const transaction = wallet.createTransaction({
+    recipient, amount, chain: blockchain.chain
+  });
+
+  transactionPool.setTransaction(transaction);
+};
+
+const walletAction = () => generateWalletTransaction({
+  wallet, recipient: walletFoo.publicKey, amount: 5
+});
+
+const walletFooAction = () => generateWalletTransaction({
+  wallet: walletFoo, recipient: walletBar.publicKey, amount: 10
+});
+
+const walletBarAction = () => generateWalletTransaction({
+  wallet: walletBar, recipient: walletFoo.publicKey, amount: 15
+});
+
+for( let i=0; i<10; i++ ){
+  if(i % 3 === 0){
+    walletAction();
+    walletFooAction();
+  } else if (i % 3 === 1){
+    walletAction();
+    walletBarAction();
+  } else {
+    walletBarAction();
+    walletFooAction();
+  }
+
+  transactionMiner.mineTransactions();
+}
+
 let PEER_PORT;
 
 if(process.env.GENERATE_PEER_PORT === 'true') {
