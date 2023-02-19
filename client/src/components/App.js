@@ -11,8 +11,6 @@ class App extends Component {
             .then(json => this.setState({ walletInfo: json })); 
     }
     
-
-    
     render() {
 
         const { address, balance } = this.state.walletInfo;
