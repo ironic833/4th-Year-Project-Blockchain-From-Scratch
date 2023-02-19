@@ -2,9 +2,9 @@ const PubNub = require('pubnub');
 
 // Sets the API keys for access to PubNub
 const credentials = {
-    publishKey: 'pub-c-f0d1aece-b8ce-424d-93c5-057ce943ca34',
-    subscribeKey: 'sub-c-9586aba2-bcae-419c-a342-c7556ac00daf',
-    secretKey: 'sec-c-NzNiNGUzN2UtN2U3Yi00MzIyLWE2NDUtYWVjNTlmNjA2YWIx'
+    publishKey: 'pub-c-f2ff181d-abf6-4ac0-b661-6ca1c32dec15',
+    subscribeKey: 'sub-c-9f949802-b882-45c0-b4c4-6bf8f3832d45',
+    secretKey: 'sec-c-NDYyM2I1MTEtMjU1OC00OWMzLTg5YWQtMTE1YjcwMTUzNTZj'
 };
 
 // Sets up our default channels to be used by the system to allow for transactions
