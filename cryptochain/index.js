@@ -9,6 +9,8 @@ const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet');
 const TransactionMiner = require('./app/transaction-miner');
 
+const isDevelopement = process.env.ENV ==='developement';
+
 const DEFAULT_PORT = 3000;
 
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
@@ -112,44 +114,48 @@ app.get('*', (req, res) => {
     });
 };
 
-// test wallets
-const walletFoo = new Wallet();
-const walletBar = new Wallet();
+if(isDevelopement){
 
-// wallet helper method
-const generateWalletTransaction = ({ recipient, amount }) => {
-  const transaction = wallet.createTransaction({
-    recipient, amount, chain: blockchain.chain
-  });
+    // test wallets
+    const walletFoo = new Wallet();
+    const walletBar = new Wallet();
 
-  transactionPool.setTransaction(transaction);
-};
+    // wallet helper method
+    const generateWalletTransaction = ({ recipient, amount }) => {
+      const transaction = wallet.createTransaction({
+        recipient, amount, chain: blockchain.chain
+      });
 
-const walletAction = () => generateWalletTransaction({
-  wallet, recipient: walletFoo.publicKey, amount: 5
-});
+      transactionPool.setTransaction(transaction);
+    };
 
-const walletFooAction = () => generateWalletTransaction({
-  wallet: walletFoo, recipient: walletBar.publicKey, amount: 10
-});
+    const walletAction = () => generateWalletTransaction({
+      wallet, recipient: walletFoo.publicKey, amount: 5
+    });
 
-const walletBarAction = () => generateWalletTransaction({
-  wallet: walletBar, recipient: walletFoo.publicKey, amount: 15
-});
+    const walletFooAction = () => generateWalletTransaction({
+      wallet: walletFoo, recipient: walletBar.publicKey, amount: 10
+    });
 
-for( let i=0; i<10; i++ ){
-  if(i % 3 === 0){
-    walletAction();
-    walletFooAction();
-  } else if (i % 3 === 1){
-    walletAction();
-    walletBarAction();
-  } else {
-    walletBarAction();
-    walletFooAction();
-  }
+    const walletBarAction = () => generateWalletTransaction({
+      wallet: walletBar, recipient: walletFoo.publicKey, amount: 15
+    });
 
-  transactionMiner.mineTransactions();
+    for( let i=0; i<10; i++ ){
+      if(i % 3 === 0){
+        walletAction();
+        walletFooAction();
+      } else if (i % 3 === 1){
+        walletAction();
+        walletBarAction();
+      } else {
+        walletBarAction();
+        walletFooAction();
+      }
+
+      transactionMiner.mineTransactions();
+    }
+    
 }
 
 let PEER_PORT;

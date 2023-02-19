@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "start": "start npm run build-client && node index.js",
-    "dev": " start npm run dev-client && nodemon index.js",
-    "dev-peer": "cross-env GENERATE_PEER_PORT='true' nodemon index.js",
+    "start": "start npm run build-client & node index.js",
+    "dev": " start npm run dev-client && cross-env ENV='developement' nodemon index.js",
+    "dev-peer": "cross-env GENERATE_PEER_PORT='true' ENV='developement' nodemon index.js",
     "build-client": "npm run clean && parcel build client/src/index.html --out-dir client/dit",
     "dev-client": "npm run clean && parcel client/src/index.html --out-dir client/dist",
     "clean": "if exist (rmdir /s/q .cache client/dist)"
