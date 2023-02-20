@@ -40722,8 +40722,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _reactBootstrap = require("react-bootstrap");
-var _Block = _interopRequireDefault(require("./Block"));
 var _reactRouterDom = require("react-router-dom");
+var _Block = _interopRequireDefault(require("./Block"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -40783,7 +40783,7 @@ var Blocks = /*#__PURE__*/function (_Component) {
         return response.json();
       }).then(function (json) {
         return _this2.setState({
-          blocks: json
+          blocksLength: json
         });
       });
       this.fetchPaginatedBlocks(this.state.paginatedId)();
@@ -40795,15 +40795,11 @@ var Blocks = /*#__PURE__*/function (_Component) {
       console.log('this.state', this.state);
       return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
         to: "/"
-      }, "Home")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-        to: "/conduct-transaction"
-      }, "Conduct a Transaction")), /*#__PURE__*/_react.default.createElement("h3", null, "Blocks"), /*#__PURE__*/_react.default.createElement("div", null, _toConsumableArray(Array(Math.ceil(this.state.blocksLength / 5)).keys()).map(function (key) {
+      }, "Home")), /*#__PURE__*/_react.default.createElement("h3", null, "Blocks"), /*#__PURE__*/_react.default.createElement("div", null, _toConsumableArray(Array(Math.ceil(this.state.blocksLength / 5)).keys()).map(function (key) {
         var paginatedId = key + 1;
         return /*#__PURE__*/_react.default.createElement("span", {
           key: key,
-          onClick: function onClick() {
-            return _this3.fetchPaginatedBlocks(paginatedId);
-          }
+          onClick: _this3.fetchPaginatedBlocks(paginatedId)
         }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           bsSize: "small",
           bsStyle: "danger"
@@ -40820,7 +40816,7 @@ var Blocks = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 var _default = Blocks;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/es/index.js","./Block":"components/Block.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js"}],"components/ConductTransaction.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/es/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./Block":"components/Block.js"}],"components/ConductTransaction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
