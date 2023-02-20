@@ -15,15 +15,13 @@ const DEFAULT_PORT = 3000;
 
 const ROOT_NODE_ADDRESS = isDevelopement ? `http://localhost:${DEFAULT_PORT}` : 'https://blocktest.herokuapp.com';
 
+
 const app = express();
 const blockchain = new Blockchain();
 const transactionPool = new TransactionPool();
 const wallet = new Wallet();
 const pubsub = new PubSub({ blockchain, transactionPool, wallet });
 const transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
-
-
-
 
 app.use(bodyParser.json());
 app.use(express.static( path.join(__dirname, 'client/dist')));
@@ -32,17 +30,25 @@ app.get('/api/blocks', (req, res) => {
     res.json(blockchain.chain);
 });
 
-// Pretty sure this needs to go
+app.get('/api/blocks/length', (req, res) => {
+    res.json(blockchain.chain.length);
+});
 
-/* app.post('/api/mine', (req, res) => {
-    const { data } = req.body;
+app.get('/api/blocks/:id', (req, res) => {
+    const { id } = req.params;
 
-    blockchain.addBlock({ data });
+    const { length } = blockchain.chain;
 
-    pubsub.broadcastChain();
+    const blocksReversed = blockchain.chain.slice().reverse();
 
-    res.redirect('/api/blocks');
-}); */
+    let startIndex = (id - 1) * 5;
+    let endIndex = id * 5;
+
+    startIndex = startIndex < length ? startIndex : length;
+    endIndex = endIndex < length ? endIndex : length;
+
+    res.json(blocksReversed.slice(startIndex, endIndex));
+});
 
 app.post('/api/transact', (req, res) => {
     const { amount, recipient } = req.body;
@@ -89,6 +95,20 @@ app.get('/api/wallet-info', (req, res) => {
       balance: Wallet.calculateBalance({ chain: blockchain.chain, address })
     });
 }); 
+
+app.get('/api/known-addresses', (req, res) => {
+  const addressMap = {};
+
+  for(let block of blockchain.chain){
+    for (let transaction of block.data){
+      const recipient = Object.keys(transaction.outputMap);
+
+      recipient.forEach(recipient => addressMap[recipient] = recipient)
+    }
+  }
+
+  res.json(Object.keys(addressMap));
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join( __dirname , 'client/dist/index.html'));
