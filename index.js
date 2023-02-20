@@ -13,7 +13,7 @@ const isDevelopement = process.env.ENV ==='developement';
 
 const DEFAULT_PORT = 3000;
 
-const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
+const ROOT_NODE_ADDRESS = isDevelopement ? `http://localhost:${DEFAULT_PORT}` : `https://blocktest.herokuapp.com/`;
 
 const app = express();
 const blockchain = new Blockchain();
