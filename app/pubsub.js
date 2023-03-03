@@ -2,91 +2,74 @@ const PubNub = require('pubnub');
 
 // Sets the API keys for access to PubNub
 const credentials = {
-    publishKey: 'pub-c-f2ff181d-abf6-4ac0-b661-6ca1c32dec15',
-    subscribeKey: 'sub-c-9f949802-b882-45c0-b4c4-6bf8f3832d45',
-    secretKey: 'sec-c-NDYyM2I1MTEtMjU1OC00OWMzLTg5YWQtMTE1YjcwMTUzNTZj'
+    publishKey: 'pub-c-cf8ded36-161a-4a3e-8450-28c8e8190f19',
+    subscribeKey: 'sub-c-ae9c669b-7259-44eb-a750-2d6019154f86',
+    secretKey: 'sec-c-ZmE4NmIwNjEtYTQwMC00MzdkLThiMjMtNDI0MmU0MWRiNzE5'
 };
 
 // Sets up our default channels to be used by the system to allow for transactions
-const CHANNELS = {
-    TEST: 'TEST',
+const CHANNELS = {
+    TEST: 'TEST',
     BLOCKCHAIN: 'BLOCKCHAIN',
     TRANSACTION: 'TRANSACTION'
 };
-     
- class PubSub {
 
-    constructor({ blockchain, transactionPool, wallet }) {
-
+class PubSub {
+    constructor({ blockchain, transactionPool, wallet }) {
         this.blockchain = blockchain;
-
         this.transactionPool = transactionPool;
-        
         this.wallet = wallet;
-
-        this.pubnub = new PubNub(credentials);
-         
-        this.pubnub.subscribe({ channels: Object.values(CHANNELS) });
-         
+        this.pubnub = new PubNub(credentials);
+        this.pubnub.subscribe({ channels: Object.values(CHANNELS) });
         this.pubnub.addListener(this.listener());
-
     }
 
-    handleMessage(channel, message){
-
+    handleMessage(channel, message) {
         console.log(`Message recieved. Message is: ${message}. Channel is: ${channel}`);
-
         const parsedMessage = JSON.parse(message);
-
-        switch(channel){
+        switch(channel) {
             case CHANNELS.BLOCKCHAIN:
                 this.blockchain.replaceChain(parsedMessage);
-            break;
+                break;
             case CHANNELS.TRANSACTION:
-                if(!this.transactionPool.existingTransaction({ inputAddress: this.wallet.publicKey})){
+                if (!this.transactionPool.existingTransaction({ inputAddress: this.wallet.publicKey })) {
                     this.transactionPool.setTransaction(parsedMessage);
                 }
-            break;
+                break;
             default:
                 return;
         }
 
-        if (channel === CHANNELS.BLOCKCHAIN){
+        if (channel === CHANNELS.BLOCKCHAIN) {
             this.blockchain.replaceChain(parsedMessage);
         }
     }
 
-    listener() {
-
-        return {
-
-            message: messageObject => {
-
-                const { channel, message } = messageObject;
-                 
-                //console.log(`Message received. Channel: ${channel}. Message: ${message}`);
-
-                this.handleMessage( channel, message );
+    listener() {
+        return {
+            message: messageObject => {
+                const { channel, message } = messageObject;
+                this.handleMessage(channel, message);
             }
         };
     }
-     
-    publish({ channel, message }) { 
-        this.pubnub.publish({ 
-            channel, 
+
+    publish({ channel, message }) {
+        this.pubnub.publish({
+            channel,
             message,
             meta: {
                 uuid: this.pubnub.getUUID()
-            }
+            },
+            chunkedTransfer: true, // enable chunked transfer
+            storeInHistory: true // enable storage in history
         });
-
-        
     }
 
-    broadcastChain(){
+    broadcastChain() {
         this.publish({
-             channel: CHANNELS.BLOCKCHAIN,
-             message: JSON.stringify(this.blockchain.chain)
+            channel: CHANNELS.BLOCKCHAIN,
+            message: JSON.stringify(this.blockchain.chain)
         });
     }
 
@@ -96,7 +79,6 @@ const CHANNELS = {
             message: JSON.stringify(transaction)
         });
     }
-
 }
- 
-module.exports = PubSub;
+
+module.exports = PubSub;

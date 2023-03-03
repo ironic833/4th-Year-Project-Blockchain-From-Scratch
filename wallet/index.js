@@ -9,6 +9,8 @@ class Wallet {
     this.keyPair = ec.genKeyPair();
 
     this.publicKey = this.keyPair.getPublic().encode('hex');
+
+    this.ownedItems = [];
   }
 
   sign(data) {
@@ -28,6 +30,21 @@ class Wallet {
     }
 
     return new Transaction({ senderWallet: this, recipient, amount });
+  }
+
+  createItemTransaction({ name, description, startingBid, auctionEndTime, chain }) {
+    if (chain) {
+      this.balance = Wallet.calculateBalance({
+        chain,
+        address: this.publicKey
+      });
+    }
+
+    if (amount > this.balance) {
+      throw new Error('Amount exceeds balance');
+    }
+
+    return new Transaction({ senderWallet: this, name, description, startingBid, auctionEndTime });
   }
 
   static calculateBalance({ chain, address }) {

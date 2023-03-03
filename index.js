@@ -149,6 +149,15 @@ if(isDevelopement){
       transactionPool.setTransaction(transaction);
     };
 
+    // wallet helper method
+    const generateWalletItemTransaction = ({ name, description, startingBid, auctionEndTime }) => {
+      const transaction = wallet.createTransaction({
+        name, description, startingBid, auctionEndTime, chain: blockchain.chain
+      });
+
+      transactionPool.setTransaction(transaction);
+    };
+
     const walletAction = () => generateWalletTransaction({
       wallet, recipient: walletFoo.publicKey, amount: 5
     });
