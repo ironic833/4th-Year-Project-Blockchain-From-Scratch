@@ -3,30 +3,51 @@ const { verifySignature } = require('../util');
 const { REWARD_INPUT, MINING_REWARD } = require('../config');
 
 class Transaction {
-  constructor({ senderWallet, recipient, amount, name = null, description, startingBid, auctionEndTime, outputMap, input }) {
+  constructor({ senderWallet, recipient = null, amount = null, name = null, description, startingBid, auctionEndTime, outputMap, prevAuctionItem, input }) {
     this.id = uuid();
-    this.outputMap = outputMap || /* this.createTransactionMap({ senderWallet, recipient, amount }) || this.createAuctionItem({ name, description, startingBid, auctionEndTime }) */ this.createMap({senderWallet, recipient, amount, name, description, startingBid, auctionEndTime});
+    this.outputMap = outputMap || this.createMap({senderWallet, recipient, amount, name, description, startingBid, auctionEndTime});
     this.input = input || this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
   // this method needs to create a valid map and then output that map to the outputmap field
-  createMap({senderWallet, recipient, amount, name, description, startingBid, auctionEndTime}){
+  createMap({senderWallet, recipient, amount, name , description, startingBid, auctionEndTime}){
 
     if(name !== null){
-      return this.createAuctionItem({ name, description, startingBid, auctionEndTime });
-    } else {
+      return this.createAuctionItem({ name, description, startingBid, auctionEndTime, senderWallet });
+    } else if (amount !== null){
       return this.createTransactionMap({ senderWallet, recipient, amount });
+    } else {
+      console.log('No valid inputs');
     }
  
   }
 
-  createAuctionItem({ name , description , startingBid, auctionEndTime }) {
+  // update this way as we want to keep the items history on chain as oppose to updating it before its on chain
+  createAuctionItem({ name , description , startingBid, auctionEndTime, senderWallet, AuctionItem = null }) {
     const auctionItem = {};
 
-    auctionItem['name'] = name;
-    auctionItem['description'] = description;
-    auctionItem['starting bid'] = startingBid;
-    auctionItem['auction end time'] = auctionEndTime;
+    // if the item is undefined but the name isnt we are making a new item, otherwise we update the item
+    // by passing old values to a new map
+    if(AuctionItem === null && name !== null) {
+      auctionItem['auction ID'] = uuid();
+      auctionItem['name'] = name;
+      auctionItem['description'] = description;
+      auctionItem['starting bid'] = startingBid;
+      auctionItem['auction end time'] = auctionEndTime;
+      auctionItem['owner'] = senderWallet.publicKey;
+    } else if(AuctionItem !== null && name === null){
+
+      //update a transaction
+      auctionItem['auction ID'] = AuctionItem['auction ID'];
+      auctionItem['name'] = AuctionItem['name'];
+      auctionItem['description'] = AuctionItem['description'];
+      auctionItem['starting bid'] = AuctionItem['starting bid'];
+      auctionItem['auction end time'] = 'Ended';
+
+      //only change to item is setting the new owners key
+      auctionItem['owner'] = senderWallet.publicKey;
+
+    } 
 
     return auctionItem;
   }
@@ -51,7 +72,7 @@ class Transaction {
 
   }
 
-  update({ senderWallet, recipient, amount }) {
+  updateCurrencyTransaction({ senderWallet, recipient, amount }) {
 
     if (amount > this.outputMap[senderWallet.publicKey]) {
       throw new Error('Amount exceeds balance');
@@ -68,11 +89,29 @@ class Transaction {
     this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
+  updateItemTransaction({ senderWallet, recipient, amount }) {
+
+    if (amount > this.outputMap[senderWallet.publicKey]) {
+      throw new Error('Amount exceeds balance');
+    }
+
+    if (!this.outputMap[recipient]) {
+      this.outputMap[recipient] = amount;
+    } else {
+      this.outputMap[recipient] = this.outputMap[recipient] + amount;
+    }
+
+    this.outputMap[senderWallet.publicKey] = this.outputMap[senderWallet.publicKey] - amount;
+
+    this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
+  }
+
+
   static validTransaction(transaction) {
 
     const { input: { address, amount, signature }, outputMap } = transaction;
 
-    const outputTotal = Object.values(outputMap).reduce((total, outputAmount) => total + outputAmount);
+    //const outputTotal = Object.values(outputMap).reduce((total, outputAmount) => total + outputAmount);
 
     /* if (amount !== outputTotal) {
       console.error(`Invalid transaction from ${address}`);

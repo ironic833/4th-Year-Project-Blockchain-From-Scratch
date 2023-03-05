@@ -58,7 +58,7 @@ app.post('/api/transact', (req, res) => {
   
     try {
       if (transaction) {
-        transaction.update({ senderWallet: wallet, recipient, amount });
+        transaction.updateCurrencyTransaction({ senderWallet: wallet, recipient, amount });
       } else {
         transaction = wallet.createTransaction({
           recipient,
@@ -75,6 +75,33 @@ app.post('/api/transact', (req, res) => {
     pubsub.broadcastTransaction(transaction);
   
     res.json({ type: 'success', transaction });
+  });
+
+  app.post('/api/create-auction', (req, res) => {
+
+    const { name, description, startingBid, auctionEndTime } = req.body;
+  
+    let transaction = transactionPool.existingTransaction({ inputAddress: wallet.publicKey });
+  
+    try {
+        transaction = wallet.createItemTransaction({
+          name,
+          description,
+          startingBid,
+          auctionEndTime
+        });
+      } catch(error) {
+        return res.status(400).json({ type: 'error', message: error.message });
+    }
+  
+    transactionPool.setTransaction(transaction);
+  
+    pubsub.broadcastTransaction(transaction);
+  
+    res.json({ type: 'success', transaction });
+
+    // A test of wether or not auction items are accessible via outputmaps
+    // console.log(transaction.outputMap["auction ID"] + "\n");
   });
 
 app.get('/api/transaction-pool-map', (req, res) => {

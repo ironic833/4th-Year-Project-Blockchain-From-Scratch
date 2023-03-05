@@ -32,19 +32,10 @@ class Wallet {
     return new Transaction({ senderWallet: this, recipient, amount });
   }
 
-  createItemTransaction({ name, description, startingBid, auctionEndTime, chain }) {
-    if (chain) {
-      this.balance = Wallet.calculateBalance({
-        chain,
-        address: this.publicKey
-      });
-    }
+  createItemTransaction({ name = "test", description, startingBid, auctionEndTime }) {
 
-    if (amount > this.balance) {
-      throw new Error('Amount exceeds balance');
-    }
+    return new Transaction({ senderWallet: this, name: name = "test", description: description, startingBid: startingBid, auctionEndTime: auctionEndTime });
 
-    return new Transaction({ senderWallet: this, name, description, startingBid, auctionEndTime });
   }
 
   static calculateBalance({ chain, address }) {
