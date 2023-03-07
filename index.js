@@ -58,7 +58,7 @@ app.post('/api/transact', (req, res) => {
   
     try {
       if (transaction) {
-        transaction.updateCurrencyTransaction({ senderWallet: wallet, recipient, amount });
+        transaction.updateTransaction({ senderWallet: wallet, recipient, amount });
       } else {
         transaction = wallet.createTransaction({
           recipient,
@@ -77,11 +77,11 @@ app.post('/api/transact', (req, res) => {
     res.json({ type: 'success', transaction });
   });
 
-  app.post('/api/create-auction', (req, res) => {
+app.post('/api/create-auction', (req, res) => {
 
     const { name, description, startingBid, auctionEndTime } = req.body;
   
-    let transaction = transactionPool.existingTransaction({ inputAddress: wallet.publicKey });
+    let transaction = {};
   
     try {
         transaction = wallet.createItemTransaction({
@@ -100,9 +100,110 @@ app.post('/api/transact', (req, res) => {
   
     res.json({ type: 'success', transaction });
 
-    // A test of wether or not auction items are accessible via outputmaps
-    // console.log(transaction.outputMap["auction ID"] + "\n");
-  });
+});
+
+// this endpoint is for updating the auction item you want to restart by making it as a new item
+app.post('/api/reinitiate-auction', (req, res) => {
+
+    const { prevAuctionItem, revisedStartingBid, revisedAuctionEndTime } = req.body;
+    let updatedName, updatedDescrtiption, blocknum, block;
+
+    for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+
+      for (let Transaction of block.data) {
+
+        if (Transaction.outputMap['owner']){
+
+          if((Transaction.outputMap['auction ID'] === prevAuctionItem) && (Transaction.outputMap['owner'] === wallet.publicKey)){
+
+            updatedName = Transaction.outputMap['name'];
+            updatedDescrtiption = Transaction.outputMap['description'];
+
+            break;
+    
+          }
+
+        }
+        
+      }                    
+
+    }
+
+    let transaction = {};
+
+    try {
+    
+      transaction = wallet.createItemTransaction({
+        Id: prevAuctionItem, 
+        name: updatedName, 
+        description: updatedDescrtiption , 
+        startingBid: revisedStartingBid, 
+        auctionEndTime: revisedAuctionEndTime
+      });
+  
+    } catch(error) {
+      return res.status(400).json({ type: 'error', message: error.message });
+    }
+
+    transactionPool.setTransaction(transaction);
+
+    pubsub.broadcastTransaction(transaction);
+
+    res.json({ type: 'success', transaction });
+  
+});
+
+// this endpoint is for updating the auction item you want to transfer to a different user
+// owner indicates bid is over, system checks who has the highest bid, system gifts item to highest bid and transfers winning value
+app.post('/api/end-auction', (req, res) => {
+
+  const { prevAuctionItem, revisedStartingBid, revisedAuctionEndTime } = req.body;
+    let updatedName, updatedDescrtiption, blocknum, block;
+
+    for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+
+      for (let Transaction of block.data) {
+
+        if (Transaction.outputMap['owner']){
+
+          if((Transaction.outputMap['auction ID'] === prevAuctionItem) && (Transaction.outputMap['owner'] === wallet.publicKey)){
+
+            updatedName = Transaction.outputMap['name'];
+            updatedDescrtiption = Transaction.outputMap['description'];
+
+            break;
+    
+          }
+
+        }
+        
+      }                    
+
+    }
+
+    let transaction = {};
+
+    try {
+    
+      transaction = wallet.createItemTransaction({
+        Id: prevAuctionItem, 
+        name: updatedName, 
+        description: updatedDescrtiption , 
+        startingBid: revisedStartingBid, 
+        auctionEndTime: revisedAuctionEndTime
+      });
+  
+    } catch(error) {
+      return res.status(400).json({ type: 'error', message: error.message });
+    }
+
+    transactionPool.setTransaction(transaction);
+
+    pubsub.broadcastTransaction(transaction);
+
+    res.json({ type: 'success', transaction });
+  
+});
 
 app.get('/api/transaction-pool-map', (req, res) => {
     res.json(transactionPool.transactionMap);

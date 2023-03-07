@@ -32,9 +32,16 @@ class Wallet {
     return new Transaction({ senderWallet: this, recipient, amount });
   }
 
-  createItemTransaction({ name = "test", description, startingBid, auctionEndTime }) {
+  createItemTransaction({ Id, name, description, startingBid, auctionEndTime }) {
 
-    return new Transaction({ senderWallet: this, name: name = "test", description: description, startingBid: startingBid, auctionEndTime: auctionEndTime });
+    return new Transaction({ senderWallet: this, recipient: null, amount: null, Id, name, description, startingBid, auctionEndTime });
+
+  }
+
+  // unless a fresh ownership wallet is specified, use the current wallet public key
+  updateItemTransaction({ senderWallet, auctionID, name, description, startingBid, auctionEndTime }) {
+
+    return new Transaction({ senderWallet: senderWallet || this, auctionID, name, description, startingBid, auctionEndTime });
 
   }
 

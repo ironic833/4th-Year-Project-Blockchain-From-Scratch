@@ -3,52 +3,45 @@ const { verifySignature } = require('../util');
 const { REWARD_INPUT, MINING_REWARD } = require('../config');
 
 class Transaction {
-  constructor({ senderWallet, recipient = null, amount = null, name = null, description, startingBid, auctionEndTime, outputMap, prevAuctionItem, input }) {
+  constructor({ senderWallet, recipient, amount = null, Id, name = null, description, startingBid, auctionEndTime, outputMap, input }) {
     this.id = uuid();
-    this.outputMap = outputMap || this.createMap({senderWallet, recipient, amount, name, description, startingBid, auctionEndTime});
+    this.outputMap = outputMap || this.createMap({senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime});
     this.input = input || this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
+  // inline if statement instead in constructor?
+
   // this method needs to create a valid map and then output that map to the outputmap field
-  createMap({senderWallet, recipient, amount, name , description, startingBid, auctionEndTime}){
+  createMap({senderWallet, recipient, amount, Id, name , description, startingBid, auctionEndTime}){
 
     if(name !== null){
-      return this.createAuctionItem({ name, description, startingBid, auctionEndTime, senderWallet });
+
+      return this.createAuctionItem({ Id, name, description, startingBid, auctionEndTime, senderWallet });
+
+    // something is going wrong here
     } else if (amount !== null){
+
       return this.createTransactionMap({ senderWallet, recipient, amount });
+
     } else {
+
       console.log('No valid inputs');
+
     }
  
   }
 
   // update this way as we want to keep the items history on chain as oppose to updating it before its on chain
-  createAuctionItem({ name , description , startingBid, auctionEndTime, senderWallet, AuctionItem = null }) {
+  createAuctionItem({ senderWallet, Id, name , description , startingBid, auctionEndTime}) {
     const auctionItem = {};
 
-    // if the item is undefined but the name isnt we are making a new item, otherwise we update the item
-    // by passing old values to a new map
-    if(AuctionItem === null && name !== null) {
-      auctionItem['auction ID'] = uuid();
-      auctionItem['name'] = name;
-      auctionItem['description'] = description;
-      auctionItem['starting bid'] = startingBid;
-      auctionItem['auction end time'] = auctionEndTime;
-      auctionItem['owner'] = senderWallet.publicKey;
-    } else if(AuctionItem !== null && name === null){
-
-      //update a transaction
-      auctionItem['auction ID'] = AuctionItem['auction ID'];
-      auctionItem['name'] = AuctionItem['name'];
-      auctionItem['description'] = AuctionItem['description'];
-      auctionItem['starting bid'] = AuctionItem['starting bid'];
-      auctionItem['auction end time'] = 'Ended';
-
-      //only change to item is setting the new owners key
-      auctionItem['owner'] = senderWallet.publicKey;
-
-    } 
-
+    auctionItem['auction ID'] = Id || uuid();
+    auctionItem['name'] = name;
+    auctionItem['description'] = description;
+    auctionItem['starting bid'] = startingBid;
+    auctionItem['auction end time'] = auctionEndTime;
+    auctionItem['owner'] = senderWallet.publicKey;
+    
     return auctionItem;
   }
 
@@ -79,9 +72,13 @@ class Transaction {
     }
 
     if (!this.outputMap[recipient]) {
+
       this.outputMap[recipient] = amount;
+
     } else {
+
       this.outputMap[recipient] = this.outputMap[recipient] + amount;
+
     }
 
     this.outputMap[senderWallet.publicKey] = this.outputMap[senderWallet.publicKey] - amount;
@@ -89,33 +86,51 @@ class Transaction {
     this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
-  updateItemTransaction({ senderWallet, recipient, amount }) {
+  // whenn given an auction Id this will check the entire chain to find and the current auction winner
+  /* static calcWinner({ auctionId, chain}) {
 
-    if (amount > this.outputMap[senderWallet.publicKey]) {
-      throw new Error('Amount exceeds balance');
+    let winner = '';
+
+    for(let i = chain.length - 1; i > 0; i--) {
+
+      let block = chain[i];
+  
+      // this needs to be checked
+      const { auctionItem: { currentAuctionId, currentAuctionName , currentAuctionDescription , cureentAuctionStartBid, cureentAuctionEndTime, cureentAuctionItemOwner }} = block.Transaction.outputMap;
+  
+      let currentAuctionId = block.Transaction.outputMap.auctionItem['auction ID'];
+      let currentAuctionName = block.Transaction.outputMap.auctionItem['name'];
+      let currentAuctionDescription = block.Transaction.outputMap.auctionItem['description'];
+      let cureentAuctionStartBid = block.Transaction.outputMap.auctionItem['starting bid'];
+      let cureentAuctionEndTime = block.Transaction.outputMap.auctionItem['auction end time'];
+      let cureentAuctionItemOwner = block.Transaction.outputMap.auctionItem['owner'];
+  
+      if( auctionId === block.Transaction.outputMap.auctionItem['auction ID'] ){
+  
+        
+  
+      }
+  
     }
 
-    if (!this.outputMap[recipient]) {
-      this.outputMap[recipient] = amount;
-    } else {
-      this.outputMap[recipient] = this.outputMap[recipient] + amount;
-    }
 
-    this.outputMap[senderWallet.publicKey] = this.outputMap[senderWallet.publicKey] - amount;
-
-    this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
-  }
+  } */
 
 
   static validTransaction(transaction) {
 
     const { input: { address, amount, signature }, outputMap } = transaction;
 
-    //const outputTotal = Object.values(outputMap).reduce((total, outputAmount) => total + outputAmount);
+    // this should only run on a currency transaction
+    /* if(amount !== null) {
 
-    /* if (amount !== outputTotal) {
-      console.error(`Invalid transaction from ${address}`);
-      return false;
+      const outputTotal = Object.values(outputMap).reduce((total, outputAmount) => total + outputAmount);
+
+      if (amount !== outputTotal) {
+        console.error(`Invalid transaction from ${address}`);
+        return false;
+      }
+      
     } */
 
     if (!verifySignature({ publicKey: address, data: outputMap, signature })) {
