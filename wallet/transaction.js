@@ -3,22 +3,27 @@ const { verifySignature } = require('../util');
 const { REWARD_INPUT, MINING_REWARD } = require('../config');
 
 class Transaction {
-  constructor({ senderWallet, recipient, amount = null, Id, name = null, description, startingBid, auctionEndTime, outputMap, input }) {
+  constructor({ senderWallet, recipient, amount = null, Id, name = null, description, startingBid, auctionEndTime, bid = null, outputMap, input }) {
     this.id = uuid();
-    this.outputMap = outputMap || this.createMap({senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime});
+    this.outputMap = outputMap || this.createMap({senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, bid });
     this.input = input || this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
   // inline if statement instead in constructor?
 
   // this method needs to create a valid map and then output that map to the outputmap field
-  createMap({senderWallet, recipient, amount, Id, name , description, startingBid, auctionEndTime}){
+  createMap({senderWallet, recipient, amount, Id, name , description, startingBid, auctionEndTime, bid}){
 
     if(name !== null){
 
       return this.createAuctionItem({ Id, name, description, startingBid, auctionEndTime, senderWallet });
 
     // something is going wrong here
+    } else if( bid !== null){
+
+      console.log("In Transaction call, Id: " + Id + " bid: " + bid);    
+      return this.createBid({ Id, bid, senderWallet });
+
     } else if (amount !== null){
 
       return this.createTransactionMap({ senderWallet, recipient, amount });
@@ -32,6 +37,20 @@ class Transaction {
   }
 
   // update this way as we want to keep the items history on chain as oppose to updating it before its on chain
+  createBid({ senderWallet, Id, bid}) {
+
+    console.log("Id: " + Id + " bid: " + bid);      
+
+    const Bid = {};
+
+    Bid['auction ID'] = Id;
+    Bid['bidder'] = senderWallet.publicKey;
+    Bid['bid'] = bid;
+    
+    
+    return Bid;
+  }
+
   createAuctionItem({ senderWallet, Id, name , description , startingBid, auctionEndTime}) {
     const auctionItem = {};
 
@@ -65,7 +84,7 @@ class Transaction {
 
   }
 
-  updateCurrencyTransaction({ senderWallet, recipient, amount }) {
+  updateTransaction({ senderWallet, recipient, amount }) {
 
     if (amount > this.outputMap[senderWallet.publicKey]) {
       throw new Error('Amount exceeds balance');
@@ -86,35 +105,32 @@ class Transaction {
     this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
-  // whenn given an auction Id this will check the entire chain to find and the current auction winner
-  /* static calcWinner({ auctionId, chain}) {
+  static calcWinner({ auctionId, chain}) {
+    let winner = null, highestBid = 0;
+    
+    for(let blockNum = chain.length - 1; blockNum >= 0; blockNum--) {
+      const block = chain[blockNum];
+      
+      for(let transaction of block.data) {
+        const outputMap = transaction.outputMap;
 
-    let winner = '';
+        if(outputMap['auction ID'] === auctionId && outputMap['bid']) {
+          const bidder = outputMap['bidder'], bidAmount = parseInt(outputMap['bid']);
 
-    for(let i = chain.length - 1; i > 0; i--) {
-
-      let block = chain[i];
-  
-      // this needs to be checked
-      const { auctionItem: { currentAuctionId, currentAuctionName , currentAuctionDescription , cureentAuctionStartBid, cureentAuctionEndTime, cureentAuctionItemOwner }} = block.Transaction.outputMap;
-  
-      let currentAuctionId = block.Transaction.outputMap.auctionItem['auction ID'];
-      let currentAuctionName = block.Transaction.outputMap.auctionItem['name'];
-      let currentAuctionDescription = block.Transaction.outputMap.auctionItem['description'];
-      let cureentAuctionStartBid = block.Transaction.outputMap.auctionItem['starting bid'];
-      let cureentAuctionEndTime = block.Transaction.outputMap.auctionItem['auction end time'];
-      let cureentAuctionItemOwner = block.Transaction.outputMap.auctionItem['owner'];
-  
-      if( auctionId === block.Transaction.outputMap.auctionItem['auction ID'] ){
-  
-        
-  
-      }
-  
+          if(bidAmount > highestBid) {
+            highestBid = bidAmount;
+            winner = bidder;
+          }
+        }
+      }                    
     }
 
+    // Reorganize the bids object by sorting its entries in descending order of bid amount
+    const entries = Object.entries(bids).sort((a, b) => b[1] - a[1]);
+    const sortedBids = Object.fromEntries(entries);
 
-  } */
+    return { winner, bids: sortedBids };
+}
 
 
   static validTransaction(transaction) {

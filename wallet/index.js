@@ -32,22 +32,22 @@ class Wallet {
     return new Transaction({ senderWallet: this, recipient, amount });
   }
 
+  createBid({ id, Bid }) {
+
+    console.log("In Wallet Call Id: " + id + " bid: " + Bid);    
+
+    return new Transaction({ senderWallet: this, recipient: null, amount: null, Id: id , name: null, description: null, startingBid: null, auctionEndTime: null, bid: Bid });
+
+  }
+
   createItemTransaction({ Id, name, description, startingBid, auctionEndTime }) {
 
     return new Transaction({ senderWallet: this, recipient: null, amount: null, Id, name, description, startingBid, auctionEndTime });
 
   }
 
-  // unless a fresh ownership wallet is specified, use the current wallet public key
-  updateItemTransaction({ senderWallet, auctionID, name, description, startingBid, auctionEndTime }) {
-
-    return new Transaction({ senderWallet: senderWallet || this, auctionID, name, description, startingBid, auctionEndTime });
-
-  }
-
   static calculateBalance({ chain, address }) {
-    let hasConductedTransaction = false;
-    let outputsTotal = 0;
+    let hasConductedTransaction = false, outputsTotal = 0;
 
     for (let i=chain.length-1; i>0; i--) {
       const block = chain[i];
