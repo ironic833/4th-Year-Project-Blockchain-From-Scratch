@@ -55,23 +55,57 @@ class PubSub {
     }
 
     publish({ channel, message }) {
+        const getSize = message => {
+            const s = JSON.stringify(message);
+            return (new TextEncoder().encode(s)).length;
+        };
+        const messageSize = getSize(message);
+
+        console.log(`\n Publishing message of size ${messageSize} bytes to channel ${channel} \n`);
+
         this.pubnub.publish({
             channel,
             message,
             meta: {
                 uuid: this.pubnub.getUUID()
             },
-            chunkedTransfer: true, // enable chunked transfer
-            storeInHistory: true // enable storage in history
+            chunkedTransfer: true,
+            storeInHistory: true
         });
     }
 
-    broadcastChain() {
+    // chunking problem occuring here. need to split here before sending the whole chain
+    /* broadcastChain() {
         this.publish({
             channel: CHANNELS.BLOCKCHAIN,
             message: JSON.stringify(this.blockchain.chain)
         });
-    }
+    }  */
+
+
+    // this works but I don't think I need the encoder and I think I need to add automatic updates as the peers don't see blocks automatically
+
+    broadcastChain() {
+        const chainString = JSON.stringify(this.blockchain.chain);
+        const chunkSize = 15 * 1024; // 15kb
+        const numChunks = Math.ceil(chainString.length / chunkSize);
+    
+        for (let i = 0; i < numChunks; i++) {
+            const start = i * chunkSize;
+            const end = Math.min(start + chunkSize, chainString.length);
+            const chunk = chainString.slice(start, end);
+            const message = {
+                chunkIndex: i,
+                numChunks: numChunks,
+                data: chunk
+            };
+            this.publish({
+                channel: CHANNELS.BLOCKCHAIN,
+                message: JSON.stringify(message)
+            });
+        }
+    } 
+    
 
     broadcastTransaction(transaction) {
         this.publish({

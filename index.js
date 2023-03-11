@@ -8,7 +8,6 @@ const { response } = require('express');
 const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet');
 const TransactionMiner = require('./app/transaction-miner');
-const Transaction = require('./wallet/transaction');
 
 const isDevelopement = process.env.ENV ==='developement';
 
@@ -198,17 +197,17 @@ app.post('/api/close-auction', (req, res) => {
   
 });
 
-// calculates a winner
+// use public key to encrypt private to decrypt for messages 
+
+// this needs to be finished
 app.post('/api/end-auction', (req, res) => {
 
-  const { prevAuctionItem } = req.body;
-    let updatedName, updatedDescrtiption, blocknum, block;
+    const { prevAuctionItem } = req.body;
+    let updatedName, updatedDescrtiption, updatedBidAmount, blocknum, block;
 
     for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
 
       for (let Transaction of block.data) {
-
-        if (Transaction.outputMap['owner']){
 
           if((Transaction.outputMap['auction ID'] === prevAuctionItem) && (Transaction.outputMap['owner'] === wallet.publicKey)){
 
@@ -218,12 +217,14 @@ app.post('/api/end-auction', (req, res) => {
 
             break;
     
-          }
+          
         } 
       }                    
     }
 
     let transaction = {};
+
+    console.log("In Endpoint " + updatedName + " " + updatedDescrtiption + " " + updatedDescrtiption + " \n");
 
     try {
     
@@ -232,7 +233,8 @@ app.post('/api/end-auction', (req, res) => {
         name: updatedName, 
         description: updatedDescrtiption , 
         startingBid: updatedBidAmount, 
-        auctionEndTime: "ended"
+        auctionEndTime: "ended",
+        owner: wallet.calcWinner({ auctionId: prevAuctionItem, chain: blockchain.chain})
       });
   
     } catch(error) {
@@ -264,9 +266,7 @@ app.post('/api/place-bid', (req, res) => {
       }                   
     }
 
-    let transaction = {};
-
-    console.log("In Api Call, Id: " + prevAuctionItem + " bid: " + bidAmount);  
+    let transaction = {}; 
 
     try {
       transaction = wallet.createBid({
@@ -456,11 +456,11 @@ if(isDevelopement){
       } else if (i % 3 === 1){
         walletAction();
         walletBarAction();
-        //walletFooItemAction();
+       // walletFooItemAction();
       } else {
         walletBarAction();
         walletFooAction();
-        //walletBarItemAction();
+       // walletBarItemAction();
       }
 
       transactionMiner.mineTransactions();

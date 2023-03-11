@@ -32,9 +32,7 @@ class Wallet {
     return new Transaction({ senderWallet: this, recipient, amount });
   }
 
-  createBid({ id, Bid }) {
-
-    console.log("In Wallet Call Id: " + id + " bid: " + Bid);    
+  createBid({ id, Bid }) {  
 
     return new Transaction({ senderWallet: this, recipient: null, amount: null, Id: id , name: null, description: null, startingBid: null, auctionEndTime: null, bid: Bid });
 
@@ -44,6 +42,13 @@ class Wallet {
 
     return new Transaction({ senderWallet: this, recipient: null, amount: null, Id, name, description, startingBid, auctionEndTime });
 
+  }
+
+  calcWinner({ auctionId, chain }){
+
+    console.log("In wallet call " + auctionId + " " + chain + " \n");
+
+    return Transaction.calcWinner({ auctionId, chain });
   }
 
   static calculateBalance({ chain, address }) {

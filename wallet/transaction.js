@@ -37,9 +37,7 @@ class Transaction {
   }
 
   // update this way as we want to keep the items history on chain as oppose to updating it before its on chain
-  createBid({ senderWallet, Id, bid}) {
-
-    console.log("Id: " + Id + " bid: " + bid);      
+  createBid({ senderWallet, Id, bid}) {   
 
     const Bid = {};
 
@@ -106,32 +104,36 @@ class Transaction {
   }
 
   static calcWinner({ auctionId, chain}) {
-    let winner = null, highestBid = 0;
-    
-    for(let blockNum = chain.length - 1; blockNum >= 0; blockNum--) {
-      const block = chain[blockNum];
-      
-      for(let transaction of block.data) {
-        const outputMap = transaction.outputMap;
 
-        if(outputMap['auction ID'] === auctionId && outputMap['bid']) {
-          const bidder = outputMap['bidder'], bidAmount = parseInt(outputMap['bid']);
+    console.log("In transaction call " + auctionId + " " + chain + " \n");
 
-          if(bidAmount > highestBid) {
-            highestBid = bidAmount;
-            winner = bidder;
-          }
+    let winner = '', blocknum, block, bids = {};
+  
+    for(blocknum = chain.length - 1, block = chain[blocknum]; blocknum > 0; blocknum--) {
+  
+      for (let Transaction of block.data) {
+  
+        if((Transaction.outputMap['auction ID'] === auctionId) && Transaction.outputMap['bid']){
+  
+          bids[Transaction.outputMap['bidder']] = Transaction.outputMap['bid'];
+  
         }
       }                    
     }
+  
+    // Create an array of winner entries and sort by bid amount in descending order
+    const winnerEntries = Object.entries(bids).sort((a, b) => b[1] - a[1]);
+  
+    // Return the bidder with the highest bid
+    if (winnerEntries.length > 0) {
+      winner = winnerEntries[0][0];
+    }
 
-    // Reorganize the bids object by sorting its entries in descending order of bid amount
-    const entries = Object.entries(bids).sort((a, b) => b[1] - a[1]);
-    const sortedBids = Object.fromEntries(entries);
-
-    return { winner, bids: sortedBids };
+    console.log("In transaction call number 2" + winner + " \n");
+  
+    return winner;
 }
-
+  
 
   static validTransaction(transaction) {
 
