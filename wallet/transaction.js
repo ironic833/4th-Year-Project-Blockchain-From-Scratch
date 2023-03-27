@@ -3,25 +3,24 @@ const { verifySignature } = require('../util');
 const { REWARD_INPUT, MINING_REWARD } = require('../config');
 
 class Transaction {
-  constructor({ senderWallet, recipient, amount = null, Id, name = null, description, startingBid, auctionEndTime, bid = null, outputMap, input }) {
+  constructor({ senderWallet, recipient, amount = null, Id, name = null, description, startingBid, auctionEndTime, owner = null, bid = null, outputMap, input }) {
     this.id = uuid();
-    this.outputMap = outputMap || this.createMap({senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, bid });
+    this.outputMap = outputMap || this.createMap({senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, owner, bid });
     this.input = input || this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
   // inline if statement instead in constructor?
 
   // this method needs to create a valid map and then output that map to the outputmap field
-  createMap({senderWallet, recipient, amount, Id, name , description, startingBid, auctionEndTime, bid}){
+  createMap({senderWallet, recipient, amount, Id, name , description, startingBid, auctionEndTime, owner, bid}){
 
     if(name !== null){
 
-      return this.createAuctionItem({ Id, name, description, startingBid, auctionEndTime, senderWallet });
+      return this.createAuctionItem({ Id, name, description, startingBid, auctionEndTime, senderWallet, owner });
 
     // something is going wrong here
     } else if( bid !== null){
 
-      console.log("In Transaction call, Id: " + Id + " bid: " + bid);    
       return this.createBid({ Id, bid, senderWallet });
 
     } else if (amount !== null){
@@ -49,15 +48,28 @@ class Transaction {
     return Bid;
   }
 
-  createAuctionItem({ senderWallet, Id, name , description , startingBid, auctionEndTime}) {
+  createAuctionItem({ senderWallet, Id, name , description , startingBid, auctionEndTime, owner }) {
     const auctionItem = {};
 
-    auctionItem['auction ID'] = Id || uuid();
-    auctionItem['name'] = name;
-    auctionItem['description'] = description;
-    auctionItem['starting bid'] = startingBid;
-    auctionItem['auction end time'] = auctionEndTime;
-    auctionItem['owner'] = senderWallet.publicKey;
+    if (owner === null) {
+
+      auctionItem['auction ID'] = Id || uuid();
+      auctionItem['name'] = name;
+      auctionItem['description'] = description;
+      auctionItem['starting bid'] = startingBid;
+      auctionItem['auction end time'] = auctionEndTime;
+      auctionItem['owner'] = senderWallet.publicKey;
+
+    } else {
+
+      auctionItem['auction ID'] = Id || uuid();
+      auctionItem['name'] = name;
+      auctionItem['description'] = description;
+      auctionItem['starting bid'] = startingBid;
+      auctionItem['auction end time'] = auctionEndTime;
+      auctionItem['owner'] = owner;
+
+    }
     
     return auctionItem;
   }
@@ -103,36 +115,7 @@ class Transaction {
     this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
-  static calcWinner({ auctionId, chain}) {
-
-    console.log("In transaction call " + auctionId + " " + chain + " \n");
-
-    let winner = '', blocknum, block, bids = {};
   
-    for(blocknum = chain.length - 1, block = chain[blocknum]; blocknum > 0; blocknum--) {
-  
-      for (let Transaction of block.data) {
-  
-        if((Transaction.outputMap['auction ID'] === auctionId) && Transaction.outputMap['bid']){
-  
-          bids[Transaction.outputMap['bidder']] = Transaction.outputMap['bid'];
-  
-        }
-      }                    
-    }
-  
-    // Create an array of winner entries and sort by bid amount in descending order
-    const winnerEntries = Object.entries(bids).sort((a, b) => b[1] - a[1]);
-  
-    // Return the bidder with the highest bid
-    if (winnerEntries.length > 0) {
-      winner = winnerEntries[0][0];
-    }
-
-    console.log("In transaction call number 2" + winner + " \n");
-  
-    return winner;
-}
   
 
   static validTransaction(transaction) {

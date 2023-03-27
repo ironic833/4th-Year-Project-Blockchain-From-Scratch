@@ -38,17 +38,10 @@ class Wallet {
 
   }
 
-  createItemTransaction({ Id, name, description, startingBid, auctionEndTime }) {
+  createItemTransaction({ Id, name, description, startingBid, auctionEndTime, owner }) {
 
-    return new Transaction({ senderWallet: this, recipient: null, amount: null, Id, name, description, startingBid, auctionEndTime });
+    return new Transaction({ senderWallet: this, recipient: null, amount: null, Id, name, description, startingBid, auctionEndTime, owner });
 
-  }
-
-  calcWinner({ auctionId, chain }){
-
-    console.log("In wallet call " + auctionId + " " + chain + " \n");
-
-    return Transaction.calcWinner({ auctionId, chain });
   }
 
   static calculateBalance({ chain, address }) {

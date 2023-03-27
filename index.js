@@ -151,7 +151,7 @@ app.post('/api/reinitiate-auction', (req, res) => {
 
 app.post('/api/close-auction', (req, res) => {
 
-  const { prevAuctionItem } = req.body;
+    const { prevAuctionItem } = req.body;
     let updatedName, updatedDescrtiption, blocknum, block;
 
     for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
@@ -202,50 +202,91 @@ app.post('/api/close-auction', (req, res) => {
 // this needs to be finished
 app.post('/api/end-auction', (req, res) => {
 
-    const { prevAuctionItem } = req.body;
-    let updatedName, updatedDescrtiption, updatedBidAmount, blocknum, block;
+  // needs an else around the transaction sending to prevent empty transaction being sent
+  const { prevAuctionItem } = req.body, itemHistory = [];
+  let updatedName, updatedDescrtiption, updatedBidAmount, blocknum, block, ownerIdWallet, winner, arraySpot = 0, transaction = {}, currentWinner, arraySpotTwo;
 
-    for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+  for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
 
-      for (let Transaction of block.data) {
+    for (let Transaction of block.data) { 
 
-          if((Transaction.outputMap['auction ID'] === prevAuctionItem) && (Transaction.outputMap['owner'] === wallet.publicKey)){
+        if((Transaction.outputMap['auction ID'] === prevAuctionItem) && (Transaction.outputMap['owner'] === wallet.publicKey) && (Transaction.outputMap['description'])){
 
-            updatedName = Transaction.outputMap['name'];
-            updatedDescrtiption = Transaction.outputMap['description'];
-            updatedBidAmount = Transaction.outputMap['starting bid'];
+          updatedName = Transaction.outputMap['name'];
+          updatedDescrtiption = Transaction.outputMap['description'];
+          updatedBidAmount = Transaction.outputMap['starting bid'];
+          ownerIdWallet = Transaction.outputMap['owner'];
 
-            break;
-    
-          
-        } 
-      }                    
+          console.log("\n In for loop " + updatedName + " " + updatedDescrtiption + " " + updatedBidAmount + " \n");
+
+          break;
+  
+      } 
+    }                    
+  }
+
+  for (let blocknumOuter = blockchain.chain.length - 1; blocknumOuter > 0; blocknumOuter--) {
+    const block = blockchain.chain[blocknumOuter];
+    console.log("blocknum in loop: " + blocknumOuter + "\n");
+
+    for (let transaction of block.data) {
+      console.log("arrayspot in transaction loop check: " + arraySpot + "\n");
+
+      if((transaction.outputMap['auction ID'] === prevAuctionItem) && transaction.outputMap['bid']){
+
+        for (let blocknumInner = blockchain.chain.length - 1; blocknumInner > 0; blocknumInner--) {
+          const block = blockchain.chain[blocknumInner];
+          console.log("blocknum in loop: " + blocknumInner + "\n");
+      
+          for (let transactionTwo of block.data) {
+            console.log("arrayspot in transaction loop check: " + arraySpotTwo + "\n");
+      
+            if ((transactionTwo.outputMap['auction ID'] === prevAuctionItem) && transaction.outputMap['bid']) {
+
+              if( transaction.outputMap['bid'] > transactionTwo.outputMap['bid'] ){
+
+                currentWinner = transactionTwo.outputMap['owner'];
+        
+                console.log(currentWinner + "\n");
+        
+                arraySpotTwo++;
+
+              }
+
+            }
+
+            continue
+          }
+        }
+      }
+
+      arraySpot++;
     }
+  }
 
-    let transaction = {};
-
-    console.log("In Endpoint " + updatedName + " " + updatedDescrtiption + " " + updatedDescrtiption + " \n");
 
     try {
     
-      transaction = wallet.createItemTransaction({
-        Id: prevAuctionItem, 
-        name: updatedName, 
-        description: updatedDescrtiption , 
-        startingBid: updatedBidAmount, 
-        auctionEndTime: "ended",
-        owner: wallet.calcWinner({ auctionId: prevAuctionItem, chain: blockchain.chain})
-      });
+      if(ownerIdWallet){
+        transactionToSend = wallet.createItemTransaction({
+          Id: prevAuctionItem, 
+          name: updatedName, 
+          description: updatedDescrtiption , 
+          startingBid: updatedBidAmount, 
+          auctionEndTime: "ended",
+          owner: "testy"
+        });
+      } 
   
     } catch(error) {
       return res.status(400).json({ type: 'error', message: error.message });
     }
 
-    transactionPool.setTransaction(transaction);
+    transactionPool.setTransaction(transactionToSend);
 
-    pubsub.broadcastTransaction(transaction);
+    pubsub.broadcastTransaction(transactionToSend);
 
-    res.json({ type: 'success', transaction });
+    res.json({ type: 'success', transactionToSend });
   
 });
 
@@ -456,11 +497,11 @@ if(isDevelopement){
       } else if (i % 3 === 1){
         walletAction();
         walletBarAction();
-       // walletFooItemAction();
+       walletFooItemAction();
       } else {
         walletBarAction();
         walletFooAction();
-       // walletBarItemAction();
+       walletBarItemAction();
       }
 
       transactionMiner.mineTransactions();

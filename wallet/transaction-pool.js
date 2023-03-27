@@ -20,6 +20,8 @@ class TransactionPool {
   existingTransaction({ inputAddress }) {
     const transactions = Object.values(this.transactionMap);
 
+    console.log(JSON.stringify(inputAddress));
+
     return transactions.find(transaction => transaction.input.address === inputAddress);
   }
 

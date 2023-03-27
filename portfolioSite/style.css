@@ -1,0 +1,37 @@
+.bg-e66 {
+    background-color: #e66;
+  }
+  
+  .navbar {
+    background-color: #fff;
+  }
+  
+  .navbar-brand {
+    color: #444;
+  }
+  
+  .btn-primary {
+    background-color: #e66;
+    border-color: #e66;
+  }
+  
+  .btn-primary:hover {
+    background-color: #d44;
+    border-color: #d44;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  
+  .btn-secondary {
+    background-color: #444;
+    border-color: #444;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #333;
+    border-color: #333;
+  }
+  
