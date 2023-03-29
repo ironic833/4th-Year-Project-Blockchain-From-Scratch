@@ -15,101 +15,108 @@ const DEFAULT_PORT = 3000;
 
 const ROOT_NODE_ADDRESS = isDevelopement ? `http://localhost:${DEFAULT_PORT}` : 'https://blocktest.herokuapp.com';
 
-
 const app = express();
 const blockchain = new Blockchain();
 const transactionPool = new TransactionPool();
-const wallet = new Wallet();
-const pubsub = new PubSub({ blockchain, transactionPool, wallet });
-const transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
 
-app.use(bodyParser.json());
-app.use(express.static( path.join(__dirname, 'client/dist')));
+const readline = require('readline');
 
-app.get('/api/blocks', (req, res) => {
-    res.json(blockchain.chain);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
 });
 
-app.get('/api/blocks/length', (req, res) => {
-    res.json(blockchain.chain.length);
-});
+rl.question('Enter your wallet phrase: ', (phrase) => {
+  const wallet = new Wallet(phrase);
+  console.log('Your wallet address: ', wallet.publicKey);
 
-app.get('/api/blocks/:id', (req, res) => {
-    const { id } = req.params;
+  const pubsub = new PubSub({ blockchain, transactionPool, wallet });
+  const transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
 
-    const { length } = blockchain.chain;
+  app.use(bodyParser.json());
+  app.use(express.static( path.join(__dirname, 'client/dist'))); 
 
-    const blocksReversed = blockchain.chain.slice().reverse();
 
-    let startIndex = (id - 1) * 5;
-    let endIndex = id * 5;
-
-    startIndex = startIndex < length ? startIndex : length;
-    endIndex = endIndex < length ? endIndex : length;
-
-    res.json(blocksReversed.slice(startIndex, endIndex));
-});
-
-app.post('/api/transact', (req, res) => {
-    const { amount, recipient } = req.body;
-  
-    let transaction = transactionPool
-      .existingTransaction({ inputAddress: wallet.publicKey });
-  
-    try {
-      if (transaction) {
-        transaction.updateTransaction({ senderWallet: wallet, recipient, amount });
-      } else {
-        transaction = wallet.createTransaction({
-          recipient,
-          amount,
-          chain: blockchain.chain
-        });
-      }
-    } catch(error) {
-      return res.status(400).json({ type: 'error', message: error.message });
-    }
-  
-    transactionPool.setTransaction(transaction);
-  
-    pubsub.broadcastTransaction(transaction);
-  
-    res.json({ type: 'success', transaction });
+  app.get('/api/blocks', (req, res) => {
+      res.json(blockchain.chain);
   });
 
-app.post('/api/create-auction', (req, res) => {
+  app.get('/api/blocks/length', (req, res) => {
+      res.json(blockchain.chain.length);
+  });
 
-    const { name, description, startingBid, auctionEndTime } = req.body;
-  
-    let transaction = {};
-  
-    try {
-        transaction = wallet.createItemTransaction({
-          name,
-          description,
-          startingBid,
-          auctionEndTime
-        });
+  app.get('/api/blocks/:id', (req, res) => {
+      const { id } = req.params, { length } = blockchain.chain, blocksReversed = blockchain.chain.slice().reverse();
+
+      let startIndex = (id - 1) * 5, endIndex = id * 5;
+
+      startIndex = startIndex < length ? startIndex : length;
+      endIndex = endIndex < length ? endIndex : length;
+
+      res.json(blocksReversed.slice(startIndex, endIndex));
+  });
+
+  app.post('/api/transact', (req, res) => {
+      const { amount, recipient } = req.body;
+    
+      let transaction = transactionPool.existingTransaction({ inputAddress: wallet.publicKey });
+    
+      try {
+        if (transaction) {
+          transaction.updateTransaction({ senderWallet: wallet, recipient, amount });
+        } else {
+          transaction = wallet.createTransaction({
+            recipient,
+            amount,
+            chain: blockchain.chain
+          });
+        }
       } catch(error) {
         return res.status(400).json({ type: 'error', message: error.message });
-    }
-  
-    transactionPool.setTransaction(transaction);
-  
-    pubsub.broadcastTransaction(transaction);
-  
-    res.json({ type: 'success', transaction });
+      }
+    
+      transactionPool.setTransaction(transaction);
+    
+      pubsub.broadcastTransaction(transaction);
+    
+      res.json({ type: 'success', transaction });
+    });
 
-});
+  app.post('/api/create-auction', (req, res) => {
 
-app.post('/api/reinitiate-auction', (req, res) => {
+      const { name, description, startingBid, auctionEndTime } = req.body;
+    
+      let transaction = {};
+    
+      try {
+          transaction = wallet.createItemTransaction({
+            name,
+            description,
+            startingBid,
+            auctionEndTime
+          });
+        } catch(error) {
+          return res.status(400).json({ type: 'error', message: error.message });
+      }
+    
+      transactionPool.setTransaction(transaction);
+    
+      pubsub.broadcastTransaction(transaction);
+    
+      res.json({ type: 'success', transaction });
+
+  });
+
+  app.post('/api/reinitiate-auction', (req, res) => {
 
     const { prevAuctionItem, revisedStartingBid, revisedAuctionEndTime } = req.body;
-    let updatedName, updatedDescrtiption, blocknum, block;
+    let updatedName, updatedDescrtiption, foundValidBlock = false, transaction = {};
 
-    for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+    for (let i = 1; i < blockchain.chain.length; i++) {
+      const block = blockchain.chain[i];
 
-      for (let Transaction of block.data) {
+      for (let j = 0; j < block.data.length; j++) {
+        const Transaction = block.data[j];
 
         if (Transaction.outputMap['owner']){
 
@@ -117,18 +124,19 @@ app.post('/api/reinitiate-auction', (req, res) => {
 
             updatedName = Transaction.outputMap['name'];
             updatedDescrtiption = Transaction.outputMap['description'];
-
+            foundValidBlock = true;
             break;
-    
+
           }
         } 
       }                    
     }
 
-    let transaction = {};
+    if(!foundValidBlock) {
+      return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+    }
 
     try {
-    
       transaction = wallet.createItemTransaction({
         Id: prevAuctionItem, 
         name: updatedName, 
@@ -136,7 +144,7 @@ app.post('/api/reinitiate-auction', (req, res) => {
         startingBid: revisedStartingBid, 
         auctionEndTime: revisedAuctionEndTime
       });
-  
+
     } catch(error) {
       return res.status(400).json({ type: 'error', message: error.message });
     }
@@ -146,154 +154,132 @@ app.post('/api/reinitiate-auction', (req, res) => {
     pubsub.broadcastTransaction(transaction);
 
     res.json({ type: 'success', transaction });
-  
-});
 
-app.post('/api/close-auction', (req, res) => {
+  });
 
-    const { prevAuctionItem } = req.body;
-    let updatedName, updatedDescrtiption, blocknum, block;
 
-    for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+  app.post('/api/close-auction', (req, res) => {
 
-      for (let Transaction of block.data) {
+      const { prevAuctionItem } = req.body;
+      let updatedName, updatedDescrtiption, foundValidBlock = false, blocknum, block, transaction = {};;
 
-        if (Transaction.outputMap['owner']){
+      for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
 
-          if((Transaction.outputMap['auction ID'] === prevAuctionItem) && (Transaction.outputMap['owner'] === wallet.publicKey)){
+        for (let Transaction of block.data) {
 
-            updatedName = Transaction.outputMap['name'];
-            updatedDescrtiption = Transaction.outputMap['description'];
-            updatedBidAmount = Transaction.outputMap['starting bid'];
+          // fairly sure this is unneccessart
+          if (Transaction.outputMap['owner']){
 
-            break;
-    
-          }
-        } 
-      }                    
-    }
+            if((Transaction.outputMap['auction ID'] === prevAuctionItem) && (Transaction.outputMap['owner'] === wallet.publicKey)){
 
-    let transaction = {};
+              updatedName = Transaction.outputMap['name'];
+              updatedDescrtiption = Transaction.outputMap['description'];
+              updatedBidAmount = Transaction.outputMap['starting bid'];
+              foundValidBlock = true;
 
-    try {
-    
-      transaction = wallet.createItemTransaction({
-        Id: prevAuctionItem, 
-        name: updatedName, 
-        description: updatedDescrtiption , 
-        startingBid: updatedBidAmount, 
-        auctionEndTime: "ended"
-      });
-  
-    } catch(error) {
-      return res.status(400).json({ type: 'error', message: error.message });
-    }
-
-    transactionPool.setTransaction(transaction);
-
-    pubsub.broadcastTransaction(transaction);
-
-    res.json({ type: 'success', transaction });
-  
-});
-
-// use public key to encrypt private to decrypt for messages 
-
-// this needs to be finished
-app.post('/api/end-auction', (req, res) => {
-
-  // needs an else around the transaction sending to prevent empty transaction being sent
-  const { prevAuctionItem } = req.body, itemHistory = [];
-  let updatedName, updatedDescrtiption, updatedBidAmount, blocknum, block, ownerIdWallet, winner, arraySpot = 0, transaction = {}, currentWinner, arraySpotTwo;
-
-  for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
-
-    for (let Transaction of block.data) { 
-
-        if((Transaction.outputMap['auction ID'] === prevAuctionItem) && (Transaction.outputMap['owner'] === wallet.publicKey) && (Transaction.outputMap['description'])){
-
-          updatedName = Transaction.outputMap['name'];
-          updatedDescrtiption = Transaction.outputMap['description'];
-          updatedBidAmount = Transaction.outputMap['starting bid'];
-          ownerIdWallet = Transaction.outputMap['owner'];
-
-          console.log("\n In for loop " + updatedName + " " + updatedDescrtiption + " " + updatedBidAmount + " \n");
-
-          break;
-  
-      } 
-    }                    
-  }
-
-  for (let blocknumOuter = blockchain.chain.length - 1; blocknumOuter > 0; blocknumOuter--) {
-    const block = blockchain.chain[blocknumOuter];
-    console.log("blocknum in loop: " + blocknumOuter + "\n");
-
-    for (let transaction of block.data) {
-      console.log("arrayspot in transaction loop check: " + arraySpot + "\n");
-
-      if((transaction.outputMap['auction ID'] === prevAuctionItem) && transaction.outputMap['bid']){
-
-        for (let blocknumInner = blockchain.chain.length - 1; blocknumInner > 0; blocknumInner--) {
-          const block = blockchain.chain[blocknumInner];
-          console.log("blocknum in loop: " + blocknumInner + "\n");
+              break;
       
-          for (let transactionTwo of block.data) {
-            console.log("arrayspot in transaction loop check: " + arraySpotTwo + "\n");
-      
-            if ((transactionTwo.outputMap['auction ID'] === prevAuctionItem) && transaction.outputMap['bid']) {
-
-              if( transaction.outputMap['bid'] > transactionTwo.outputMap['bid'] ){
-
-                currentWinner = transactionTwo.outputMap['owner'];
-        
-                console.log(currentWinner + "\n");
-        
-                arraySpotTwo++;
-
-              }
-
             }
-
-            continue
-          }
-        }
+          } 
+        }                    
       }
 
-      arraySpot++;
-    }
-  }
+      if(!foundValidBlock) {
+        return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+      }
 
-
-    try {
-    
-      if(ownerIdWallet){
-        transactionToSend = wallet.createItemTransaction({
+      try {
+      
+        transaction = wallet.createItemTransaction({
           Id: prevAuctionItem, 
           name: updatedName, 
           description: updatedDescrtiption , 
           startingBid: updatedBidAmount, 
-          auctionEndTime: "ended",
-          owner: "testy"
+          auctionEndTime: "closed by seller"
         });
-      } 
-  
+    
+      } catch(error) {
+        return res.status(400).json({ type: 'error', message: error.message });
+      }
+
+      transactionPool.setTransaction(transaction);
+
+      pubsub.broadcastTransaction(transaction);
+
+      res.json({ type: 'success', transaction });
+    
+  });
+
+  // use public key to encrypt private to decrypt for messages 
+  app.post('/api/end-auction', (req, res) => {
+
+    const { prevAuctionId } = req.body;
+    let updatedName, updatedDescription, updatedStartingBid, highestBid = 0, highestBidder, foundValidBlock = false, transaction = {}, blocknum, block;
+
+    // Find the latest version of the item on the chain
+    for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0 && !foundValidBlock; blocknum--) {
+
+      for(let transaction of block.data) {
+
+        if(transaction.outputMap['auction ID'] === prevAuctionId && transaction.outputMap['owner'] != undefined && transaction.outputMap['owner'] === wallet.publicKey) {
+
+          updatedName = transaction.outputMap['name'];
+          updatedDescription = transaction.outputMap['description'];
+          updatedStartingBid = transaction.outputMap['starting bid'];
+          foundValidBlock = true;
+
+          break;
+        }
+      }
+    }
+
+    if(!foundValidBlock) {
+      return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+    }
+
+    // Find the highest bid and the address of the highest bidder
+    for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+
+      for(let transaction of block.data) {
+        if(transaction.outputMap['auction ID'] === prevAuctionId && transaction.outputMap['bid'] > highestBid) {
+
+          highestBid = transaction.outputMap['bid'];
+          highestBidder = transaction.input.address;
+
+        }
+      }
+    }
+
+    if(highestBid === 0){
+      highestBid = updatedStartingBid;
+    }
+
+    try {
+      transaction = wallet.createItemTransaction({
+        Id: prevAuctionId,
+        name: updatedName,
+        description: updatedDescription,
+        startingBid: highestBid,
+        auctionEndTime: "ended",
+        owner: highestBidder
+      });
     } catch(error) {
       return res.status(400).json({ type: 'error', message: error.message });
     }
 
-    transactionPool.setTransaction(transactionToSend);
+    transactionPool.setTransaction(transaction);
 
-    pubsub.broadcastTransaction(transactionToSend);
+    pubsub.broadcastTransaction(transaction);
 
-    res.json({ type: 'success', transactionToSend });
-  
-});
+    res.json({ type: 'success', transaction });
 
-app.post('/api/place-bid', (req, res) => {
+  });
 
-  const { prevAuctionItem, bidAmount } = req.body;
-    let blocknum, block;
+
+  app.post('/api/place-bid', (req, res) => {
+
+    const { prevAuctionItem, bidAmount } = req.body;
+    let blocknum, block, foundValidBlock = false, transaction = {}; ;
 
     for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
 
@@ -301,20 +287,23 @@ app.post('/api/place-bid', (req, res) => {
 
         if((Transaction.outputMap['auction ID'] === prevAuctionItem)){
 
+          foundValidBlock = true;
           break;
 
         }
       }                   
     }
 
-    let transaction = {}; 
+    if(!foundValidBlock) {
+      return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+    }
 
     try {
       transaction = wallet.createBid({
         id: prevAuctionItem, 
         Bid: bidAmount
       });
-  
+
     } catch(error) {
       return res.status(400).json({ type: 'error', message: error.message });
     }
@@ -324,204 +313,210 @@ app.post('/api/place-bid', (req, res) => {
     pubsub.broadcastTransaction(transaction);
 
     res.json({ type: 'success', transaction });
-  
-});
+    
+  });
 
-app.post('/api/item-history', (req, res) => {
+  app.post('/api/item-history', (req, res) => {
 
-  const { auctionItemId } = req.body;
-  let arraySpot = 0;
-  const itemHistory = [];
+    const { auctionItemId } = req.body, itemHistory = [];
+    let foundValidBlock = false;
 
-  for (let blocknum = blockchain.chain.length - 1; blocknum > 0; blocknum--) {
-    const block = blockchain.chain[blocknum];
-    console.log("blocknum: " + blocknum + "\n");
+    for (let i = 1; i < blockchain.chain.length; i++) {
+      const block = blockchain.chain[i];
 
-    for (let transaction of block.data) {
-      console.log("arrayspot: " + arraySpot + "\n");
+      for (let j = 0; j < block.data.length; j++) {
+        const transaction = block.data[j];
+        console.log(JSON.stringify(transaction) + "\n");
 
-      if (transaction.outputMap['auction ID'] === auctionItemId) {
-        itemHistory[arraySpot] = transaction.outputMap;
-        arraySpot++;
+        if (transaction.outputMap['auction ID'] === auctionItemId) {
+          itemHistory.push(transaction.outputMap);
+          foundValidBlock = true;
+        }
       }
     }
 
-    continue;
-  }
+    if(!foundValidBlock) {
+      return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+    }
 
-  res.json(itemHistory);
-  
-});
+    res.json(itemHistory);
+    
+  });
 
-// need to test
-app.post('/api/wallet-history', (req, res) => {
 
-  const { walletAddress } = req.body, walletHistory = [];
-  let arraySpot = 0;
 
-  for (let blocknum = blockchain.chain.length - 1; blocknum > 0; blocknum--) {
-    const block = blockchain.chain[blocknum];
-    console.log("blocknum: " + blocknum + "\n");
 
-    for (let Transaction of block.data) {
-      console.log("arrayspot: " + arraySpot + "\n");
+  app.post('/api/wallet-history', (req, res) => {
 
-      if (Transaction.input["address"] === walletAddress) {
-        walletHistory[arraySpot] = Transaction.outputMap;
-        arraySpot++;
+    const { walletAddress } = req.body, walletHistory = [];
+    let arraySpot = 0, foundValidAddress = false, blocknum, block;
+
+    for (blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+
+      for (let Transaction of block.data) {
+
+        // add parameters to get more of the history not just transactions that a wallet made
+        if (Transaction.input["address"] === walletAddress) {
+          walletHistory[arraySpot] = Transaction.outputMap;
+          foundValidAddress = true;
+          arraySpot++;
+        }
+      }
+
+      // Move onto the next block
+      continue;
+    }
+
+    if(foundValidAddress === false) {
+      return res.status(404).json({ type: 'error', message: 'No history found for the ID' });
+    }
+
+    res.json(walletHistory);
+    
+  });
+
+  app.get('/api/transaction-pool-map', (req, res) => {
+      res.json(transactionPool.transactionMap);
+  });
+
+  app.get('/api/mine-transactions', (req, res) => {
+      transactionMiner.mineTransactions();
+
+      res.redirect('/api/blocks');
+  });
+
+  app.get('/api/wallet-info', (req, res) => {
+      const address = wallet.publicKey;
+    
+      res.json({
+        address,
+        balance: Wallet.calculateBalance({ chain: blockchain.chain, address })
+      });
+  }); 
+
+  app.get('/api/known-addresses', (req, res) => {
+    const addressMap = {};
+
+    for(let block of blockchain.chain){
+      for (let transaction of block.data){
+        const recipient = Object.keys(transaction.outputMap);
+
+        recipient.forEach(recipient => {
+          if (recipient.length > 50) {
+            addressMap[recipient] = recipient;
+          }
+        });
       }
     }
 
-    // Move onto the next block
-    continue;
-  }
+    res.json(Object.keys(addressMap));
+  });
 
-  res.json(walletHistory);
-  
-});
+  app.get('*', (req, res) => {
+    res.sendFile(path.join( __dirname , 'client/dist/index.html'));
+  });
 
-app.get('/api/transaction-pool-map', (req, res) => {
-    res.json(transactionPool.transactionMap);
-});
-
-app.get('/api/mine-transactions', (req, res) => {
-    transactionMiner.mineTransactions();
-
-    res.redirect('/api/blocks');
-});
-
-app.get('/api/wallet-info', (req, res) => {
-    const address = wallet.publicKey;
-  
-    res.json({
-      address,
-      balance: Wallet.calculateBalance({ chain: blockchain.chain, address })
-    });
-}); 
-
-app.get('/api/known-addresses', (req, res) => {
-  const addressMap = {};
-
-  for(let block of blockchain.chain){
-    for (let transaction of block.data){
-      const recipient = Object.keys(transaction.outputMap);
-
-      recipient.forEach(recipient => {
-        if (recipient.length > 50) {
-          addressMap[recipient] = recipient;
+    const syncWithRootState = () => {
+      request({ url: `${ROOT_NODE_ADDRESS}/api/blocks` }, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+          const rootChain = JSON.parse(body);
+    
+          console.log('replace chain on a sync with', rootChain);
+          blockchain.replaceChain(rootChain);
         }
       });
-    }
-  }
+    
+      request({ url: `${ROOT_NODE_ADDRESS}/api/transaction-pool-map` }, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+          const rootTransactionPoolMap = JSON.parse(body);
+    
+          console.log('replace transaction pool map on a sync with', rootTransactionPoolMap);
+          transactionPool.setMap(rootTransactionPoolMap);
+        }
+      });
+  };
 
-  res.json(Object.keys(addressMap));
-});
+  if(isDevelopement){
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join( __dirname , 'client/dist/index.html'));
-});
+      // test wallets
+      const walletFoo = new Wallet("review wink submit ski mansion load artwork film master oak limb fox junior wage edge organ help equal reform inch used owner wisdom panel");
+      const walletBar = new Wallet("shoot guard response relax buzz wheel exotic come twist bind dentist similar monitor floor town promote advice rich wire solar ranch law patrol need");
 
-  const syncWithRootState = () => {
-    request({ url: `${ROOT_NODE_ADDRESS}/api/blocks` }, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        const rootChain = JSON.parse(body);
-  
-        console.log('replace chain on a sync with', rootChain);
-        blockchain.replaceChain(rootChain);
-      }
-    });
-  
-    request({ url: `${ROOT_NODE_ADDRESS}/api/transaction-pool-map` }, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        const rootTransactionPoolMap = JSON.parse(body);
-  
-        console.log('replace transaction pool map on a sync with', rootTransactionPoolMap);
-        transactionPool.setMap(rootTransactionPoolMap);
-      }
-    });
-};
+      // wallet helper method
+      const generateWalletTransaction = ({ recipient, amount }) => {
+        const transaction = wallet.createTransaction({
+          recipient, amount, chain: blockchain.chain
+        });
 
-if(isDevelopement){
+        transactionPool.setTransaction(transaction);
+      };
 
-    // test wallets
-    const walletFoo = new Wallet();
-    const walletBar = new Wallet();
+      // wallet helper method
+      const generateWalletItemTransaction = ({ Name, Description, StartingBid, AuctionEndTime }) => {
+        const transaction = wallet.createItemTransaction({ 
+          name: Name, description: Description, startingBid: StartingBid, auctionEndTime: AuctionEndTime
+        });
 
-    // wallet helper method
-    const generateWalletTransaction = ({ recipient, amount }) => {
-      const transaction = wallet.createTransaction({
-        recipient, amount, chain: blockchain.chain
+        transactionPool.setTransaction(transaction);
+      };
+
+      const walletItemAction = () => generateWalletItemTransaction({
+        wallet, Name: "Item", Description: "Item number 001", StartingBid: "90", AuctionEndTime: "now"
       });
 
-      transactionPool.setTransaction(transaction);
-    };
-
-    // wallet helper method
-    const generateWalletItemTransaction = ({ Name, Description, StartingBid, AuctionEndTime }) => {
-      const transaction = wallet.createItemTransaction({ 
-        name: Name, description: Description, startingBid: StartingBid, auctionEndTime: AuctionEndTime
+      const walletFooItemAction = () => generateWalletItemTransaction({
+        wallet, Name: "Item foo", Description: "Item foo number 001", StartingBid: "70", AuctionEndTime: "now"
       });
 
-      transactionPool.setTransaction(transaction);
-    };
+      const walletBarItemAction = () => generateWalletItemTransaction({
+        wallet, Name: "Item bar", Description: "Item bar number 001", StartingBid: "890", AuctionEndTime: "now"
+      });
 
-    const walletItemAction = () => generateWalletItemTransaction({
-      wallet, Name: "Item", Description: "Item number 001", StartingBid: "90", AuctionEndTime: "now"
-    });
+      const walletAction = () => generateWalletTransaction({
+        wallet, recipient: walletFoo.publicKey, amount: 5
+      });
 
-    const walletFooItemAction = () => generateWalletItemTransaction({
-      wallet, Name: "Item foo", Description: "Item foo number 001", StartingBid: "70", AuctionEndTime: "now"
-    });
+      const walletFooAction = () => generateWalletTransaction({
+        wallet: walletFoo, recipient: walletBar.publicKey, amount: 10
+      });
 
-    const walletBarItemAction = () => generateWalletItemTransaction({
-      wallet, Name: "Item bar", Description: "Item bar number 001", StartingBid: "890", AuctionEndTime: "now"
-    });
+      const walletBarAction = () => generateWalletTransaction({
+        wallet: walletBar, recipient: walletFoo.publicKey, amount: 15
+      });
 
-    const walletAction = () => generateWalletTransaction({
-      wallet, recipient: walletFoo.publicKey, amount: 5
-    });
+      for( let i=0; i<10; i++ ){
+        if(i % 3 === 0){
+          walletAction();
+          walletFooAction();
+          walletItemAction();
+        } else if (i % 3 === 1){
+          walletAction();
+          walletBarAction();
+          walletFooItemAction();
+        } else {
+          walletBarAction();
+          walletFooAction();
+          walletBarItemAction();
+        }
 
-    const walletFooAction = () => generateWalletTransaction({
-      wallet: walletFoo, recipient: walletBar.publicKey, amount: 10
-    });
-
-    const walletBarAction = () => generateWalletTransaction({
-      wallet: walletBar, recipient: walletFoo.publicKey, amount: 15
-    });
-
-    for( let i=0; i<10; i++ ){
-      if(i % 3 === 0){
-        walletAction();
-        walletFooAction();
-        walletItemAction();
-      } else if (i % 3 === 1){
-        walletAction();
-        walletBarAction();
-       walletFooItemAction();
-      } else {
-        walletBarAction();
-        walletFooAction();
-       walletBarItemAction();
+        transactionMiner.mineTransactions();
       }
-
-      transactionMiner.mineTransactions();
-    }
-    
-    
-}
-
-let PEER_PORT;
-
-if(process.env.GENERATE_PEER_PORT === 'true') {
-    PEER_PORT = DEFAULT_PORT + Math.ceil(Math.random() * 1000);
-}
-
-const PORT = process.env.PORT || PEER_PORT || DEFAULT_PORT;
-app.listen(PORT, () => {
-  console.log(`listening at localhost:${PORT}`);
-
-  if (PORT !== DEFAULT_PORT) {
-    syncWithRootState();
+      
+      
   }
-});
 
+  let PEER_PORT;
+
+  if(process.env.GENERATE_PEER_PORT === 'true') {
+      PEER_PORT = DEFAULT_PORT + Math.ceil(Math.random() * 1000);
+  }
+
+  const PORT = process.env.PORT || PEER_PORT || DEFAULT_PORT;
+  app.listen(PORT, () => {
+    console.log(`listening at localhost:${PORT}`);
+
+    if (PORT !== DEFAULT_PORT) {
+      syncWithRootState();
+    }
+  });
+});

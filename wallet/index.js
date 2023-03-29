@@ -1,17 +1,29 @@
 const Transaction = require('./transaction');
 const { STARTING_BALANCE } = require('../config');
 const { ec, cryptoHash } = require('../util');
+const bip39 = require('bip39');
+const hdkey = require('hdkey');
+const crypto = require('crypto');
 
 class Wallet {
-  constructor() {
-    this.balance = STARTING_BALANCE;
-
-    this.keyPair = ec.genKeyPair();
-
-    this.publicKey = this.keyPair.getPublic().encode('hex');
-
-    this.ownedItems = [];
+  constructor(mnemonic) {
+      if (mnemonic) {
+        const seed = bip39.mnemonicToSeedSync(mnemonic);
+        this.masterNode = hdkey.fromMasterSeed(seed);
+      } else {
+        const seed = crypto.randomBytes(32);
+        this.masterNode = hdkey.fromMasterSeed(seed);
+        mnemonic = bip39.entropyToMnemonic(seed);
+        console.log(`Generated mnemonic: ${mnemonic}`);
+      }
+      this.balance = STARTING_BALANCE;
+      this.path = "m/0'/0'/0'";
+      this.node = this.masterNode.derive(this.path);
+      this.keyPair = ec.keyFromPrivate(this.node.privateKey);
+      this.publicKey = this.keyPair.getPublic().encode('hex');
+      this.mnemonic = mnemonic;
   }
+  
 
   sign(data) {
     return this.keyPair.sign(cryptoHash(data))
@@ -69,6 +81,6 @@ class Wallet {
 
     return hasConductedTransaction ? outputsTotal : STARTING_BALANCE + outputsTotal;
   }
-};
+}
 
 module.exports = Wallet;
