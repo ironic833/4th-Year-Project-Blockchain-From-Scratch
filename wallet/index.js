@@ -56,7 +56,7 @@ class Wallet {
 
   }
 
-  static calculateBalance({ chain, address }) {
+  /* static calculateBalance({ chain, address }) {
     let hasConductedTransaction = false, outputsTotal = 0;
 
     for (let i=chain.length-1; i>0; i--) {
@@ -80,7 +80,54 @@ class Wallet {
     }
 
     return hasConductedTransaction ? outputsTotal : STARTING_BALANCE + outputsTotal;
-  }
+  } */
+
+  static calculateBalance({ chain, address }) {
+    let hasConductedTransaction = false, outputsTotal = 0;
+
+    for (let i=chain.length-1; i>0; i--) {
+      const block = chain[i];
+
+      for (let transaction of block.data) {
+
+        console.log(JSON.stringify(transaction) + "\n");
+        console.log("Before Math: " + outputsTotal + "\n");
+
+        if (transaction.input.address === address) {
+          hasConductedTransaction = true;
+        }
+
+        if(transaction.outputMap[address]){
+
+          const addressOutput = transaction.outputMap[address];
+
+          if (addressOutput) {
+            outputsTotal = outputsTotal + addressOutput;
+          }
+
+        } else if(transaction.outputMap['bidder'] === address){
+
+          outputsTotal = outputsTotal - transaction.outputMap['bid'];
+
+        } else if (transaction.outputMap['owner']){
+
+          continue;
+
+        }
+
+        console.log("After Math: " + outputsTotal + "\n");
+      }
+
+      if (hasConductedTransaction) {
+        break;
+      }
+
+    }
+
+    return hasConductedTransaction ? outputsTotal : STARTING_BALANCE + outputsTotal;
+}
+
+
 }
 
 module.exports = Wallet;
