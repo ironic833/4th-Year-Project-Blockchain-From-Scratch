@@ -18,13 +18,27 @@ const app = express();
 const blockchain = new Blockchain();
 const transactionPool = new TransactionPool();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 app.use(express.static( path.join(__dirname, 'client/dist')));
 
+//accessible via gui
 app.post('/api/wallet', (req, res) => {
   const { phrase } = req.body;
-  startServer(phrase);
+
+  if(phrase){
+    startServer(phrase);
+  }
+
   res.sendStatus(200);
+});
+
+app.get('/api/wallet-mnemoic-generate', (req, res) => {
+
+  WalletMnemonic = new Wallet();
+
+  walletPhrase = WalletMnemonic.mnemonic;
+
+  res.json(walletPhrase);
 });
 
 const syncWithRootState = () => {
@@ -63,6 +77,7 @@ const startServer = async (phrase) => {
       syncWithRootState();
     }
 
+    //accessible via gui
     app.get('/api/blocks', (req, res) => {
       if(wallet.publicKey !== undefined){
         res.json(blockchain.chain);
@@ -76,16 +91,23 @@ const startServer = async (phrase) => {
     });
 
     app.get('/api/blocks/:id', (req, res) => {
-        const { id } = req.params, { length } = blockchain.chain, blocksReversed = blockchain.chain.slice().reverse();
+      const { id } = req.params;
+      const { length } = blockchain.chain;
 
-        let startIndex = (id - 1) * 5, endIndex = id * 5;
-
-        startIndex = startIndex < length ? startIndex : length;
-        endIndex = endIndex < length ? endIndex : length;
-
-        res.json(blocksReversed.slice(startIndex, endIndex));
+      console.log(typeof blockchain.chain);
+    
+      const blocksReversed = blockchain.chain.slice().reverse();
+    
+      let startIndex = (id-1) * 5;
+      let endIndex = id * 5;
+    
+      startIndex = startIndex < length ? startIndex : length;
+      endIndex = endIndex < length ? endIndex : length;
+    
+      res.json(blocksReversed.slice(startIndex, endIndex));
     });
 
+    //accessible via gui
     app.post('/api/transact', (req, res) => {
       if(wallet.publicKey !== undefined){
         const { amount, recipient } = req.body;
@@ -118,6 +140,7 @@ const startServer = async (phrase) => {
       }
     });
 
+    //accessible via gui
     app.post('/api/create-auction', (req, res) => {
       if(wallet.publicKey !== undefined){
 
@@ -148,6 +171,7 @@ const startServer = async (phrase) => {
 
       }
     });
+
 
     app.post('/api/reinitiate-auction', (req, res) => {
 
@@ -211,7 +235,7 @@ const startServer = async (phrase) => {
       if(wallet.publicKey !== undefined){
 
         const { prevAuctionItem } = req.body;
-        let updatedName, updatedDescrtiption, foundValidBlock = false, blocknum, block, transaction = {};;
+        let updatedName, updatedDescrtiption, updatedBidAmount, foundValidBlock = false, blocknum, block, transaction = {};;
 
         for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
 
@@ -266,7 +290,7 @@ const startServer = async (phrase) => {
       
     });
 
-    // use public key to encrypt private to decrypt for messages 
+    
     app.post('/api/end-auction', (req, res) => {
 
       if(wallet.publicKey !== undefined){
@@ -277,13 +301,13 @@ const startServer = async (phrase) => {
       // Find the latest version of the item on the chain
       for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0 && !foundValidBlock; blocknum--) {
 
-        for(let transaction of block.data) {
+        for(let Transaction of block.data) {
 
-          if(transaction.outputMap['auction ID'] === prevAuctionId && transaction.outputMap['owner'] != undefined && transaction.outputMap['owner'] === wallet.publicKey) {
+          if(Transaction.outputMap['auction ID'] === prevAuctionId && Transaction.outputMap['owner'] != undefined && Transaction.outputMap['owner'] === wallet.publicKey) {
 
-            updatedName = transaction.outputMap['name'];
-            updatedDescription = transaction.outputMap['description'];
-            updatedStartingBid = transaction.outputMap['starting bid'];
+            updatedName = Transaction.outputMap['name'];
+            updatedDescription = Transaction.outputMap['description'];
+            updatedStartingBid = Transaction.outputMap['starting bid'];
             foundValidBlock = true;
 
             break;
@@ -298,11 +322,11 @@ const startServer = async (phrase) => {
       // Find the highest bid and the address of the highest bidder
       for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
 
-        for(let transaction of block.data) {
-          if(transaction.outputMap['auction ID'] === prevAuctionId && transaction.outputMap['bid'] > highestBid) {
+        for(let Transaction of block.data) {
+          if(Transaction.outputMap['auction ID'] === prevAuctionId && Transaction.outputMap['bid'] > highestBid) {
 
-            highestBid = transaction.outputMap['bid'];
-            highestBidder = transaction.input.address;
+            highestBid = Transaction.outputMap['bid'];
+            highestBidder = Transaction.input.address;
 
           }
         }
@@ -339,6 +363,7 @@ const startServer = async (phrase) => {
 
     });
 
+    //accessible via gui
     app.post('/api/place-bid', (req, res) => {
 
       if(wallet.publicKey !== undefined){
@@ -386,6 +411,7 @@ const startServer = async (phrase) => {
       }
       
     });
+
 
     app.post('/api/item-history', (req, res) => {
 
@@ -465,13 +491,17 @@ const startServer = async (phrase) => {
 
     });
 
+    //accessible via gui
     app.get('/api/transaction-pool-map', (req, res) => {
         res.json(transactionPool.transactionMap);
     });
 
+    //accessible via gui
     app.get('/api/mine-transactions', (req, res) => {
 
       if(wallet.publicKey !== undefined){
+
+        console.log("mining transaction \n");
 
         transactionMiner.mineTransactions();
 
@@ -484,6 +514,7 @@ const startServer = async (phrase) => {
       }
     });
 
+    //accessible via gui
     app.get('/api/wallet-info', (req, res) => {
 
       if(wallet.publicKey !== undefined){
@@ -502,6 +533,7 @@ const startServer = async (phrase) => {
       }
     }); 
 
+    //accessible via gui
     app.get('/api/known-addresses', (req, res) => {
       const addressMap = {};
 
@@ -524,7 +556,7 @@ const startServer = async (phrase) => {
       res.sendFile(path.join( __dirname , 'client/dist/index.html'));
     });
 
-    if(isDevelopement){
+   if(isDevelopement && PORT === 3000 ){
 
       // test wallets
       const walletFoo = new Wallet("review wink submit ski mansion load artwork film master oak limb fox junior wage edge organ help equal reform inch used owner wisdom panel");
@@ -534,6 +566,14 @@ const startServer = async (phrase) => {
       const generateWalletTransaction = ({ recipient, amount }) => {
         const transaction = wallet.createTransaction({
           recipient, amount, chain: blockchain.chain
+        });
+
+        transactionPool.setTransaction(transaction);
+      };
+
+      const generateBidTransaction = ({ id, bid }) => {
+        const transaction = wallet.createBid({
+          id, bid
         });
 
         transactionPool.setTransaction(transaction);
@@ -572,6 +612,10 @@ const startServer = async (phrase) => {
         wallet: walletBar, recipient: walletFoo.publicKey, amount: 15
       });
 
+
+
+      walletItemAction();
+
       for( let i=0; i<10; i++ ){
         if(i % 3 === 0){
           walletAction();
@@ -589,14 +633,10 @@ const startServer = async (phrase) => {
 
         transactionMiner.mineTransactions();
       } 
-  }
+  }; 
 
-};
+}
 
 app.listen(PORT, () => {
   console.log(`listening at localhost:${PORT}`);
 });
-
-
-
-

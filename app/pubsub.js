@@ -19,45 +19,57 @@ class PubSub {
         this.blockchain = blockchain;
         this.transactionPool = transactionPool;
         this.wallet = wallet;
+        this.heldChain = [];
         this.pubnub = new PubNub(credentials);
+        
         this.pubnub.subscribe({ channels: Object.values(CHANNELS) });
         this.pubnub.addListener(this.listener());
     }
 
-    handleMessage(channel, message) {
-        console.log(`Message recieved. Message is: ${message}. Channel is: ${channel}`);
-        const parsedMessage = JSON.parse(message);
-        switch(channel) {
-            case CHANNELS.BLOCKCHAIN:
-                this.blockchain.replaceChain(parsedMessage);
-                break;
-            case CHANNELS.TRANSACTION:
-                if (!this.transactionPool.existingTransaction({ inputAddress: this.wallet.publicKey })) {
-                    this.transactionPool.setTransaction(parsedMessage);
-                }
-                break;
-            default:
-                return;
-        }
-
-        if (channel === CHANNELS.BLOCKCHAIN) {
-            this.blockchain.replaceChain(parsedMessage);
-        }
-    }
-
     listener() {
         return {
-            message: messageObject => {
-                const { channel, message } = messageObject;
-                this.handleMessage(channel, message);
+          message: messageObject => {
+            const { channel, message } = messageObject;
+    
+            //console.log(`Message received. Channel: ${channel}. Message: ${message}`);
+
+            console.log(message);
+
+            const parsedMessage = JSON.parse(message);
+            console.log(
+            'chain is detected as ' + Array.isArray(parsedMessage) + ' after broadcast \n'
+            );
+    
+            switch(channel) {
+              case CHANNELS.BLOCKCHAIN:
+                this.blockchain.replaceChain(parsedMessage, true, () => {
+                    this.transactionPool.clearBlockchainTransactions(
+                      { chain: parsedMessage }
+                    );
+                  });
+                  break;
+                case CHANNELS.TRANSACTION:
+                    if (parsedMessage.input.address !== this.wallet.publicKey){
+                        this.transactionPool.setTransaction(parsedMessage);
+                    }else{
+                        console.log('TRANSACTION broadcast recieved from self, ignoring..');
+                    }
+                    break;
+              default:
+                return;
             }
-        };
-    }
+
+            if (channel === CHANNELS.BLOCKCHAIN) {
+                this.blockchain.replaceChain(parsedMessage);
+            }
+          }
+        }
+      }
 
     publish({ channel, message }) {
         const getSize = message => {
-            const s = JSON.stringify(message);
-            return (new TextEncoder().encode(s)).length;
+            const aString = JSON.stringify(message);
+            return (new TextEncoder().encode(aString)).length;
         };
         const messageSize = getSize(message);
 
@@ -66,26 +78,14 @@ class PubSub {
         this.pubnub.publish({
             channel,
             message,
-            meta: {
-                uuid: this.pubnub.getUUID()
-            },
-            chunkedTransfer: true,
-            storeInHistory: true
         });
     }
 
-    // chunking problem occuring here. need to split here before sending the whole chain
-    /* broadcastChain() {
-        this.publish({
-            channel: CHANNELS.BLOCKCHAIN,
-            message: JSON.stringify(this.blockchain.chain)
-        });
-    }  */
+   broadcastChain() {
 
+        console.log("the chain is" + typeof this.blockchain.chain);
+        console.log("chain is detected as " + Array.isArray(this.blockchain.chain) + "before broad cast \n");
 
-    // this works but I don't think I need the encoder and I think I need to add automatic updates as the peers don't see blocks automatically
-
-    broadcastChain() {
         const chainString = JSON.stringify(this.blockchain.chain);
         const chunkSize = 15 * 1024; // 15kb
         const numChunks = Math.ceil(chainString.length / chunkSize);
@@ -105,9 +105,9 @@ class PubSub {
             });
         }
     } 
-    
-
+      
     broadcastTransaction(transaction) {
+      
         this.publish({
             channel: CHANNELS.TRANSACTION,
             message: JSON.stringify(transaction)

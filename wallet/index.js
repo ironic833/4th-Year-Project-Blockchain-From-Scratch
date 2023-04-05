@@ -29,6 +29,10 @@ class Wallet {
     return this.keyPair.sign(cryptoHash(data))
   }
 
+  imageEncode(image) {
+
+  }
+
   createTransaction({ recipient, amount, chain }) {
     if (chain) {
       this.balance = Wallet.calculateBalance({
@@ -46,88 +50,57 @@ class Wallet {
 
   createBid({ id, Bid }) {  
 
-    return new Transaction({ senderWallet: this, recipient: null, amount: null, Id: id , name: null, description: null, startingBid: null, auctionEndTime: null, bid: Bid });
+    return new Transaction({ senderWallet: this, recipient: null, amount: null, Id: id , name: null, description: null, startingBid: null, auctionEndTime: null, bid: Bid});
 
   }
 
-  createItemTransaction({ Id, name, description, startingBid, auctionEndTime, owner }) {
+  createItemTransaction({ Id, name, description, image, startingBid, auctionEndTime, owner }) {
 
     return new Transaction({ senderWallet: this, recipient: null, amount: null, Id, name, description, startingBid, auctionEndTime, owner });
 
   }
 
-  /* static calculateBalance({ chain, address }) {
-    let hasConductedTransaction = false, outputsTotal = 0;
+  static calculateBalance ({ chain, address, timestamp }) {
+    let outputsTotal = 0, hasConductedTransaction = false, lessThanTimestamp = false;
 
-    for (let i=chain.length-1; i>0; i--) {
-      const block = chain[i];
+    for (let i = chain.length - 1; i > 0; i--) {
+      lessThanTimestamp = chain[i].timestamp <= timestamp;
 
-      for (let transaction of block.data) {
-        if (transaction.input.address === address) {
-          hasConductedTransaction = true;
+      for (const transaction of chain[i].data) {
+
+        if (transaction.input.timestamp >= timestamp && transaction.input.address !== REWARD_INPUT.address) {
+          break;
         }
-
-        const addressOutput = transaction.outputMap[address];
-
-        if (addressOutput) {
-          outputsTotal = outputsTotal + addressOutput;
-        }
-      }
-
-      if (hasConductedTransaction) {
-        break;
-      }
-    }
-
-    return hasConductedTransaction ? outputsTotal : STARTING_BALANCE + outputsTotal;
-  } */
-
-  static calculateBalance({ chain, address }) {
-    let hasConductedTransaction = false, outputsTotal = 0;
-
-    for (let i=chain.length-1; i>0; i--) {
-      const block = chain[i];
-
-      for (let transaction of block.data) {
-
-        console.log(JSON.stringify(transaction) + "\n");
-        console.log("Before Math: " + outputsTotal + "\n");
 
         if (transaction.input.address === address) {
           hasConductedTransaction = true;
         }
 
-        if(transaction.outputMap[address]){
+        // need to finish this appears to be double adding somewhere
+        if (transaction.outputMap[address]) {
+          outputsTotal += transaction.outputMap[address];
+          console.log("value found is: " + outputsTotal + "\n");
+        } else if(transaction.outputMap['bidder']){
+          outputsTotal -= transaction.outputMap['bid'];
+          console.log(`this is an bid, current balance is ${outputsTotal} \n`);
 
-          const addressOutput = transaction.outputMap[address];
-
-          if (addressOutput) {
-            outputsTotal = outputsTotal + addressOutput;
-          }
-
-        } else if(transaction.outputMap['bidder'] === address){
-
-          outputsTotal = outputsTotal - transaction.outputMap['bid'];
-
-        } else if (transaction.outputMap['owner']){
-
-          continue;
+        } else if(transaction.outputMap['owner']){
+          console.log(`this is an auction, current balance is ${outputsTotal} \n`);
 
         }
 
-        console.log("After Math: " + outputsTotal + "\n");
       }
 
-      if (hasConductedTransaction) {
-        break;
-      }
+      if (hasConductedTransaction && lessThanTimestamp) break;
 
     }
 
-    return hasConductedTransaction ? outputsTotal : STARTING_BALANCE + outputsTotal;
-}
+    return hasConductedTransaction
+      ? outputsTotal
+      : STARTING_BALANCE + outputsTotal;
+  }
+};
 
 
-}
 
 module.exports = Wallet;

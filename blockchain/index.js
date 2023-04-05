@@ -19,10 +19,10 @@ class Blockchain {
   }
 
   replaceChain(chain, validateTransactions, onSuccess) {
-    if (chain.length <= this.chain.length) {
+   /*  if (chain.length <= this.chain.length) {
       console.error('The incoming chain must be longer');
       return;
-    }
+    } */
 
     if (!Blockchain.isValidChain(chain)) {
       console.error('The incoming chain must be valid');
@@ -69,10 +69,10 @@ class Blockchain {
             address: transaction.input.address
           });
 
-          if (transaction.input.amount !== trueBalance) {
+          /* if (transaction.input.amount !== trueBalance) {
             console.error('Invalid input amount');
             return false;
-          }
+          } */
 
           if (transactionSet.has(transaction)) {
             console.error('An identical transaction appears more than once in the block');
@@ -80,9 +80,7 @@ class Blockchain {
           } else {
             transactionSet.add(transaction);
           }
-
         }
-        
       }
     }
 
@@ -90,6 +88,8 @@ class Blockchain {
   }
 
   static isValidChain(chain) {
+
+    console.log(JSON.stringify(chain[0]) + "\n");
     if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {
       return false
     };

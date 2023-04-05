@@ -48,7 +48,7 @@ class Transaction {
     return Bid;
   }
 
-  createAuctionItem({ senderWallet, Id, name , description , startingBid, auctionEndTime, owner }) {
+  createAuctionItem({ senderWallet, Id, name, description, startingBid, auctionEndTime, owner }) {
     const auctionItem = {};
 
     if (owner === null) {
