@@ -564,7 +564,7 @@ const startServer = async (phrase) => {
       res.sendFile(path.join( __dirname , 'client/dist/index.html'));
     });
 
-   if(isDevelopement && PORT === 3000 ){
+   /* if(isDevelopement && PORT === 3000 ){
 
       // test wallets
       const walletFoo = new Wallet("review wink submit ski mansion load artwork film master oak limb fox junior wage edge organ help equal reform inch used owner wisdom panel");
@@ -641,7 +641,7 @@ const startServer = async (phrase) => {
 
         transactionMiner.mineTransactions();
       } 
-  }; 
+  }; */ 
 
 }
 

@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const PubNub = require('pubnub');
 
 // Sets the API keys for access to PubNub
@@ -30,25 +31,46 @@ class PubSub {
         return {
           message: messageObject => {
             const { channel, message } = messageObject;
+
+            let clearFlag = false;
     
-            //console.log(`Message received. Channel: ${channel}. Message: ${message}`);
-
-            console.log(message);
-
-            const parsedMessage = JSON.parse(message);
-            console.log(
-            'chain is detected as ' + Array.isArray(parsedMessage) + ' after broadcast \n'
-            );
+            console.log(`Message received. Channel: ${channel}. Message: ${JSON.stringify(message)}`);
     
             switch(channel) {
               case CHANNELS.BLOCKCHAIN:
-                this.blockchain.replaceChain(parsedMessage, true, () => {
-                    this.transactionPool.clearBlockchainTransactions(
-                      { chain: parsedMessage }
-                    );
-                  });
+
+                    /* if(this.heldChain[0] === undefined && !isNaN(message) ){
+                        console.log("chain length added to held chain \n");
+                        this.heldChain.push(message);
+                    } */
+                
+                    
+                    console.log("the first place undefined is " +  eval1 +  " and its not the chain end is" + eval3 + "\n");
+
+                    if(message !== "chain end" ){
+
+                        this.heldChain.push(message);
+
+                    }
+                    
+                    if (message === "chain end" && this.heldChain[0] !== undefined){
+                        console.log("chain end added to held chain");
+                        /* this.heldChain[this.heldChain[0] + 1] = message; */
+                        this.heldChain.push(message);
+                        clearFlag = true;
+                    }
+
+                    console.log(JSON.stringify(this.heldChain));
+                    /* if()(
+                        this.blockchain.replaceChain(parsedMessage, true, () => {
+                            this.transactionPool.clearBlockchainTransactions(
+                            { chain: parsedMessage }
+                            );
+                        });
+                    ) */
                   break;
                 case CHANNELS.TRANSACTION:
+                    let parsedMessage =  JSON.stringify(message);
                     if (parsedMessage.input.address !== this.wallet.publicKey){
                         this.transactionPool.setTransaction(parsedMessage);
                     }else{
@@ -57,16 +79,27 @@ class PubSub {
                     break;
               default:
                 return;
+
             }
 
-            if (channel === CHANNELS.BLOCKCHAIN) {
+           /*  if (channel === CHANNELS.BLOCKCHAIN) {
                 this.blockchain.replaceChain(parsedMessage);
+            } */
+
+            //console.log(JSON.stringify(this.heldChain));
+
+            if(clearFlag === true){
+                this.heldChain = [];
             }
+
+            //console.log(JSON.stringify(this.heldChain));
+
+            
           }
         }
       }
 
-    publish({ channel, message }) {
+    TransactionPublish({ channel, message }) {
         const getSize = message => {
             const aString = JSON.stringify(message);
             return (new TextEncoder().encode(aString)).length;
@@ -81,29 +114,55 @@ class PubSub {
         });
     }
 
+    publish({ channel, message }) {
+        const getSize = message => {
+            const aString = JSON.stringify(message);
+            return (new TextEncoder().encode(aString)).length;
+        };
+        const messageSize = getSize(message);
+
+        console.log(`\n Publishing message of size ${messageSize} bytes to channel ${channel} \n`);
+
+        const timestamp = new Date().toISOString(); // get the current timestamp in ISO format
+
+        this.pubnub.publish({
+            channel: channel,
+            message: {
+                timestamp: timestamp,
+                payload: message
+            }
+        });
+    }
+
    broadcastChain() {
 
-        console.log("the chain is" + typeof this.blockchain.chain);
-        console.log("chain is detected as " + Array.isArray(this.blockchain.chain) + "before broad cast \n");
+        this.publish({
+            channel: CHANNELS.BLOCKCHAIN,
+            message: this.blockchain.chain.length
+        });
 
-        const chainString = JSON.stringify(this.blockchain.chain);
-        const chunkSize = 15 * 1024; // 15kb
-        const numChunks = Math.ceil(chainString.length / chunkSize);
-    
-        for (let i = 0; i < numChunks; i++) {
-            const start = i * chunkSize;
-            const end = Math.min(start + chunkSize, chainString.length);
-            const chunk = chainString.slice(start, end);
-            const message = {
-                chunkIndex: i,
-                numChunks: numChunks,
-                data: chunk
-            };
+        console.log("Chain Length is: " + this.blockchain.chain.length + "\n");
+
+        for(let chainNumber = 0, chainItem; chainNumber < this.blockchain.chain.length; chainNumber++){
+
+            chainItem = this.blockchain.chain[chainNumber];
+
             this.publish({
                 channel: CHANNELS.BLOCKCHAIN,
-                message: JSON.stringify(message)
+                message: chainItem
             });
+
+            console.log("Message sent is: " + JSON.stringify(chainItem) + "\n");
+
         }
+
+        this.publish({
+            channel: CHANNELS.BLOCKCHAIN,
+            message: "chain end"
+        });    
+
+        console.log("Chain end message sent \n");
+
     } 
       
     broadcastTransaction(transaction) {
