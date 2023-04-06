@@ -7,15 +7,15 @@ class NewWalletPhrase extends Component {
     render() {
         return(
             <div className="App">
-            <Navbar />
-            <br />
-            <h3>New Wallet Phrase</h3>
-            <hr />
-            <WalletMnemonic />
-            <br />
-            <br />
-            <br />
-            <PhraseBanner />
+                <Navbar />
+                <br />
+                <h3>New Wallet Phrase</h3>
+                <hr />
+                <WalletMnemonic />
+                <br />
+                <br />
+                <br />
+                <PhraseBanner />
             </div>
         );
     }

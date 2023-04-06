@@ -26,18 +26,11 @@ class AddressBook extends Component {
                 <li key={knownAddress} style={{ marginBottom: '10px', color: 'white', padding: '10px', border: '1px solid white', borderRadius: '5px' }}>
                     {knownAddress}
                     <CopyToClipboard text={knownAddress}>
-                        <Button variant="outline-secondary" size="sm" style={{ marginLeft: '10px' }}>Copy</Button>
+                        <Button variant="danger" size="sm" style={{ margin: '10px' }}>Copy</Button>
                     </CopyToClipboard>
                 </li>
                 ))}
             </ul>
-        </div>
-        <div>
-          <ul>
-            {this.state.knownAddresses.map(knownAddress => (
-              <li key={knownAddress} style={{ listStyleType: 'none' }}>{knownAddress}</li>
-            ))}
-          </ul>
         </div>
         <br />
       </div>

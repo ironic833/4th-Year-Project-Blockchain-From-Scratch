@@ -77,7 +77,7 @@ class auctionTransaction extends Component {
         <br />
         <Form.Group controlId="dob">
             <Form.Control 
-              type="date" 
+              type="datetime-local" 
               placeholder="Auction end date" 
               value={this.state.auctionEndTime} 
               onChange={this.updateAuctionEndTime} 

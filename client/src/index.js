@@ -11,11 +11,9 @@ import bidTransaction from "./components/Transact/CreateBid";
 import Auctions from "./components/Auction/Auctions";
 import NewWalletPhrase from "./components/Wallet/NewWalletPhrase";
 import AddressBook from "./components/Usability/AddressBook";
+import UserAuctions from "./components/User/UserAuctions"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-
-
-
 
 render(
         <Router history={history}>
@@ -29,6 +27,7 @@ render(
                 <Route path='/auctions' component={Auctions} />
                 <Route path='/get-wallet' component={NewWalletPhrase} />
                 <Route path='/address-book' component={AddressBook} />
+                <Route path='/user-items' component={UserAuctions} />
             </Switch>
         </Router>, 
         document.getElementById('root')

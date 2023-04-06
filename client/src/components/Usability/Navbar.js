@@ -26,7 +26,9 @@ function BlockNavbar() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="/transaction-pool">Transaction Pool</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/">My Items</Nav.Link>
+            <NavDropdown  menuVariant="dark" title="My Items" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/user-items">My Items</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>

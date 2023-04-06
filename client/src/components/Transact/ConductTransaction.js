@@ -80,7 +80,7 @@ class ConductTransaction extends Component {
             <div key={knownAddress} style={{ marginBottom: '10px', color: 'white', padding: '10px', border: '1px solid white' }}>
               {knownAddress}
               <CopyToClipboard text={knownAddress}>
-                <Button variant="outline-secondary" size="sm" style={{ marginLeft: '10px' }}>Copy</Button>
+                <Button variant="danger" size="sm" style={{ margin: '10px' }}>Copy</Button>
               </CopyToClipboard>
             </div>
           ))}

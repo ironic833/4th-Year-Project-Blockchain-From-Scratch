@@ -172,7 +172,7 @@ const startServer = async (phrase) => {
       }
     });
 
-
+    // used in gui
     app.post('/api/reinitiate-auction', (req, res) => {
 
       if(wallet.publicKey !== undefined){
@@ -230,6 +230,7 @@ const startServer = async (phrase) => {
 
     });
 
+    // used in the gui
     app.post('/api/close-auction', (req, res) => {
 
       if(wallet.publicKey !== undefined){
@@ -290,7 +291,7 @@ const startServer = async (phrase) => {
       
     });
 
-    
+    // used in gui
     app.post('/api/end-auction', (req, res) => {
 
       if(wallet.publicKey !== undefined){
@@ -550,6 +551,13 @@ const startServer = async (phrase) => {
       }
 
       res.json(Object.keys(addressMap));
+    });
+
+    // used in gui
+    app.get('/api/my-wallet-address', (req, res) => {
+    
+      res.json(wallet.publicKey);
+
     });
 
     app.get('*', (req, res) => {

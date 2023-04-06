@@ -46361,9 +46361,13 @@ function BlockNavbar() {
     href: "/bid-transaction"
   }, "Place a bid"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Divider, null), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
     href: "/transaction-pool"
-  }, "Transaction Pool")), /*#__PURE__*/_react.default.createElement(_Nav.default.Link, {
-    href: "/"
-  }, "My Items")))));
+  }, "Transaction Pool")), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
+    menuVariant: "dark",
+    title: "My Items",
+    id: "basic-nav-dropdown"
+  }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/user-items"
+  }, "My Items"))))));
 }
 var _default = BlockNavbar;
 exports.default = _default;
@@ -47173,10 +47177,10 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
         }, knownAddress, /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
           text: knownAddress
         }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          variant: "outline-secondary",
+          variant: "danger",
           size: "sm",
           style: {
-            marginLeft: '10px'
+            margin: '10px'
           }
         }, "Copy")));
       }))), /*#__PURE__*/_react.default.createElement("br", null));
@@ -47315,7 +47319,7 @@ var auctionTransaction = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
         controlId: "dob"
       }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
-        type: "date",
+        type: "datetime-local",
         placeholder: "Auction end date",
         value: this.state.auctionEndTime,
         onChange: this.updateAuctionEndTime,
@@ -47572,8 +47576,18 @@ var AuctionTransactionComponent = function AuctionTransactionComponent(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     bidAmount = _useState2[0],
     setBidAmount = _useState2[1];
+  var _useState3 = (0, _react.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    showModal = _useState4[0],
+    setShowModal = _useState4[1];
   var handleBidAmountChange = function handleBidAmountChange(event) {
     setBidAmount(event.target.value);
+  };
+  var handleModalClose = function handleModalClose() {
+    setShowModal(false);
+  };
+  var handleModalOpen = function handleModalOpen() {
+    setShowModal(true);
   };
   var handleBidSubmit = function handleBidSubmit() {
     // Send a request to the /place-bid endpoint with prevAuctionId and bidAmount
@@ -47588,15 +47602,31 @@ var AuctionTransactionComponent = function AuctionTransactionComponent(_ref) {
       })
     }).then(function (response) {
       return response.json();
-    }).then(function (data) {
-      return console.log(data);
-    }).catch(function (error) {
-      return console.error(error);
+    }).then(function (json) {
+      alert(json.message || json.type);
+      history.push('/transaction-pool');
     });
+    setBidAmount('');
+    setShowModal(false);
   };
   return /*#__PURE__*/_react.default.createElement(_Card.default, {
     className: "bg-dark text-white"
-  }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Auction ID: ", outputMap['auction ID']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Name: ", outputMap['name']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Description: ", outputMap['description']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Starting Bid: ", outputMap['starting bid']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Auction End Time:  ", outputMap['auction end time']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Owner:  ", outputMap['owner']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormLabel, null, "Bid Amount:"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+  }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Auction ID: ", outputMap['auction ID']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Name: ", outputMap['name']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Description: ", outputMap['description']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Starting Bid: ", outputMap['starting bid']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Auction End Time: ", outputMap['auction end time']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Owner: ", outputMap['owner']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "danger",
+    onClick: handleModalOpen,
+    style: {
+      marginBottom: '10px'
+    }
+  }, "Place Bid"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal, {
+    className: "Modal",
+    show: showModal,
+    onHide: handleModalClose
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Header, {
+    className: "ModalColor",
+    closeButton: true
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Title, null, "Bid Amount")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Body, {
+    className: "ModalColor"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormLabel, null, "Bid Amount:"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
     type: "number",
     placeholder: "Bid Amount",
     value: bidAmount,
@@ -47604,13 +47634,15 @@ var AuctionTransactionComponent = function AuctionTransactionComponent(_ref) {
     style: {
       width: '100%'
     }
-  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+  }))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Footer, {
+    className: "ModalColor"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     variant: "danger",
-    onClick: handleBidSubmit,
-    style: {
-      marginTop: '10px'
-    }
-  }, "Submit Bid")));
+    onClick: handleModalClose
+  }, "Close"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "danger",
+    onClick: handleBidSubmit
+  }, "Submit Bid")))));
 };
 var _default = AuctionTransactionComponent;
 exports.default = _default;
@@ -47811,6 +47843,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _reactCopyToClipboard = require("react-copy-to-clipboard");
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -47831,13 +47865,38 @@ function WalletMnemonic() {
       return setWalletPhrase(data);
     });
   }, []);
+  var handlePassphraseSubmit = function handlePassphraseSubmit() {
+    fetch("".concat(document.location.origin, "/api/wallet"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        phrase: walletPhrase
+      })
+    }).then(function () {
+      return window.location.href = "/";
+    });
+  };
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "wallet-phrase"
-  }, walletPhrase);
+  }, /*#__PURE__*/_react.default.createElement("div", null, walletPhrase), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+    text: walletPhrase
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "danger",
+    size: "sm",
+    style: {
+      margin: '10px'
+    }
+  }, "Copy")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "danger",
+    size: "sm",
+    onClick: handlePassphraseSubmit
+  }, "Login with this phrase"));
 }
 var _default = WalletMnemonic;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"components/Usability/PhraseBanner.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/Usability/PhraseBanner.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47984,19 +48043,12 @@ var AddressBook = /*#__PURE__*/function (_Component) {
         }, knownAddress, /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
           text: knownAddress
         }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          variant: "outline-secondary",
+          variant: "danger",
           size: "sm",
           style: {
-            marginLeft: '10px'
+            margin: '10px'
           }
         }, "Copy")));
-      }))), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("ul", null, this.state.knownAddresses.map(function (knownAddress) {
-        return /*#__PURE__*/_react.default.createElement("li", {
-          key: knownAddress,
-          style: {
-            listStyleType: 'none'
-          }
-        }, knownAddress);
       }))), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
@@ -48005,7 +48057,377 @@ var AddressBook = /*#__PURE__*/function (_Component) {
 ;
 var _default = AddressBook;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/User/UserAuctionTransactionComponent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var UserAuctionTransactionComponent = function UserAuctionTransactionComponent(_ref) {
+  var transaction = _ref.transaction;
+  var outputMap = transaction.outputMap;
+  var _useState = (0, _react.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    showModal = _useState2[0],
+    setShowModal = _useState2[1];
+  var _useState3 = (0, _react.useState)(0),
+    _useState4 = _slicedToArray(_useState3, 2),
+    revisedStartingBid = _useState4[0],
+    setRevisedStartingBid = _useState4[1];
+  var _useState5 = (0, _react.useState)(''),
+    _useState6 = _slicedToArray(_useState5, 2),
+    revisedAuctionEndTime = _useState6[0],
+    setRevisedAuctionEndTime = _useState6[1];
+  var handleAuctionEnd = function handleAuctionEnd() {
+    // Send a request to the /api/end-auction endpoint with prevAuctionId
+    fetch("".concat(document.location.origin, "/api/end-auction"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prevAuctionId: outputMap['auction ID']
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      alert(json.message || json.type);
+      history.push('/transaction-pool');
+    });
+  };
+  var handleAuctionClose = function handleAuctionClose() {
+    // Send a request to the /api/close-auction endpoint with prevAuctionId
+    fetch("".concat(document.location.origin, "/api/close-auction"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prevAuctionItem: outputMap['auction ID']
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      alert(json.message || json.type);
+      history.push('/transaction-pool');
+    });
+  };
+  var handleModalShow = function handleModalShow() {
+    setShowModal(true);
+  };
+  var handleModalClose = function handleModalClose() {
+    setShowModal(false);
+  };
+  var handleReinitiateAuction = function handleReinitiateAuction() {
+    // Send a request to the /api/reinitiate-auction endpoint with prevAuctionItem, revisedStartingBid, and revisedAuctionEndTime
+    fetch("".concat(document.location.origin, "/api/reinitiate-auction"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prevAuctionItem: outputMap['auction ID'],
+        revisedStartingBid: revisedStartingBid,
+        revisedAuctionEndTime: revisedAuctionEndTime
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      alert(json.message || json.type);
+      history.push('/transaction-pool');
+    });
+
+    // Reset the form values and close the modal
+    setRevisedStartingBid(0);
+    setRevisedAuctionEndTime('');
+    setShowModal(false);
+  };
+  return /*#__PURE__*/_react.default.createElement(_Card.default, {
+    className: "bg-dark text-white"
+  }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Auction ID: ", outputMap['auction ID']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Name: ", outputMap['name']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Description: ", outputMap['description']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Starting Bid: ", outputMap['starting bid']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Auction End Time:  ", outputMap['auction end time']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Owner:  ", outputMap['owner']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "danger",
+    onClick: handleAuctionEnd,
+    style: {
+      marginTop: '10px',
+      marginRight: '10px'
+    }
+  }, "End Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "danger",
+    onClick: handleAuctionClose,
+    style: {
+      marginTop: '10px',
+      marginRight: '10px'
+    }
+  }, "Close Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "danger",
+    onClick: handleModalShow,
+    style: {
+      marginTop: '10px',
+      marginRight: '10px'
+    }
+  }, "Reinitiate Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal, {
+    className: "Modal",
+    show: showModal,
+    onHide: handleModalClose,
+    backdrop: "static",
+    keyboard: false
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Header, {
+    className: "ModalColor",
+    closeButton: true
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Title, null, "Reinitiate Auction")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Body, {
+    className: "ModalColor"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
+    controlId: "revisedStartingBid"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Revised Starting Bid"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
+    type: "number",
+    placeholder: "Enter revised starting bid",
+    value: revisedStartingBid,
+    onChange: function onChange(e) {
+      return setRevisedStartingBid(e.target.value);
+    }
+  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
+    controlId: "revisedAuctionEndTime"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Revised Auction End Time"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
+    type: "datetime-local",
+    placeholder: "Enter revised auction end time",
+    value: revisedAuctionEndTime,
+    onChange: function onChange(e) {
+      return setRevisedAuctionEndTime(e.target.value);
+    }
+  })))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Footer, {
+    className: "ModalColor"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "danger",
+    onClick: handleModalClose
+  }, "Close"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "danger",
+    onClick: handleReinitiateAuction
+  }, "Save Changes")))));
+};
+var _default = UserAuctionTransactionComponent;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js"}],"components/User/UserAuction.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _UserAuctionTransactionComponent = _interopRequireDefault(require("./UserAuctionTransactionComponent"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var UserAuction = /*#__PURE__*/function (_Component) {
+  _inherits(UserAuction, _Component);
+  var _super = _createSuper(UserAuction);
+  function UserAuction() {
+    var _this;
+    _classCallCheck(this, UserAuction);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      displayTransaction: false,
+      walletAddress: null
+    });
+    _defineProperty(_assertThisInitialized(_this), "toggleTransaction", function () {
+      _this.setState({
+        displayTransaction: !_this.state.displayTransaction
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "displayTransaction", function () {
+      var data = _this.props.block.data;
+      if (!_this.state.walletAddress) {
+        // If wallet address is not fetched yet, show loading spinner or message
+        return /*#__PURE__*/_react.default.createElement("div", null, "Loading wallet address...");
+      }
+      var validTransactions = data.filter(function (transaction) {
+        var outputMap = transaction.outputMap;
+        return outputMap['owner'] === _this.state.walletAddress;
+      });
+      if (_this.state.displayTransaction) {
+        return /*#__PURE__*/_react.default.createElement("div", null, validTransactions.map(function (transaction) {
+          return /*#__PURE__*/_react.default.createElement("div", {
+            key: transaction.id
+          }, /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_UserAuctionTransactionComponent.default, {
+            transaction: transaction
+          }));
+        }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          bsSize: "small",
+          onClick: _this.toggleTransaction
+        }, "Show Less"));
+      }
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        bsSize: "small",
+        onClick: _this.toggleTransaction
+      }, "Show More"));
+    });
+    return _this;
+  }
+  _createClass(UserAuction, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      // Fetch the wallet address and store it in the component state
+      fetch('/api/my-wallet-address').then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        return _this2.setState({
+          walletAddress: data
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props$block = this.props.block,
+        timestamp = _this$props$block.timestamp,
+        hash = _this$props$block.hash;
+      var hashDisplay = "".concat(hash.substring(0, 15), "...");
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "Block"
+      }, /*#__PURE__*/_react.default.createElement("div", null, "Hash: ", hashDisplay), /*#__PURE__*/_react.default.createElement("div", null, "Timestamp: ", new Date(timestamp).toLocaleDateString()), this.displayTransaction());
+    }
+  }]);
+  return UserAuction;
+}(_react.Component);
+;
+var _default = UserAuction;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./UserAuctionTransactionComponent":"components/User/UserAuctionTransactionComponent.js"}],"components/User/UserAuctions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _UserAuction = _interopRequireDefault(require("./UserAuction"));
+var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var UserAuctions = /*#__PURE__*/function (_Component) {
+  _inherits(UserAuctions, _Component);
+  var _super = _createSuper(UserAuctions);
+  function UserAuctions() {
+    var _this;
+    _classCallCheck(this, UserAuctions);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      blocks: [],
+      paginatedId: 1,
+      blocksLength: 0
+    });
+    _defineProperty(_assertThisInitialized(_this), "fetchPaginatedBlocks", function (paginatedId) {
+      return function () {
+        fetch("".concat(document.location.origin, "/api/blocks/").concat(paginatedId)).then(function (response) {
+          return response.json();
+        }).then(function (json) {
+          return _this.setState({
+            blocks: json
+          });
+        });
+      };
+    });
+    return _this;
+  }
+  _createClass(UserAuctions, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      fetch("".concat(document.location.origin, "/api/blocks/length")).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        return _this2.setState({
+          blocksLength: json
+        });
+      });
+      this.fetchPaginatedBlocks(this.state.paginatedId)();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+      console.log('this.state', this.state);
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auctions"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, _toConsumableArray(Array(Math.ceil(this.state.blocksLength / 5)).keys()).map(function (key) {
+        var paginatedId = key + 1;
+        return /*#__PURE__*/_react.default.createElement("span", {
+          key: key,
+          onClick: _this3.fetchPaginatedBlocks(paginatedId)
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          bsSize: "small",
+          variant: "danger"
+        }, paginatedId), ' ');
+      })), this.state.blocks.map(function (block) {
+        return /*#__PURE__*/_react.default.createElement(_UserAuction.default, {
+          key: block.hash,
+          block: block
+        });
+      }));
+    }
+  }]);
+  return UserAuctions;
+}(_react.Component);
+var _default = UserAuctions;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./UserAuction":"components/User/UserAuction.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -48082,6 +48504,7 @@ var _CreateBid = _interopRequireDefault(require("./components/Transact/CreateBid
 var _Auctions = _interopRequireDefault(require("./components/Auction/Auctions"));
 var _NewWalletPhrase = _interopRequireDefault(require("./components/Wallet/NewWalletPhrase"));
 var _AddressBook = _interopRequireDefault(require("./components/Usability/AddressBook"));
+var _UserAuctions = _interopRequireDefault(require("./components/User/UserAuctions"));
 require("bootstrap/dist/css/bootstrap.min.css");
 require("./index.css");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -48115,8 +48538,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
   path: "/address-book",
   component: _AddressBook.default
+}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  path: "/user-items",
+  component: _UserAuctions.default
 }))), document.getElementById('root'));
-},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./history":"history.js","./components/App":"components/App.js","./components/Block/Blocks":"components/Block/Blocks.js","./components/Transact/ConductTransaction":"components/Transact/ConductTransaction.js","./components/Transact/ConductAuctionTransaction":"components/Transact/ConductAuctionTransaction.js","./components/Transact/TransactionPool":"components/Transact/TransactionPool.js","./components/Transact/CreateBid":"components/Transact/CreateBid.js","./components/Auction/Auctions":"components/Auction/Auctions.js","./components/Wallet/NewWalletPhrase":"components/Wallet/NewWalletPhrase.js","./components/Usability/AddressBook":"components/Usability/AddressBook.js","bootstrap/dist/css/bootstrap.min.css":"../../node_modules/bootstrap/dist/css/bootstrap.min.css","./index.css":"index.css"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./history":"history.js","./components/App":"components/App.js","./components/Block/Blocks":"components/Block/Blocks.js","./components/Transact/ConductTransaction":"components/Transact/ConductTransaction.js","./components/Transact/ConductAuctionTransaction":"components/Transact/ConductAuctionTransaction.js","./components/Transact/TransactionPool":"components/Transact/TransactionPool.js","./components/Transact/CreateBid":"components/Transact/CreateBid.js","./components/Auction/Auctions":"components/Auction/Auctions.js","./components/Wallet/NewWalletPhrase":"components/Wallet/NewWalletPhrase.js","./components/Usability/AddressBook":"components/Usability/AddressBook.js","./components/User/UserAuctions":"components/User/UserAuctions.js","bootstrap/dist/css/bootstrap.min.css":"../../node_modules/bootstrap/dist/css/bootstrap.min.css","./index.css":"index.css"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
