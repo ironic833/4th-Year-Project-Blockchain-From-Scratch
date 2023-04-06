@@ -31,73 +31,60 @@ class PubSub {
         return {
           message: messageObject => {
             const { channel, message } = messageObject;
-
+      
             let clearFlag = false;
-    
+      
             console.log(`Message received. Channel: ${channel}. Message: ${JSON.stringify(message)}`);
-    
+      
             switch(channel) {
               case CHANNELS.BLOCKCHAIN:
+                if (message !== "chain end") {
+                  this.heldChain.push(message);
+                } else if (this.heldChain[0] !== undefined) {
+                  console.log("chain end added to held chain");
+                  this.heldChain.push(message);
+                  clearFlag = true;
+                }
+      
+                // Sort the messages by their timestamps before adding them to the heldChain
+                this.heldChain.sort((a, b) => {
+                  const aTimestamp = new Date(a.timestamp);
+                  const bTimestamp = new Date(b.timestamp);
+                  return aTimestamp - bTimestamp;
+                });
+      
+                console.log(JSON.stringify(this.heldChain));
 
-                    /* if(this.heldChain[0] === undefined && !isNaN(message) ){
-                        console.log("chain length added to held chain \n");
-                        this.heldChain.push(message);
-                    } */
-                
-                    
-                    console.log("the first place undefined is " +  eval1 +  " and its not the chain end is" + eval3 + "\n");
+                const organisedChain = this.heldChain.map(message => message.payload);
 
-                    if(message !== "chain end" ){
+                console.log(JSON.stringify(organisedChain));
 
-                        this.heldChain.push(message);
-
-                    }
-                    
-                    if (message === "chain end" && this.heldChain[0] !== undefined){
-                        console.log("chain end added to held chain");
-                        /* this.heldChain[this.heldChain[0] + 1] = message; */
-                        this.heldChain.push(message);
-                        clearFlag = true;
-                    }
-
-                    console.log(JSON.stringify(this.heldChain));
-                    /* if()(
-                        this.blockchain.replaceChain(parsedMessage, true, () => {
-                            this.transactionPool.clearBlockchainTransactions(
-                            { chain: parsedMessage }
-                            );
-                        });
-                    ) */
-                  break;
-                case CHANNELS.TRANSACTION:
-                    let parsedMessage =  JSON.stringify(message);
-                    if (parsedMessage.input.address !== this.wallet.publicKey){
-                        this.transactionPool.setTransaction(parsedMessage);
-                    }else{
-                        console.log('TRANSACTION broadcast recieved from self, ignoring..');
-                    }
-                    break;
+                this.blockchain.replaceChain(organisedChain, true, () => {
+                    this.transactionPool.clearBlockchainTransactions(
+                      { chain: organisedChain }
+                    );
+                  });
+      
+                break;
+              case CHANNELS.TRANSACTION:
+                let parsedMessage = JSON.parse(message);
+                if (parsedMessage.input.address !== this.wallet.publicKey){
+                  this.transactionPool.setTransaction(parsedMessage);
+                } else {
+                  console.log('TRANSACTION broadcast received from self, ignoring..');
+                }
+                break;
               default:
                 return;
-
             }
-
-           /*  if (channel === CHANNELS.BLOCKCHAIN) {
-                this.blockchain.replaceChain(parsedMessage);
-            } */
-
-            //console.log(JSON.stringify(this.heldChain));
-
-            if(clearFlag === true){
-                this.heldChain = [];
+      
+            if (clearFlag === true) {
+              this.heldChain = [];
             }
-
-            //console.log(JSON.stringify(this.heldChain));
-
-            
           }
         }
       }
+      
 
     TransactionPublish({ channel, message }) {
         const getSize = message => {
@@ -114,7 +101,7 @@ class PubSub {
         });
     }
 
-    publish({ channel, message }) {
+    blockchainPublish({ channel, message }) {
         const getSize = message => {
             const aString = JSON.stringify(message);
             return (new TextEncoder().encode(aString)).length;
@@ -136,10 +123,10 @@ class PubSub {
 
    broadcastChain() {
 
-        this.publish({
+        /* this.blockchainPublish({
             channel: CHANNELS.BLOCKCHAIN,
             message: this.blockchain.chain.length
-        });
+        }); */
 
         console.log("Chain Length is: " + this.blockchain.chain.length + "\n");
 
@@ -147,7 +134,7 @@ class PubSub {
 
             chainItem = this.blockchain.chain[chainNumber];
 
-            this.publish({
+            this.blockchainPublish({
                 channel: CHANNELS.BLOCKCHAIN,
                 message: chainItem
             });
@@ -156,18 +143,19 @@ class PubSub {
 
         }
 
-        this.publish({
+       /*  this.blockchainPublish({
             channel: CHANNELS.BLOCKCHAIN,
             message: "chain end"
         });    
 
-        console.log("Chain end message sent \n");
+        console.log("Chain end message sent \n"); */
 
     } 
+    
       
     broadcastTransaction(transaction) {
       
-        this.publish({
+        this.TransactionPublish({
             channel: CHANNELS.TRANSACTION,
             message: JSON.stringify(transaction)
         });
