@@ -3,17 +3,17 @@ import React from 'react';
 
 function AdditionalContentExample() {
   return (
-    <Alert variant="success">
-      <Alert.Heading>Hey, nice to see you</Alert.Heading>
+    <Alert variant="warning">
+      <Alert.Heading>A notice about wallet phrases</Alert.Heading>
       <p>
-        Aww yeah, you successfully read this important alert message. This
-        example text is going to run a bit longer so that you can see how
-        spacing within an alert works with this kind of content.
+        Please note that wallet phrases are the method by which you
+        use to login to our system. Your wallet holds your auction 
+        items and your coins. If you lose your wallet phrase there
+        is no way to recover it.
       </p>
       <hr />
       <p className="mb-0">
-        Whenever you need to, be sure to use margin utilities to keep things
-        nice and tidy.
+        MAKE SURE YOU COPY YOUR WALLET PHRASE BEFORE LEAVING THIS PAGE  
       </p>
     </Alert>
   );

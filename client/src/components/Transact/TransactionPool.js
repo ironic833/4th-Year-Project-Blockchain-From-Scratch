@@ -1,7 +1,6 @@
 import Transaction from "../Block/Transaction";
 import { Button } from 'react-bootstrap';
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
 import history from "../../history";
 import NavBar from "../Usability/Navbar";
 

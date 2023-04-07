@@ -50017,6 +50017,31 @@ function BlockNavbar() {
 }
 var _default = BlockNavbar;
 exports.default = _default;
+},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"components/Usability/NoInputNavbar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
+var _Nav = _interopRequireDefault(require("react-bootstrap/Nav"));
+var _Navbar = _interopRequireDefault(require("react-bootstrap/Navbar"));
+var _NavDropdown = _interopRequireDefault(require("react-bootstrap/NavDropdown"));
+var _react = _interopRequireDefault(require("react"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function NoInputBlockNavbar() {
+  return /*#__PURE__*/_react.default.createElement(_Navbar.default, {
+    bg: "dark",
+    variant: "dark",
+    expand: "lg",
+    className: "fixed-top"
+  }, /*#__PURE__*/_react.default.createElement(_Container.default, null, /*#__PURE__*/_react.default.createElement(_Navbar.default.Brand, {
+    href: "/"
+  }, "Auction Chain")));
+}
+var _default = NoInputBlockNavbar;
+exports.default = _default;
 },{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
@@ -50029,6 +50054,7 @@ var _index = _interopRequireDefault(require("../assets/index.png"));
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _Navbar = _interopRequireDefault(require("./Usability/Navbar"));
+var _NoInputNavbar = _interopRequireDefault(require("./Usability/NoInputNavbar"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -50105,7 +50131,7 @@ var App = /*#__PURE__*/function (_Component) {
       if (!walletInfo.address) {
         return /*#__PURE__*/_react.default.createElement("div", {
           className: "App"
-        }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Login"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Enter your passphrase:"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+        }, /*#__PURE__*/_react.default.createElement(_NoInputNavbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Login"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Enter your passphrase:"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
           input: "text",
           placeholder: "pass phrase",
           value: this.state.passphrase,
@@ -50134,7 +50160,7 @@ var App = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 var _default = App;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","../assets/index.png":"assets/index.png","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./Usability/Navbar":"components/Usability/Navbar.js"}],"components/Block/Transaction.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../assets/index.png":"assets/index.png","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./Usability/Navbar":"components/Usability/Navbar.js","./Usability/NoInputNavbar":"components/Usability/NoInputNavbar.js"}],"components/Block/Transaction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50142,9 +50168,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -50210,7 +50233,7 @@ var Transaction = function Transaction(_ref) {
 };
 var _default = Transaction;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js"}],"components/Block/Block.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js"}],"components/Block/Block.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50996,7 +51019,6 @@ exports.default = void 0;
 var _Transaction = _interopRequireDefault(require("../Block/Transaction"));
 var _reactBootstrap = require("react-bootstrap");
 var _react = _interopRequireWildcard(require("react"));
-var _reactRouterDom = require("react-router-dom");
 var _history = _interopRequireDefault(require("../../history"));
 var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -51086,7 +51108,7 @@ var TransactionPool = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 var _default = TransactionPool;
 exports.default = _default;
-},{"../Block/Transaction":"components/Block/Transaction.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Transact/CreateBid.js":[function(require,module,exports) {
+},{"../Block/Transaction":"components/Block/Transaction.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react":"../../node_modules/react/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Transact/CreateBid.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51554,10 +51576,10 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function AdditionalContentExample() {
   return /*#__PURE__*/_react.default.createElement(_Alert.default, {
-    variant: "success"
-  }, /*#__PURE__*/_react.default.createElement(_Alert.default.Heading, null, "Hey, nice to see you"), /*#__PURE__*/_react.default.createElement("p", null, "Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content."), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", {
+    variant: "warning"
+  }, /*#__PURE__*/_react.default.createElement(_Alert.default.Heading, null, "A notice about wallet phrases"), /*#__PURE__*/_react.default.createElement("p", null, "Please note that wallet phrases are the method by which you use to login to our system. Your wallet holds your auction items and your coins. If you lose your wallet phrase there is no way to recover it."), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", {
     className: "mb-0"
-  }, "Whenever you need to, be sure to use margin utilities to keep things nice and tidy."));
+  }, "MAKE SURE YOU COPY YOUR WALLET PHRASE BEFORE LEAVING THIS PAGE"));
 }
 var _default = AdditionalContentExample;
 exports.default = _default;
@@ -51570,7 +51592,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _walletPhraseReturn = _interopRequireDefault(require("./walletPhraseReturn"));
-var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+var _NoInputNavbar = _interopRequireDefault(require("../Usability/NoInputNavbar"));
 var _PhraseBanner = _interopRequireDefault(require("../Usability/PhraseBanner"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -51600,14 +51622,16 @@ var NewWalletPhrase = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "App"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "New Wallet Phrase"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_walletPhraseReturn.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_PhraseBanner.default, null));
+      }, /*#__PURE__*/_react.default.createElement(_NoInputNavbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "New Wallet Phrase"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_walletPhraseReturn.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "phrase-banner-container"
+      }, /*#__PURE__*/_react.default.createElement(_PhraseBanner.default, null)));
     }
   }]);
   return NewWalletPhrase;
 }(_react.Component);
 var _default = NewWalletPhrase;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./walletPhraseReturn":"components/Wallet/walletPhraseReturn.js","../Usability/Navbar":"components/Usability/Navbar.js","../Usability/PhraseBanner":"components/Usability/PhraseBanner.js"}],"components/Usability/AddressBook.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./walletPhraseReturn":"components/Wallet/walletPhraseReturn.js","../Usability/NoInputNavbar":"components/Usability/NoInputNavbar.js","../Usability/PhraseBanner":"components/Usability/PhraseBanner.js"}],"components/Usability/AddressBook.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52213,7 +52237,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58757" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58763" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

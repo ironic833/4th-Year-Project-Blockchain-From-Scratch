@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
 
 const Transaction = ({ transaction }) => {
 

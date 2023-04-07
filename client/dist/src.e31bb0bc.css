@@ -80,6 +80,11 @@ background-color: #222;
 .ModalColor{
     background-color: #444;
 }
-  
+
+.phrase-banner-container {
+    max-width: 800px; /* adjust to your needs */
+    margin: 0 auto; /* center the container horizontally */
+    padding: 20px; /* add equal padding on all sides */
+  }
 
 /*# sourceMappingURL=/src.e31bb0bc.css.map */

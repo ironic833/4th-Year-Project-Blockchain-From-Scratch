@@ -3,6 +3,7 @@ import index from '../assets/index.png';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import NavBar from "./Usability/Navbar";
+import NoInputBlockNavbar from "./Usability/NoInputNavbar";
 
 class App extends Component {
     state = { walletInfo: {}, passphrase: '', canSubmit: false };
@@ -34,7 +35,7 @@ class App extends Component {
         if (!walletInfo.address) {
             return (
                 <div className="App">
-                    <NavBar />
+                    <NoInputBlockNavbar />
                     <br />
                     <h3>Login</h3>
                     <hr />
