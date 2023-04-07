@@ -13,21 +13,13 @@ function BlockNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Login</Nav.Link>
             <NavDropdown  menuVariant="dark" title="Chain" id="basic-nav-dropdown">
               <NavDropdown.Item href="/blocks">Blocks</NavDropdown.Item>
               <NavDropdown.Item href="/auctions">Auctions</NavDropdown.Item>
               <NavDropdown.Item href="/address-book">Address Book</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown  menuVariant="dark" title="Transact" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/conduct-transaction">Send Money</NavDropdown.Item>
-              <NavDropdown.Item href="/auction-transaction">Create an auction</NavDropdown.Item>
-              <NavDropdown.Item href="/bid-transaction">Place a bid</NavDropdown.Item>
-              <NavDropdown.Divider />
               <NavDropdown.Item href="/transaction-pool">Transaction Pool</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown  menuVariant="dark" title="My Items" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/user-items">My Items</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

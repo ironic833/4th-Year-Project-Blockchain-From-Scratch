@@ -33870,499 +33870,7 @@ var define;
 	}
 }());
 
-},{}],"../../node_modules/@babel/runtime/helpers/esm/extends.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _extends;
-function _extends() {
-  exports.default = _extends = Object.assign ? Object.assign.bind() : function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends.apply(this, arguments);
-}
-},{}],"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _objectWithoutPropertiesLoose;
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-  return target;
-}
-},{}],"../../node_modules/uncontrollable/lib/esm/utils.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.canAcceptRef = canAcceptRef;
-exports.defaultKey = defaultKey;
-exports.isProp = isProp;
-exports.uncontrolledPropTypes = uncontrolledPropTypes;
-var _invariant = _interopRequireDefault(require("invariant"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var noop = function noop() {};
-function readOnlyPropType(handler, name) {
-  return function (props, propName) {
-    if (props[propName] !== undefined) {
-      if (!props[handler]) {
-        return new Error("You have provided a `" + propName + "` prop to `" + name + "` " + ("without an `" + handler + "` handler prop. This will render a read-only field. ") + ("If the field should be mutable use `" + defaultKey(propName) + "`. ") + ("Otherwise, set `" + handler + "`."));
-      }
-    }
-  };
-}
-function uncontrolledPropTypes(controlledValues, displayName) {
-  var propTypes = {};
-  Object.keys(controlledValues).forEach(function (prop) {
-    // add default propTypes for folks that use runtime checks
-    propTypes[defaultKey(prop)] = noop;
-    if ("development" !== 'production') {
-      var handler = controlledValues[prop];
-      !(typeof handler === 'string' && handler.trim().length) ? "development" !== "production" ? (0, _invariant.default)(false, 'Uncontrollable - [%s]: the prop `%s` needs a valid handler key name in order to make it uncontrollable', displayName, prop) : (0, _invariant.default)(false) : void 0;
-      propTypes[prop] = readOnlyPropType(handler, displayName);
-    }
-  });
-  return propTypes;
-}
-function isProp(props, prop) {
-  return props[prop] !== undefined;
-}
-function defaultKey(key) {
-  return 'default' + key.charAt(0).toUpperCase() + key.substr(1);
-}
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-function canAcceptRef(component) {
-  return !!component && (typeof component !== 'function' || component.prototype && component.prototype.isReactComponent);
-}
-},{"invariant":"../../node_modules/invariant/browser.js"}],"../../node_modules/uncontrollable/lib/esm/hook.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useUncontrolled;
-exports.useUncontrolledProp = useUncontrolledProp;
-var _extends3 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
-var _react = require("react");
-var Utils = _interopRequireWildcard(require("./utils"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, "string");
-  return typeof key === "symbol" ? key : String(key);
-}
-function _toPrimitive(input, hint) {
-  if (typeof input !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (typeof res !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return (hint === "string" ? String : Number)(input);
-}
-function useUncontrolledProp(propValue, defaultValue, handler) {
-  var wasPropRef = (0, _react.useRef)(propValue !== undefined);
-  var _useState = (0, _react.useState)(defaultValue),
-    stateValue = _useState[0],
-    setState = _useState[1];
-  var isProp = propValue !== undefined;
-  var wasProp = wasPropRef.current;
-  wasPropRef.current = isProp;
-  /**
-   * If a prop switches from controlled to Uncontrolled
-   * reset its value to the defaultValue
-   */
-
-  if (!isProp && wasProp && stateValue !== defaultValue) {
-    setState(defaultValue);
-  }
-  return [isProp ? propValue : stateValue, (0, _react.useCallback)(function (value) {
-    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-    if (handler) handler.apply(void 0, [value].concat(args));
-    setState(value);
-  }, [handler])];
-}
-function useUncontrolled(props, config) {
-  return Object.keys(config).reduce(function (result, fieldName) {
-    var _extends2;
-    var _ref = result,
-      defaultValue = _ref[Utils.defaultKey(fieldName)],
-      propsValue = _ref[fieldName],
-      rest = (0, _objectWithoutPropertiesLoose2.default)(_ref, [Utils.defaultKey(fieldName), fieldName].map(_toPropertyKey));
-    var handlerName = config[fieldName];
-    var _useUncontrolledProp = useUncontrolledProp(propsValue, defaultValue, props[handlerName]),
-      value = _useUncontrolledProp[0],
-      handler = _useUncontrolledProp[1];
-    return (0, _extends3.default)({}, rest, (_extends2 = {}, _extends2[fieldName] = value, _extends2[handlerName] = handler, _extends2));
-  }, props);
-}
-},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","react":"../../node_modules/react/index.js","./utils":"../../node_modules/uncontrollable/lib/esm/utils.js"}],"../../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _setPrototypeOf;
-function _setPrototypeOf(o, p) {
-  exports.default = _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-  return _setPrototypeOf(o, p);
-}
-},{}],"../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _inheritsLoose;
-var _setPrototypeOf = _interopRequireDefault(require("./setPrototypeOf.js"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  (0, _setPrototypeOf.default)(subClass, superClass);
-}
-},{"./setPrototypeOf.js":"../../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js"}],"../../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.polyfill = polyfill;
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-function componentWillMount() {
-  // Call this.constructor.gDSFP to support sub-classes.
-  var state = this.constructor.getDerivedStateFromProps(this.props, this.state);
-  if (state !== null && state !== undefined) {
-    this.setState(state);
-  }
-}
-function componentWillReceiveProps(nextProps) {
-  // Call this.constructor.gDSFP to support sub-classes.
-  // Use the setState() updater to ensure state isn't stale in certain edge cases.
-  function updater(prevState) {
-    var state = this.constructor.getDerivedStateFromProps(nextProps, prevState);
-    return state !== null && state !== undefined ? state : null;
-  }
-  // Binding "this" is important for shallow renderer support.
-  this.setState(updater.bind(this));
-}
-function componentWillUpdate(nextProps, nextState) {
-  try {
-    var prevProps = this.props;
-    var prevState = this.state;
-    this.props = nextProps;
-    this.state = nextState;
-    this.__reactInternalSnapshotFlag = true;
-    this.__reactInternalSnapshot = this.getSnapshotBeforeUpdate(prevProps, prevState);
-  } finally {
-    this.props = prevProps;
-    this.state = prevState;
-  }
-}
-
-// React may warn about cWM/cWRP/cWU methods being deprecated.
-// Add a flag to suppress these warnings for this special case.
-componentWillMount.__suppressDeprecationWarning = true;
-componentWillReceiveProps.__suppressDeprecationWarning = true;
-componentWillUpdate.__suppressDeprecationWarning = true;
-function polyfill(Component) {
-  var prototype = Component.prototype;
-  if (!prototype || !prototype.isReactComponent) {
-    throw new Error('Can only polyfill class components');
-  }
-  if (typeof Component.getDerivedStateFromProps !== 'function' && typeof prototype.getSnapshotBeforeUpdate !== 'function') {
-    return Component;
-  }
-
-  // If new component APIs are defined, "unsafe" lifecycles won't be called.
-  // Error if any of these lifecycles are present,
-  // Because they would work differently between older and newer (16.3+) versions of React.
-  var foundWillMountName = null;
-  var foundWillReceivePropsName = null;
-  var foundWillUpdateName = null;
-  if (typeof prototype.componentWillMount === 'function') {
-    foundWillMountName = 'componentWillMount';
-  } else if (typeof prototype.UNSAFE_componentWillMount === 'function') {
-    foundWillMountName = 'UNSAFE_componentWillMount';
-  }
-  if (typeof prototype.componentWillReceiveProps === 'function') {
-    foundWillReceivePropsName = 'componentWillReceiveProps';
-  } else if (typeof prototype.UNSAFE_componentWillReceiveProps === 'function') {
-    foundWillReceivePropsName = 'UNSAFE_componentWillReceiveProps';
-  }
-  if (typeof prototype.componentWillUpdate === 'function') {
-    foundWillUpdateName = 'componentWillUpdate';
-  } else if (typeof prototype.UNSAFE_componentWillUpdate === 'function') {
-    foundWillUpdateName = 'UNSAFE_componentWillUpdate';
-  }
-  if (foundWillMountName !== null || foundWillReceivePropsName !== null || foundWillUpdateName !== null) {
-    var componentName = Component.displayName || Component.name;
-    var newApiName = typeof Component.getDerivedStateFromProps === 'function' ? 'getDerivedStateFromProps()' : 'getSnapshotBeforeUpdate()';
-    throw Error('Unsafe legacy lifecycles will not be called for components using new component APIs.\n\n' + componentName + ' uses ' + newApiName + ' but also contains the following legacy lifecycles:' + (foundWillMountName !== null ? '\n  ' + foundWillMountName : '') + (foundWillReceivePropsName !== null ? '\n  ' + foundWillReceivePropsName : '') + (foundWillUpdateName !== null ? '\n  ' + foundWillUpdateName : '') + '\n\nThe above lifecycles should be removed. Learn more about this warning here:\n' + 'https://fb.me/react-async-component-lifecycle-hooks');
-  }
-
-  // React <= 16.2 does not support static getDerivedStateFromProps.
-  // As a workaround, use cWM and cWRP to invoke the new static lifecycle.
-  // Newer versions of React will ignore these lifecycles if gDSFP exists.
-  if (typeof Component.getDerivedStateFromProps === 'function') {
-    prototype.componentWillMount = componentWillMount;
-    prototype.componentWillReceiveProps = componentWillReceiveProps;
-  }
-
-  // React <= 16.2 does not support getSnapshotBeforeUpdate.
-  // As a workaround, use cWU to invoke the new lifecycle.
-  // Newer versions of React will ignore that lifecycle if gSBU exists.
-  if (typeof prototype.getSnapshotBeforeUpdate === 'function') {
-    if (typeof prototype.componentDidUpdate !== 'function') {
-      throw new Error('Cannot polyfill getSnapshotBeforeUpdate() for components that do not define componentDidUpdate() on the prototype');
-    }
-    prototype.componentWillUpdate = componentWillUpdate;
-    var componentDidUpdate = prototype.componentDidUpdate;
-    prototype.componentDidUpdate = function componentDidUpdatePolyfill(prevProps, prevState, maybeSnapshot) {
-      // 16.3+ will not execute our will-update method;
-      // It will pass a snapshot value to did-update though.
-      // Older versions will require our polyfilled will-update value.
-      // We need to handle both cases, but can't just check for the presence of "maybeSnapshot",
-      // Because for <= 15.x versions this might be a "prevContext" object.
-      // We also can't just check "__reactInternalSnapshot",
-      // Because get-snapshot might return a falsy value.
-      // So check for the explicit __reactInternalSnapshotFlag flag to determine behavior.
-      var snapshot = this.__reactInternalSnapshotFlag ? this.__reactInternalSnapshot : maybeSnapshot;
-      componentDidUpdate.call(this, prevProps, prevState, snapshot);
-    };
-  }
-  return Component;
-}
-},{}],"../../node_modules/uncontrollable/lib/esm/uncontrollable.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = uncontrollable;
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
-var _extends3 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
-var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
-var _react = _interopRequireDefault(require("react"));
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-var _invariant = _interopRequireDefault(require("invariant"));
-var Utils = _interopRequireWildcard(require("./utils"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var _jsxFileName = "/Users/jquense/src/uncontrollable/src/uncontrollable.js";
-function uncontrollable(Component, controlledValues, methods) {
-  if (methods === void 0) {
-    methods = [];
-  }
-  var displayName = Component.displayName || Component.name || 'Component';
-  var canAcceptRef = Utils.canAcceptRef(Component);
-  var controlledProps = Object.keys(controlledValues);
-  var PROPS_TO_OMIT = controlledProps.map(Utils.defaultKey);
-  !(canAcceptRef || !methods.length) ? "development" !== "production" ? (0, _invariant.default)(false, '[uncontrollable] stateless function components cannot pass through methods ' + 'because they have no associated instances. Check component: ' + displayName + ', ' + 'attempting to pass through methods: ' + methods.join(', ')) : (0, _invariant.default)(false) : void 0;
-  var UncontrolledComponent = /*#__PURE__*/
-  function (_React$Component) {
-    (0, _inheritsLoose2.default)(UncontrolledComponent, _React$Component);
-    function UncontrolledComponent() {
-      var _this;
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-      _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-      _this.handlers = Object.create(null);
-      controlledProps.forEach(function (propName) {
-        var handlerName = controlledValues[propName];
-        var handleChange = function handleChange(value) {
-          if (_this.props[handlerName]) {
-            var _this$props;
-            _this._notifying = true;
-            for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-              args[_key2 - 1] = arguments[_key2];
-            }
-            (_this$props = _this.props)[handlerName].apply(_this$props, [value].concat(args));
-            _this._notifying = false;
-          }
-          if (!_this.unmounted) _this.setState(function (_ref) {
-            var _extends2;
-            var values = _ref.values;
-            return {
-              values: (0, _extends3.default)(Object.create(null), values, (_extends2 = {}, _extends2[propName] = value, _extends2))
-            };
-          });
-        };
-        _this.handlers[handlerName] = handleChange;
-      });
-      if (methods.length) _this.attachRef = function (ref) {
-        _this.inner = ref;
-      };
-      var values = Object.create(null);
-      controlledProps.forEach(function (key) {
-        values[key] = _this.props[Utils.defaultKey(key)];
-      });
-      _this.state = {
-        values: values,
-        prevProps: {}
-      };
-      return _this;
-    }
-    var _proto = UncontrolledComponent.prototype;
-    _proto.shouldComponentUpdate = function shouldComponentUpdate() {
-      //let setState trigger the update
-      return !this._notifying;
-    };
-    UncontrolledComponent.getDerivedStateFromProps = function getDerivedStateFromProps(props, _ref2) {
-      var values = _ref2.values,
-        prevProps = _ref2.prevProps;
-      var nextState = {
-        values: (0, _extends3.default)(Object.create(null), values),
-        prevProps: {}
-      };
-      controlledProps.forEach(function (key) {
-        /**
-         * If a prop switches from controlled to Uncontrolled
-         * reset its value to the defaultValue
-         */
-        nextState.prevProps[key] = props[key];
-        if (!Utils.isProp(props, key) && Utils.isProp(prevProps, key)) {
-          nextState.values[key] = props[Utils.defaultKey(key)];
-        }
-      });
-      return nextState;
-    };
-    _proto.componentWillUnmount = function componentWillUnmount() {
-      this.unmounted = true;
-    };
-    _proto.render = function render() {
-      var _this2 = this;
-      var _this$props2 = this.props,
-        innerRef = _this$props2.innerRef,
-        props = (0, _objectWithoutPropertiesLoose2.default)(_this$props2, ["innerRef"]);
-      PROPS_TO_OMIT.forEach(function (prop) {
-        delete props[prop];
-      });
-      var newProps = {};
-      controlledProps.forEach(function (propName) {
-        var propValue = _this2.props[propName];
-        newProps[propName] = propValue !== undefined ? propValue : _this2.state.values[propName];
-      });
-      return _react.default.createElement(Component, (0, _extends3.default)({}, props, newProps, this.handlers, {
-        ref: innerRef || this.attachRef
-      }));
-    };
-    return UncontrolledComponent;
-  }(_react.default.Component);
-  (0, _reactLifecyclesCompat.polyfill)(UncontrolledComponent);
-  UncontrolledComponent.displayName = "Uncontrolled(" + displayName + ")";
-  UncontrolledComponent.propTypes = (0, _extends3.default)({
-    innerRef: function innerRef() {}
-  }, Utils.uncontrolledPropTypes(controlledValues, displayName));
-  methods.forEach(function (method) {
-    UncontrolledComponent.prototype[method] = function $proxiedMethod() {
-      var _this$inner;
-      return (_this$inner = this.inner)[method].apply(_this$inner, arguments);
-    };
-  });
-  var WrappedComponent = UncontrolledComponent;
-  if (_react.default.forwardRef) {
-    WrappedComponent = _react.default.forwardRef(function (props, ref) {
-      return _react.default.createElement(UncontrolledComponent, (0, _extends3.default)({}, props, {
-        innerRef: ref,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 128
-        },
-        __self: this
-      }));
-    });
-    WrappedComponent.propTypes = UncontrolledComponent.propTypes;
-  }
-  WrappedComponent.ControlledComponent = Component;
-  /**
-   * useful when wrapping a Component and you want to control
-   * everything
-   */
-
-  WrappedComponent.deferControlTo = function (newComponent, additions, nextMethods) {
-    if (additions === void 0) {
-      additions = {};
-    }
-    return uncontrollable(newComponent, (0, _extends3.default)({}, controlledValues, additions), nextMethods);
-  };
-  return WrappedComponent;
-}
-},{"@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/inheritsLoose":"../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../../node_modules/react/index.js","react-lifecycles-compat":"../../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js","invariant":"../../node_modules/invariant/browser.js","./utils":"../../node_modules/uncontrollable/lib/esm/utils.js"}],"../../node_modules/uncontrollable/lib/esm/index.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "uncontrollable", {
-  enumerable: true,
-  get: function () {
-    return _uncontrollable.default;
-  }
-});
-Object.defineProperty(exports, "useUncontrolled", {
-  enumerable: true,
-  get: function () {
-    return _hook.default;
-  }
-});
-Object.defineProperty(exports, "useUncontrolledProp", {
-  enumerable: true,
-  get: function () {
-    return _hook.useUncontrolledProp;
-  }
-});
-var _hook = _interopRequireWildcard(require("./hook"));
-var _uncontrollable = _interopRequireDefault(require("./uncontrollable"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-},{"./hook":"../../node_modules/uncontrollable/lib/esm/hook.js","./uncontrollable":"../../node_modules/uncontrollable/lib/esm/uncontrollable.js"}],"../../node_modules/react/cjs/react-jsx-runtime.development.js":[function(require,module,exports) {
+},{}],"../../node_modules/react/cjs/react-jsx-runtime.development.js":[function(require,module,exports) {
 /**
  * @license React
  * react-jsx-runtime.development.js
@@ -35604,7 +35112,2106 @@ function createBootstrapComponent(Component, opts) {
 }
 var _default = ThemeProvider;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/dom-helpers/esm/ownerDocument.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Container.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  fluid: false
+};
+const Container = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  fluid,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  className,
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'container');
+  const suffix = typeof fluid === 'string' ? `-${fluid}` : '-fluid';
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: (0, _classnames.default)(className, fluid ? `${prefix}${suffix}` : prefix)
+  });
+});
+Container.displayName = 'Container';
+Container.defaultProps = defaultProps;
+var _default = Container;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/prop-types-extra/lib/utils/createChainableTypeChecker.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = createChainableTypeChecker;
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+// Mostly taken from ReactPropTypes.
+
+function createChainableTypeChecker(validate) {
+  function checkType(isRequired, props, propName, componentName, location, propFullName) {
+    var componentNameSafe = componentName || '<<anonymous>>';
+    var propFullNameSafe = propFullName || propName;
+
+    if (props[propName] == null) {
+      if (isRequired) {
+        return new Error('Required ' + location + ' `' + propFullNameSafe + '` was not specified ' + ('in `' + componentNameSafe + '`.'));
+      }
+
+      return null;
+    }
+
+    for (var _len = arguments.length, args = Array(_len > 6 ? _len - 6 : 0), _key = 6; _key < _len; _key++) {
+      args[_key - 6] = arguments[_key];
+    }
+
+    return validate.apply(undefined, [props, propName, componentNameSafe, location, propFullNameSafe].concat(args));
+  }
+
+  var chainedCheckType = checkType.bind(null, false);
+  chainedCheckType.isRequired = checkType.bind(null, true);
+
+  return chainedCheckType;
+}
+module.exports = exports['default'];
+},{}],"../../node_modules/prop-types-extra/lib/all.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = all;
+
+var _createChainableTypeChecker = require('./utils/createChainableTypeChecker');
+
+var _createChainableTypeChecker2 = _interopRequireDefault(_createChainableTypeChecker);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function all() {
+  for (var _len = arguments.length, validators = Array(_len), _key = 0; _key < _len; _key++) {
+    validators[_key] = arguments[_key];
+  }
+
+  function allPropTypes() {
+    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+
+    var error = null;
+
+    validators.forEach(function (validator) {
+      if (error != null) {
+        return;
+      }
+
+      var result = validator.apply(undefined, args);
+      if (result != null) {
+        error = result;
+      }
+    });
+
+    return error;
+  }
+
+  return (0, _createChainableTypeChecker2.default)(allPropTypes);
+}
+module.exports = exports['default'];
+},{"./utils/createChainableTypeChecker":"../../node_modules/prop-types-extra/lib/utils/createChainableTypeChecker.js"}],"../../node_modules/@babel/runtime/helpers/esm/extends.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _extends;
+function _extends() {
+  exports.default = _extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
+}
+},{}],"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _objectWithoutPropertiesLoose;
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+},{}],"../../node_modules/uncontrollable/lib/esm/utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.canAcceptRef = canAcceptRef;
+exports.defaultKey = defaultKey;
+exports.isProp = isProp;
+exports.uncontrolledPropTypes = uncontrolledPropTypes;
+var _invariant = _interopRequireDefault(require("invariant"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var noop = function noop() {};
+function readOnlyPropType(handler, name) {
+  return function (props, propName) {
+    if (props[propName] !== undefined) {
+      if (!props[handler]) {
+        return new Error("You have provided a `" + propName + "` prop to `" + name + "` " + ("without an `" + handler + "` handler prop. This will render a read-only field. ") + ("If the field should be mutable use `" + defaultKey(propName) + "`. ") + ("Otherwise, set `" + handler + "`."));
+      }
+    }
+  };
+}
+function uncontrolledPropTypes(controlledValues, displayName) {
+  var propTypes = {};
+  Object.keys(controlledValues).forEach(function (prop) {
+    // add default propTypes for folks that use runtime checks
+    propTypes[defaultKey(prop)] = noop;
+    if ("development" !== 'production') {
+      var handler = controlledValues[prop];
+      !(typeof handler === 'string' && handler.trim().length) ? "development" !== "production" ? (0, _invariant.default)(false, 'Uncontrollable - [%s]: the prop `%s` needs a valid handler key name in order to make it uncontrollable', displayName, prop) : (0, _invariant.default)(false) : void 0;
+      propTypes[prop] = readOnlyPropType(handler, displayName);
+    }
+  });
+  return propTypes;
+}
+function isProp(props, prop) {
+  return props[prop] !== undefined;
+}
+function defaultKey(key) {
+  return 'default' + key.charAt(0).toUpperCase() + key.substr(1);
+}
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+function canAcceptRef(component) {
+  return !!component && (typeof component !== 'function' || component.prototype && component.prototype.isReactComponent);
+}
+},{"invariant":"../../node_modules/invariant/browser.js"}],"../../node_modules/uncontrollable/lib/esm/hook.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useUncontrolled;
+exports.useUncontrolledProp = useUncontrolledProp;
+var _extends3 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
+var _react = require("react");
+var Utils = _interopRequireWildcard(require("./utils"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _toPropertyKey(arg) {
+  var key = _toPrimitive(arg, "string");
+  return typeof key === "symbol" ? key : String(key);
+}
+function _toPrimitive(input, hint) {
+  if (typeof input !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (typeof res !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+function useUncontrolledProp(propValue, defaultValue, handler) {
+  var wasPropRef = (0, _react.useRef)(propValue !== undefined);
+  var _useState = (0, _react.useState)(defaultValue),
+    stateValue = _useState[0],
+    setState = _useState[1];
+  var isProp = propValue !== undefined;
+  var wasProp = wasPropRef.current;
+  wasPropRef.current = isProp;
+  /**
+   * If a prop switches from controlled to Uncontrolled
+   * reset its value to the defaultValue
+   */
+
+  if (!isProp && wasProp && stateValue !== defaultValue) {
+    setState(defaultValue);
+  }
+  return [isProp ? propValue : stateValue, (0, _react.useCallback)(function (value) {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+    if (handler) handler.apply(void 0, [value].concat(args));
+    setState(value);
+  }, [handler])];
+}
+function useUncontrolled(props, config) {
+  return Object.keys(config).reduce(function (result, fieldName) {
+    var _extends2;
+    var _ref = result,
+      defaultValue = _ref[Utils.defaultKey(fieldName)],
+      propsValue = _ref[fieldName],
+      rest = (0, _objectWithoutPropertiesLoose2.default)(_ref, [Utils.defaultKey(fieldName), fieldName].map(_toPropertyKey));
+    var handlerName = config[fieldName];
+    var _useUncontrolledProp = useUncontrolledProp(propsValue, defaultValue, props[handlerName]),
+      value = _useUncontrolledProp[0],
+      handler = _useUncontrolledProp[1];
+    return (0, _extends3.default)({}, rest, (_extends2 = {}, _extends2[fieldName] = value, _extends2[handlerName] = handler, _extends2));
+  }, props);
+}
+},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","react":"../../node_modules/react/index.js","./utils":"../../node_modules/uncontrollable/lib/esm/utils.js"}],"../../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _setPrototypeOf;
+function _setPrototypeOf(o, p) {
+  exports.default = _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+  return _setPrototypeOf(o, p);
+}
+},{}],"../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _inheritsLoose;
+var _setPrototypeOf = _interopRequireDefault(require("./setPrototypeOf.js"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  (0, _setPrototypeOf.default)(subClass, superClass);
+}
+},{"./setPrototypeOf.js":"../../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js"}],"../../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.polyfill = polyfill;
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+function componentWillMount() {
+  // Call this.constructor.gDSFP to support sub-classes.
+  var state = this.constructor.getDerivedStateFromProps(this.props, this.state);
+  if (state !== null && state !== undefined) {
+    this.setState(state);
+  }
+}
+function componentWillReceiveProps(nextProps) {
+  // Call this.constructor.gDSFP to support sub-classes.
+  // Use the setState() updater to ensure state isn't stale in certain edge cases.
+  function updater(prevState) {
+    var state = this.constructor.getDerivedStateFromProps(nextProps, prevState);
+    return state !== null && state !== undefined ? state : null;
+  }
+  // Binding "this" is important for shallow renderer support.
+  this.setState(updater.bind(this));
+}
+function componentWillUpdate(nextProps, nextState) {
+  try {
+    var prevProps = this.props;
+    var prevState = this.state;
+    this.props = nextProps;
+    this.state = nextState;
+    this.__reactInternalSnapshotFlag = true;
+    this.__reactInternalSnapshot = this.getSnapshotBeforeUpdate(prevProps, prevState);
+  } finally {
+    this.props = prevProps;
+    this.state = prevState;
+  }
+}
+
+// React may warn about cWM/cWRP/cWU methods being deprecated.
+// Add a flag to suppress these warnings for this special case.
+componentWillMount.__suppressDeprecationWarning = true;
+componentWillReceiveProps.__suppressDeprecationWarning = true;
+componentWillUpdate.__suppressDeprecationWarning = true;
+function polyfill(Component) {
+  var prototype = Component.prototype;
+  if (!prototype || !prototype.isReactComponent) {
+    throw new Error('Can only polyfill class components');
+  }
+  if (typeof Component.getDerivedStateFromProps !== 'function' && typeof prototype.getSnapshotBeforeUpdate !== 'function') {
+    return Component;
+  }
+
+  // If new component APIs are defined, "unsafe" lifecycles won't be called.
+  // Error if any of these lifecycles are present,
+  // Because they would work differently between older and newer (16.3+) versions of React.
+  var foundWillMountName = null;
+  var foundWillReceivePropsName = null;
+  var foundWillUpdateName = null;
+  if (typeof prototype.componentWillMount === 'function') {
+    foundWillMountName = 'componentWillMount';
+  } else if (typeof prototype.UNSAFE_componentWillMount === 'function') {
+    foundWillMountName = 'UNSAFE_componentWillMount';
+  }
+  if (typeof prototype.componentWillReceiveProps === 'function') {
+    foundWillReceivePropsName = 'componentWillReceiveProps';
+  } else if (typeof prototype.UNSAFE_componentWillReceiveProps === 'function') {
+    foundWillReceivePropsName = 'UNSAFE_componentWillReceiveProps';
+  }
+  if (typeof prototype.componentWillUpdate === 'function') {
+    foundWillUpdateName = 'componentWillUpdate';
+  } else if (typeof prototype.UNSAFE_componentWillUpdate === 'function') {
+    foundWillUpdateName = 'UNSAFE_componentWillUpdate';
+  }
+  if (foundWillMountName !== null || foundWillReceivePropsName !== null || foundWillUpdateName !== null) {
+    var componentName = Component.displayName || Component.name;
+    var newApiName = typeof Component.getDerivedStateFromProps === 'function' ? 'getDerivedStateFromProps()' : 'getSnapshotBeforeUpdate()';
+    throw Error('Unsafe legacy lifecycles will not be called for components using new component APIs.\n\n' + componentName + ' uses ' + newApiName + ' but also contains the following legacy lifecycles:' + (foundWillMountName !== null ? '\n  ' + foundWillMountName : '') + (foundWillReceivePropsName !== null ? '\n  ' + foundWillReceivePropsName : '') + (foundWillUpdateName !== null ? '\n  ' + foundWillUpdateName : '') + '\n\nThe above lifecycles should be removed. Learn more about this warning here:\n' + 'https://fb.me/react-async-component-lifecycle-hooks');
+  }
+
+  // React <= 16.2 does not support static getDerivedStateFromProps.
+  // As a workaround, use cWM and cWRP to invoke the new static lifecycle.
+  // Newer versions of React will ignore these lifecycles if gDSFP exists.
+  if (typeof Component.getDerivedStateFromProps === 'function') {
+    prototype.componentWillMount = componentWillMount;
+    prototype.componentWillReceiveProps = componentWillReceiveProps;
+  }
+
+  // React <= 16.2 does not support getSnapshotBeforeUpdate.
+  // As a workaround, use cWU to invoke the new lifecycle.
+  // Newer versions of React will ignore that lifecycle if gSBU exists.
+  if (typeof prototype.getSnapshotBeforeUpdate === 'function') {
+    if (typeof prototype.componentDidUpdate !== 'function') {
+      throw new Error('Cannot polyfill getSnapshotBeforeUpdate() for components that do not define componentDidUpdate() on the prototype');
+    }
+    prototype.componentWillUpdate = componentWillUpdate;
+    var componentDidUpdate = prototype.componentDidUpdate;
+    prototype.componentDidUpdate = function componentDidUpdatePolyfill(prevProps, prevState, maybeSnapshot) {
+      // 16.3+ will not execute our will-update method;
+      // It will pass a snapshot value to did-update though.
+      // Older versions will require our polyfilled will-update value.
+      // We need to handle both cases, but can't just check for the presence of "maybeSnapshot",
+      // Because for <= 15.x versions this might be a "prevContext" object.
+      // We also can't just check "__reactInternalSnapshot",
+      // Because get-snapshot might return a falsy value.
+      // So check for the explicit __reactInternalSnapshotFlag flag to determine behavior.
+      var snapshot = this.__reactInternalSnapshotFlag ? this.__reactInternalSnapshot : maybeSnapshot;
+      componentDidUpdate.call(this, prevProps, prevState, snapshot);
+    };
+  }
+  return Component;
+}
+},{}],"../../node_modules/uncontrollable/lib/esm/uncontrollable.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = uncontrollable;
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
+var _extends3 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
+var _react = _interopRequireDefault(require("react"));
+var _reactLifecyclesCompat = require("react-lifecycles-compat");
+var _invariant = _interopRequireDefault(require("invariant"));
+var Utils = _interopRequireWildcard(require("./utils"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _jsxFileName = "/Users/jquense/src/uncontrollable/src/uncontrollable.js";
+function uncontrollable(Component, controlledValues, methods) {
+  if (methods === void 0) {
+    methods = [];
+  }
+  var displayName = Component.displayName || Component.name || 'Component';
+  var canAcceptRef = Utils.canAcceptRef(Component);
+  var controlledProps = Object.keys(controlledValues);
+  var PROPS_TO_OMIT = controlledProps.map(Utils.defaultKey);
+  !(canAcceptRef || !methods.length) ? "development" !== "production" ? (0, _invariant.default)(false, '[uncontrollable] stateless function components cannot pass through methods ' + 'because they have no associated instances. Check component: ' + displayName + ', ' + 'attempting to pass through methods: ' + methods.join(', ')) : (0, _invariant.default)(false) : void 0;
+  var UncontrolledComponent = /*#__PURE__*/
+  function (_React$Component) {
+    (0, _inheritsLoose2.default)(UncontrolledComponent, _React$Component);
+    function UncontrolledComponent() {
+      var _this;
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+      _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+      _this.handlers = Object.create(null);
+      controlledProps.forEach(function (propName) {
+        var handlerName = controlledValues[propName];
+        var handleChange = function handleChange(value) {
+          if (_this.props[handlerName]) {
+            var _this$props;
+            _this._notifying = true;
+            for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+              args[_key2 - 1] = arguments[_key2];
+            }
+            (_this$props = _this.props)[handlerName].apply(_this$props, [value].concat(args));
+            _this._notifying = false;
+          }
+          if (!_this.unmounted) _this.setState(function (_ref) {
+            var _extends2;
+            var values = _ref.values;
+            return {
+              values: (0, _extends3.default)(Object.create(null), values, (_extends2 = {}, _extends2[propName] = value, _extends2))
+            };
+          });
+        };
+        _this.handlers[handlerName] = handleChange;
+      });
+      if (methods.length) _this.attachRef = function (ref) {
+        _this.inner = ref;
+      };
+      var values = Object.create(null);
+      controlledProps.forEach(function (key) {
+        values[key] = _this.props[Utils.defaultKey(key)];
+      });
+      _this.state = {
+        values: values,
+        prevProps: {}
+      };
+      return _this;
+    }
+    var _proto = UncontrolledComponent.prototype;
+    _proto.shouldComponentUpdate = function shouldComponentUpdate() {
+      //let setState trigger the update
+      return !this._notifying;
+    };
+    UncontrolledComponent.getDerivedStateFromProps = function getDerivedStateFromProps(props, _ref2) {
+      var values = _ref2.values,
+        prevProps = _ref2.prevProps;
+      var nextState = {
+        values: (0, _extends3.default)(Object.create(null), values),
+        prevProps: {}
+      };
+      controlledProps.forEach(function (key) {
+        /**
+         * If a prop switches from controlled to Uncontrolled
+         * reset its value to the defaultValue
+         */
+        nextState.prevProps[key] = props[key];
+        if (!Utils.isProp(props, key) && Utils.isProp(prevProps, key)) {
+          nextState.values[key] = props[Utils.defaultKey(key)];
+        }
+      });
+      return nextState;
+    };
+    _proto.componentWillUnmount = function componentWillUnmount() {
+      this.unmounted = true;
+    };
+    _proto.render = function render() {
+      var _this2 = this;
+      var _this$props2 = this.props,
+        innerRef = _this$props2.innerRef,
+        props = (0, _objectWithoutPropertiesLoose2.default)(_this$props2, ["innerRef"]);
+      PROPS_TO_OMIT.forEach(function (prop) {
+        delete props[prop];
+      });
+      var newProps = {};
+      controlledProps.forEach(function (propName) {
+        var propValue = _this2.props[propName];
+        newProps[propName] = propValue !== undefined ? propValue : _this2.state.values[propName];
+      });
+      return _react.default.createElement(Component, (0, _extends3.default)({}, props, newProps, this.handlers, {
+        ref: innerRef || this.attachRef
+      }));
+    };
+    return UncontrolledComponent;
+  }(_react.default.Component);
+  (0, _reactLifecyclesCompat.polyfill)(UncontrolledComponent);
+  UncontrolledComponent.displayName = "Uncontrolled(" + displayName + ")";
+  UncontrolledComponent.propTypes = (0, _extends3.default)({
+    innerRef: function innerRef() {}
+  }, Utils.uncontrolledPropTypes(controlledValues, displayName));
+  methods.forEach(function (method) {
+    UncontrolledComponent.prototype[method] = function $proxiedMethod() {
+      var _this$inner;
+      return (_this$inner = this.inner)[method].apply(_this$inner, arguments);
+    };
+  });
+  var WrappedComponent = UncontrolledComponent;
+  if (_react.default.forwardRef) {
+    WrappedComponent = _react.default.forwardRef(function (props, ref) {
+      return _react.default.createElement(UncontrolledComponent, (0, _extends3.default)({}, props, {
+        innerRef: ref,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 128
+        },
+        __self: this
+      }));
+    });
+    WrappedComponent.propTypes = UncontrolledComponent.propTypes;
+  }
+  WrappedComponent.ControlledComponent = Component;
+  /**
+   * useful when wrapping a Component and you want to control
+   * everything
+   */
+
+  WrappedComponent.deferControlTo = function (newComponent, additions, nextMethods) {
+    if (additions === void 0) {
+      additions = {};
+    }
+    return uncontrollable(newComponent, (0, _extends3.default)({}, controlledValues, additions), nextMethods);
+  };
+  return WrappedComponent;
+}
+},{"@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/inheritsLoose":"../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../../node_modules/react/index.js","react-lifecycles-compat":"../../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js","invariant":"../../node_modules/invariant/browser.js","./utils":"../../node_modules/uncontrollable/lib/esm/utils.js"}],"../../node_modules/uncontrollable/lib/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "uncontrollable", {
+  enumerable: true,
+  get: function () {
+    return _uncontrollable.default;
+  }
+});
+Object.defineProperty(exports, "useUncontrolled", {
+  enumerable: true,
+  get: function () {
+    return _hook.default;
+  }
+});
+Object.defineProperty(exports, "useUncontrolledProp", {
+  enumerable: true,
+  get: function () {
+    return _hook.useUncontrolledProp;
+  }
+});
+var _hook = _interopRequireWildcard(require("./hook"));
+var _uncontrollable = _interopRequireDefault(require("./uncontrollable"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+},{"./hook":"../../node_modules/uncontrollable/lib/esm/hook.js","./uncontrollable":"../../node_modules/uncontrollable/lib/esm/uncontrollable.js"}],"../../node_modules/dom-helpers/esm/querySelectorAll.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = qsa;
+var toArray = Function.prototype.bind.call(Function.prototype.call, [].slice);
+/**
+ * Runs `querySelectorAll` on a given element.
+ * 
+ * @param element the element
+ * @param selector the selector
+ */
+
+function qsa(element, selector) {
+  return toArray(element.querySelectorAll(selector));
+}
+},{}],"../../node_modules/@restart/hooks/esm/useForceUpdate.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useForceUpdate;
+var _react = require("react");
+/**
+ * Returns a function that triggers a component update. the hook equivalent to
+ * `this.forceUpdate()` in a class component. In most cases using a state value directly
+ * is preferable but may be required in some advanced usages of refs for interop or
+ * when direct DOM manipulation is required.
+ *
+ * ```ts
+ * const forceUpdate = useForceUpdate();
+ *
+ * const updateOnClick = useCallback(() => {
+ *  forceUpdate()
+ * }, [forceUpdate])
+ *
+ * return <button type="button" onClick={updateOnClick}>Hi there</button>
+ * ```
+ */
+
+function useForceUpdate() {
+  // The toggling state value is designed to defeat React optimizations for skipping
+  // updates when they are stricting equal to the last state value
+  var _useReducer = (0, _react.useReducer)(function (state) {
+      return !state;
+    }, false),
+    dispatch = _useReducer[1];
+  return dispatch;
+}
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useMergedRefs.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+exports.mergeRefs = mergeRefs;
+var _react = require("react");
+var toFnRef = function toFnRef(ref) {
+  return !ref || typeof ref === 'function' ? ref : function (value) {
+    ref.current = value;
+  };
+};
+function mergeRefs(refA, refB) {
+  var a = toFnRef(refA);
+  var b = toFnRef(refB);
+  return function (value) {
+    if (a) a(value);
+    if (b) b(value);
+  };
+}
+/**
+ * Create and returns a single callback ref composed from two other Refs.
+ *
+ * ```tsx
+ * const Button = React.forwardRef((props, ref) => {
+ *   const [element, attachRef] = useCallbackRef<HTMLButtonElement>();
+ *   const mergedRef = useMergedRefs(ref, attachRef);
+ *
+ *   return <button ref={mergedRef} {...props}/>
+ * })
+ * ```
+ *
+ * @param refA A Callback or mutable Ref
+ * @param refB A Callback or mutable Ref
+ * @category refs
+ */
+
+function useMergedRefs(refA, refB) {
+  return (0, _react.useMemo)(function () {
+    return mergeRefs(refA, refB);
+  }, [refA, refB]);
+}
+var _default = useMergedRefs;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/NavContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var React = _interopRequireWildcard(require("react"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const NavContext = /*#__PURE__*/React.createContext(null);
+NavContext.displayName = 'NavContext';
+var _default = NavContext;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/SelectableContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.makeEventKey = exports.default = void 0;
+var React = _interopRequireWildcard(require("react"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const SelectableContext = /*#__PURE__*/React.createContext(null);
+const makeEventKey = (eventKey, href = null) => {
+  if (eventKey != null) return String(eventKey);
+  return href || null;
+};
+exports.makeEventKey = makeEventKey;
+var _default = SelectableContext;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/TabContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var React = _interopRequireWildcard(require("react"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const TabContext = /*#__PURE__*/React.createContext(null);
+var _default = TabContext;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/DataKey.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PROPERTY_PREFIX = exports.ATTRIBUTE_PREFIX = void 0;
+exports.dataAttr = dataAttr;
+exports.dataProp = dataProp;
+const ATTRIBUTE_PREFIX = `data-rr-ui-`;
+exports.ATTRIBUTE_PREFIX = ATTRIBUTE_PREFIX;
+const PROPERTY_PREFIX = `rrUi`;
+exports.PROPERTY_PREFIX = PROPERTY_PREFIX;
+function dataAttr(property) {
+  return `${ATTRIBUTE_PREFIX}${property}`;
+}
+function dataProp(property) {
+  return `${PROPERTY_PREFIX}${property}`;
+}
+},{}],"../../node_modules/@restart/hooks/esm/useCommittedRef.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = require("react");
+/**
+ * Creates a `Ref` whose value is updated in an effect, ensuring the most recent
+ * value is the one rendered with. Generally only required for Concurrent mode usage
+ * where previous work in `render()` may be discarded before being used.
+ *
+ * This is safe to access in an event handler.
+ *
+ * @param value The `Ref` value
+ */
+
+function useCommittedRef(value) {
+  var ref = (0, _react.useRef)(value);
+  (0, _react.useEffect)(function () {
+    ref.current = value;
+  }, [value]);
+  return ref;
+}
+var _default = useCommittedRef;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useEventCallback.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useEventCallback;
+var _react = require("react");
+var _useCommittedRef = _interopRequireDefault(require("./useCommittedRef"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function useEventCallback(fn) {
+  var ref = (0, _useCommittedRef.default)(fn);
+  return (0, _react.useCallback)(function () {
+    return ref.current && ref.current.apply(ref, arguments);
+  }, [ref]);
+}
+},{"react":"../../node_modules/react/index.js","./useCommittedRef":"../../node_modules/@restart/hooks/esm/useCommittedRef.js"}],"../../node_modules/@restart/ui/esm/Button.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+exports.isTrivialHref = isTrivialHref;
+exports.useButtonProps = useButtonProps;
+var React = _interopRequireWildcard(require("react"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const _excluded = ["as", "disabled"];
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+function isTrivialHref(href) {
+  return !href || href.trim() === '#';
+}
+function useButtonProps({
+  tagName,
+  disabled,
+  href,
+  target,
+  rel,
+  role,
+  onClick,
+  tabIndex = 0,
+  type
+}) {
+  if (!tagName) {
+    if (href != null || target != null || rel != null) {
+      tagName = 'a';
+    } else {
+      tagName = 'button';
+    }
+  }
+  const meta = {
+    tagName
+  };
+  if (tagName === 'button') {
+    return [{
+      type: type || 'button',
+      disabled
+    }, meta];
+  }
+  const handleClick = event => {
+    if (disabled || tagName === 'a' && isTrivialHref(href)) {
+      event.preventDefault();
+    }
+    if (disabled) {
+      event.stopPropagation();
+      return;
+    }
+    onClick == null ? void 0 : onClick(event);
+  };
+  const handleKeyDown = event => {
+    if (event.key === ' ') {
+      event.preventDefault();
+      handleClick(event);
+    }
+  };
+  if (tagName === 'a') {
+    // Ensure there's a href so Enter can trigger anchor button.
+    href || (href = '#');
+    if (disabled) {
+      href = undefined;
+    }
+  }
+  return [{
+    role: role != null ? role : 'button',
+    // explicitly undefined so that it overrides the props disabled in a spread
+    // e.g. <Tag {...props} {...hookProps} />
+    disabled: undefined,
+    tabIndex: disabled ? undefined : tabIndex,
+    href,
+    target: tagName === 'a' ? target : undefined,
+    'aria-disabled': !disabled ? undefined : disabled,
+    rel: tagName === 'a' ? rel : undefined,
+    onClick: handleClick,
+    onKeyDown: handleKeyDown
+  }, meta];
+}
+const Button = /*#__PURE__*/React.forwardRef((_ref, ref) => {
+  let {
+      as: asProp,
+      disabled
+    } = _ref,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded);
+  const [buttonProps, {
+    tagName: Component
+  }] = useButtonProps(Object.assign({
+    tagName: asProp,
+    disabled
+  }, props));
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, Object.assign({}, props, buttonProps, {
+    ref: ref
+  }));
+});
+Button.displayName = 'Button';
+var _default = Button;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/NavItem.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+exports.useNavItem = useNavItem;
+var React = _interopRequireWildcard(require("react"));
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _NavContext = _interopRequireDefault(require("./NavContext"));
+var _SelectableContext = _interopRequireWildcard(require("./SelectableContext"));
+var _Button = _interopRequireDefault(require("./Button"));
+var _DataKey = require("./DataKey");
+var _TabContext = _interopRequireDefault(require("./TabContext"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const _excluded = ["as", "active", "eventKey"];
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+function useNavItem({
+  key,
+  onClick,
+  active,
+  id,
+  role,
+  disabled
+}) {
+  const parentOnSelect = (0, React.useContext)(_SelectableContext.default);
+  const navContext = (0, React.useContext)(_NavContext.default);
+  const tabContext = (0, React.useContext)(_TabContext.default);
+  let isActive = active;
+  const props = {
+    role
+  };
+  if (navContext) {
+    if (!role && navContext.role === 'tablist') props.role = 'tab';
+    const contextControllerId = navContext.getControllerId(key != null ? key : null);
+    const contextControlledId = navContext.getControlledId(key != null ? key : null);
+
+    // @ts-ignore
+    props[(0, _DataKey.dataAttr)('event-key')] = key;
+    props.id = contextControllerId || id;
+    isActive = active == null && key != null ? navContext.activeKey === key : active;
+
+    /**
+     * Simplified scenario for `mountOnEnter`.
+     *
+     * While it would make sense to keep 'aria-controls' for tabs that have been mounted at least
+     * once, it would also complicate the code quite a bit, for very little gain.
+     * The following implementation is probably good enough.
+     *
+     * @see https://github.com/react-restart/ui/pull/40#issuecomment-1009971561
+     */
+    if (isActive || !(tabContext != null && tabContext.unmountOnExit) && !(tabContext != null && tabContext.mountOnEnter)) props['aria-controls'] = contextControlledId;
+  }
+  if (props.role === 'tab') {
+    props['aria-selected'] = isActive;
+    if (!isActive) {
+      props.tabIndex = -1;
+    }
+    if (disabled) {
+      props.tabIndex = -1;
+      props['aria-disabled'] = true;
+    }
+  }
+  props.onClick = (0, _useEventCallback.default)(e => {
+    if (disabled) return;
+    onClick == null ? void 0 : onClick(e);
+    if (key == null) {
+      return;
+    }
+    if (parentOnSelect && !e.isPropagationStopped()) {
+      parentOnSelect(key, e);
+    }
+  });
+  return [props, {
+    isActive
+  }];
+}
+const NavItem = /*#__PURE__*/React.forwardRef((_ref, ref) => {
+  let {
+      as: Component = _Button.default,
+      active,
+      eventKey
+    } = _ref,
+    options = _objectWithoutPropertiesLoose(_ref, _excluded);
+  const [props, meta] = useNavItem(Object.assign({
+    key: (0, _SelectableContext.makeEventKey)(eventKey, options.href),
+    active
+  }, options));
+
+  // @ts-ignore
+  props[(0, _DataKey.dataAttr)('active')] = meta.isActive;
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, Object.assign({}, options, props, {
+    ref: ref
+  }));
+});
+NavItem.displayName = 'NavItem';
+var _default = NavItem;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./NavContext":"../../node_modules/@restart/ui/esm/NavContext.js","./SelectableContext":"../../node_modules/@restart/ui/esm/SelectableContext.js","./Button":"../../node_modules/@restart/ui/esm/Button.js","./DataKey":"../../node_modules/@restart/ui/esm/DataKey.js","./TabContext":"../../node_modules/@restart/ui/esm/TabContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/Nav.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _querySelectorAll = _interopRequireDefault(require("dom-helpers/querySelectorAll"));
+var React = _interopRequireWildcard(require("react"));
+var _useForceUpdate = _interopRequireDefault(require("@restart/hooks/useForceUpdate"));
+var _useMergedRefs = _interopRequireDefault(require("@restart/hooks/useMergedRefs"));
+var _NavContext = _interopRequireDefault(require("./NavContext"));
+var _SelectableContext = _interopRequireWildcard(require("./SelectableContext"));
+var _TabContext = _interopRequireDefault(require("./TabContext"));
+var _DataKey = require("./DataKey");
+var _NavItem = _interopRequireDefault(require("./NavItem"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const _excluded = ["as", "onSelect", "activeKey", "role", "onKeyDown"];
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {};
+const EVENT_KEY_ATTR = (0, _DataKey.dataAttr)('event-key');
+const Nav = /*#__PURE__*/React.forwardRef((_ref, ref) => {
+  let {
+      // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+      as: Component = 'div',
+      onSelect,
+      activeKey,
+      role,
+      onKeyDown
+    } = _ref,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded);
+  // A ref and forceUpdate for refocus, b/c we only want to trigger when needed
+  // and don't want to reset the set in the effect
+  const forceUpdate = (0, _useForceUpdate.default)();
+  const needsRefocusRef = (0, React.useRef)(false);
+  const parentOnSelect = (0, React.useContext)(_SelectableContext.default);
+  const tabContext = (0, React.useContext)(_TabContext.default);
+  let getControlledId, getControllerId;
+  if (tabContext) {
+    role = role || 'tablist';
+    activeKey = tabContext.activeKey;
+    // TODO: do we need to duplicate these?
+    getControlledId = tabContext.getControlledId;
+    getControllerId = tabContext.getControllerId;
+  }
+  const listNode = (0, React.useRef)(null);
+  const getNextActiveTab = offset => {
+    const currentListNode = listNode.current;
+    if (!currentListNode) return null;
+    const items = (0, _querySelectorAll.default)(currentListNode, `[${EVENT_KEY_ATTR}]:not([aria-disabled=true])`);
+    const activeChild = currentListNode.querySelector('[aria-selected=true]');
+    if (!activeChild || activeChild !== document.activeElement) return null;
+    const index = items.indexOf(activeChild);
+    if (index === -1) return null;
+    let nextIndex = index + offset;
+    if (nextIndex >= items.length) nextIndex = 0;
+    if (nextIndex < 0) nextIndex = items.length - 1;
+    return items[nextIndex];
+  };
+  const handleSelect = (key, event) => {
+    if (key == null) return;
+    onSelect == null ? void 0 : onSelect(key, event);
+    parentOnSelect == null ? void 0 : parentOnSelect(key, event);
+  };
+  const handleKeyDown = event => {
+    onKeyDown == null ? void 0 : onKeyDown(event);
+    if (!tabContext) {
+      return;
+    }
+    let nextActiveChild;
+    switch (event.key) {
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        nextActiveChild = getNextActiveTab(-1);
+        break;
+      case 'ArrowRight':
+      case 'ArrowDown':
+        nextActiveChild = getNextActiveTab(1);
+        break;
+      default:
+        return;
+    }
+    if (!nextActiveChild) return;
+    event.preventDefault();
+    handleSelect(nextActiveChild.dataset[(0, _DataKey.dataProp)('EventKey')] || null, event);
+    needsRefocusRef.current = true;
+    forceUpdate();
+  };
+  (0, React.useEffect)(() => {
+    if (listNode.current && needsRefocusRef.current) {
+      const activeChild = listNode.current.querySelector(`[${EVENT_KEY_ATTR}][aria-selected=true]`);
+      activeChild == null ? void 0 : activeChild.focus();
+    }
+    needsRefocusRef.current = false;
+  });
+  const mergedRef = (0, _useMergedRefs.default)(ref, listNode);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_SelectableContext.default.Provider, {
+    value: handleSelect,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_NavContext.default.Provider, {
+      value: {
+        role,
+        // used by NavLink to determine it's role
+        activeKey: (0, _SelectableContext.makeEventKey)(activeKey),
+        getControlledId: getControlledId || noop,
+        getControllerId: getControllerId || noop
+      },
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, Object.assign({}, props, {
+        onKeyDown: handleKeyDown,
+        ref: mergedRef,
+        role: role
+      }))
+    })
+  });
+});
+Nav.displayName = 'Nav';
+var _default = Object.assign(Nav, {
+  Item: _NavItem.default
+});
+exports.default = _default;
+},{"dom-helpers/querySelectorAll":"../../node_modules/dom-helpers/esm/querySelectorAll.js","react":"../../node_modules/react/index.js","@restart/hooks/useForceUpdate":"../../node_modules/@restart/hooks/esm/useForceUpdate.js","@restart/hooks/useMergedRefs":"../../node_modules/@restart/hooks/esm/useMergedRefs.js","./NavContext":"../../node_modules/@restart/ui/esm/NavContext.js","./SelectableContext":"../../node_modules/@restart/ui/esm/SelectableContext.js","./TabContext":"../../node_modules/@restart/ui/esm/TabContext.js","./DataKey":"../../node_modules/@restart/ui/esm/DataKey.js","./NavItem":"../../node_modules/@restart/ui/esm/NavItem.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavbarContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var React = _interopRequireWildcard(require("react"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+// TODO: check
+
+const context = /*#__PURE__*/React.createContext(null);
+context.displayName = 'NavbarContext';
+var _default = context;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/CardHeaderContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var React = _interopRequireWildcard(require("react"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const context = /*#__PURE__*/React.createContext(null);
+context.displayName = 'CardHeaderContext';
+var _default = context;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/dom-helpers/esm/camelize.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = camelize;
+var rHyphen = /-(.)/g;
+function camelize(string) {
+  return string.replace(rHyphen, function (_, chr) {
+    return chr.toUpperCase();
+  });
+}
+},{}],"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = createWithBsPrefix;
+var _classnames = _interopRequireDefault(require("classnames"));
+var _camelize = _interopRequireDefault(require("dom-helpers/camelize"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const pascalCase = str => str[0].toUpperCase() + (0, _camelize.default)(str).slice(1);
+// TODO: emstricten & fix the typing here! `createWithBsPrefix<TElementType>...`
+function createWithBsPrefix(prefix, {
+  displayName = pascalCase(prefix),
+  Component,
+  defaultProps
+} = {}) {
+  const BsComponent = /*#__PURE__*/React.forwardRef(({
+    className,
+    bsPrefix,
+    as: Tag = Component || 'div',
+    ...props
+  }, ref) => {
+    const resolvedPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, prefix);
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)(Tag, {
+      ref: ref,
+      className: (0, _classnames.default)(className, resolvedPrefix),
+      ...props
+    });
+  });
+  BsComponent.defaultProps = defaultProps;
+  BsComponent.displayName = displayName;
+  return BsComponent;
+}
+},{"classnames":"../../node_modules/classnames/index.js","dom-helpers/camelize":"../../node_modules/dom-helpers/esm/camelize.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavItem.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _default = (0, _createWithBsPrefix.default)('nav-item');
+exports.default = _default;
+},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/@restart/hooks/esm/useCallbackRef.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useCallbackRef;
+var _react = require("react");
+/**
+ * A convenience hook around `useState` designed to be paired with
+ * the component [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) api.
+ * Callback refs are useful over `useRef()` when you need to respond to the ref being set
+ * instead of lazily accessing it in an effect.
+ *
+ * ```ts
+ * const [element, attachRef] = useCallbackRef<HTMLDivElement>()
+ *
+ * useEffect(() => {
+ *   if (!element) return
+ *
+ *   const calendar = new FullCalendar.Calendar(element)
+ *
+ *   return () => {
+ *     calendar.destroy()
+ *   }
+ * }, [element])
+ *
+ * return <div ref={attachRef} />
+ * ```
+ *
+ * @category refs
+ */
+
+function useCallbackRef() {
+  return (0, _react.useState)(null);
+}
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useEventListener.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useEventListener;
+var _react = require("react");
+var _useEventCallback = _interopRequireDefault(require("./useEventCallback"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * Attaches an event handler outside directly to specified DOM element
+ * bypassing the react synthetic event system.
+ *
+ * @param element The target to listen for events on
+ * @param event The DOM event name
+ * @param handler An event handler
+ * @param capture Whether or not to listen during the capture event phase
+ */
+function useEventListener(eventTarget, event, listener, capture) {
+  if (capture === void 0) {
+    capture = false;
+  }
+  var handler = (0, _useEventCallback.default)(listener);
+  (0, _react.useEffect)(function () {
+    var target = typeof eventTarget === 'function' ? eventTarget() : eventTarget;
+    target.addEventListener(event, handler, capture);
+    return function () {
+      return target.removeEventListener(event, handler, capture);
+    };
+  }, [eventTarget]);
+}
+},{"react":"../../node_modules/react/index.js","./useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js"}],"../../node_modules/@restart/hooks/esm/useGlobalListener.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useGlobalListener;
+var _useEventListener = _interopRequireDefault(require("./useEventListener"));
+var _react = require("react");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * Attaches an event handler outside directly to the `document`,
+ * bypassing the react synthetic event system.
+ *
+ * ```ts
+ * useGlobalListener('keydown', (event) => {
+ *  console.log(event.key)
+ * })
+ * ```
+ *
+ * @param event The DOM event name
+ * @param handler An event handler
+ * @param capture Whether or not to listen during the capture event phase
+ */
+function useGlobalListener(event, handler, capture) {
+  if (capture === void 0) {
+    capture = false;
+  }
+  var documentTarget = (0, _react.useCallback)(function () {
+    return document;
+  }, []);
+  return (0, _useEventListener.default)(documentTarget, event, handler, capture);
+}
+},{"./useEventListener":"../../node_modules/@restart/hooks/esm/useEventListener.js","react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useInterval.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = require("react");
+var _useCommittedRef = _interopRequireDefault(require("./useCommittedRef"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * Creates a `setInterval` that is properly cleaned up when a component unmounted
+ *
+ * ```tsx
+ *  function Timer() {
+ *    const [timer, setTimer] = useState(0)
+ *    useInterval(() => setTimer(i => i + 1), 1000)
+ *
+ *    return <span>{timer} seconds past</span>
+ *  }
+ * ```
+ *
+ * @param fn an function run on each interval
+ * @param ms The milliseconds duration of the interval
+ */
+
+function useInterval(fn, ms, paused, runImmediately) {
+  if (paused === void 0) {
+    paused = false;
+  }
+  if (runImmediately === void 0) {
+    runImmediately = false;
+  }
+  var handle;
+  var fnRef = (0, _useCommittedRef.default)(fn); // this ref is necessary b/c useEffect will sometimes miss a paused toggle
+  // orphaning a setTimeout chain in the aether, so relying on it's refresh logic is not reliable.
+
+  var pausedRef = (0, _useCommittedRef.default)(paused);
+  var tick = function tick() {
+    if (pausedRef.current) return;
+    fnRef.current();
+    schedule(); // eslint-disable-line no-use-before-define
+  };
+
+  var schedule = function schedule() {
+    clearTimeout(handle);
+    handle = setTimeout(tick, ms);
+  };
+  (0, _react.useEffect)(function () {
+    if (runImmediately) {
+      tick();
+    } else {
+      schedule();
+    }
+    return function () {
+      return clearTimeout(handle);
+    };
+  }, [paused, runImmediately]);
+}
+var _default = useInterval;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","./useCommittedRef":"../../node_modules/@restart/hooks/esm/useCommittedRef.js"}],"../../node_modules/@restart/hooks/esm/useRafInterval.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = require("react");
+var _useCommittedRef = _interopRequireDefault(require("./useCommittedRef"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function useRafInterval(fn, ms, paused) {
+  if (paused === void 0) {
+    paused = false;
+  }
+  var handle;
+  var start = new Date().getTime();
+  var fnRef = (0, _useCommittedRef.default)(fn); // this ref is necessary b/c useEffect will sometimes miss a paused toggle
+  // orphaning a setTimeout chain in the aether, so relying on it's refresh logic is not reliable.
+
+  var pausedRef = (0, _useCommittedRef.default)(paused);
+  function loop() {
+    var current = new Date().getTime();
+    var delta = current - start;
+    if (pausedRef.current) return;
+    if (delta >= ms && fnRef.current) {
+      fnRef.current();
+      start = new Date().getTime();
+    }
+    cancelAnimationFrame(handle);
+    handle = requestAnimationFrame(loop);
+  }
+  (0, _react.useEffect)(function () {
+    handle = requestAnimationFrame(loop);
+    return function () {
+      return cancelAnimationFrame(handle);
+    };
+  }, []);
+}
+var _default = useRafInterval;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","./useCommittedRef":"../../node_modules/@restart/hooks/esm/useCommittedRef.js"}],"../../node_modules/@restart/hooks/esm/useMergeState.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useMergeState;
+var _react = require("react");
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
+}
+/**
+ * Mimics a React class component's state model, of having a single unified
+ * `state` object and an updater that merges updates into the existing state, as
+ * opposed to replacing it.
+ *
+ * ```js
+ * const [state, setState] = useMergeState({ name: 'Betsy', age: 24 })
+ *
+ * setState({ name: 'Johan' }) // { name: 'Johan', age: 24 }
+ *
+ * setState(state => ({ age: state.age + 10 })) // { name: 'Johan', age: 34 }
+ * ```
+ *
+ * @param initialState The initial state object
+ */
+function useMergeState(initialState) {
+  var _useState = (0, _react.useState)(initialState),
+    state = _useState[0],
+    setState = _useState[1];
+  var updater = (0, _react.useCallback)(function (update) {
+    if (update === null) return;
+    if (typeof update === 'function') {
+      setState(function (state) {
+        var nextState = update(state);
+        return nextState == null ? state : _extends({}, state, nextState);
+      });
+    } else {
+      setState(function (state) {
+        return _extends({}, state, update);
+      });
+    }
+  }, [setState]);
+  return [state, updater];
+}
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useMergeStateFromProps.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useMergeStateFromProps;
+var _useMergeState2 = _interopRequireDefault(require("./useMergeState"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function useMergeStateFromProps(props, gDSFP, initialState) {
+  var _useMergeState = (0, _useMergeState2.default)(initialState),
+    state = _useMergeState[0],
+    setState = _useMergeState[1];
+  var nextState = gDSFP(props, state);
+  if (nextState !== null) setState(nextState);
+  return [state, setState];
+}
+},{"./useMergeState":"../../node_modules/@restart/hooks/esm/useMergeState.js"}],"../../node_modules/@restart/hooks/esm/useMounted.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useMounted;
+var _react = require("react");
+/**
+ * Track whether a component is current mounted. Generally less preferable than
+ * properlly canceling effects so they don't run after a component is unmounted,
+ * but helpful in cases where that isn't feasible, such as a `Promise` resolution.
+ *
+ * @returns a function that returns the current isMounted state of the component
+ *
+ * ```ts
+ * const [data, setData] = useState(null)
+ * const isMounted = useMounted()
+ *
+ * useEffect(() => {
+ *   fetchdata().then((newData) => {
+ *      if (isMounted()) {
+ *        setData(newData);
+ *      }
+ *   })
+ * })
+ * ```
+ */
+
+function useMounted() {
+  var mounted = (0, _react.useRef)(true);
+  var isMounted = (0, _react.useRef)(function () {
+    return mounted.current;
+  });
+  (0, _react.useEffect)(function () {
+    mounted.current = true;
+    return function () {
+      mounted.current = false;
+    };
+  }, []);
+  return isMounted.current;
+}
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/usePrevious.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = usePrevious;
+var _react = require("react");
+/**
+ * Store the last of some value. Tracked via a `Ref` only updating it
+ * after the component renders.
+ *
+ * Helpful if you need to compare a prop value to it's previous value during render.
+ *
+ * ```ts
+ * function Component(props) {
+ *   const lastProps = usePrevious(props)
+ *
+ *   if (lastProps.foo !== props.foo)
+ *     resetValueFromProps(props.foo)
+ * }
+ * ```
+ *
+ * @param value the value to track
+ */
+
+function usePrevious(value) {
+  var ref = (0, _react.useRef)(null);
+  (0, _react.useEffect)(function () {
+    ref.current = value;
+  });
+  return ref.current;
+}
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useImage.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useImage;
+var _react = require("react");
+/**
+ * Fetch and load an image for programatic use such as in a `<canvas>` element.
+ *
+ * @param imageOrUrl The `HtmlImageElement` or image url to load
+ * @param crossOrigin The `crossorigin` attribute to set
+ *
+ * ```ts
+ * const { image, error } = useImage('/static/kittens.png')
+ * const ref = useRef<HTMLCanvasElement>()
+ *
+ * useEffect(() => {
+ *   const ctx = ref.current.getContext('2d')
+ *
+ *   if (image) {
+ *     ctx.drawImage(image, 0, 0)
+ *   }
+ * }, [ref, image])
+ *
+ * return (
+ *   <>
+ *     {error && "there was a problem loading the image"}
+ *     <canvas ref={ref} />
+ *   </>
+ * ```
+ */
+function useImage(imageOrUrl, crossOrigin) {
+  var _useState = (0, _react.useState)({
+      image: null,
+      error: null
+    }),
+    state = _useState[0],
+    setState = _useState[1];
+  (0, _react.useEffect)(function () {
+    if (!imageOrUrl) return undefined;
+    var image;
+    if (typeof imageOrUrl === 'string') {
+      image = new Image();
+      if (crossOrigin) image.crossOrigin = crossOrigin;
+      image.src = imageOrUrl;
+    } else {
+      image = imageOrUrl;
+      if (image.complete && image.naturalHeight > 0) {
+        setState({
+          image: image,
+          error: null
+        });
+        return;
+      }
+    }
+    function onLoad() {
+      setState({
+        image: image,
+        error: null
+      });
+    }
+    function onError(error) {
+      setState({
+        image: image,
+        error: error
+      });
+    }
+    image.addEventListener('load', onLoad);
+    image.addEventListener('error', onError);
+    return function () {
+      image.removeEventListener('load', onLoad);
+      image.removeEventListener('error', onError);
+    };
+  }, [imageOrUrl, crossOrigin]);
+  return state;
+}
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useIsomorphicEffect.js":[function(require,module,exports) {
+var global = arguments[3];
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = require("react");
+var isReactNative = typeof global !== 'undefined' &&
+// @ts-ignore
+global.navigator &&
+// @ts-ignore
+global.navigator.product === 'ReactNative';
+var isDOM = typeof document !== 'undefined';
+/**
+ * Is `useLayoutEffect` in a DOM or React Native environment, otherwise resolves to useEffect
+ * Only useful to avoid the console warning.
+ *
+ * PREFER `useEffect` UNLESS YOU KNOW WHAT YOU ARE DOING.
+ *
+ * @category effects
+ */
+var _default = isDOM || isReactNative ? _react.useLayoutEffect : _react.useEffect;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useResizeObserver.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useResizeObserver;
+var _react = require("react");
+var _useIsomorphicEffect = _interopRequireDefault(require("./useIsomorphicEffect"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var targetMap = new WeakMap();
+var resizeObserver;
+function getResizeObserver() {
+  // eslint-disable-next-line no-return-assign
+  return resizeObserver = resizeObserver || new window.ResizeObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var handler = targetMap.get(entry.target);
+      if (handler) handler(entry.contentRect);
+    });
+  });
+}
+/**
+ * Efficiently observe size changes on an element. Depends on the `ResizeObserver` api,
+ * and polyfills are needed in older browsers.
+ *
+ * ```ts
+ * const [ref, attachRef] = useCallbackRef(null);
+ *
+ * const rect = useResizeObserver(ref);
+ *
+ * return (
+ *  <div ref={attachRef}>
+ *    {JSON.stringify(rect)}
+ *  </div>
+ * )
+ * ```
+ *
+ * @param element The DOM element to observe
+ */
+
+function useResizeObserver(element) {
+  var _useState = (0, _react.useState)(null),
+    rect = _useState[0],
+    setRect = _useState[1];
+  (0, _useIsomorphicEffect.default)(function () {
+    if (!element) return;
+    getResizeObserver().observe(element);
+    setRect(element.getBoundingClientRect());
+    targetMap.set(element, function (rect) {
+      setRect(rect);
+    });
+    return function () {
+      targetMap.delete(element);
+    };
+  }, [element]);
+  return rect;
+}
+},{"react":"../../node_modules/react/index.js","./useIsomorphicEffect":"../../node_modules/@restart/hooks/esm/useIsomorphicEffect.js"}],"../../node_modules/@restart/hooks/esm/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "useCallbackRef", {
+  enumerable: true,
+  get: function () {
+    return _useCallbackRef.default;
+  }
+});
+Object.defineProperty(exports, "useCommittedRef", {
+  enumerable: true,
+  get: function () {
+    return _useCommittedRef.default;
+  }
+});
+Object.defineProperty(exports, "useEventCallback", {
+  enumerable: true,
+  get: function () {
+    return _useEventCallback.default;
+  }
+});
+Object.defineProperty(exports, "useEventListener", {
+  enumerable: true,
+  get: function () {
+    return _useEventListener.default;
+  }
+});
+Object.defineProperty(exports, "useGlobalListener", {
+  enumerable: true,
+  get: function () {
+    return _useGlobalListener.default;
+  }
+});
+Object.defineProperty(exports, "useImage", {
+  enumerable: true,
+  get: function () {
+    return _useImage.default;
+  }
+});
+Object.defineProperty(exports, "useInterval", {
+  enumerable: true,
+  get: function () {
+    return _useInterval.default;
+  }
+});
+Object.defineProperty(exports, "useMergeState", {
+  enumerable: true,
+  get: function () {
+    return _useMergeState.default;
+  }
+});
+Object.defineProperty(exports, "useMergeStateFromProps", {
+  enumerable: true,
+  get: function () {
+    return _useMergeStateFromProps.default;
+  }
+});
+Object.defineProperty(exports, "useMounted", {
+  enumerable: true,
+  get: function () {
+    return _useMounted.default;
+  }
+});
+Object.defineProperty(exports, "usePrevious", {
+  enumerable: true,
+  get: function () {
+    return _usePrevious.default;
+  }
+});
+Object.defineProperty(exports, "useRafInterval", {
+  enumerable: true,
+  get: function () {
+    return _useRafInterval.default;
+  }
+});
+Object.defineProperty(exports, "useResizeObserver", {
+  enumerable: true,
+  get: function () {
+    return _useResizeObserver.default;
+  }
+});
+var _useCallbackRef = _interopRequireDefault(require("./useCallbackRef"));
+var _useCommittedRef = _interopRequireDefault(require("./useCommittedRef"));
+var _useEventCallback = _interopRequireDefault(require("./useEventCallback"));
+var _useEventListener = _interopRequireDefault(require("./useEventListener"));
+var _useGlobalListener = _interopRequireDefault(require("./useGlobalListener"));
+var _useInterval = _interopRequireDefault(require("./useInterval"));
+var _useRafInterval = _interopRequireDefault(require("./useRafInterval"));
+var _useMergeState = _interopRequireDefault(require("./useMergeState"));
+var _useMergeStateFromProps = _interopRequireDefault(require("./useMergeStateFromProps"));
+var _useMounted = _interopRequireDefault(require("./useMounted"));
+var _usePrevious = _interopRequireDefault(require("./usePrevious"));
+var _useImage = _interopRequireDefault(require("./useImage"));
+var _useResizeObserver = _interopRequireDefault(require("./useResizeObserver"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./useCallbackRef":"../../node_modules/@restart/hooks/esm/useCallbackRef.js","./useCommittedRef":"../../node_modules/@restart/hooks/esm/useCommittedRef.js","./useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./useEventListener":"../../node_modules/@restart/hooks/esm/useEventListener.js","./useGlobalListener":"../../node_modules/@restart/hooks/esm/useGlobalListener.js","./useInterval":"../../node_modules/@restart/hooks/esm/useInterval.js","./useRafInterval":"../../node_modules/@restart/hooks/esm/useRafInterval.js","./useMergeState":"../../node_modules/@restart/hooks/esm/useMergeState.js","./useMergeStateFromProps":"../../node_modules/@restart/hooks/esm/useMergeStateFromProps.js","./useMounted":"../../node_modules/@restart/hooks/esm/useMounted.js","./usePrevious":"../../node_modules/@restart/hooks/esm/usePrevious.js","./useImage":"../../node_modules/@restart/hooks/esm/useImage.js","./useResizeObserver":"../../node_modules/@restart/hooks/esm/useResizeObserver.js"}],"../../node_modules/@restart/ui/esm/Anchor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+exports.isTrivialHref = isTrivialHref;
+var React = _interopRequireWildcard(require("react"));
+var _hooks = require("@restart/hooks");
+var _Button = require("./Button");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const _excluded = ["onKeyDown"];
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/anchor-has-content */
+
+function isTrivialHref(href) {
+  return !href || href.trim() === '#';
+}
+/**
+ * An generic `<a>` component that covers a few A11y cases, ensuring that
+ * cases where the `href` is missing or trivial like "#" are treated like buttons.
+ */
+const Anchor = /*#__PURE__*/React.forwardRef((_ref, ref) => {
+  let {
+      onKeyDown
+    } = _ref,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded);
+  const [buttonProps] = (0, _Button.useButtonProps)(Object.assign({
+    tagName: 'a'
+  }, props));
+  const handleKeyDown = (0, _hooks.useEventCallback)(e => {
+    buttonProps.onKeyDown(e);
+    onKeyDown == null ? void 0 : onKeyDown(e);
+  });
+  if (isTrivialHref(props.href) || props.role === 'button') {
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)("a", Object.assign({
+      ref: ref
+    }, props, buttonProps, {
+      onKeyDown: handleKeyDown
+    }));
+  }
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)("a", Object.assign({
+    ref: ref
+  }, props, {
+    onKeyDown: onKeyDown
+  }));
+});
+Anchor.displayName = 'Anchor';
+var _default = Anchor;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","@restart/hooks":"../../node_modules/@restart/hooks/esm/index.js","./Button":"../../node_modules/@restart/ui/esm/Button.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavLink.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
+var _NavItem = require("@restart/ui/NavItem");
+var _SelectableContext = require("@restart/ui/SelectableContext");
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  disabled: false
+};
+const NavLink = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  as: Component = _Anchor.default,
+  active,
+  eventKey,
+  ...props
+}, ref) => {
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'nav-link');
+  const [navItemProps, meta] = (0, _NavItem.useNavItem)({
+    key: (0, _SelectableContext.makeEventKey)(eventKey, props.href),
+    active,
+    ...props
+  });
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ...props,
+    ...navItemProps,
+    ref: ref,
+    className: (0, _classnames.default)(className, bsPrefix, props.disabled && 'disabled', meta.isActive && 'active')
+  });
+});
+NavLink.displayName = 'NavLink';
+NavLink.defaultProps = defaultProps;
+var _default = NavLink;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","@restart/ui/NavItem":"../../node_modules/@restart/ui/esm/NavItem.js","@restart/ui/SelectableContext":"../../node_modules/@restart/ui/esm/SelectableContext.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Nav.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var _all = _interopRequireDefault(require("prop-types-extra/lib/all"));
+var React = _interopRequireWildcard(require("react"));
+var _uncontrollable = require("uncontrollable");
+var _Nav = _interopRequireDefault(require("@restart/ui/Nav"));
+var _ThemeProvider = require("./ThemeProvider");
+var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
+var _CardHeaderContext = _interopRequireDefault(require("./CardHeaderContext"));
+var _NavItem = _interopRequireDefault(require("./NavItem"));
+var _NavLink = _interopRequireDefault(require("./NavLink"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  justify: false,
+  fill: false
+};
+const Nav = /*#__PURE__*/React.forwardRef((uncontrolledProps, ref) => {
+  const {
+    as = 'div',
+    bsPrefix: initialBsPrefix,
+    variant,
+    fill,
+    justify,
+    navbar,
+    navbarScroll,
+    className,
+    activeKey,
+    ...props
+  } = (0, _uncontrollable.useUncontrolled)(uncontrolledProps, {
+    activeKey: 'onSelect'
+  });
+  const bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(initialBsPrefix, 'nav');
+  let navbarBsPrefix;
+  let cardHeaderBsPrefix;
+  let isNavbar = false;
+  const navbarContext = (0, React.useContext)(_NavbarContext.default);
+  const cardHeaderContext = (0, React.useContext)(_CardHeaderContext.default);
+  if (navbarContext) {
+    navbarBsPrefix = navbarContext.bsPrefix;
+    isNavbar = navbar == null ? true : navbar;
+  } else if (cardHeaderContext) {
+    ({
+      cardHeaderBsPrefix
+    } = cardHeaderContext);
+  }
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Nav.default, {
+    as: as,
+    ref: ref,
+    activeKey: activeKey,
+    className: (0, _classnames.default)(className, {
+      [bsPrefix]: !isNavbar,
+      [`${navbarBsPrefix}-nav`]: isNavbar,
+      [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
+      [`${cardHeaderBsPrefix}-${variant}`]: !!cardHeaderBsPrefix,
+      [`${bsPrefix}-${variant}`]: !!variant,
+      [`${bsPrefix}-fill`]: fill,
+      [`${bsPrefix}-justified`]: justify
+    }),
+    ...props
+  });
+});
+Nav.displayName = 'Nav';
+Nav.defaultProps = defaultProps;
+var _default = Object.assign(Nav, {
+  Item: _NavItem.default,
+  Link: _NavLink.default
+});
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","prop-types-extra/lib/all":"../../node_modules/prop-types-extra/lib/all.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","@restart/ui/Nav":"../../node_modules/@restart/ui/esm/Nav.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","./CardHeaderContext":"../../node_modules/react-bootstrap/esm/CardHeaderContext.js","./NavItem":"../../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../../node_modules/react-bootstrap/esm/NavLink.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavbarBrand.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const NavbarBrand = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  as,
+  ...props
+}, ref) => {
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'navbar-brand');
+  const Component = as || (props.href ? 'a' : 'span');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ...props,
+    ref: ref,
+    className: (0, _classnames.default)(className, bsPrefix)
+  });
+});
+NavbarBrand.displayName = 'NavbarBrand';
+var _default = NavbarBrand;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/dom-helpers/esm/ownerDocument.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36615,53 +38222,7 @@ function triggerBrowserReflow(node) {
   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   node.offsetHeight;
 }
-},{}],"../../node_modules/@restart/hooks/esm/useMergedRefs.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-exports.mergeRefs = mergeRefs;
-var _react = require("react");
-var toFnRef = function toFnRef(ref) {
-  return !ref || typeof ref === 'function' ? ref : function (value) {
-    ref.current = value;
-  };
-};
-function mergeRefs(refA, refB) {
-  var a = toFnRef(refA);
-  var b = toFnRef(refB);
-  return function (value) {
-    if (a) a(value);
-    if (b) b(value);
-  };
-}
-/**
- * Create and returns a single callback ref composed from two other Refs.
- *
- * ```tsx
- * const Button = React.forwardRef((props, ref) => {
- *   const [element, attachRef] = useCallbackRef<HTMLButtonElement>();
- *   const mergedRef = useMergedRefs(ref, attachRef);
- *
- *   return <button ref={mergedRef} {...props}/>
- * })
- * ```
- *
- * @param refA A Callback or mutable Ref
- * @param refB A Callback or mutable Ref
- * @category refs
- */
-
-function useMergedRefs(refA, refB) {
-  return (0, _react.useMemo)(function () {
-    return mergeRefs(refA, refB);
-  }, [refA, refB]);
-}
-var _default = useMergedRefs;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/safeFindDOMNode.js":[function(require,module,exports) {
+},{}],"../../node_modules/react-bootstrap/esm/safeFindDOMNode.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36852,249 +38413,42 @@ const Collapse = /*#__PURE__*/_react.default.forwardRef(({
 Collapse.defaultProps = defaultProps;
 var _default = Collapse;
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","dom-helpers/css":"../../node_modules/dom-helpers/esm/css.js","react":"../../node_modules/react/index.js","react-transition-group/Transition":"../../node_modules/react-transition-group/esm/Transition.js","./transitionEndListener":"../../node_modules/react-bootstrap/esm/transitionEndListener.js","./createChainedFunction":"../../node_modules/react-bootstrap/esm/createChainedFunction.js","./triggerBrowserReflow":"../../node_modules/react-bootstrap/esm/triggerBrowserReflow.js","./TransitionWrapper":"../../node_modules/react-bootstrap/esm/TransitionWrapper.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/AccordionContext.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","dom-helpers/css":"../../node_modules/dom-helpers/esm/css.js","react":"../../node_modules/react/index.js","react-transition-group/Transition":"../../node_modules/react-transition-group/esm/Transition.js","./transitionEndListener":"../../node_modules/react-bootstrap/esm/transitionEndListener.js","./createChainedFunction":"../../node_modules/react-bootstrap/esm/createChainedFunction.js","./triggerBrowserReflow":"../../node_modules/react-bootstrap/esm/triggerBrowserReflow.js","./TransitionWrapper":"../../node_modules/react-bootstrap/esm/TransitionWrapper.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavbarCollapse.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-exports.isAccordionItemSelected = isAccordionItemSelected;
 var React = _interopRequireWildcard(require("react"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function isAccordionItemSelected(activeEventKey, eventKey) {
-  return Array.isArray(activeEventKey) ? activeEventKey.includes(eventKey) : activeEventKey === eventKey;
-}
-const context = /*#__PURE__*/React.createContext({});
-context.displayName = 'AccordionContext';
-var _default = context;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/AccordionCollapse.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
 var _Collapse = _interopRequireDefault(require("./Collapse"));
-var _AccordionContext = _interopRequireWildcard(require("./AccordionContext"));
+var _ThemeProvider = require("./ThemeProvider");
+var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
 var _jsxRuntime = require("react/jsx-runtime");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-/**
- * This component accepts all of [`Collapse`'s props](/utilities/transitions/#collapse-props).
- */
-const AccordionCollapse = /*#__PURE__*/React.forwardRef(({
-  as: Component = 'div',
-  bsPrefix,
-  className,
+const NavbarCollapse = /*#__PURE__*/React.forwardRef(({
   children,
-  eventKey,
+  bsPrefix,
   ...props
 }, ref) => {
-  const {
-    activeEventKey
-  } = (0, React.useContext)(_AccordionContext.default);
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion-collapse');
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'navbar-collapse');
+  const context = (0, React.useContext)(_NavbarContext.default);
   return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Collapse.default, {
-    ref: ref,
-    in: (0, _AccordionContext.isAccordionItemSelected)(activeEventKey, eventKey),
+    in: !!(context && context.expanded),
     ...props,
-    className: (0, _classnames.default)(className, bsPrefix),
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-      children: React.Children.only(children)
-    })
-  });
-});
-AccordionCollapse.displayName = 'AccordionCollapse';
-var _default = AccordionCollapse;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Collapse":"../../node_modules/react-bootstrap/esm/Collapse.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/AccordionItemContext.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var React = _interopRequireWildcard(require("react"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const context = /*#__PURE__*/React.createContext({
-  eventKey: ''
-});
-context.displayName = 'AccordionItemContext';
-var _default = context;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/AccordionBody.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _AccordionCollapse = _interopRequireDefault(require("./AccordionCollapse"));
-var _AccordionItemContext = _interopRequireDefault(require("./AccordionItemContext"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const AccordionBody = /*#__PURE__*/React.forwardRef(({
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  bsPrefix,
-  className,
-  onEnter,
-  onEntering,
-  onEntered,
-  onExit,
-  onExiting,
-  onExited,
-  ...props
-}, ref) => {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion-body');
-  const {
-    eventKey
-  } = (0, React.useContext)(_AccordionItemContext.default);
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_AccordionCollapse.default, {
-    eventKey: eventKey,
-    onEnter: onEnter,
-    onEntering: onEntering,
-    onEntered: onEntered,
-    onExit: onExit,
-    onExiting: onExiting,
-    onExited: onExited,
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
       ref: ref,
-      ...props,
-      className: (0, _classnames.default)(className, bsPrefix)
-    })
-  });
-});
-AccordionBody.displayName = 'AccordionBody';
-var _default = AccordionBody;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionItemContext":"../../node_modules/react-bootstrap/esm/AccordionItemContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/AccordionButton.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-exports.useAccordionButton = useAccordionButton;
-var React = _interopRequireWildcard(require("react"));
-var _classnames = _interopRequireDefault(require("classnames"));
-var _AccordionContext = _interopRequireWildcard(require("./AccordionContext"));
-var _AccordionItemContext = _interopRequireDefault(require("./AccordionItemContext"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function useAccordionButton(eventKey, onClick) {
-  const {
-    activeEventKey,
-    onSelect,
-    alwaysOpen
-  } = (0, React.useContext)(_AccordionContext.default);
-  return e => {
-    /*
-      Compare the event key in context with the given event key.
-      If they are the same, then collapse the component.
-    */
-    let eventKeyPassed = eventKey === activeEventKey ? null : eventKey;
-    if (alwaysOpen) {
-      if (Array.isArray(activeEventKey)) {
-        if (activeEventKey.includes(eventKey)) {
-          eventKeyPassed = activeEventKey.filter(k => k !== eventKey);
-        } else {
-          eventKeyPassed = [...activeEventKey, eventKey];
-        }
-      } else {
-        // activeEventKey is undefined.
-        eventKeyPassed = [eventKey];
-      }
-    }
-    onSelect == null ? void 0 : onSelect(eventKeyPassed, e);
-    onClick == null ? void 0 : onClick(e);
-  };
-}
-const AccordionButton = /*#__PURE__*/React.forwardRef(({
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'button',
-  bsPrefix,
-  className,
-  onClick,
-  ...props
-}, ref) => {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion-button');
-  const {
-    eventKey
-  } = (0, React.useContext)(_AccordionItemContext.default);
-  const accordionOnClick = useAccordionButton(eventKey, onClick);
-  const {
-    activeEventKey
-  } = (0, React.useContext)(_AccordionContext.default);
-  if (Component === 'button') {
-    props.type = 'button';
-  }
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ref: ref,
-    onClick: accordionOnClick,
-    ...props,
-    "aria-expanded": Array.isArray(activeEventKey) ? activeEventKey.includes(eventKey) : eventKey === activeEventKey,
-    className: (0, _classnames.default)(className, bsPrefix, !(0, _AccordionContext.isAccordionItemSelected)(activeEventKey, eventKey) && 'collapsed')
-  });
-});
-AccordionButton.displayName = 'AccordionButton';
-var _default = AccordionButton;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","classnames":"../../node_modules/classnames/index.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionItemContext":"../../node_modules/react-bootstrap/esm/AccordionItemContext.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/AccordionHeader.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _AccordionButton = _interopRequireDefault(require("./AccordionButton"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const AccordionHeader = /*#__PURE__*/React.forwardRef(({
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'h2',
-  bsPrefix,
-  className,
-  children,
-  onClick,
-  ...props
-}, ref) => {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion-header');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: (0, _classnames.default)(className, bsPrefix),
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_AccordionButton.default, {
-      onClick: onClick,
+      className: bsPrefix,
       children: children
     })
   });
 });
-AccordionHeader.displayName = 'AccordionHeader';
-var _default = AccordionHeader;
+NavbarCollapse.displayName = 'NavbarCollapse';
+var _default = NavbarCollapse;
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/AccordionItem.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./Collapse":"../../node_modules/react-bootstrap/esm/Collapse.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavbarToggle.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37103,873 +38457,710 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _classnames = _interopRequireDefault(require("classnames"));
 var React = _interopRequireWildcard(require("react"));
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
 var _ThemeProvider = require("./ThemeProvider");
-var _AccordionItemContext = _interopRequireDefault(require("./AccordionItemContext"));
+var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
 var _jsxRuntime = require("react/jsx-runtime");
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const AccordionItem = /*#__PURE__*/React.forwardRef(({
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
+const defaultProps = {
+  label: 'Toggle navigation'
+};
+const NavbarToggle = /*#__PURE__*/React.forwardRef(({
   bsPrefix,
   className,
-  eventKey,
+  children,
+  label,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'button',
+  onClick,
   ...props
 }, ref) => {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion-item');
-  const contextValue = (0, React.useMemo)(() => ({
-    eventKey
-  }), [eventKey]);
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_AccordionItemContext.default.Provider, {
-    value: contextValue,
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-      ref: ref,
-      ...props,
-      className: (0, _classnames.default)(className, bsPrefix)
-    })
-  });
-});
-AccordionItem.displayName = 'AccordionItem';
-var _default = AccordionItem;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionItemContext":"../../node_modules/react-bootstrap/esm/AccordionItemContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Accordion.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _uncontrollable = require("uncontrollable");
-var _ThemeProvider = require("./ThemeProvider");
-var _AccordionBody = _interopRequireDefault(require("./AccordionBody"));
-var _AccordionButton = _interopRequireDefault(require("./AccordionButton"));
-var _AccordionCollapse = _interopRequireDefault(require("./AccordionCollapse"));
-var _AccordionContext = _interopRequireDefault(require("./AccordionContext"));
-var _AccordionHeader = _interopRequireDefault(require("./AccordionHeader"));
-var _AccordionItem = _interopRequireDefault(require("./AccordionItem"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const Accordion = /*#__PURE__*/React.forwardRef((props, ref) => {
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'navbar-toggler');
   const {
-    // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-    as: Component = 'div',
-    activeKey,
-    bsPrefix,
-    className,
-    onSelect,
-    flush,
-    alwaysOpen,
-    ...controlledProps
-  } = (0, _uncontrollable.useUncontrolled)(props, {
-    activeKey: 'onSelect'
+    onToggle,
+    expanded
+  } = (0, React.useContext)(_NavbarContext.default) || {};
+  const handleClick = (0, _useEventCallback.default)(e => {
+    if (onClick) onClick(e);
+    if (onToggle) onToggle();
   });
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion');
-  const contextValue = (0, React.useMemo)(() => ({
-    activeEventKey: activeKey,
-    onSelect,
-    alwaysOpen
-  }), [activeKey, onSelect, alwaysOpen]);
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_AccordionContext.default.Provider, {
-    value: contextValue,
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-      ref: ref,
-      ...controlledProps,
-      className: (0, _classnames.default)(className, prefix, flush && `${prefix}-flush`)
+  if (Component === 'button') {
+    props.type = 'button';
+  }
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ...props,
+    ref: ref,
+    onClick: handleClick,
+    "aria-label": label,
+    className: (0, _classnames.default)(className, bsPrefix, !expanded && 'collapsed'),
+    children: children || /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+      className: `${bsPrefix}-icon`
     })
   });
 });
-Accordion.displayName = 'Accordion';
-var _default = Object.assign(Accordion, {
-  Button: _AccordionButton.default,
-  Collapse: _AccordionCollapse.default,
-  Item: _AccordionItem.default,
-  Header: _AccordionHeader.default,
-  Body: _AccordionBody.default
-});
+NavbarToggle.displayName = 'NavbarToggle';
+NavbarToggle.defaultProps = defaultProps;
+var _default = NavbarToggle;
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionBody":"../../node_modules/react-bootstrap/esm/AccordionBody.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionHeader":"../../node_modules/react-bootstrap/esm/AccordionHeader.js","./AccordionItem":"../../node_modules/react-bootstrap/esm/AccordionItem.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/hooks/esm/useCommittedRef.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/hooks/esm/useMediaQuery.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = useMediaQuery;
+var _useIsomorphicEffect = _interopRequireDefault(require("./useIsomorphicEffect"));
 var _react = require("react");
-/**
- * Creates a `Ref` whose value is updated in an effect, ensuring the most recent
- * value is the one rendered with. Generally only required for Concurrent mode usage
- * where previous work in `render()` may be discarded before being used.
- *
- * This is safe to access in an event handler.
- *
- * @param value The `Ref` value
- */
-
-function useCommittedRef(value) {
-  var ref = (0, _react.useRef)(value);
-  (0, _react.useEffect)(function () {
-    ref.current = value;
-  }, [value]);
-  return ref;
-}
-var _default = useCommittedRef;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useEventCallback.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useEventCallback;
-var _react = require("react");
-var _useCommittedRef = _interopRequireDefault(require("./useCommittedRef"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function useEventCallback(fn) {
-  var ref = (0, _useCommittedRef.default)(fn);
-  return (0, _react.useCallback)(function () {
-    return ref.current && ref.current.apply(ref, arguments);
-  }, [ref]);
-}
-},{"react":"../../node_modules/react/index.js","./useCommittedRef":"../../node_modules/@restart/hooks/esm/useCommittedRef.js"}],"../../node_modules/@restart/hooks/esm/useCallbackRef.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useCallbackRef;
-var _react = require("react");
-/**
- * A convenience hook around `useState` designed to be paired with
- * the component [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) api.
- * Callback refs are useful over `useRef()` when you need to respond to the ref being set
- * instead of lazily accessing it in an effect.
- *
- * ```ts
- * const [element, attachRef] = useCallbackRef<HTMLDivElement>()
- *
- * useEffect(() => {
- *   if (!element) return
- *
- *   const calendar = new FullCalendar.Calendar(element)
- *
- *   return () => {
- *     calendar.destroy()
- *   }
- * }, [element])
- *
- * return <div ref={attachRef} />
- * ```
- *
- * @category refs
- */
-
-function useCallbackRef() {
-  return (0, _react.useState)(null);
-}
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useEventListener.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useEventListener;
-var _react = require("react");
-var _useEventCallback = _interopRequireDefault(require("./useEventCallback"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-/**
- * Attaches an event handler outside directly to specified DOM element
- * bypassing the react synthetic event system.
- *
- * @param element The target to listen for events on
- * @param event The DOM event name
- * @param handler An event handler
- * @param capture Whether or not to listen during the capture event phase
- */
-function useEventListener(eventTarget, event, listener, capture) {
-  if (capture === void 0) {
-    capture = false;
+var matchersByWindow = new WeakMap();
+var getMatcher = function getMatcher(query, targetWindow) {
+  if (!query || !targetWindow) return undefined;
+  var matchers = matchersByWindow.get(targetWindow) || new Map();
+  matchersByWindow.set(targetWindow, matchers);
+  var mql = matchers.get(query);
+  if (!mql) {
+    mql = targetWindow.matchMedia(query);
+    mql.refCount = 0;
+    matchers.set(mql.media, mql);
   }
-  var handler = (0, _useEventCallback.default)(listener);
-  (0, _react.useEffect)(function () {
-    var target = typeof eventTarget === 'function' ? eventTarget() : eventTarget;
-    target.addEventListener(event, handler, capture);
-    return function () {
-      return target.removeEventListener(event, handler, capture);
-    };
-  }, [eventTarget]);
-}
-},{"react":"../../node_modules/react/index.js","./useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js"}],"../../node_modules/@restart/hooks/esm/useGlobalListener.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useGlobalListener;
-var _useEventListener = _interopRequireDefault(require("./useEventListener"));
-var _react = require("react");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  return mql;
+};
 /**
- * Attaches an event handler outside directly to the `document`,
- * bypassing the react synthetic event system.
- *
- * ```ts
- * useGlobalListener('keydown', (event) => {
- *  console.log(event.key)
- * })
- * ```
- *
- * @param event The DOM event name
- * @param handler An event handler
- * @param capture Whether or not to listen during the capture event phase
- */
-function useGlobalListener(event, handler, capture) {
-  if (capture === void 0) {
-    capture = false;
-  }
-  var documentTarget = (0, _react.useCallback)(function () {
-    return document;
-  }, []);
-  return (0, _useEventListener.default)(documentTarget, event, handler, capture);
-}
-},{"./useEventListener":"../../node_modules/@restart/hooks/esm/useEventListener.js","react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useInterval.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = require("react");
-var _useCommittedRef = _interopRequireDefault(require("./useCommittedRef"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-/**
- * Creates a `setInterval` that is properly cleaned up when a component unmounted
+ * Match a media query and get updates as the match changes. The media string is
+ * passed directly to `window.matchMedia` and run as a Layout Effect, so initial
+ * matches are returned before the browser has a chance to paint.
  *
  * ```tsx
- *  function Timer() {
- *    const [timer, setTimer] = useState(0)
- *    useInterval(() => setTimer(i => i + 1), 1000)
+ * function Page() {
+ *   const isWide = useMediaQuery('min-width: 1000px')
  *
- *    return <span>{timer} seconds past</span>
- *  }
- * ```
- *
- * @param fn an function run on each interval
- * @param ms The milliseconds duration of the interval
- */
-
-function useInterval(fn, ms, paused, runImmediately) {
-  if (paused === void 0) {
-    paused = false;
-  }
-  if (runImmediately === void 0) {
-    runImmediately = false;
-  }
-  var handle;
-  var fnRef = (0, _useCommittedRef.default)(fn); // this ref is necessary b/c useEffect will sometimes miss a paused toggle
-  // orphaning a setTimeout chain in the aether, so relying on it's refresh logic is not reliable.
-
-  var pausedRef = (0, _useCommittedRef.default)(paused);
-  var tick = function tick() {
-    if (pausedRef.current) return;
-    fnRef.current();
-    schedule(); // eslint-disable-line no-use-before-define
-  };
-
-  var schedule = function schedule() {
-    clearTimeout(handle);
-    handle = setTimeout(tick, ms);
-  };
-  (0, _react.useEffect)(function () {
-    if (runImmediately) {
-      tick();
-    } else {
-      schedule();
-    }
-    return function () {
-      return clearTimeout(handle);
-    };
-  }, [paused, runImmediately]);
-}
-var _default = useInterval;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./useCommittedRef":"../../node_modules/@restart/hooks/esm/useCommittedRef.js"}],"../../node_modules/@restart/hooks/esm/useRafInterval.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = require("react");
-var _useCommittedRef = _interopRequireDefault(require("./useCommittedRef"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function useRafInterval(fn, ms, paused) {
-  if (paused === void 0) {
-    paused = false;
-  }
-  var handle;
-  var start = new Date().getTime();
-  var fnRef = (0, _useCommittedRef.default)(fn); // this ref is necessary b/c useEffect will sometimes miss a paused toggle
-  // orphaning a setTimeout chain in the aether, so relying on it's refresh logic is not reliable.
-
-  var pausedRef = (0, _useCommittedRef.default)(paused);
-  function loop() {
-    var current = new Date().getTime();
-    var delta = current - start;
-    if (pausedRef.current) return;
-    if (delta >= ms && fnRef.current) {
-      fnRef.current();
-      start = new Date().getTime();
-    }
-    cancelAnimationFrame(handle);
-    handle = requestAnimationFrame(loop);
-  }
-  (0, _react.useEffect)(function () {
-    handle = requestAnimationFrame(loop);
-    return function () {
-      return cancelAnimationFrame(handle);
-    };
-  }, []);
-}
-var _default = useRafInterval;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./useCommittedRef":"../../node_modules/@restart/hooks/esm/useCommittedRef.js"}],"../../node_modules/@restart/hooks/esm/useMergeState.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useMergeState;
-var _react = require("react");
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends.apply(this, arguments);
-}
-/**
- * Mimics a React class component's state model, of having a single unified
- * `state` object and an updater that merges updates into the existing state, as
- * opposed to replacing it.
- *
- * ```js
- * const [state, setState] = useMergeState({ name: 'Betsy', age: 24 })
- *
- * setState({ name: 'Johan' }) // { name: 'Johan', age: 24 }
- *
- * setState(state => ({ age: state.age + 10 })) // { name: 'Johan', age: 34 }
- * ```
- *
- * @param initialState The initial state object
- */
-function useMergeState(initialState) {
-  var _useState = (0, _react.useState)(initialState),
-    state = _useState[0],
-    setState = _useState[1];
-  var updater = (0, _react.useCallback)(function (update) {
-    if (update === null) return;
-    if (typeof update === 'function') {
-      setState(function (state) {
-        var nextState = update(state);
-        return nextState == null ? state : _extends({}, state, nextState);
-      });
-    } else {
-      setState(function (state) {
-        return _extends({}, state, update);
-      });
-    }
-  }, [setState]);
-  return [state, updater];
-}
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useMergeStateFromProps.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useMergeStateFromProps;
-var _useMergeState2 = _interopRequireDefault(require("./useMergeState"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function useMergeStateFromProps(props, gDSFP, initialState) {
-  var _useMergeState = (0, _useMergeState2.default)(initialState),
-    state = _useMergeState[0],
-    setState = _useMergeState[1];
-  var nextState = gDSFP(props, state);
-  if (nextState !== null) setState(nextState);
-  return [state, setState];
-}
-},{"./useMergeState":"../../node_modules/@restart/hooks/esm/useMergeState.js"}],"../../node_modules/@restart/hooks/esm/useMounted.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useMounted;
-var _react = require("react");
-/**
- * Track whether a component is current mounted. Generally less preferable than
- * properlly canceling effects so they don't run after a component is unmounted,
- * but helpful in cases where that isn't feasible, such as a `Promise` resolution.
- *
- * @returns a function that returns the current isMounted state of the component
- *
- * ```ts
- * const [data, setData] = useState(null)
- * const isMounted = useMounted()
- *
- * useEffect(() => {
- *   fetchdata().then((newData) => {
- *      if (isMounted()) {
- *        setData(newData);
- *      }
- *   })
- * })
- * ```
- */
-
-function useMounted() {
-  var mounted = (0, _react.useRef)(true);
-  var isMounted = (0, _react.useRef)(function () {
-    return mounted.current;
-  });
-  (0, _react.useEffect)(function () {
-    mounted.current = true;
-    return function () {
-      mounted.current = false;
-    };
-  }, []);
-  return isMounted.current;
-}
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/usePrevious.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = usePrevious;
-var _react = require("react");
-/**
- * Store the last of some value. Tracked via a `Ref` only updating it
- * after the component renders.
- *
- * Helpful if you need to compare a prop value to it's previous value during render.
- *
- * ```ts
- * function Component(props) {
- *   const lastProps = usePrevious(props)
- *
- *   if (lastProps.foo !== props.foo)
- *     resetValueFromProps(props.foo)
+ *   return isWide ? "very wide" : 'not so wide'
  * }
  * ```
  *
- * @param value the value to track
+ * Media query lists are also reused globally, hook calls for the same query
+ * will only create a matcher once under the hood.
+ *
+ * @param query A media query
+ * @param targetWindow The window to match against, uses the globally available one as a default.
  */
 
-function usePrevious(value) {
-  var ref = (0, _react.useRef)(null);
-  (0, _react.useEffect)(function () {
-    ref.current = value;
-  });
-  return ref.current;
+function useMediaQuery(query, targetWindow) {
+  if (targetWindow === void 0) {
+    targetWindow = typeof window === 'undefined' ? undefined : window;
+  }
+  var mql = getMatcher(query, targetWindow);
+  var _useState = (0, _react.useState)(function () {
+      return mql ? mql.matches : false;
+    }),
+    matches = _useState[0],
+    setMatches = _useState[1];
+  (0, _useIsomorphicEffect.default)(function () {
+    var mql = getMatcher(query, targetWindow);
+    if (!mql) {
+      return setMatches(false);
+    }
+    var matchers = matchersByWindow.get(targetWindow);
+    var handleChange = function handleChange() {
+      setMatches(mql.matches);
+    };
+    mql.refCount++;
+    mql.addListener(handleChange);
+    handleChange();
+    return function () {
+      mql.removeListener(handleChange);
+      mql.refCount--;
+      if (mql.refCount <= 0) {
+        matchers == null ? void 0 : matchers.delete(mql.media);
+      }
+      mql = undefined;
+    };
+  }, [query]);
+  return matches;
 }
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useImage.js":[function(require,module,exports) {
+},{"./useIsomorphicEffect":"../../node_modules/@restart/hooks/esm/useIsomorphicEffect.js","react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useBreakpoint.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = useImage;
+exports.createBreakpointHook = createBreakpointHook;
+exports.default = void 0;
+var _useMediaQuery = _interopRequireDefault(require("./useMediaQuery"));
 var _react = require("react");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * Fetch and load an image for programatic use such as in a `<canvas>` element.
+ * Create a responsive hook we a set of breakpoint names and widths.
+ * You can use any valid css units as well as a numbers (for pixels).
  *
- * @param imageOrUrl The `HtmlImageElement` or image url to load
- * @param crossOrigin The `crossorigin` attribute to set
+ * **NOTE:** The object key order is important! it's assumed to be in order from smallest to largest
  *
  * ```ts
- * const { image, error } = useImage('/static/kittens.png')
- * const ref = useRef<HTMLCanvasElement>()
- *
- * useEffect(() => {
- *   const ctx = ref.current.getContext('2d')
- *
- *   if (image) {
- *     ctx.drawImage(image, 0, 0)
- *   }
- * }, [ref, image])
- *
- * return (
- *   <>
- *     {error && "there was a problem loading the image"}
- *     <canvas ref={ref} />
- *   </>
+ * const useBreakpoint = createBreakpointHook({
+ *  xs: 0,
+ *  sm: 576,
+ *  md: 768,
+ *  lg: 992,
+ *  xl: 1200,
+ * })
  * ```
+ *
+ * **Watch out!** using string values will sometimes construct media queries using css `calc()` which
+ * is NOT supported in media queries by all browsers at the moment. use numbers for
+ * the widest range of browser support.
+ *
+ * @param breakpointValues A object hash of names to breakpoint dimensions
  */
-function useImage(imageOrUrl, crossOrigin) {
-  var _useState = (0, _react.useState)({
-      image: null,
-      error: null
-    }),
-    state = _useState[0],
-    setState = _useState[1];
-  (0, _react.useEffect)(function () {
-    if (!imageOrUrl) return undefined;
-    var image;
-    if (typeof imageOrUrl === 'string') {
-      image = new Image();
-      if (crossOrigin) image.crossOrigin = crossOrigin;
-      image.src = imageOrUrl;
+function createBreakpointHook(breakpointValues) {
+  var names = Object.keys(breakpointValues);
+  function and(query, next) {
+    if (query === next) {
+      return next;
+    }
+    return query ? query + " and " + next : next;
+  }
+  function getNext(breakpoint) {
+    return names[Math.min(names.indexOf(breakpoint) + 1, names.length - 1)];
+  }
+  function getMaxQuery(breakpoint) {
+    var next = getNext(breakpoint);
+    var value = breakpointValues[next];
+    if (typeof value === 'number') value = value - 0.2 + "px";else value = "calc(" + value + " - 0.2px)";
+    return "(max-width: " + value + ")";
+  }
+  function getMinQuery(breakpoint) {
+    var value = breakpointValues[breakpoint];
+    if (typeof value === 'number') {
+      value = value + "px";
+    }
+    return "(min-width: " + value + ")";
+  }
+  /**
+   * Match a set of breakpoints
+   *
+   * ```tsx
+   * const MidSizeOnly = () => {
+   *   const isMid = useBreakpoint({ lg: 'down', sm: 'up' });
+   *
+   *   if (isMid) return <div>On a Reasonable sized Screen!</div>
+   *   return null;
+   * }
+   * ```
+   * @param breakpointMap An object map of breakpoints and directions, queries are constructed using "and" to join
+   * breakpoints together
+   * @param window Optionally specify the target window to match against (useful when rendering into iframes)
+   */
+
+  function useBreakpoint(breakpointOrMap, direction, window) {
+    var breakpointMap;
+    if (typeof breakpointOrMap === 'object') {
+      breakpointMap = breakpointOrMap;
+      window = direction;
+      direction = true;
     } else {
-      image = imageOrUrl;
-      if (image.complete && image.naturalHeight > 0) {
-        setState({
-          image: image,
-          error: null
-        });
-        return;
-      }
+      var _breakpointMap;
+      direction = direction || true;
+      breakpointMap = (_breakpointMap = {}, _breakpointMap[breakpointOrMap] = direction, _breakpointMap);
     }
-    function onLoad() {
-      setState({
-        image: image,
-        error: null
-      });
-    }
-    function onError(error) {
-      setState({
-        image: image,
-        error: error
-      });
-    }
-    image.addEventListener('load', onLoad);
-    image.addEventListener('error', onError);
-    return function () {
-      image.removeEventListener('load', onLoad);
-      image.removeEventListener('error', onError);
-    };
-  }, [imageOrUrl, crossOrigin]);
-  return state;
+    var query = (0, _react.useMemo)(function () {
+      return Object.entries(breakpointMap).reduce(function (query, _ref) {
+        var key = _ref[0],
+          direction = _ref[1];
+        if (direction === 'up' || direction === true) {
+          query = and(query, getMinQuery(key));
+        }
+        if (direction === 'down' || direction === true) {
+          query = and(query, getMaxQuery(key));
+        }
+        return query;
+      }, '');
+    }, [JSON.stringify(breakpointMap)]);
+    return (0, _useMediaQuery.default)(query, window);
+  }
+  return useBreakpoint;
 }
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useIsomorphicEffect.js":[function(require,module,exports) {
-var global = arguments[3];
+var useBreakpoint = createBreakpointHook({
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1400
+});
+var _default = useBreakpoint;
+exports.default = _default;
+},{"./useMediaQuery":"../../node_modules/@restart/hooks/esm/useMediaQuery.js","react":"../../node_modules/react/index.js"}],"../../node_modules/dom-helpers/esm/activeElement.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
-var _react = require("react");
-var isReactNative = typeof global !== 'undefined' &&
-// @ts-ignore
-global.navigator &&
-// @ts-ignore
-global.navigator.product === 'ReactNative';
-var isDOM = typeof document !== 'undefined';
+exports.default = activeElement;
+var _ownerDocument = _interopRequireDefault(require("./ownerDocument"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * Is `useLayoutEffect` in a DOM or React Native environment, otherwise resolves to useEffect
- * Only useful to avoid the console warning.
+ * Returns the actively focused element safely.
  *
- * PREFER `useEffect` UNLESS YOU KNOW WHAT YOU ARE DOING.
+ * @param doc the document to check
+ */
+
+function activeElement(doc) {
+  if (doc === void 0) {
+    doc = (0, _ownerDocument.default)();
+  }
+
+  // Support: IE 9 only
+  // IE9 throws an "Unspecified error" accessing document.activeElement from an <iframe>
+  try {
+    var active = doc.activeElement; // IE11 returns a seemingly empty object in some cases when accessing
+    // document.activeElement from an <iframe>
+
+    if (!active || !active.nodeName) return null;
+    return active;
+  } catch (e) {
+    /* ie throws if no active element */
+    return doc.body;
+  }
+}
+},{"./ownerDocument":"../../node_modules/dom-helpers/esm/ownerDocument.js"}],"../../node_modules/dom-helpers/esm/contains.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = contains;
+/* eslint-disable no-bitwise, no-cond-assign */
+
+/**
+ * Checks if an element contains another given element.
+ * 
+ * @param context the context element
+ * @param node the element to check
+ */
+function contains(context, node) {
+  // HTML DOM and SVG DOM may have different support levels,
+  // so we need to check on context instead of a document root element.
+  if (context.contains) return context.contains(node);
+  if (context.compareDocumentPosition) return context === node || !!(context.compareDocumentPosition(node) & 16);
+}
+},{}],"../../node_modules/@restart/hooks/esm/useUpdatedRef.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useUpdatedRef;
+var _react = require("react");
+/**
+ * Returns a ref that is immediately updated with the new value
  *
+ * @param value The Ref value
+ * @category refs
+ */
+
+function useUpdatedRef(value) {
+  var valueRef = (0, _react.useRef)(value);
+  valueRef.current = value;
+  return valueRef;
+}
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useWillUnmount.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useWillUnmount;
+var _useUpdatedRef = _interopRequireDefault(require("./useUpdatedRef"));
+var _react = require("react");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * Attach a callback that fires when a component unmounts
+ *
+ * @param fn Handler to run when the component unmounts
  * @category effects
  */
-var _default = isDOM || isReactNative ? _react.useLayoutEffect : _react.useEffect;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useResizeObserver.js":[function(require,module,exports) {
-"use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useResizeObserver;
-var _react = require("react");
-var _useIsomorphicEffect = _interopRequireDefault(require("./useIsomorphicEffect"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var targetMap = new WeakMap();
-var resizeObserver;
-function getResizeObserver() {
-  // eslint-disable-next-line no-return-assign
-  return resizeObserver = resizeObserver || new window.ResizeObserver(function (entries) {
-    entries.forEach(function (entry) {
-      var handler = targetMap.get(entry.target);
-      if (handler) handler(entry.contentRect);
-    });
-  });
-}
-/**
- * Efficiently observe size changes on an element. Depends on the `ResizeObserver` api,
- * and polyfills are needed in older browsers.
- *
- * ```ts
- * const [ref, attachRef] = useCallbackRef(null);
- *
- * const rect = useResizeObserver(ref);
- *
- * return (
- *  <div ref={attachRef}>
- *    {JSON.stringify(rect)}
- *  </div>
- * )
- * ```
- *
- * @param element The DOM element to observe
- */
-
-function useResizeObserver(element) {
-  var _useState = (0, _react.useState)(null),
-    rect = _useState[0],
-    setRect = _useState[1];
-  (0, _useIsomorphicEffect.default)(function () {
-    if (!element) return;
-    getResizeObserver().observe(element);
-    setRect(element.getBoundingClientRect());
-    targetMap.set(element, function (rect) {
-      setRect(rect);
-    });
+function useWillUnmount(fn) {
+  var onUnmount = (0, _useUpdatedRef.default)(fn);
+  (0, _react.useEffect)(function () {
     return function () {
-      targetMap.delete(element);
+      return onUnmount.current();
     };
-  }, [element]);
-  return rect;
+  }, []);
 }
-},{"react":"../../node_modules/react/index.js","./useIsomorphicEffect":"../../node_modules/@restart/hooks/esm/useIsomorphicEffect.js"}],"../../node_modules/@restart/hooks/esm/index.js":[function(require,module,exports) {
+},{"./useUpdatedRef":"../../node_modules/@restart/hooks/esm/useUpdatedRef.js","react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/getScrollbarWidth.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "useCallbackRef", {
-  enumerable: true,
-  get: function () {
-    return _useCallbackRef.default;
-  }
+exports.default = getBodyScrollbarWidth;
+/**
+ * Get the width of the vertical window scrollbar if it's visible
+ */
+function getBodyScrollbarWidth(ownerDocument = document) {
+  const window = ownerDocument.defaultView;
+  return Math.abs(window.innerWidth - ownerDocument.documentElement.clientWidth);
+}
+},{}],"../../node_modules/@restart/ui/esm/ModalManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-Object.defineProperty(exports, "useCommittedRef", {
-  enumerable: true,
-  get: function () {
-    return _useCommittedRef.default;
-  }
-});
-Object.defineProperty(exports, "useEventCallback", {
-  enumerable: true,
-  get: function () {
-    return _useEventCallback.default;
-  }
-});
-Object.defineProperty(exports, "useEventListener", {
-  enumerable: true,
-  get: function () {
-    return _useEventListener.default;
-  }
-});
-Object.defineProperty(exports, "useGlobalListener", {
-  enumerable: true,
-  get: function () {
-    return _useGlobalListener.default;
-  }
-});
-Object.defineProperty(exports, "useImage", {
-  enumerable: true,
-  get: function () {
-    return _useImage.default;
-  }
-});
-Object.defineProperty(exports, "useInterval", {
-  enumerable: true,
-  get: function () {
-    return _useInterval.default;
-  }
-});
-Object.defineProperty(exports, "useMergeState", {
-  enumerable: true,
-  get: function () {
-    return _useMergeState.default;
-  }
-});
-Object.defineProperty(exports, "useMergeStateFromProps", {
-  enumerable: true,
-  get: function () {
-    return _useMergeStateFromProps.default;
-  }
-});
-Object.defineProperty(exports, "useMounted", {
-  enumerable: true,
-  get: function () {
-    return _useMounted.default;
-  }
-});
-Object.defineProperty(exports, "usePrevious", {
-  enumerable: true,
-  get: function () {
-    return _usePrevious.default;
-  }
-});
-Object.defineProperty(exports, "useRafInterval", {
-  enumerable: true,
-  get: function () {
-    return _useRafInterval.default;
-  }
-});
-Object.defineProperty(exports, "useResizeObserver", {
-  enumerable: true,
-  get: function () {
-    return _useResizeObserver.default;
-  }
-});
-var _useCallbackRef = _interopRequireDefault(require("./useCallbackRef"));
-var _useCommittedRef = _interopRequireDefault(require("./useCommittedRef"));
-var _useEventCallback = _interopRequireDefault(require("./useEventCallback"));
-var _useEventListener = _interopRequireDefault(require("./useEventListener"));
-var _useGlobalListener = _interopRequireDefault(require("./useGlobalListener"));
-var _useInterval = _interopRequireDefault(require("./useInterval"));
-var _useRafInterval = _interopRequireDefault(require("./useRafInterval"));
-var _useMergeState = _interopRequireDefault(require("./useMergeState"));
-var _useMergeStateFromProps = _interopRequireDefault(require("./useMergeStateFromProps"));
-var _useMounted = _interopRequireDefault(require("./useMounted"));
-var _usePrevious = _interopRequireDefault(require("./usePrevious"));
-var _useImage = _interopRequireDefault(require("./useImage"));
-var _useResizeObserver = _interopRequireDefault(require("./useResizeObserver"));
+exports.default = exports.OPEN_DATA_ATTRIBUTE = void 0;
+var _css = _interopRequireDefault(require("dom-helpers/css"));
+var _DataKey = require("./DataKey");
+var _getScrollbarWidth = _interopRequireDefault(require("./getScrollbarWidth"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./useCallbackRef":"../../node_modules/@restart/hooks/esm/useCallbackRef.js","./useCommittedRef":"../../node_modules/@restart/hooks/esm/useCommittedRef.js","./useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./useEventListener":"../../node_modules/@restart/hooks/esm/useEventListener.js","./useGlobalListener":"../../node_modules/@restart/hooks/esm/useGlobalListener.js","./useInterval":"../../node_modules/@restart/hooks/esm/useInterval.js","./useRafInterval":"../../node_modules/@restart/hooks/esm/useRafInterval.js","./useMergeState":"../../node_modules/@restart/hooks/esm/useMergeState.js","./useMergeStateFromProps":"../../node_modules/@restart/hooks/esm/useMergeStateFromProps.js","./useMounted":"../../node_modules/@restart/hooks/esm/useMounted.js","./usePrevious":"../../node_modules/@restart/hooks/esm/usePrevious.js","./useImage":"../../node_modules/@restart/hooks/esm/useImage.js","./useResizeObserver":"../../node_modules/@restart/hooks/esm/useResizeObserver.js"}],"../../node_modules/@restart/ui/esm/Button.js":[function(require,module,exports) {
-"use strict";
+const OPEN_DATA_ATTRIBUTE = (0, _DataKey.dataAttr)('modal-open');
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-exports.isTrivialHref = isTrivialHref;
-exports.useButtonProps = useButtonProps;
-var React = _interopRequireWildcard(require("react"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const _excluded = ["as", "disabled"];
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
+/**
+ * Manages a stack of Modals as well as ensuring
+ * body scrolling is is disabled and padding accounted for
+ */
+exports.OPEN_DATA_ATTRIBUTE = OPEN_DATA_ATTRIBUTE;
+class ModalManager {
+  constructor({
+    ownerDocument,
+    handleContainerOverflow = true,
+    isRTL = false
+  } = {}) {
+    this.handleContainerOverflow = handleContainerOverflow;
+    this.isRTL = isRTL;
+    this.modals = [];
+    this.ownerDocument = ownerDocument;
   }
-  return target;
-}
-function isTrivialHref(href) {
-  return !href || href.trim() === '#';
-}
-function useButtonProps({
-  tagName,
-  disabled,
-  href,
-  target,
-  rel,
-  role,
-  onClick,
-  tabIndex = 0,
-  type
-}) {
-  if (!tagName) {
-    if (href != null || target != null || rel != null) {
-      tagName = 'a';
-    } else {
-      tagName = 'button';
+  getScrollbarWidth() {
+    return (0, _getScrollbarWidth.default)(this.ownerDocument);
+  }
+  getElement() {
+    return (this.ownerDocument || document).body;
+  }
+  setModalAttributes(_modal) {
+    // For overriding
+  }
+  removeModalAttributes(_modal) {
+    // For overriding
+  }
+  setContainerStyle(containerState) {
+    const style = {
+      overflow: 'hidden'
+    };
+
+    // we are only interested in the actual `style` here
+    // because we will override it
+    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
+    const container = this.getElement();
+    containerState.style = {
+      overflow: container.style.overflow,
+      [paddingProp]: container.style[paddingProp]
+    };
+    if (containerState.scrollBarWidth) {
+      // use computed style, here to get the real padding
+      // to add our scrollbar width
+      style[paddingProp] = `${parseInt((0, _css.default)(container, paddingProp) || '0', 10) + containerState.scrollBarWidth}px`;
     }
+    container.setAttribute(OPEN_DATA_ATTRIBUTE, '');
+    (0, _css.default)(container, style);
   }
-  const meta = {
-    tagName
-  };
-  if (tagName === 'button') {
-    return [{
-      type: type || 'button',
-      disabled
-    }, meta];
+  reset() {
+    [...this.modals].forEach(m => this.remove(m));
   }
-  const handleClick = event => {
-    if (disabled || tagName === 'a' && isTrivialHref(href)) {
-      event.preventDefault();
+  removeContainerStyle(containerState) {
+    const container = this.getElement();
+    container.removeAttribute(OPEN_DATA_ATTRIBUTE);
+    Object.assign(container.style, containerState.style);
+  }
+  add(modal) {
+    let modalIdx = this.modals.indexOf(modal);
+    if (modalIdx !== -1) {
+      return modalIdx;
     }
-    if (disabled) {
-      event.stopPropagation();
+    modalIdx = this.modals.length;
+    this.modals.push(modal);
+    this.setModalAttributes(modal);
+    if (modalIdx !== 0) {
+      return modalIdx;
+    }
+    this.state = {
+      scrollBarWidth: this.getScrollbarWidth(),
+      style: {}
+    };
+    if (this.handleContainerOverflow) {
+      this.setContainerStyle(this.state);
+    }
+    return modalIdx;
+  }
+  remove(modal) {
+    const modalIdx = this.modals.indexOf(modal);
+    if (modalIdx === -1) {
       return;
     }
-    onClick == null ? void 0 : onClick(event);
-  };
-  const handleKeyDown = event => {
-    if (event.key === ' ') {
-      event.preventDefault();
-      handleClick(event);
+    this.modals.splice(modalIdx, 1);
+
+    // if that was the last modal in a container,
+    // clean up the container
+    if (!this.modals.length && this.handleContainerOverflow) {
+      this.removeContainerStyle(this.state);
     }
-  };
-  if (tagName === 'a') {
-    // Ensure there's a href so Enter can trigger anchor button.
-    href || (href = '#');
-    if (disabled) {
-      href = undefined;
-    }
+    this.removeModalAttributes(modal);
   }
-  return [{
-    role: role != null ? role : 'button',
-    // explicitly undefined so that it overrides the props disabled in a spread
-    // e.g. <Tag {...props} {...hookProps} />
-    disabled: undefined,
-    tabIndex: disabled ? undefined : tabIndex,
-    href,
-    target: tagName === 'a' ? target : undefined,
-    'aria-disabled': !disabled ? undefined : disabled,
-    rel: tagName === 'a' ? rel : undefined,
-    onClick: handleClick,
-    onKeyDown: handleKeyDown
-  }, meta];
+  isTopModal(modal) {
+    return !!this.modals.length && this.modals[this.modals.length - 1] === modal;
+  }
 }
-const Button = /*#__PURE__*/React.forwardRef((_ref, ref) => {
-  let {
-      as: asProp,
-      disabled
-    } = _ref,
-    props = _objectWithoutPropertiesLoose(_ref, _excluded);
-  const [buttonProps, {
-    tagName: Component
-  }] = useButtonProps(Object.assign({
-    tagName: asProp,
-    disabled
-  }, props));
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, Object.assign({}, props, buttonProps, {
-    ref: ref
-  }));
-});
-Button.displayName = 'Button';
-var _default = Button;
+var _default = ModalManager;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/Anchor.js":[function(require,module,exports) {
+},{"dom-helpers/css":"../../node_modules/dom-helpers/esm/css.js","./DataKey":"../../node_modules/@restart/ui/esm/DataKey.js","./getScrollbarWidth":"../../node_modules/@restart/ui/esm/getScrollbarWidth.js"}],"../../node_modules/@restart/ui/esm/useWindow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.WindowProvider = void 0;
+exports.default = useWindow;
+var _react = require("react");
+var _canUseDOM = _interopRequireDefault(require("dom-helpers/canUseDOM"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const Context = /*#__PURE__*/(0, _react.createContext)(_canUseDOM.default ? window : undefined);
+const WindowProvider = Context.Provider;
+
+/**
+ * The document "window" placed in React context. Helpful for determining
+ * SSR context, or when rendering into an iframe.
+ *
+ * @returns the current window
+ */
+exports.WindowProvider = WindowProvider;
+function useWindow() {
+  return (0, _react.useContext)(Context);
+}
+},{"react":"../../node_modules/react/index.js","dom-helpers/canUseDOM":"../../node_modules/dom-helpers/esm/canUseDOM.js"}],"../../node_modules/@restart/ui/esm/useWaitForDOMRef.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useWaitForDOMRef;
+exports.resolveContainerRef = void 0;
+var _ownerDocument = _interopRequireDefault(require("dom-helpers/ownerDocument"));
+var _canUseDOM = _interopRequireDefault(require("dom-helpers/canUseDOM"));
+var _react = require("react");
+var _useWindow = _interopRequireDefault(require("./useWindow"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const resolveContainerRef = (ref, document) => {
+  if (!_canUseDOM.default) return null;
+  if (ref == null) return (document || (0, _ownerDocument.default)()).body;
+  if (typeof ref === 'function') ref = ref();
+  if (ref && 'current' in ref) ref = ref.current;
+  if (ref && ('nodeType' in ref || ref.getBoundingClientRect)) return ref;
+  return null;
+};
+exports.resolveContainerRef = resolveContainerRef;
+function useWaitForDOMRef(ref, onResolved) {
+  const window = (0, _useWindow.default)();
+  const [resolvedRef, setRef] = (0, _react.useState)(() => resolveContainerRef(ref, window == null ? void 0 : window.document));
+  if (!resolvedRef) {
+    const earlyRef = resolveContainerRef(ref);
+    if (earlyRef) setRef(earlyRef);
+  }
+  (0, _react.useEffect)(() => {
+    if (onResolved && resolvedRef) {
+      onResolved(resolvedRef);
+    }
+  }, [onResolved, resolvedRef]);
+  (0, _react.useEffect)(() => {
+    const nextRef = resolveContainerRef(ref);
+    if (nextRef !== resolvedRef) {
+      setRef(nextRef);
+    }
+  }, [ref, resolvedRef]);
+  return resolvedRef;
+}
+},{"dom-helpers/ownerDocument":"../../node_modules/dom-helpers/esm/ownerDocument.js","dom-helpers/canUseDOM":"../../node_modules/dom-helpers/esm/canUseDOM.js","react":"../../node_modules/react/index.js","./useWindow":"../../node_modules/@restart/ui/esm/useWindow.js"}],"../../node_modules/@restart/ui/esm/NoopTransition.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-exports.isTrivialHref = isTrivialHref;
-var React = _interopRequireWildcard(require("react"));
-var _hooks = require("@restart/hooks");
-var _Button = require("./Button");
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _useMergedRefs = _interopRequireDefault(require("@restart/hooks/useMergedRefs"));
+var _react = require("react");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function NoopTransition({
+  children,
+  in: inProp,
+  onExited,
+  mountOnEnter,
+  unmountOnExit
+}) {
+  const ref = (0, _react.useRef)(null);
+  const hasEnteredRef = (0, _react.useRef)(inProp);
+  const handleExited = (0, _useEventCallback.default)(onExited);
+  (0, _react.useEffect)(() => {
+    if (inProp) hasEnteredRef.current = true;else {
+      handleExited(ref.current);
+    }
+  }, [inProp, handleExited]);
+  const combinedRef = (0, _useMergedRefs.default)(ref, children.ref);
+  const child = /*#__PURE__*/(0, _react.cloneElement)(children, {
+    ref: combinedRef
+  });
+  if (inProp) return child;
+  if (unmountOnExit) {
+    return null;
+  }
+  if (!hasEnteredRef.current && mountOnEnter) {
+    return null;
+  }
+  return child;
+}
+var _default = NoopTransition;
+exports.default = _default;
+},{"@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/hooks/useMergedRefs":"../../node_modules/@restart/hooks/esm/useMergedRefs.js","react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/ImperativeTransition.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ImperativeTransition;
+exports.renderTransition = renderTransition;
+exports.useTransition = useTransition;
+var _useMergedRefs = _interopRequireDefault(require("@restart/hooks/useMergedRefs"));
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _useIsomorphicEffect = _interopRequireDefault(require("@restart/hooks/useIsomorphicEffect"));
+var _react = _interopRequireWildcard(require("react"));
+var _NoopTransition = _interopRequireDefault(require("./NoopTransition"));
 var _jsxRuntime = require("react/jsx-runtime");
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const _excluded = ["onKeyDown"];
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function useTransition({
+  in: inProp,
+  onTransition
+}) {
+  const ref = (0, _react.useRef)(null);
+  const isInitialRef = (0, _react.useRef)(true);
+  const handleTransition = (0, _useEventCallback.default)(onTransition);
+  (0, _useIsomorphicEffect.default)(() => {
+    if (!ref.current) {
+      return undefined;
+    }
+    let stale = false;
+    handleTransition({
+      in: inProp,
+      element: ref.current,
+      initial: isInitialRef.current,
+      isStale: () => stale
+    });
+    return () => {
+      stale = true;
+    };
+  }, [inProp, handleTransition]);
+  (0, _useIsomorphicEffect.default)(() => {
+    isInitialRef.current = false;
+    // this is for strict mode
+    return () => {
+      isInitialRef.current = true;
+    };
+  }, []);
+  return ref;
+}
+/**
+ * Adapts an imperative transition function to a subset of the RTG `<Transition>` component API.
+ *
+ * ImperativeTransition does not support mounting options or `appear` at the moment, meaning
+ * that it always acts like: `mountOnEnter={true} unmountOnExit={true} appear={true}`
+ */
+function ImperativeTransition({
+  children,
+  in: inProp,
+  onExited,
+  onEntered,
+  transition
+}) {
+  const [exited, setExited] = (0, _react.useState)(!inProp);
+
+  // TODO: I think this needs to be in an effect
+  if (inProp && exited) {
+    setExited(false);
+  }
+  const ref = useTransition({
+    in: !!inProp,
+    onTransition: options => {
+      const onFinish = () => {
+        if (options.isStale()) return;
+        if (options.in) {
+          onEntered == null ? void 0 : onEntered(options.element, options.initial);
+        } else {
+          setExited(true);
+          onExited == null ? void 0 : onExited(options.element);
+        }
+      };
+      Promise.resolve(transition(options)).then(onFinish, error => {
+        if (!options.in) setExited(true);
+        throw error;
+      });
+    }
+  });
+  const combinedRef = (0, _useMergedRefs.default)(ref, children.ref);
+  return exited && !inProp ? null : /*#__PURE__*/(0, _react.cloneElement)(children, {
+    ref: combinedRef
+  });
+}
+function renderTransition(Component, runTransition, props) {
+  if (Component) {
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, Object.assign({}, props));
+  }
+  if (runTransition) {
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)(ImperativeTransition, Object.assign({}, props, {
+      transition: runTransition
+    }));
+  }
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_NoopTransition.default, Object.assign({}, props));
+}
+},{"@restart/hooks/useMergedRefs":"../../node_modules/@restart/hooks/esm/useMergedRefs.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/hooks/useIsomorphicEffect":"../../node_modules/@restart/hooks/esm/useIsomorphicEffect.js","react":"../../node_modules/react/index.js","./NoopTransition":"../../node_modules/@restart/ui/esm/NoopTransition.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isEscKey = isEscKey;
+/* eslint-disable import/prefer-default-export */
+function isEscKey(e) {
+  return e.code === 'Escape' || e.keyCode === 27;
+}
+},{}],"../../node_modules/@restart/ui/esm/Modal.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _activeElement = _interopRequireDefault(require("dom-helpers/activeElement"));
+var _contains = _interopRequireDefault(require("dom-helpers/contains"));
+var _canUseDOM = _interopRequireDefault(require("dom-helpers/canUseDOM"));
+var _listen = _interopRequireDefault(require("dom-helpers/listen"));
+var React = _interopRequireWildcard(require("react"));
+var _reactDom = _interopRequireDefault(require("react-dom"));
+var _useMounted = _interopRequireDefault(require("@restart/hooks/useMounted"));
+var _useWillUnmount = _interopRequireDefault(require("@restart/hooks/useWillUnmount"));
+var _usePrevious = _interopRequireDefault(require("@restart/hooks/usePrevious"));
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _ModalManager = _interopRequireDefault(require("./ModalManager"));
+var _useWaitForDOMRef = _interopRequireDefault(require("./useWaitForDOMRef"));
+var _useWindow = _interopRequireDefault(require("./useWindow"));
+var _ImperativeTransition = require("./ImperativeTransition");
+var _utils = require("./utils");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const _excluded = ["show", "role", "className", "style", "children", "backdrop", "keyboard", "onBackdropClick", "onEscapeKeyDown", "transition", "runTransition", "backdropTransition", "runBackdropTransition", "autoFocus", "enforceFocus", "restoreFocus", "restoreFocusOptions", "renderDialog", "renderBackdrop", "manager", "container", "onShow", "onHide", "onExit", "onExited", "onExiting", "onEnter", "onEntering", "onEntered"];
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -37982,45 +39173,226 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   }
   return target;
 }
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/anchor-has-content */
+/* eslint-disable @typescript-eslint/no-use-before-define, react/prop-types */
 
-function isTrivialHref(href) {
-  return !href || href.trim() === '#';
-}
-/**
- * An generic `<a>` component that covers a few A11y cases, ensuring that
- * cases where the `href` is missing or trivial like "#" are treated like buttons.
- */
-const Anchor = /*#__PURE__*/React.forwardRef((_ref, ref) => {
-  let {
-      onKeyDown
-    } = _ref,
-    props = _objectWithoutPropertiesLoose(_ref, _excluded);
-  const [buttonProps] = (0, _Button.useButtonProps)(Object.assign({
-    tagName: 'a'
-  }, props));
-  const handleKeyDown = (0, _hooks.useEventCallback)(e => {
-    buttonProps.onKeyDown(e);
-    onKeyDown == null ? void 0 : onKeyDown(e);
+let manager;
+function getManager(window) {
+  if (!manager) manager = new _ModalManager.default({
+    ownerDocument: window == null ? void 0 : window.document
   });
-  if (isTrivialHref(props.href) || props.role === 'button') {
-    return /*#__PURE__*/(0, _jsxRuntime.jsx)("a", Object.assign({
-      ref: ref
-    }, props, buttonProps, {
-      onKeyDown: handleKeyDown
-    }));
+  return manager;
+}
+function useModalManager(provided) {
+  const window = (0, _useWindow.default)();
+  const modalManager = provided || getManager(window);
+  const modal = (0, React.useRef)({
+    dialog: null,
+    backdrop: null
+  });
+  return Object.assign(modal.current, {
+    add: () => modalManager.add(modal.current),
+    remove: () => modalManager.remove(modal.current),
+    isTopModal: () => modalManager.isTopModal(modal.current),
+    setDialogRef: (0, React.useCallback)(ref => {
+      modal.current.dialog = ref;
+    }, []),
+    setBackdropRef: (0, React.useCallback)(ref => {
+      modal.current.backdrop = ref;
+    }, [])
+  });
+}
+const Modal = /*#__PURE__*/(0, React.forwardRef)((_ref, ref) => {
+  let {
+      show = false,
+      role = 'dialog',
+      className,
+      style,
+      children,
+      backdrop = true,
+      keyboard = true,
+      onBackdropClick,
+      onEscapeKeyDown,
+      transition,
+      runTransition,
+      backdropTransition,
+      runBackdropTransition,
+      autoFocus = true,
+      enforceFocus = true,
+      restoreFocus = true,
+      restoreFocusOptions,
+      renderDialog,
+      renderBackdrop = props => /*#__PURE__*/(0, _jsxRuntime.jsx)("div", Object.assign({}, props)),
+      manager: providedManager,
+      container: containerRef,
+      onShow,
+      onHide = () => {},
+      onExit,
+      onExited,
+      onExiting,
+      onEnter,
+      onEntering,
+      onEntered
+    } = _ref,
+    rest = _objectWithoutPropertiesLoose(_ref, _excluded);
+  const container = (0, _useWaitForDOMRef.default)(containerRef);
+  const modal = useModalManager(providedManager);
+  const isMounted = (0, _useMounted.default)();
+  const prevShow = (0, _usePrevious.default)(show);
+  const [exited, setExited] = (0, React.useState)(!show);
+  const lastFocusRef = (0, React.useRef)(null);
+  (0, React.useImperativeHandle)(ref, () => modal, [modal]);
+  if (_canUseDOM.default && !prevShow && show) {
+    lastFocusRef.current = (0, _activeElement.default)();
   }
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)("a", Object.assign({
-    ref: ref
-  }, props, {
-    onKeyDown: onKeyDown
+
+  // TODO: I think this needs to be in an effect
+  if (show && exited) {
+    setExited(false);
+  }
+  const handleShow = (0, _useEventCallback.default)(() => {
+    modal.add();
+    removeKeydownListenerRef.current = (0, _listen.default)(document, 'keydown', handleDocumentKeyDown);
+    removeFocusListenerRef.current = (0, _listen.default)(document, 'focus',
+    // the timeout is necessary b/c this will run before the new modal is mounted
+    // and so steals focus from it
+    () => setTimeout(handleEnforceFocus), true);
+    if (onShow) {
+      onShow();
+    }
+
+    // autofocus after onShow to not trigger a focus event for previous
+    // modals before this one is shown.
+    if (autoFocus) {
+      const currentActiveElement = (0, _activeElement.default)(document);
+      if (modal.dialog && currentActiveElement && !(0, _contains.default)(modal.dialog, currentActiveElement)) {
+        lastFocusRef.current = currentActiveElement;
+        modal.dialog.focus();
+      }
+    }
+  });
+  const handleHide = (0, _useEventCallback.default)(() => {
+    modal.remove();
+    removeKeydownListenerRef.current == null ? void 0 : removeKeydownListenerRef.current();
+    removeFocusListenerRef.current == null ? void 0 : removeFocusListenerRef.current();
+    if (restoreFocus) {
+      var _lastFocusRef$current;
+      // Support: <=IE11 doesn't support `focus()` on svg elements (RB: #917)
+      (_lastFocusRef$current = lastFocusRef.current) == null ? void 0 : _lastFocusRef$current.focus == null ? void 0 : _lastFocusRef$current.focus(restoreFocusOptions);
+      lastFocusRef.current = null;
+    }
+  });
+
+  // TODO: try and combine these effects: https://github.com/react-bootstrap/react-overlays/pull/794#discussion_r409954120
+
+  // Show logic when:
+  //  - show is `true` _and_ `container` has resolved
+  (0, React.useEffect)(() => {
+    if (!show || !container) return;
+    handleShow();
+  }, [show, container, /* should never change: */handleShow]);
+
+  // Hide cleanup logic when:
+  //  - `exited` switches to true
+  //  - component unmounts;
+  (0, React.useEffect)(() => {
+    if (!exited) return;
+    handleHide();
+  }, [exited, handleHide]);
+  (0, _useWillUnmount.default)(() => {
+    handleHide();
+  });
+
+  // --------------------------------
+
+  const handleEnforceFocus = (0, _useEventCallback.default)(() => {
+    if (!enforceFocus || !isMounted() || !modal.isTopModal()) {
+      return;
+    }
+    const currentActiveElement = (0, _activeElement.default)();
+    if (modal.dialog && currentActiveElement && !(0, _contains.default)(modal.dialog, currentActiveElement)) {
+      modal.dialog.focus();
+    }
+  });
+  const handleBackdropClick = (0, _useEventCallback.default)(e => {
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+    onBackdropClick == null ? void 0 : onBackdropClick(e);
+    if (backdrop === true) {
+      onHide();
+    }
+  });
+  const handleDocumentKeyDown = (0, _useEventCallback.default)(e => {
+    if (keyboard && (0, _utils.isEscKey)(e) && modal.isTopModal()) {
+      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(e);
+      if (!e.defaultPrevented) {
+        onHide();
+      }
+    }
+  });
+  const removeFocusListenerRef = (0, React.useRef)();
+  const removeKeydownListenerRef = (0, React.useRef)();
+  const handleHidden = (...args) => {
+    setExited(true);
+    onExited == null ? void 0 : onExited(...args);
+  };
+  if (!container) {
+    return null;
+  }
+  const dialogProps = Object.assign({
+    role,
+    ref: modal.setDialogRef,
+    // apparently only works on the dialog role element
+    'aria-modal': role === 'dialog' ? true : undefined
+  }, rest, {
+    style,
+    className,
+    tabIndex: -1
+  });
+  let dialog = renderDialog ? renderDialog(dialogProps) : /*#__PURE__*/(0, _jsxRuntime.jsx)("div", Object.assign({}, dialogProps, {
+    children: /*#__PURE__*/React.cloneElement(children, {
+      role: 'document'
+    })
   }));
+  dialog = (0, _ImperativeTransition.renderTransition)(transition, runTransition, {
+    unmountOnExit: true,
+    mountOnEnter: true,
+    appear: true,
+    in: !!show,
+    onExit,
+    onExiting,
+    onExited: handleHidden,
+    onEnter,
+    onEntering,
+    onEntered,
+    children: dialog
+  });
+  let backdropElement = null;
+  if (backdrop) {
+    backdropElement = renderBackdrop({
+      ref: modal.setBackdropRef,
+      onClick: handleBackdropClick
+    });
+    backdropElement = (0, _ImperativeTransition.renderTransition)(backdropTransition, runBackdropTransition, {
+      in: !!show,
+      appear: true,
+      mountOnEnter: true,
+      unmountOnExit: true,
+      children: backdropElement
+    });
+  }
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_jsxRuntime.Fragment, {
+    children: /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/(0, _jsxRuntime.jsxs)(_jsxRuntime.Fragment, {
+      children: [backdropElement, dialog]
+    }), container)
+  });
 });
-Anchor.displayName = 'Anchor';
-var _default = Anchor;
+Modal.displayName = 'Modal';
+var _default = Object.assign(Modal, {
+  Manager: _ModalManager.default
+});
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","@restart/hooks":"../../node_modules/@restart/hooks/esm/index.js","./Button":"../../node_modules/@restart/ui/esm/Button.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Fade.js":[function(require,module,exports) {
+},{"dom-helpers/activeElement":"../../node_modules/dom-helpers/esm/activeElement.js","dom-helpers/contains":"../../node_modules/dom-helpers/esm/contains.js","dom-helpers/canUseDOM":"../../node_modules/dom-helpers/esm/canUseDOM.js","dom-helpers/listen":"../../node_modules/dom-helpers/esm/listen.js","react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","@restart/hooks/useMounted":"../../node_modules/@restart/hooks/esm/useMounted.js","@restart/hooks/useWillUnmount":"../../node_modules/@restart/hooks/esm/useWillUnmount.js","@restart/hooks/usePrevious":"../../node_modules/@restart/hooks/esm/usePrevious.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./ModalManager":"../../node_modules/@restart/ui/esm/ModalManager.js","./useWaitForDOMRef":"../../node_modules/@restart/ui/esm/useWaitForDOMRef.js","./useWindow":"../../node_modules/@restart/ui/esm/useWindow.js","./ImperativeTransition":"../../node_modules/@restart/ui/esm/ImperativeTransition.js","./utils":"../../node_modules/@restart/ui/esm/utils.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Fade.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38074,7 +39446,83 @@ Fade.defaultProps = defaultProps;
 Fade.displayName = 'Fade';
 var _default = Fade;
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","react-transition-group/Transition":"../../node_modules/react-transition-group/esm/Transition.js","./transitionEndListener":"../../node_modules/react-bootstrap/esm/transitionEndListener.js","./triggerBrowserReflow":"../../node_modules/react-bootstrap/esm/triggerBrowserReflow.js","./TransitionWrapper":"../../node_modules/react-bootstrap/esm/TransitionWrapper.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CloseButton.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","react-transition-group/Transition":"../../node_modules/react-transition-group/esm/Transition.js","./transitionEndListener":"../../node_modules/react-bootstrap/esm/transitionEndListener.js","./triggerBrowserReflow":"../../node_modules/react-bootstrap/esm/triggerBrowserReflow.js","./TransitionWrapper":"../../node_modules/react-bootstrap/esm/TransitionWrapper.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/OffcanvasBody.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _default = (0, _createWithBsPrefix.default)('offcanvas-body');
+exports.default = _default;
+},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/react-bootstrap/esm/OffcanvasToggling.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _Transition = require("react-transition-group/Transition");
+var _transitionEndListener = _interopRequireDefault(require("./transitionEndListener"));
+var _TransitionWrapper = _interopRequireDefault(require("./TransitionWrapper"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  in: false,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false
+};
+const transitionStyles = {
+  [_Transition.ENTERING]: 'show',
+  [_Transition.ENTERED]: 'show'
+};
+const OffcanvasToggling = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  children,
+  ...props
+}, ref) => {
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'offcanvas');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_TransitionWrapper.default, {
+    ref: ref,
+    addEndListener: _transitionEndListener.default,
+    ...props,
+    childRef: children.ref,
+    children: (status, innerProps) => /*#__PURE__*/React.cloneElement(children, {
+      ...innerProps,
+      className: (0, _classnames.default)(className, children.props.className, (status === _Transition.ENTERING || status === _Transition.EXITING) && `${bsPrefix}-toggling`, transitionStyles[status])
+    })
+  });
+});
+OffcanvasToggling.defaultProps = defaultProps;
+OffcanvasToggling.displayName = 'OffcanvasToggling';
+var _default = OffcanvasToggling;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","react-transition-group/Transition":"../../node_modules/react-transition-group/esm/Transition.js","./transitionEndListener":"../../node_modules/react-bootstrap/esm/transitionEndListener.js","./TransitionWrapper":"../../node_modules/react-bootstrap/esm/TransitionWrapper.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/ModalContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var React = _interopRequireWildcard(require("react"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const ModalContext = /*#__PURE__*/React.createContext({
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onHide() {}
+});
+var _default = ModalContext;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/CloseButton.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38118,7 +39566,87 @@ CloseButton.propTypes = propTypes;
 CloseButton.defaultProps = defaultProps;
 var _default = CloseButton;
 exports.default = _default;
-},{"prop-types":"../../node_modules/prop-types/index.js","react":"../../node_modules/react/index.js","classnames":"../../node_modules/classnames/index.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
+},{"prop-types":"../../node_modules/prop-types/index.js","react":"../../node_modules/react/index.js","classnames":"../../node_modules/classnames/index.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/AbstractModalHeader.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var React = _interopRequireWildcard(require("react"));
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _CloseButton = _interopRequireDefault(require("./CloseButton"));
+var _ModalContext = _interopRequireDefault(require("./ModalContext"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const defaultProps = {
+  closeLabel: 'Close',
+  closeButton: false
+};
+const AbstractModalHeader = /*#__PURE__*/React.forwardRef(({
+  closeLabel,
+  closeVariant,
+  closeButton,
+  onHide,
+  children,
+  ...props
+}, ref) => {
+  const context = (0, React.useContext)(_ModalContext.default);
+  const handleClick = (0, _useEventCallback.default)(() => {
+    context == null ? void 0 : context.onHide();
+    onHide == null ? void 0 : onHide();
+  });
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+    ref: ref,
+    ...props,
+    children: [children, closeButton && /*#__PURE__*/(0, _jsxRuntime.jsx)(_CloseButton.default, {
+      "aria-label": closeLabel,
+      variant: closeVariant,
+      onClick: handleClick
+    })]
+  });
+});
+AbstractModalHeader.defaultProps = defaultProps;
+var _default = AbstractModalHeader;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./ModalContext":"../../node_modules/react-bootstrap/esm/ModalContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/OffcanvasHeader.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _AbstractModalHeader = _interopRequireDefault(require("./AbstractModalHeader"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  closeLabel: 'Close',
+  closeButton: false
+};
+const OffcanvasHeader = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  ...props
+}, ref) => {
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'offcanvas-header');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_AbstractModalHeader.default, {
+    ref: ref,
+    ...props,
+    className: (0, _classnames.default)(className, bsPrefix)
+  });
+});
+OffcanvasHeader.displayName = 'OffcanvasHeader';
+OffcanvasHeader.defaultProps = defaultProps;
+var _default = OffcanvasHeader;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AbstractModalHeader":"../../node_modules/react-bootstrap/esm/AbstractModalHeader.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38137,1280 +39665,437 @@ var _default = className => /*#__PURE__*/React.forwardRef((p, ref) => /*#__PURE_
   className: (0, _classnames.default)(p.className, className)
 }));
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","classnames":"../../node_modules/classnames/index.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/dom-helpers/esm/camelize.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = camelize;
-var rHyphen = /-(.)/g;
-function camelize(string) {
-  return string.replace(rHyphen, function (_, chr) {
-    return chr.toUpperCase();
-  });
-}
-},{}],"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = createWithBsPrefix;
-var _classnames = _interopRequireDefault(require("classnames"));
-var _camelize = _interopRequireDefault(require("dom-helpers/camelize"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const pascalCase = str => str[0].toUpperCase() + (0, _camelize.default)(str).slice(1);
-// TODO: emstricten & fix the typing here! `createWithBsPrefix<TElementType>...`
-function createWithBsPrefix(prefix, {
-  displayName = pascalCase(prefix),
-  Component,
-  defaultProps
-} = {}) {
-  const BsComponent = /*#__PURE__*/React.forwardRef(({
-    className,
-    bsPrefix,
-    as: Tag = Component || 'div',
-    ...props
-  }, ref) => {
-    const resolvedPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, prefix);
-    return /*#__PURE__*/(0, _jsxRuntime.jsx)(Tag, {
-      ref: ref,
-      className: (0, _classnames.default)(className, resolvedPrefix),
-      ...props
-    });
-  });
-  BsComponent.defaultProps = defaultProps;
-  BsComponent.displayName = displayName;
-  return BsComponent;
-}
-},{"classnames":"../../node_modules/classnames/index.js","dom-helpers/camelize":"../../node_modules/dom-helpers/esm/camelize.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Alert.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","classnames":"../../node_modules/classnames/index.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/OffcanvasTitle.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _uncontrollable = require("uncontrollable");
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
-var _ThemeProvider = require("./ThemeProvider");
-var _Fade = _interopRequireDefault(require("./Fade"));
-var _CloseButton = _interopRequireDefault(require("./CloseButton"));
-var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
-var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const DivStyledAsH4 = (0, _divWithClassName.default)('h4');
-DivStyledAsH4.displayName = 'DivStyledAsH4';
-const AlertHeading = (0, _createWithBsPrefix.default)('alert-heading', {
-  Component: DivStyledAsH4
-});
-const AlertLink = (0, _createWithBsPrefix.default)('alert-link', {
-  Component: _Anchor.default
-});
-const defaultProps = {
-  variant: 'primary',
-  show: true,
-  transition: _Fade.default,
-  closeLabel: 'Close alert'
-};
-const Alert = /*#__PURE__*/React.forwardRef((uncontrolledProps, ref) => {
-  const {
-    bsPrefix,
-    show,
-    closeLabel,
-    closeVariant,
-    className,
-    children,
-    variant,
-    onClose,
-    dismissible,
-    transition,
-    ...props
-  } = (0, _uncontrollable.useUncontrolled)(uncontrolledProps, {
-    show: 'onClose'
-  });
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'alert');
-  const handleClose = (0, _useEventCallback.default)(e => {
-    if (onClose) {
-      onClose(false, e);
-    }
-  });
-  const Transition = transition === true ? _Fade.default : transition;
-  const alert = /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-    role: "alert",
-    ...(!Transition ? props : undefined),
-    ref: ref,
-    className: (0, _classnames.default)(className, prefix, variant && `${prefix}-${variant}`, dismissible && `${prefix}-dismissible`),
-    children: [dismissible && /*#__PURE__*/(0, _jsxRuntime.jsx)(_CloseButton.default, {
-      onClick: handleClose,
-      "aria-label": closeLabel,
-      variant: closeVariant
-    }), children]
-  });
-  if (!Transition) return show ? alert : null;
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Transition, {
-    unmountOnExit: true,
-    ...props,
-    ref: undefined,
-    in: show,
-    children: alert
-  });
-});
-Alert.displayName = 'Alert';
-Alert.defaultProps = defaultProps;
-var _default = Object.assign(Alert, {
-  Link: AlertLink,
-  Heading: AlertHeading
-});
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Anchor.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var _default = _Anchor.default;
-exports.default = _default;
-},{"@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js"}],"../../node_modules/react-bootstrap/esm/Badge.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  bg: 'primary',
-  pill: false
-};
-const Badge = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  bg,
-  pill,
-  text,
-  className,
-  as: Component = 'span',
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'badge');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: (0, _classnames.default)(className, prefix, pill && `rounded-pill`, text && `text-${text}`, bg && `bg-${bg}`)
-  });
-});
-Badge.displayName = 'Badge';
-Badge.defaultProps = defaultProps;
-var _default = Badge;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/BreadcrumbItem.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  active: false,
-  linkProps: {}
-};
-const BreadcrumbItem = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  active,
-  children,
-  className,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'li',
-  linkAs: LinkComponent = _Anchor.default,
-  linkProps,
-  href,
-  title,
-  target,
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'breadcrumb-item');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: (0, _classnames.default)(prefix, className, {
-      active
-    }),
-    "aria-current": active ? 'page' : undefined,
-    children: active ? children : /*#__PURE__*/(0, _jsxRuntime.jsx)(LinkComponent, {
-      ...linkProps,
-      href: href,
-      title: title,
-      target: target,
-      children: children
-    })
-  });
-});
-BreadcrumbItem.displayName = 'BreadcrumbItem';
-BreadcrumbItem.defaultProps = defaultProps;
-var _default = BreadcrumbItem;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Breadcrumb.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _BreadcrumbItem = _interopRequireDefault(require("./BreadcrumbItem"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  label: 'breadcrumb',
-  listProps: {}
-};
-const Breadcrumb = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  listProps,
-  children,
-  label,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'nav',
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'breadcrumb');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    "aria-label": label,
-    className: className,
-    ref: ref,
-    ...props,
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)("ol", {
-      ...listProps,
-      className: (0, _classnames.default)(prefix, listProps == null ? void 0 : listProps.className),
-      children: children
-    })
-  });
-});
-Breadcrumb.displayName = 'Breadcrumb';
-Breadcrumb.defaultProps = defaultProps;
-var _default = Object.assign(Breadcrumb, {
-  Item: _BreadcrumbItem.default
-});
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./BreadcrumbItem":"../../node_modules/react-bootstrap/esm/BreadcrumbItem.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Button.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _Button = require("@restart/ui/Button");
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  variant: 'primary',
-  active: false,
-  disabled: false
-};
-const Button = /*#__PURE__*/React.forwardRef(({
-  as,
-  bsPrefix,
-  variant,
-  size,
-  active,
-  className,
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'btn');
-  const [buttonProps, {
-    tagName
-  }] = (0, _Button.useButtonProps)({
-    tagName: as,
-    ...props
-  });
-  const Component = tagName;
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ...buttonProps,
-    ...props,
-    ref: ref,
-    className: (0, _classnames.default)(className, prefix, active && 'active', variant && `${prefix}-${variant}`, size && `${prefix}-${size}`, props.href && props.disabled && 'disabled')
-  });
-});
-Button.displayName = 'Button';
-Button.defaultProps = defaultProps;
-var _default = Button;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/Button":"../../node_modules/@restart/ui/esm/Button.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/ButtonGroup.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  vertical: false,
-  role: 'group'
-};
-const ButtonGroup = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  size,
-  vertical,
-  className,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  ...rest
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'btn-group');
-  let baseClass = prefix;
-  if (vertical) baseClass = `${prefix}-vertical`;
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ...rest,
-    ref: ref,
-    className: (0, _classnames.default)(className, baseClass, size && `${prefix}-${size}`)
-  });
-});
-ButtonGroup.displayName = 'ButtonGroup';
-ButtonGroup.defaultProps = defaultProps;
-var _default = ButtonGroup;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/ButtonToolbar.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  role: 'toolbar'
-};
-const ButtonToolbar = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'btn-toolbar');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-    ...props,
-    ref: ref,
-    className: (0, _classnames.default)(className, prefix)
-  });
-});
-ButtonToolbar.displayName = 'ButtonToolbar';
-ButtonToolbar.defaultProps = defaultProps;
-var _default = ButtonToolbar;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardImg.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const CardImg = /*#__PURE__*/React.forwardRef(
-// Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-({
-  bsPrefix,
-  className,
-  variant,
-  as: Component = 'img',
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card-img');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ref: ref,
-    className: (0, _classnames.default)(variant ? `${prefix}-${variant}` : prefix, className),
-    ...props
-  });
-});
-CardImg.displayName = 'CardImg';
-var _default = CardImg;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardHeaderContext.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var React = _interopRequireWildcard(require("react"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const context = /*#__PURE__*/React.createContext(null);
-context.displayName = 'CardHeaderContext';
-var _default = context;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/CardHeader.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _CardHeaderContext = _interopRequireDefault(require("./CardHeaderContext"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const CardHeader = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card-header');
-  const contextValue = (0, React.useMemo)(() => ({
-    cardHeaderBsPrefix: prefix
-  }), [prefix]);
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_CardHeaderContext.default.Provider, {
-    value: contextValue,
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-      ref: ref,
-      ...props,
-      className: (0, _classnames.default)(className, prefix)
-    })
-  });
-});
-CardHeader.displayName = 'CardHeader';
-var _default = CardHeader;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./CardHeaderContext":"../../node_modules/react-bootstrap/esm/CardHeaderContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Card.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
 var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
 var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
-var _CardImg = _interopRequireDefault(require("./CardImg"));
-var _CardHeader = _interopRequireDefault(require("./CardHeader"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const DivStyledAsH5 = (0, _divWithClassName.default)('h5');
-const DivStyledAsH6 = (0, _divWithClassName.default)('h6');
-const CardBody = (0, _createWithBsPrefix.default)('card-body');
-const CardTitle = (0, _createWithBsPrefix.default)('card-title', {
+var _default = (0, _createWithBsPrefix.default)('offcanvas-title', {
   Component: DivStyledAsH5
 });
-const CardSubtitle = (0, _createWithBsPrefix.default)('card-subtitle', {
-  Component: DivStyledAsH6
-});
-const CardLink = (0, _createWithBsPrefix.default)('card-link', {
-  Component: 'a'
-});
-const CardText = (0, _createWithBsPrefix.default)('card-text', {
-  Component: 'p'
-});
-const CardFooter = (0, _createWithBsPrefix.default)('card-footer');
-const CardImgOverlay = (0, _createWithBsPrefix.default)('card-img-overlay');
-const defaultProps = {
-  body: false
-};
-const Card = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  bg,
-  text,
-  border,
-  body,
-  children,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: (0, _classnames.default)(className, prefix, bg && `bg-${bg}`, text && `text-${text}`, border && `border-${border}`),
-    children: body ? /*#__PURE__*/(0, _jsxRuntime.jsx)(CardBody, {
-      children: children
-    }) : children
-  });
-});
-Card.displayName = 'Card';
-Card.defaultProps = defaultProps;
-var _default = Object.assign(Card, {
-  Img: _CardImg.default,
-  Title: CardTitle,
-  Subtitle: CardSubtitle,
-  Body: CardBody,
-  Link: CardLink,
-  Text: CardText,
-  Header: _CardHeader.default,
-  Footer: CardFooter,
-  ImgOverlay: CardImgOverlay
-});
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js","./CardImg":"../../node_modules/react-bootstrap/esm/CardImg.js","./CardHeader":"../../node_modules/react-bootstrap/esm/CardHeader.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardGroup.js":[function(require,module,exports) {
+},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js"}],"../../node_modules/dom-helpers/esm/hasClass.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
-var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var _default = (0, _createWithBsPrefix.default)('card-group');
-exports.default = _default;
-},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/@restart/hooks/esm/useUpdateEffect.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = require("react");
+exports.default = hasClass;
 /**
- * Runs an effect only when the dependencies have changed, skipping the
- * initial "on mount" run. Caution, if the dependency list never changes,
- * the effect is **never run**
- *
- * ```ts
- *  const ref = useRef<HTMLInput>(null);
- *
- *  // focuses an element only if the focus changes, and not on mount
- *  useUpdateEffect(() => {
- *    const element = ref.current?.children[focusedIdx] as HTMLElement
- *
- *    element?.focus()
- *
- *  }, [focusedIndex])
- * ```
- * @param effect An effect to run on mount
- *
- * @category effects
+ * Checks if a given element has a CSS class.
+ * 
+ * @param element the element
+ * @param className the CSS class name
  */
-
-function useUpdateEffect(fn, deps) {
-  var isFirst = (0, _react.useRef)(true);
-  (0, _react.useEffect)(function () {
-    if (isFirst.current) {
-      isFirst.current = false;
-      return;
-    }
-    return fn();
-  }, deps);
+function hasClass(element, className) {
+  if (element.classList) return !!className && element.classList.contains(className);
+  return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
 }
-var _default = useUpdateEffect;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useUpdatedRef.js":[function(require,module,exports) {
+},{}],"../../node_modules/dom-helpers/esm/addClass.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = useUpdatedRef;
-var _react = require("react");
-/**
- * Returns a ref that is immediately updated with the new value
- *
- * @param value The Ref value
- * @category refs
- */
-
-function useUpdatedRef(value) {
-  var valueRef = (0, _react.useRef)(value);
-  valueRef.current = value;
-  return valueRef;
-}
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useWillUnmount.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useWillUnmount;
-var _useUpdatedRef = _interopRequireDefault(require("./useUpdatedRef"));
-var _react = require("react");
+exports.default = addClass;
+var _hasClass = _interopRequireDefault(require("./hasClass"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * Attach a callback that fires when a component unmounts
- *
- * @param fn Handler to run when the component unmounts
- * @category effects
+ * Adds a CSS class to a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
  */
 
-function useWillUnmount(fn) {
-  var onUnmount = (0, _useUpdatedRef.default)(fn);
-  (0, _react.useEffect)(function () {
-    return function () {
-      return onUnmount.current();
-    };
-  }, []);
+function addClass(element, className) {
+  if (element.classList) element.classList.add(className);else if (!(0, _hasClass.default)(element, className)) if (typeof element.className === 'string') element.className = element.className + " " + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + " " + className);
 }
-},{"./useUpdatedRef":"../../node_modules/@restart/hooks/esm/useUpdatedRef.js","react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useTimeout.js":[function(require,module,exports) {
+},{"./hasClass":"../../node_modules/dom-helpers/esm/hasClass.js"}],"../../node_modules/dom-helpers/esm/removeClass.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = useTimeout;
-var _react = require("react");
-var _useMounted = _interopRequireDefault(require("./useMounted"));
-var _useWillUnmount = _interopRequireDefault(require("./useWillUnmount"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-/*
- * Browsers including Internet Explorer, Chrome, Safari, and Firefox store the
- * delay as a 32-bit signed integer internally. This causes an integer overflow
- * when using delays larger than 2,147,483,647 ms (about 24.8 days),
- * resulting in the timeout being executed immediately.
- *
- * via: https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout
- */
-
-var MAX_DELAY_MS = Math.pow(2, 31) - 1;
-function setChainedTimeout(handleRef, fn, timeoutAtMs) {
-  var delayMs = timeoutAtMs - Date.now();
-  handleRef.current = delayMs <= MAX_DELAY_MS ? setTimeout(fn, delayMs) : setTimeout(function () {
-    return setChainedTimeout(handleRef, fn, timeoutAtMs);
-  }, MAX_DELAY_MS);
+exports.default = removeClass;
+function replaceClassName(origClass, classToRemove) {
+  return origClass.replace(new RegExp("(^|\\s)" + classToRemove + "(?:\\s|$)", 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
 }
 /**
- * Returns a controller object for setting a timeout that is properly cleaned up
- * once the component unmounts. New timeouts cancel and replace existing ones.
- *
- *
- *
- * ```tsx
- * const { set, clear } = useTimeout();
- * const [hello, showHello] = useState(false);
- * //Display hello after 5 seconds
- * set(() => showHello(true), 5000);
- * return (
- *   <div className="App">
- *     {hello ? <h3>Hello</h3> : null}
- *   </div>
- * );
- * ```
+ * Removes a CSS class from a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
  */
 
-function useTimeout() {
-  var isMounted = (0, _useMounted.default)(); // types are confused between node and web here IDK
-
-  var handleRef = (0, _react.useRef)();
-  (0, _useWillUnmount.default)(function () {
-    return clearTimeout(handleRef.current);
-  });
-  return (0, _react.useMemo)(function () {
-    var clear = function clear() {
-      return clearTimeout(handleRef.current);
-    };
-    function set(fn, delayMs) {
-      if (delayMs === void 0) {
-        delayMs = 0;
-      }
-      if (!isMounted()) return;
-      clear();
-      if (delayMs <= MAX_DELAY_MS) {
-        // For simplicity, if the timeout is short, just set a normal timeout.
-        handleRef.current = setTimeout(fn, delayMs);
-      } else {
-        setChainedTimeout(handleRef, fn, Date.now() + delayMs);
-      }
-    }
-    return {
-      set: set,
-      clear: clear
-    };
-  }, []);
-}
-},{"react":"../../node_modules/react/index.js","./useMounted":"../../node_modules/@restart/hooks/esm/useMounted.js","./useWillUnmount":"../../node_modules/@restart/hooks/esm/useWillUnmount.js"}],"../../node_modules/react-bootstrap/esm/CarouselCaption.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var _default = (0, _createWithBsPrefix.default)('carousel-caption');
-exports.default = _default;
-},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/react-bootstrap/esm/CarouselItem.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const CarouselItem = /*#__PURE__*/React.forwardRef(({
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  bsPrefix,
-  className,
-  ...props
-}, ref) => {
-  const finalClassName = (0, _classnames.default)(className, (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'carousel-item'));
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: finalClassName
-  });
-});
-CarouselItem.displayName = 'CarouselItem';
-var _default = CarouselItem;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/ElementChildren.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.forEach = forEach;
-exports.hasChildOfType = hasChildOfType;
-exports.map = map;
-var React = _interopRequireWildcard(require("react"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-/**
- * Iterates through children that are typically specified as `props.children`,
- * but only maps over children that are "valid elements".
- *
- * The mapFunction provided index will be normalised to the components mapped,
- * so an invalid component would not increase the index.
- *
- */
-function map(children, func) {
-  let index = 0;
-  return React.Children.map(children, child => /*#__PURE__*/React.isValidElement(child) ? func(child, index++) : child);
-}
-
-/**
- * Iterates through children that are "valid elements".
- *
- * The provided forEachFunc(child, index) will be called for each
- * leaf child with the index reflecting the position relative to "valid components".
- */
-function forEach(children, func) {
-  let index = 0;
-  React.Children.forEach(children, child => {
-    if ( /*#__PURE__*/React.isValidElement(child)) func(child, index++);
-  });
-}
-
-/**
- * Finds whether a component's `children` prop includes a React element of the
- * specified type.
- */
-function hasChildOfType(children, type) {
-  return React.Children.toArray(children).some(child => /*#__PURE__*/React.isValidElement(child) && child.type === type);
-}
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/Carousel.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var _useUpdateEffect = _interopRequireDefault(require("@restart/hooks/useUpdateEffect"));
-var _useCommittedRef = _interopRequireDefault(require("@restart/hooks/useCommittedRef"));
-var _useTimeout = _interopRequireDefault(require("@restart/hooks/useTimeout"));
-var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _uncontrollable = require("uncontrollable");
-var _CarouselCaption = _interopRequireDefault(require("./CarouselCaption"));
-var _CarouselItem = _interopRequireDefault(require("./CarouselItem"));
-var _ElementChildren = require("./ElementChildren");
-var _ThemeProvider = require("./ThemeProvider");
-var _transitionEndListener = _interopRequireDefault(require("./transitionEndListener"));
-var _triggerBrowserReflow = _interopRequireDefault(require("./triggerBrowserReflow"));
-var _TransitionWrapper = _interopRequireDefault(require("./TransitionWrapper"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const SWIPE_THRESHOLD = 40;
-const defaultProps = {
-  slide: true,
-  fade: false,
-  controls: true,
-  indicators: true,
-  indicatorLabels: [],
-  defaultActiveIndex: 0,
-  interval: 5000,
-  keyboard: true,
-  pause: 'hover',
-  wrap: true,
-  touch: true,
-  prevIcon: /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
-    "aria-hidden": "true",
-    className: "carousel-control-prev-icon"
-  }),
-  prevLabel: 'Previous',
-  nextIcon: /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
-    "aria-hidden": "true",
-    className: "carousel-control-next-icon"
-  }),
-  nextLabel: 'Next'
-};
-function isVisible(element) {
-  if (!element || !element.style || !element.parentNode || !element.parentNode.style) {
-    return false;
+function removeClass(element, className) {
+  if (element.classList) {
+    element.classList.remove(className);
+  } else if (typeof element.className === 'string') {
+    element.className = replaceClassName(element.className, className);
+  } else {
+    element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
   }
-  const elementStyle = getComputedStyle(element);
-  return elementStyle.display !== 'none' && elementStyle.visibility !== 'hidden' && getComputedStyle(element.parentNode).display !== 'none';
 }
-const Carousel = /*#__PURE__*/React.forwardRef((uncontrolledProps, ref) => {
-  const {
-    // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-    as: Component = 'div',
-    bsPrefix,
-    slide,
-    fade,
-    controls,
-    indicators,
-    indicatorLabels,
-    activeIndex,
-    onSelect,
-    onSlide,
-    onSlid,
-    interval,
-    keyboard,
-    onKeyDown,
-    pause,
-    onMouseOver,
-    onMouseOut,
-    wrap,
-    touch,
-    onTouchStart,
-    onTouchMove,
-    onTouchEnd,
-    prevIcon,
-    prevLabel,
-    nextIcon,
-    nextLabel,
-    variant,
-    className,
-    children,
+},{}],"../../node_modules/react-bootstrap/esm/BootstrapModalManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+exports.getSharedManager = getSharedManager;
+var _addClass = _interopRequireDefault(require("dom-helpers/addClass"));
+var _css = _interopRequireDefault(require("dom-helpers/css"));
+var _querySelectorAll = _interopRequireDefault(require("dom-helpers/querySelectorAll"));
+var _removeClass = _interopRequireDefault(require("dom-helpers/removeClass"));
+var _ModalManager = _interopRequireDefault(require("@restart/ui/ModalManager"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const Selector = {
+  FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
+  STICKY_CONTENT: '.sticky-top',
+  NAVBAR_TOGGLER: '.navbar-toggler'
+};
+class BootstrapModalManager extends _ModalManager.default {
+  adjustAndStore(prop, element, adjust) {
+    const actual = element.style[prop];
+    // TODO: DOMStringMap and CSSStyleDeclaration aren't strictly compatible
+    // @ts-ignore
+    element.dataset[prop] = actual;
+    (0, _css.default)(element, {
+      [prop]: `${parseFloat((0, _css.default)(element, prop)) + adjust}px`
+    });
+  }
+  restore(prop, element) {
+    const value = element.dataset[prop];
+    if (value !== undefined) {
+      delete element.dataset[prop];
+      (0, _css.default)(element, {
+        [prop]: value
+      });
+    }
+  }
+  setContainerStyle(containerState) {
+    super.setContainerStyle(containerState);
+    const container = this.getElement();
+    (0, _addClass.default)(container, 'modal-open');
+    if (!containerState.scrollBarWidth) return;
+    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
+    const marginProp = this.isRTL ? 'marginLeft' : 'marginRight';
+    (0, _querySelectorAll.default)(container, Selector.FIXED_CONTENT).forEach(el => this.adjustAndStore(paddingProp, el, containerState.scrollBarWidth));
+    (0, _querySelectorAll.default)(container, Selector.STICKY_CONTENT).forEach(el => this.adjustAndStore(marginProp, el, -containerState.scrollBarWidth));
+    (0, _querySelectorAll.default)(container, Selector.NAVBAR_TOGGLER).forEach(el => this.adjustAndStore(marginProp, el, containerState.scrollBarWidth));
+  }
+  removeContainerStyle(containerState) {
+    super.removeContainerStyle(containerState);
+    const container = this.getElement();
+    (0, _removeClass.default)(container, 'modal-open');
+    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
+    const marginProp = this.isRTL ? 'marginLeft' : 'marginRight';
+    (0, _querySelectorAll.default)(container, Selector.FIXED_CONTENT).forEach(el => this.restore(paddingProp, el));
+    (0, _querySelectorAll.default)(container, Selector.STICKY_CONTENT).forEach(el => this.restore(marginProp, el));
+    (0, _querySelectorAll.default)(container, Selector.NAVBAR_TOGGLER).forEach(el => this.restore(marginProp, el));
+  }
+}
+let sharedManager;
+function getSharedManager(options) {
+  if (!sharedManager) sharedManager = new BootstrapModalManager(options);
+  return sharedManager;
+}
+var _default = BootstrapModalManager;
+exports.default = _default;
+},{"dom-helpers/addClass":"../../node_modules/dom-helpers/esm/addClass.js","dom-helpers/css":"../../node_modules/dom-helpers/esm/css.js","dom-helpers/querySelectorAll":"../../node_modules/dom-helpers/esm/querySelectorAll.js","dom-helpers/removeClass":"../../node_modules/dom-helpers/esm/removeClass.js","@restart/ui/ModalManager":"../../node_modules/@restart/ui/esm/ModalManager.js"}],"../../node_modules/react-bootstrap/esm/Offcanvas.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var _useBreakpoint = _interopRequireDefault(require("@restart/hooks/useBreakpoint"));
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var React = _interopRequireWildcard(require("react"));
+var _Modal = _interopRequireDefault(require("@restart/ui/Modal"));
+var _Fade = _interopRequireDefault(require("./Fade"));
+var _OffcanvasBody = _interopRequireDefault(require("./OffcanvasBody"));
+var _OffcanvasToggling = _interopRequireDefault(require("./OffcanvasToggling"));
+var _ModalContext = _interopRequireDefault(require("./ModalContext"));
+var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
+var _OffcanvasHeader = _interopRequireDefault(require("./OffcanvasHeader"));
+var _OffcanvasTitle = _interopRequireDefault(require("./OffcanvasTitle"));
+var _ThemeProvider = require("./ThemeProvider");
+var _BootstrapModalManager = _interopRequireWildcard(require("./BootstrapModalManager"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  show: false,
+  backdrop: true,
+  keyboard: true,
+  scroll: false,
+  autoFocus: true,
+  enforceFocus: true,
+  restoreFocus: true,
+  placement: 'start',
+  renderStaticNode: false
+};
+function DialogTransition(props) {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_OffcanvasToggling.default, {
     ...props
-  } = (0, _uncontrollable.useUncontrolled)(uncontrolledProps, {
-    activeIndex: 'onSelect'
   });
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'carousel');
-  const isRTL = (0, _ThemeProvider.useIsRTL)();
-  const nextDirectionRef = (0, React.useRef)(null);
-  const [direction, setDirection] = (0, React.useState)('next');
-  const [paused, setPaused] = (0, React.useState)(false);
-  const [isSliding, setIsSliding] = (0, React.useState)(false);
-  const [renderedActiveIndex, setRenderedActiveIndex] = (0, React.useState)(activeIndex || 0);
-  (0, React.useEffect)(() => {
-    if (!isSliding && activeIndex !== renderedActiveIndex) {
-      if (nextDirectionRef.current) {
-        setDirection(nextDirectionRef.current);
-      } else {
-        setDirection((activeIndex || 0) > renderedActiveIndex ? 'next' : 'prev');
-      }
-      if (slide) {
-        setIsSliding(true);
-      }
-      setRenderedActiveIndex(activeIndex || 0);
-    }
-  }, [activeIndex, isSliding, renderedActiveIndex, slide]);
-  (0, React.useEffect)(() => {
-    if (nextDirectionRef.current) {
-      nextDirectionRef.current = null;
-    }
+}
+function BackdropTransition(props) {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Fade.default, {
+    ...props
   });
-  let numChildren = 0;
-  let activeChildInterval;
+}
+const Offcanvas = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  children,
+  'aria-labelledby': ariaLabelledby,
+  placement,
+  responsive,
+  /* BaseModal props */
 
-  // Iterate to grab all of the children's interval values
-  // (and count them, too)
-  (0, _ElementChildren.forEach)(children, (child, index) => {
-    ++numChildren;
-    if (index === activeIndex) {
-      activeChildInterval = child.props.interval;
-    }
-  });
-  const activeChildIntervalRef = (0, _useCommittedRef.default)(activeChildInterval);
-  const prev = (0, React.useCallback)(event => {
-    if (isSliding) {
-      return;
-    }
-    let nextActiveIndex = renderedActiveIndex - 1;
-    if (nextActiveIndex < 0) {
-      if (!wrap) {
-        return;
-      }
-      nextActiveIndex = numChildren - 1;
-    }
-    nextDirectionRef.current = 'prev';
-    onSelect == null ? void 0 : onSelect(nextActiveIndex, event);
-  }, [isSliding, renderedActiveIndex, onSelect, wrap, numChildren]);
-
-  // This is used in the setInterval, so it should not invalidate.
-  const next = (0, _useEventCallback.default)(event => {
-    if (isSliding) {
-      return;
-    }
-    let nextActiveIndex = renderedActiveIndex + 1;
-    if (nextActiveIndex >= numChildren) {
-      if (!wrap) {
-        return;
-      }
-      nextActiveIndex = 0;
-    }
-    nextDirectionRef.current = 'next';
-    onSelect == null ? void 0 : onSelect(nextActiveIndex, event);
-  });
-  const elementRef = (0, React.useRef)();
-  (0, React.useImperativeHandle)(ref, () => ({
-    element: elementRef.current,
-    prev,
-    next
-  }));
-
-  // This is used in the setInterval, so it should not invalidate.
-  const nextWhenVisible = (0, _useEventCallback.default)(() => {
-    if (!document.hidden && isVisible(elementRef.current)) {
-      if (isRTL) {
-        prev();
-      } else {
-        next();
-      }
-    }
-  });
-  const slideDirection = direction === 'next' ? 'start' : 'end';
-  (0, _useUpdateEffect.default)(() => {
-    if (slide) {
-      // These callbacks will be handled by the <Transition> callbacks.
-      return;
-    }
-    onSlide == null ? void 0 : onSlide(renderedActiveIndex, slideDirection);
-    onSlid == null ? void 0 : onSlid(renderedActiveIndex, slideDirection);
-  }, [renderedActiveIndex]);
-  const orderClassName = `${prefix}-item-${direction}`;
-  const directionalClassName = `${prefix}-item-${slideDirection}`;
-  const handleEnter = (0, React.useCallback)(node => {
-    (0, _triggerBrowserReflow.default)(node);
-    onSlide == null ? void 0 : onSlide(renderedActiveIndex, slideDirection);
-  }, [onSlide, renderedActiveIndex, slideDirection]);
-  const handleEntered = (0, React.useCallback)(() => {
-    setIsSliding(false);
-    onSlid == null ? void 0 : onSlid(renderedActiveIndex, slideDirection);
-  }, [onSlid, renderedActiveIndex, slideDirection]);
-  const handleKeyDown = (0, React.useCallback)(event => {
-    if (keyboard && !/input|textarea/i.test(event.target.tagName)) {
-      switch (event.key) {
-        case 'ArrowLeft':
-          event.preventDefault();
-          if (isRTL) {
-            next(event);
-          } else {
-            prev(event);
-          }
-          return;
-        case 'ArrowRight':
-          event.preventDefault();
-          if (isRTL) {
-            prev(event);
-          } else {
-            next(event);
-          }
-          return;
-        default:
-      }
-    }
-    onKeyDown == null ? void 0 : onKeyDown(event);
-  }, [keyboard, onKeyDown, prev, next, isRTL]);
-  const handleMouseOver = (0, React.useCallback)(event => {
-    if (pause === 'hover') {
-      setPaused(true);
-    }
-    onMouseOver == null ? void 0 : onMouseOver(event);
-  }, [pause, onMouseOver]);
-  const handleMouseOut = (0, React.useCallback)(event => {
-    setPaused(false);
-    onMouseOut == null ? void 0 : onMouseOut(event);
-  }, [onMouseOut]);
-  const touchStartXRef = (0, React.useRef)(0);
-  const touchDeltaXRef = (0, React.useRef)(0);
-  const touchUnpauseTimeout = (0, _useTimeout.default)();
-  const handleTouchStart = (0, React.useCallback)(event => {
-    touchStartXRef.current = event.touches[0].clientX;
-    touchDeltaXRef.current = 0;
-    if (pause === 'hover') {
-      setPaused(true);
-    }
-    onTouchStart == null ? void 0 : onTouchStart(event);
-  }, [pause, onTouchStart]);
-  const handleTouchMove = (0, React.useCallback)(event => {
-    if (event.touches && event.touches.length > 1) {
-      touchDeltaXRef.current = 0;
-    } else {
-      touchDeltaXRef.current = event.touches[0].clientX - touchStartXRef.current;
-    }
-    onTouchMove == null ? void 0 : onTouchMove(event);
-  }, [onTouchMove]);
-  const handleTouchEnd = (0, React.useCallback)(event => {
-    if (touch) {
-      const touchDeltaX = touchDeltaXRef.current;
-      if (Math.abs(touchDeltaX) > SWIPE_THRESHOLD) {
-        if (touchDeltaX > 0) {
-          prev(event);
-        } else {
-          next(event);
-        }
-      }
-    }
-    if (pause === 'hover') {
-      touchUnpauseTimeout.set(() => {
-        setPaused(false);
-      }, interval || undefined);
-    }
-    onTouchEnd == null ? void 0 : onTouchEnd(event);
-  }, [touch, pause, prev, next, touchUnpauseTimeout, interval, onTouchEnd]);
-  const shouldPlay = interval != null && !paused && !isSliding;
-  const intervalHandleRef = (0, React.useRef)();
+  show,
+  backdrop,
+  keyboard,
+  scroll,
+  onEscapeKeyDown,
+  onShow,
+  onHide,
+  container,
+  autoFocus,
+  enforceFocus,
+  restoreFocus,
+  restoreFocusOptions,
+  onEntered,
+  onExit,
+  onExiting,
+  onEnter,
+  onEntering,
+  onExited,
+  backdropClassName,
+  manager: propsManager,
+  renderStaticNode,
+  ...props
+}, ref) => {
+  const modalManager = (0, React.useRef)();
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'offcanvas');
+  const {
+    onToggle
+  } = (0, React.useContext)(_NavbarContext.default) || {};
+  const [showOffcanvas, setShowOffcanvas] = (0, React.useState)(false);
+  const hideResponsiveOffcanvas = (0, _useBreakpoint.default)(responsive || 'xs', 'up');
   (0, React.useEffect)(() => {
-    var _ref, _activeChildIntervalR;
-    if (!shouldPlay) {
-      return undefined;
+    // Handles the case where screen is resized while the responsive
+    // offcanvas is shown. If `responsive` not provided, just use `show`.
+    setShowOffcanvas(responsive ? show && !hideResponsiveOffcanvas : show);
+  }, [show, responsive, hideResponsiveOffcanvas]);
+  const handleHide = (0, _useEventCallback.default)(() => {
+    onToggle == null ? void 0 : onToggle();
+    onHide == null ? void 0 : onHide();
+  });
+  const modalContext = (0, React.useMemo)(() => ({
+    onHide: handleHide
+  }), [handleHide]);
+  function getModalManager() {
+    if (propsManager) return propsManager;
+    if (scroll) {
+      // Have to use a different modal manager since the shared
+      // one handles overflow.
+      if (!modalManager.current) modalManager.current = new _BootstrapModalManager.default({
+        handleContainerOverflow: false
+      });
+      return modalManager.current;
     }
-    const nextFunc = isRTL ? prev : next;
-    intervalHandleRef.current = window.setInterval(document.visibilityState ? nextWhenVisible : nextFunc, (_ref = (_activeChildIntervalR = activeChildIntervalRef.current) != null ? _activeChildIntervalR : interval) != null ? _ref : undefined);
-    return () => {
-      if (intervalHandleRef.current !== null) {
-        clearInterval(intervalHandleRef.current);
-      }
-    };
-  }, [shouldPlay, prev, next, activeChildIntervalRef, interval, nextWhenVisible, isRTL]);
-  const indicatorOnClicks = (0, React.useMemo)(() => indicators && Array.from({
-    length: numChildren
-  }, (_, index) => event => {
-    onSelect == null ? void 0 : onSelect(index, event);
-  }), [indicators, numChildren, onSelect]);
-  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(Component, {
-    ref: elementRef,
+    return (0, _BootstrapModalManager.getSharedManager)();
+  }
+  const handleEnter = (node, ...args) => {
+    if (node) node.style.visibility = 'visible';
+    onEnter == null ? void 0 : onEnter(node, ...args);
+  };
+  const handleExited = (node, ...args) => {
+    if (node) node.style.visibility = '';
+    onExited == null ? void 0 : onExited(...args);
+  };
+  const renderBackdrop = (0, React.useCallback)(backdropProps => /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+    ...backdropProps,
+    className: (0, _classnames.default)(`${bsPrefix}-backdrop`, backdropClassName)
+  }), [backdropClassName, bsPrefix]);
+  const renderDialog = dialogProps => /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+    ...dialogProps,
     ...props,
-    onKeyDown: handleKeyDown,
-    onMouseOver: handleMouseOver,
-    onMouseOut: handleMouseOut,
-    onTouchStart: handleTouchStart,
-    onTouchMove: handleTouchMove,
-    onTouchEnd: handleTouchEnd,
-    className: (0, _classnames.default)(className, prefix, slide && 'slide', fade && `${prefix}-fade`, variant && `${prefix}-${variant}`),
-    children: [indicators && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-      className: `${prefix}-indicators`,
-      children: (0, _ElementChildren.map)(children, (_, index) => /*#__PURE__*/(0, _jsxRuntime.jsx)("button", {
-        type: "button",
-        "data-bs-target": "" // Bootstrap requires this in their css.
-        ,
-
-        "aria-label": indicatorLabels != null && indicatorLabels.length ? indicatorLabels[index] : `Slide ${index + 1}`,
-        className: index === renderedActiveIndex ? 'active' : undefined,
-        onClick: indicatorOnClicks ? indicatorOnClicks[index] : undefined,
-        "aria-current": index === renderedActiveIndex
-      }, index))
-    }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-      className: `${prefix}-inner`,
-      children: (0, _ElementChildren.map)(children, (child, index) => {
-        const isActive = index === renderedActiveIndex;
-        return slide ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_TransitionWrapper.default, {
-          in: isActive,
-          onEnter: isActive ? handleEnter : undefined,
-          onEntered: isActive ? handleEntered : undefined,
-          addEndListener: _transitionEndListener.default,
-          children: (status, innerProps) => /*#__PURE__*/React.cloneElement(child, {
-            ...innerProps,
-            className: (0, _classnames.default)(child.props.className, isActive && status !== 'entered' && orderClassName, (status === 'entered' || status === 'exiting') && 'active', (status === 'entering' || status === 'exiting') && directionalClassName)
-          })
-        }) : /*#__PURE__*/React.cloneElement(child, {
-          className: (0, _classnames.default)(child.props.className, isActive && 'active')
-        });
+    className: (0, _classnames.default)(className, responsive ? `${bsPrefix}-${responsive}` : bsPrefix, `${bsPrefix}-${placement}`),
+    "aria-labelledby": ariaLabelledby,
+    children: children
+  });
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_jsxRuntime.Fragment, {
+    children: [!showOffcanvas && (responsive || renderStaticNode) && renderDialog({}), /*#__PURE__*/(0, _jsxRuntime.jsx)(_ModalContext.default.Provider, {
+      value: modalContext,
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_Modal.default, {
+        show: showOffcanvas,
+        ref: ref,
+        backdrop: backdrop,
+        container: container,
+        keyboard: keyboard,
+        autoFocus: autoFocus,
+        enforceFocus: enforceFocus && !scroll,
+        restoreFocus: restoreFocus,
+        restoreFocusOptions: restoreFocusOptions,
+        onEscapeKeyDown: onEscapeKeyDown,
+        onShow: onShow,
+        onHide: handleHide,
+        onEnter: handleEnter,
+        onEntering: onEntering,
+        onEntered: onEntered,
+        onExit: onExit,
+        onExiting: onExiting,
+        onExited: handleExited,
+        manager: getModalManager(),
+        transition: DialogTransition,
+        backdropTransition: BackdropTransition,
+        renderBackdrop: renderBackdrop,
+        renderDialog: renderDialog
       })
-    }), controls && /*#__PURE__*/(0, _jsxRuntime.jsxs)(_jsxRuntime.Fragment, {
-      children: [(wrap || activeIndex !== 0) && /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Anchor.default, {
-        className: `${prefix}-control-prev`,
-        onClick: prev,
-        children: [prevIcon, prevLabel && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
-          className: "visually-hidden",
-          children: prevLabel
-        })]
-      }), (wrap || activeIndex !== numChildren - 1) && /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Anchor.default, {
-        className: `${prefix}-control-next`,
-        onClick: next,
-        children: [nextIcon, nextLabel && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
-          className: "visually-hidden",
-          children: nextLabel
-        })]
-      })]
     })]
   });
 });
-Carousel.displayName = 'Carousel';
-Carousel.defaultProps = defaultProps;
-var _default = Object.assign(Carousel, {
-  Caption: _CarouselCaption.default,
-  Item: _CarouselItem.default
+Offcanvas.displayName = 'Offcanvas';
+Offcanvas.defaultProps = defaultProps;
+var _default = Object.assign(Offcanvas, {
+  Body: _OffcanvasBody.default,
+  Header: _OffcanvasHeader.default,
+  Title: _OffcanvasTitle.default
 });
 exports.default = _default;
-},{"@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/hooks/useUpdateEffect":"../../node_modules/@restart/hooks/esm/useUpdateEffect.js","@restart/hooks/useCommittedRef":"../../node_modules/@restart/hooks/esm/useCommittedRef.js","@restart/hooks/useTimeout":"../../node_modules/@restart/hooks/esm/useTimeout.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","./CarouselCaption":"../../node_modules/react-bootstrap/esm/CarouselCaption.js","./CarouselItem":"../../node_modules/react-bootstrap/esm/CarouselItem.js","./ElementChildren":"../../node_modules/react-bootstrap/esm/ElementChildren.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./transitionEndListener":"../../node_modules/react-bootstrap/esm/transitionEndListener.js","./triggerBrowserReflow":"../../node_modules/react-bootstrap/esm/triggerBrowserReflow.js","./TransitionWrapper":"../../node_modules/react-bootstrap/esm/TransitionWrapper.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Col.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","@restart/hooks/useBreakpoint":"../../node_modules/@restart/hooks/esm/useBreakpoint.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","react":"../../node_modules/react/index.js","@restart/ui/Modal":"../../node_modules/@restart/ui/esm/Modal.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./OffcanvasBody":"../../node_modules/react-bootstrap/esm/OffcanvasBody.js","./OffcanvasToggling":"../../node_modules/react-bootstrap/esm/OffcanvasToggling.js","./ModalContext":"../../node_modules/react-bootstrap/esm/ModalContext.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","./OffcanvasHeader":"../../node_modules/react-bootstrap/esm/OffcanvasHeader.js","./OffcanvasTitle":"../../node_modules/react-bootstrap/esm/OffcanvasTitle.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./BootstrapModalManager":"../../node_modules/react-bootstrap/esm/BootstrapModalManager.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavbarOffcanvas.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-exports.useCol = useCol;
-var _classnames = _interopRequireDefault(require("classnames"));
 var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
+var _Offcanvas = _interopRequireDefault(require("./Offcanvas"));
+var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
 var _jsxRuntime = require("react/jsx-runtime");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function useCol({
-  as,
-  bsPrefix,
-  className,
-  ...props
-}) {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'col');
-  const breakpoints = (0, _ThemeProvider.useBootstrapBreakpoints)();
-  const minBreakpoint = (0, _ThemeProvider.useBootstrapMinBreakpoint)();
-  const spans = [];
-  const classes = [];
-  breakpoints.forEach(brkPoint => {
-    const propValue = props[brkPoint];
-    delete props[brkPoint];
-    let span;
-    let offset;
-    let order;
-    if (typeof propValue === 'object' && propValue != null) {
-      ({
-        span,
-        offset,
-        order
-      } = propValue);
-    } else {
-      span = propValue;
-    }
-    const infix = brkPoint !== minBreakpoint ? `-${brkPoint}` : '';
-    if (span) spans.push(span === true ? `${bsPrefix}${infix}` : `${bsPrefix}${infix}-${span}`);
-    if (order != null) classes.push(`order${infix}-${order}`);
-    if (offset != null) classes.push(`offset${infix}-${offset}`);
-  });
-  return [{
-    ...props,
-    className: (0, _classnames.default)(className, ...spans, ...classes)
-  }, {
-    as,
-    bsPrefix,
-    spans
-  }];
-}
-const Col = /*#__PURE__*/React.forwardRef(
-// Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-(props, ref) => {
-  const [{
-    className,
-    ...colProps
-  }, {
-    as: Component = 'div',
-    bsPrefix,
-    spans
-  }] = useCol(props);
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ...colProps,
+const NavbarOffcanvas = /*#__PURE__*/React.forwardRef((props, ref) => {
+  const context = (0, React.useContext)(_NavbarContext.default);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Offcanvas.default, {
     ref: ref,
-    className: (0, _classnames.default)(className, !spans.length && bsPrefix)
+    show: !!(context != null && context.expanded),
+    ...props,
+    renderStaticNode: true
   });
 });
-Col.displayName = 'Col';
-var _default = Col;
+NavbarOffcanvas.displayName = 'NavbarOffcanvas';
+var _default = NavbarOffcanvas;
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/dom-helpers/esm/querySelectorAll.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./Offcanvas":"../../node_modules/react-bootstrap/esm/Offcanvas.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Navbar.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = qsa;
-var toArray = Function.prototype.bind.call(Function.prototype.call, [].slice);
-/**
- * Runs `querySelectorAll` on a given element.
- * 
- * @param element the element
- * @param selector the selector
- */
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _SelectableContext = _interopRequireDefault(require("@restart/ui/SelectableContext"));
+var _uncontrollable = require("uncontrollable");
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+var _NavbarBrand = _interopRequireDefault(require("./NavbarBrand"));
+var _NavbarCollapse = _interopRequireDefault(require("./NavbarCollapse"));
+var _NavbarToggle = _interopRequireDefault(require("./NavbarToggle"));
+var _NavbarOffcanvas = _interopRequireDefault(require("./NavbarOffcanvas"));
+var _ThemeProvider = require("./ThemeProvider");
+var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const NavbarText = (0, _createWithBsPrefix.default)('navbar-text', {
+  Component: 'span'
+});
+const defaultProps = {
+  expand: true,
+  variant: 'light',
+  collapseOnSelect: false
+};
+const Navbar = /*#__PURE__*/React.forwardRef((props, ref) => {
+  const {
+    bsPrefix: initialBsPrefix,
+    expand,
+    variant,
+    bg,
+    fixed,
+    sticky,
+    className,
+    // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+    as: Component = 'nav',
+    expanded,
+    onToggle,
+    onSelect,
+    collapseOnSelect,
+    ...controlledProps
+  } = (0, _uncontrollable.useUncontrolled)(props, {
+    expanded: 'onToggle'
+  });
+  const bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(initialBsPrefix, 'navbar');
+  const handleCollapse = (0, React.useCallback)((...args) => {
+    onSelect == null ? void 0 : onSelect(...args);
+    if (collapseOnSelect && expanded) {
+      onToggle == null ? void 0 : onToggle(false);
+    }
+  }, [onSelect, collapseOnSelect, expanded, onToggle]);
 
-function qsa(element, selector) {
-  return toArray(element.querySelectorAll(selector));
-}
-},{}],"../../node_modules/@restart/ui/node_modules/uncontrollable/lib/esm/index.js":[function(require,module,exports) {
+  // will result in some false positives but that seems better
+  // than false negatives. strict `undefined` check allows explicit
+  // "nulling" of the role if the user really doesn't want one
+  if (controlledProps.role === undefined && Component !== 'nav') {
+    controlledProps.role = 'navigation';
+  }
+  let expandClass = `${bsPrefix}-expand`;
+  if (typeof expand === 'string') expandClass = `${expandClass}-${expand}`;
+  const navbarContext = (0, React.useMemo)(() => ({
+    onToggle: () => onToggle == null ? void 0 : onToggle(!expanded),
+    bsPrefix,
+    expanded: !!expanded,
+    expand
+  }), [bsPrefix, expanded, expand, onToggle]);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_NavbarContext.default.Provider, {
+    value: navbarContext,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SelectableContext.default.Provider, {
+      value: handleCollapse,
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+        ref: ref,
+        ...controlledProps,
+        className: (0, _classnames.default)(className, bsPrefix, expand && expandClass, variant && `${bsPrefix}-${variant}`, bg && `bg-${bg}`, sticky && `sticky-${sticky}`, fixed && `fixed-${fixed}`)
+      })
+    })
+  });
+});
+Navbar.defaultProps = defaultProps;
+Navbar.displayName = 'Navbar';
+var _default = Object.assign(Navbar, {
+  Brand: _NavbarBrand.default,
+  Collapse: _NavbarCollapse.default,
+  Offcanvas: _NavbarOffcanvas.default,
+  Text: NavbarText,
+  Toggle: _NavbarToggle.default
+});
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/SelectableContext":"../../node_modules/@restart/ui/esm/SelectableContext.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./NavbarBrand":"../../node_modules/react-bootstrap/esm/NavbarBrand.js","./NavbarCollapse":"../../node_modules/react-bootstrap/esm/NavbarCollapse.js","./NavbarToggle":"../../node_modules/react-bootstrap/esm/NavbarToggle.js","./NavbarOffcanvas":"../../node_modules/react-bootstrap/esm/NavbarOffcanvas.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/node_modules/uncontrollable/lib/esm/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39484,40 +40169,6 @@ function useUncontrolled(props, config) {
       [handlerName]: handler
     });
   }, props);
-}
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useForceUpdate.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useForceUpdate;
-var _react = require("react");
-/**
- * Returns a function that triggers a component update. the hook equivalent to
- * `this.forceUpdate()` in a class component. In most cases using a state value directly
- * is preferable but may be required in some advanced usages of refs for interop or
- * when direct DOM manipulation is required.
- *
- * ```ts
- * const forceUpdate = useForceUpdate();
- *
- * const updateOnClick = useCallback(() => {
- *  forceUpdate()
- * }, [forceUpdate])
- *
- * return <button type="button" onClick={updateOnClick}>Hi there</button>
- * ```
- */
-
-function useForceUpdate() {
-  // The toggling state value is designed to defeat React optimizations for skipping
-  // updates when they are stricting equal to the last state value
-  var _useReducer = (0, _react.useReducer)(function (state) {
-      return !state;
-    }, false),
-    dispatch = _useReducer[1];
-  return dispatch;
 }
 },{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/DropdownContext.js":[function(require,module,exports) {
 "use strict";
@@ -42116,28 +42767,7 @@ function usePopper(referenceElement, popperElement, _ref = {}) {
 }
 var _default = usePopper;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","dequal":"../../node_modules/dequal/dist/index.mjs","@restart/hooks/useSafeState":"../../node_modules/@restart/hooks/esm/useSafeState.js","./popper":"../../node_modules/@restart/ui/esm/popper.js"}],"../../node_modules/dom-helpers/esm/contains.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = contains;
-/* eslint-disable no-bitwise, no-cond-assign */
-
-/**
- * Checks if an element contains another given element.
- * 
- * @param context the context element
- * @param node the element to check
- */
-function contains(context, node) {
-  // HTML DOM and SVG DOM may have different support levels,
-  // so we need to check on context instead of a document root element.
-  if (context.contains) return context.contains(node);
-  if (context.compareDocumentPosition) return context === node || !!(context.compareDocumentPosition(node) & 16);
-}
-},{}],"../../node_modules/@restart/ui/node_modules/warning/warning.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","dequal":"../../node_modules/dequal/dist/index.mjs","@restart/hooks/useSafeState":"../../node_modules/@restart/hooks/esm/useSafeState.js","./popper":"../../node_modules/@restart/ui/esm/popper.js"}],"../../node_modules/@restart/ui/node_modules/warning/warning.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -42712,58 +43342,7 @@ DropdownToggle.displayName = 'DropdownToggle';
 /** @component */
 var _default = DropdownToggle;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./ssr":"../../node_modules/@restart/ui/esm/ssr.js","./DropdownContext":"../../node_modules/@restart/ui/esm/DropdownContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/SelectableContext.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.makeEventKey = exports.default = void 0;
-var React = _interopRequireWildcard(require("react"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const SelectableContext = /*#__PURE__*/React.createContext(null);
-const makeEventKey = (eventKey, href = null) => {
-  if (eventKey != null) return String(eventKey);
-  return href || null;
-};
-exports.makeEventKey = makeEventKey;
-var _default = SelectableContext;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/NavContext.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var React = _interopRequireWildcard(require("react"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const NavContext = /*#__PURE__*/React.createContext(null);
-NavContext.displayName = 'NavContext';
-var _default = NavContext;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/DataKey.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.PROPERTY_PREFIX = exports.ATTRIBUTE_PREFIX = void 0;
-exports.dataAttr = dataAttr;
-exports.dataProp = dataProp;
-const ATTRIBUTE_PREFIX = `data-rr-ui-`;
-exports.ATTRIBUTE_PREFIX = ATTRIBUTE_PREFIX;
-const PROPERTY_PREFIX = `rrUi`;
-exports.PROPERTY_PREFIX = PROPERTY_PREFIX;
-function dataAttr(property) {
-  return `${ATTRIBUTE_PREFIX}${property}`;
-}
-function dataProp(property) {
-  return `${PROPERTY_PREFIX}${property}`;
-}
-},{}],"../../node_modules/@restart/ui/esm/DropdownItem.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./ssr":"../../node_modules/@restart/ui/esm/ssr.js","./DropdownContext":"../../node_modules/@restart/ui/esm/DropdownContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/DropdownItem.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42851,31 +43430,7 @@ const DropdownItem = /*#__PURE__*/React.forwardRef((_ref, ref) => {
 DropdownItem.displayName = 'DropdownItem';
 var _default = DropdownItem;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./SelectableContext":"../../node_modules/@restart/ui/esm/SelectableContext.js","./NavContext":"../../node_modules/@restart/ui/esm/NavContext.js","./Button":"../../node_modules/@restart/ui/esm/Button.js","./DataKey":"../../node_modules/@restart/ui/esm/DataKey.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/useWindow.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.WindowProvider = void 0;
-exports.default = useWindow;
-var _react = require("react");
-var _canUseDOM = _interopRequireDefault(require("dom-helpers/canUseDOM"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const Context = /*#__PURE__*/(0, _react.createContext)(_canUseDOM.default ? window : undefined);
-const WindowProvider = Context.Provider;
-
-/**
- * The document "window" placed in React context. Helpful for determining
- * SSR context, or when rendering into an iframe.
- *
- * @returns the current window
- */
-exports.WindowProvider = WindowProvider;
-function useWindow() {
-  return (0, _react.useContext)(Context);
-}
-},{"react":"../../node_modules/react/index.js","dom-helpers/canUseDOM":"../../node_modules/dom-helpers/esm/canUseDOM.js"}],"../../node_modules/@restart/ui/esm/Dropdown.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./SelectableContext":"../../node_modules/@restart/ui/esm/SelectableContext.js","./NavContext":"../../node_modules/@restart/ui/esm/NavContext.js","./Button":"../../node_modules/@restart/ui/esm/Button.js","./DataKey":"../../node_modules/@restart/ui/esm/DataKey.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/Dropdown.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43206,22 +43761,6 @@ const context = /*#__PURE__*/React.createContext(null);
 context.displayName = 'InputGroupContext';
 var _default = context;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/NavbarContext.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var React = _interopRequireWildcard(require("react"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-// TODO: check
-
-const context = /*#__PURE__*/React.createContext(null);
-context.displayName = 'NavbarContext';
-var _default = context;
-exports.default = _default;
 },{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/useWrappedRefWithWarning.js":[function(require,module,exports) {
 "use strict";
 
@@ -43404,7 +43943,55 @@ DropdownMenu.displayName = 'DropdownMenu';
 DropdownMenu.defaultProps = defaultProps;
 var _default = DropdownMenu;
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/DropdownMenu":"../../node_modules/@restart/ui/esm/DropdownMenu.js","@restart/hooks/useIsomorphicEffect":"../../node_modules/@restart/hooks/esm/useIsomorphicEffect.js","@restart/hooks/useMergedRefs":"../../node_modules/@restart/hooks/esm/useMergedRefs.js","warning":"../../node_modules/react-bootstrap/node_modules/warning/warning.js","./DropdownContext":"../../node_modules/react-bootstrap/esm/DropdownContext.js","./InputGroupContext":"../../node_modules/react-bootstrap/esm/InputGroupContext.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./useWrappedRefWithWarning":"../../node_modules/react-bootstrap/esm/useWrappedRefWithWarning.js","./types":"../../node_modules/react-bootstrap/esm/types.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/DropdownToggle.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/DropdownMenu":"../../node_modules/@restart/ui/esm/DropdownMenu.js","@restart/hooks/useIsomorphicEffect":"../../node_modules/@restart/hooks/esm/useIsomorphicEffect.js","@restart/hooks/useMergedRefs":"../../node_modules/@restart/hooks/esm/useMergedRefs.js","warning":"../../node_modules/react-bootstrap/node_modules/warning/warning.js","./DropdownContext":"../../node_modules/react-bootstrap/esm/DropdownContext.js","./InputGroupContext":"../../node_modules/react-bootstrap/esm/InputGroupContext.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./useWrappedRefWithWarning":"../../node_modules/react-bootstrap/esm/useWrappedRefWithWarning.js","./types":"../../node_modules/react-bootstrap/esm/types.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Button.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _Button = require("@restart/ui/Button");
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  variant: 'primary',
+  active: false,
+  disabled: false
+};
+const Button = /*#__PURE__*/React.forwardRef(({
+  as,
+  bsPrefix,
+  variant,
+  size,
+  active,
+  className,
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'btn');
+  const [buttonProps, {
+    tagName
+  }] = (0, _Button.useButtonProps)({
+    tagName: as,
+    ...props
+  });
+  const Component = tagName;
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ...buttonProps,
+    ...props,
+    ref: ref,
+    className: (0, _classnames.default)(className, prefix, active && 'active', variant && `${prefix}-${variant}`, size && `${prefix}-${size}`, props.href && props.disabled && 'disabled')
+  });
+});
+Button.displayName = 'Button';
+Button.defaultProps = defaultProps;
+var _default = Button;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/Button":"../../node_modules/@restart/ui/esm/Button.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/DropdownToggle.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43574,7 +44161,1625 @@ var _default = Object.assign(Dropdown, {
   Header: DropdownHeader
 });
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/Dropdown":"../../node_modules/@restart/ui/esm/Dropdown.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./DropdownContext":"../../node_modules/react-bootstrap/esm/DropdownContext.js","./DropdownItem":"../../node_modules/react-bootstrap/esm/DropdownItem.js","./DropdownMenu":"../../node_modules/react-bootstrap/esm/DropdownMenu.js","./DropdownToggle":"../../node_modules/react-bootstrap/esm/DropdownToggle.js","./InputGroupContext":"../../node_modules/react-bootstrap/esm/InputGroupContext.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./types":"../../node_modules/react-bootstrap/esm/types.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/DropdownButton.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/Dropdown":"../../node_modules/@restart/ui/esm/Dropdown.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./DropdownContext":"../../node_modules/react-bootstrap/esm/DropdownContext.js","./DropdownItem":"../../node_modules/react-bootstrap/esm/DropdownItem.js","./DropdownMenu":"../../node_modules/react-bootstrap/esm/DropdownMenu.js","./DropdownToggle":"../../node_modules/react-bootstrap/esm/DropdownToggle.js","./InputGroupContext":"../../node_modules/react-bootstrap/esm/InputGroupContext.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./types":"../../node_modules/react-bootstrap/esm/types.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavDropdown.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _Dropdown = _interopRequireDefault(require("./Dropdown"));
+var _NavLink = _interopRequireDefault(require("./NavLink"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const NavDropdown = /*#__PURE__*/React.forwardRef(({
+  id,
+  title,
+  children,
+  bsPrefix,
+  className,
+  rootCloseEvent,
+  menuRole,
+  disabled,
+  active,
+  renderMenuOnMount,
+  menuVariant,
+  ...props
+}, ref) => {
+  /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
+  const navItemPrefix = (0, _ThemeProvider.useBootstrapPrefix)(undefined, 'nav-item');
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Dropdown.default, {
+    ref: ref,
+    ...props,
+    className: (0, _classnames.default)(className, navItemPrefix),
+    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Dropdown.default.Toggle, {
+      id: id,
+      eventKey: null,
+      active: active,
+      disabled: disabled,
+      childBsPrefix: bsPrefix,
+      as: _NavLink.default,
+      children: title
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Dropdown.default.Menu, {
+      role: menuRole,
+      renderOnMount: renderMenuOnMount,
+      rootCloseEvent: rootCloseEvent,
+      variant: menuVariant,
+      children: children
+    })]
+  });
+});
+NavDropdown.displayName = 'NavDropdown';
+var _default = Object.assign(NavDropdown, {
+  Item: _Dropdown.default.Item,
+  ItemText: _Dropdown.default.ItemText,
+  Divider: _Dropdown.default.Divider,
+  Header: _Dropdown.default.Header
+});
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Dropdown":"../../node_modules/react-bootstrap/esm/Dropdown.js","./NavLink":"../../node_modules/react-bootstrap/esm/NavLink.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"components/Usability/Navbar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
+var _Nav = _interopRequireDefault(require("react-bootstrap/Nav"));
+var _Navbar = _interopRequireDefault(require("react-bootstrap/Navbar"));
+var _NavDropdown = _interopRequireDefault(require("react-bootstrap/NavDropdown"));
+var _react = _interopRequireDefault(require("react"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function BlockNavbar() {
+  return /*#__PURE__*/_react.default.createElement(_Navbar.default, {
+    bg: "dark",
+    variant: "dark",
+    expand: "lg",
+    className: "fixed-top"
+  }, /*#__PURE__*/_react.default.createElement(_Container.default, null, /*#__PURE__*/_react.default.createElement(_Navbar.default.Brand, {
+    href: "/"
+  }, "Auction Chain"), /*#__PURE__*/_react.default.createElement(_Navbar.default.Toggle, {
+    "aria-controls": "basic-navbar-nav"
+  }), /*#__PURE__*/_react.default.createElement(_Navbar.default.Collapse, {
+    id: "basic-navbar-nav"
+  }, /*#__PURE__*/_react.default.createElement(_Nav.default, {
+    className: "me-auto"
+  }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
+    menuVariant: "dark",
+    title: "Chain",
+    id: "basic-nav-dropdown"
+  }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/blocks"
+  }, "Blocks"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/auctions"
+  }, "Auctions"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/address-book"
+  }, "Address Book")), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
+    menuVariant: "dark",
+    title: "Transact",
+    id: "basic-nav-dropdown"
+  }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/transaction-pool"
+  }, "Transaction Pool"))))));
+}
+var _default = BlockNavbar;
+exports.default = _default;
+},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _index = _interopRequireDefault(require("../assets/index.png"));
+var _Navbar = _interopRequireDefault(require("./Usability/Navbar"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var App = /*#__PURE__*/function (_Component) {
+  _inherits(App, _Component);
+  var _super = _createSuper(App);
+  function App() {
+    var _this;
+    _classCallCheck(this, App);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      walletInfo: {}
+    });
+    return _this;
+  }
+  _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      fetch("".concat(document.location.origin, "/api/wallet-info")).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        return _this2.setState({
+          walletInfo: json
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$state$walletInf = this.state.walletInfo,
+        address = _this$state$walletInf.address,
+        balance = _this$state$walletInf.balance;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "App"
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("img", {
+        className: "logo",
+        src: _index.default
+      }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Welcome to the blockchain...."), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "WalletInfo"
+      }, /*#__PURE__*/_react.default.createElement("div", null, "Address: ", address), /*#__PURE__*/_react.default.createElement("div", null, "Balance: ", balance)));
+    }
+  }]);
+  return App;
+}(_react.Component);
+var _default = App;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","../assets/index.png":"assets/index.png","./Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/react-bootstrap/esm/AccordionContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+exports.isAccordionItemSelected = isAccordionItemSelected;
+var React = _interopRequireWildcard(require("react"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function isAccordionItemSelected(activeEventKey, eventKey) {
+  return Array.isArray(activeEventKey) ? activeEventKey.includes(eventKey) : activeEventKey === eventKey;
+}
+const context = /*#__PURE__*/React.createContext({});
+context.displayName = 'AccordionContext';
+var _default = context;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/AccordionCollapse.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _Collapse = _interopRequireDefault(require("./Collapse"));
+var _AccordionContext = _interopRequireWildcard(require("./AccordionContext"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/**
+ * This component accepts all of [`Collapse`'s props](/utilities/transitions/#collapse-props).
+ */
+const AccordionCollapse = /*#__PURE__*/React.forwardRef(({
+  as: Component = 'div',
+  bsPrefix,
+  className,
+  children,
+  eventKey,
+  ...props
+}, ref) => {
+  const {
+    activeEventKey
+  } = (0, React.useContext)(_AccordionContext.default);
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion-collapse');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Collapse.default, {
+    ref: ref,
+    in: (0, _AccordionContext.isAccordionItemSelected)(activeEventKey, eventKey),
+    ...props,
+    className: (0, _classnames.default)(className, bsPrefix),
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+      children: React.Children.only(children)
+    })
+  });
+});
+AccordionCollapse.displayName = 'AccordionCollapse';
+var _default = AccordionCollapse;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Collapse":"../../node_modules/react-bootstrap/esm/Collapse.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/AccordionItemContext.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var React = _interopRequireWildcard(require("react"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const context = /*#__PURE__*/React.createContext({
+  eventKey: ''
+});
+context.displayName = 'AccordionItemContext';
+var _default = context;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/AccordionBody.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _AccordionCollapse = _interopRequireDefault(require("./AccordionCollapse"));
+var _AccordionItemContext = _interopRequireDefault(require("./AccordionItemContext"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const AccordionBody = /*#__PURE__*/React.forwardRef(({
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  bsPrefix,
+  className,
+  onEnter,
+  onEntering,
+  onEntered,
+  onExit,
+  onExiting,
+  onExited,
+  ...props
+}, ref) => {
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion-body');
+  const {
+    eventKey
+  } = (0, React.useContext)(_AccordionItemContext.default);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_AccordionCollapse.default, {
+    eventKey: eventKey,
+    onEnter: onEnter,
+    onEntering: onEntering,
+    onEntered: onEntered,
+    onExit: onExit,
+    onExiting: onExiting,
+    onExited: onExited,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+      ref: ref,
+      ...props,
+      className: (0, _classnames.default)(className, bsPrefix)
+    })
+  });
+});
+AccordionBody.displayName = 'AccordionBody';
+var _default = AccordionBody;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionItemContext":"../../node_modules/react-bootstrap/esm/AccordionItemContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/AccordionButton.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+exports.useAccordionButton = useAccordionButton;
+var React = _interopRequireWildcard(require("react"));
+var _classnames = _interopRequireDefault(require("classnames"));
+var _AccordionContext = _interopRequireWildcard(require("./AccordionContext"));
+var _AccordionItemContext = _interopRequireDefault(require("./AccordionItemContext"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function useAccordionButton(eventKey, onClick) {
+  const {
+    activeEventKey,
+    onSelect,
+    alwaysOpen
+  } = (0, React.useContext)(_AccordionContext.default);
+  return e => {
+    /*
+      Compare the event key in context with the given event key.
+      If they are the same, then collapse the component.
+    */
+    let eventKeyPassed = eventKey === activeEventKey ? null : eventKey;
+    if (alwaysOpen) {
+      if (Array.isArray(activeEventKey)) {
+        if (activeEventKey.includes(eventKey)) {
+          eventKeyPassed = activeEventKey.filter(k => k !== eventKey);
+        } else {
+          eventKeyPassed = [...activeEventKey, eventKey];
+        }
+      } else {
+        // activeEventKey is undefined.
+        eventKeyPassed = [eventKey];
+      }
+    }
+    onSelect == null ? void 0 : onSelect(eventKeyPassed, e);
+    onClick == null ? void 0 : onClick(e);
+  };
+}
+const AccordionButton = /*#__PURE__*/React.forwardRef(({
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'button',
+  bsPrefix,
+  className,
+  onClick,
+  ...props
+}, ref) => {
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion-button');
+  const {
+    eventKey
+  } = (0, React.useContext)(_AccordionItemContext.default);
+  const accordionOnClick = useAccordionButton(eventKey, onClick);
+  const {
+    activeEventKey
+  } = (0, React.useContext)(_AccordionContext.default);
+  if (Component === 'button') {
+    props.type = 'button';
+  }
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ref: ref,
+    onClick: accordionOnClick,
+    ...props,
+    "aria-expanded": Array.isArray(activeEventKey) ? activeEventKey.includes(eventKey) : eventKey === activeEventKey,
+    className: (0, _classnames.default)(className, bsPrefix, !(0, _AccordionContext.isAccordionItemSelected)(activeEventKey, eventKey) && 'collapsed')
+  });
+});
+AccordionButton.displayName = 'AccordionButton';
+var _default = AccordionButton;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","classnames":"../../node_modules/classnames/index.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionItemContext":"../../node_modules/react-bootstrap/esm/AccordionItemContext.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/AccordionHeader.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _AccordionButton = _interopRequireDefault(require("./AccordionButton"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const AccordionHeader = /*#__PURE__*/React.forwardRef(({
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'h2',
+  bsPrefix,
+  className,
+  children,
+  onClick,
+  ...props
+}, ref) => {
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion-header');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: (0, _classnames.default)(className, bsPrefix),
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_AccordionButton.default, {
+      onClick: onClick,
+      children: children
+    })
+  });
+});
+AccordionHeader.displayName = 'AccordionHeader';
+var _default = AccordionHeader;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/AccordionItem.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _AccordionItemContext = _interopRequireDefault(require("./AccordionItemContext"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const AccordionItem = /*#__PURE__*/React.forwardRef(({
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  bsPrefix,
+  className,
+  eventKey,
+  ...props
+}, ref) => {
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion-item');
+  const contextValue = (0, React.useMemo)(() => ({
+    eventKey
+  }), [eventKey]);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_AccordionItemContext.default.Provider, {
+    value: contextValue,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+      ref: ref,
+      ...props,
+      className: (0, _classnames.default)(className, bsPrefix)
+    })
+  });
+});
+AccordionItem.displayName = 'AccordionItem';
+var _default = AccordionItem;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionItemContext":"../../node_modules/react-bootstrap/esm/AccordionItemContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Accordion.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _uncontrollable = require("uncontrollable");
+var _ThemeProvider = require("./ThemeProvider");
+var _AccordionBody = _interopRequireDefault(require("./AccordionBody"));
+var _AccordionButton = _interopRequireDefault(require("./AccordionButton"));
+var _AccordionCollapse = _interopRequireDefault(require("./AccordionCollapse"));
+var _AccordionContext = _interopRequireDefault(require("./AccordionContext"));
+var _AccordionHeader = _interopRequireDefault(require("./AccordionHeader"));
+var _AccordionItem = _interopRequireDefault(require("./AccordionItem"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const Accordion = /*#__PURE__*/React.forwardRef((props, ref) => {
+  const {
+    // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+    as: Component = 'div',
+    activeKey,
+    bsPrefix,
+    className,
+    onSelect,
+    flush,
+    alwaysOpen,
+    ...controlledProps
+  } = (0, _uncontrollable.useUncontrolled)(props, {
+    activeKey: 'onSelect'
+  });
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'accordion');
+  const contextValue = (0, React.useMemo)(() => ({
+    activeEventKey: activeKey,
+    onSelect,
+    alwaysOpen
+  }), [activeKey, onSelect, alwaysOpen]);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_AccordionContext.default.Provider, {
+    value: contextValue,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+      ref: ref,
+      ...controlledProps,
+      className: (0, _classnames.default)(className, prefix, flush && `${prefix}-flush`)
+    })
+  });
+});
+Accordion.displayName = 'Accordion';
+var _default = Object.assign(Accordion, {
+  Button: _AccordionButton.default,
+  Collapse: _AccordionCollapse.default,
+  Item: _AccordionItem.default,
+  Header: _AccordionHeader.default,
+  Body: _AccordionBody.default
+});
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionBody":"../../node_modules/react-bootstrap/esm/AccordionBody.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionHeader":"../../node_modules/react-bootstrap/esm/AccordionHeader.js","./AccordionItem":"../../node_modules/react-bootstrap/esm/AccordionItem.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Alert.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _uncontrollable = require("uncontrollable");
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
+var _ThemeProvider = require("./ThemeProvider");
+var _Fade = _interopRequireDefault(require("./Fade"));
+var _CloseButton = _interopRequireDefault(require("./CloseButton"));
+var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const DivStyledAsH4 = (0, _divWithClassName.default)('h4');
+DivStyledAsH4.displayName = 'DivStyledAsH4';
+const AlertHeading = (0, _createWithBsPrefix.default)('alert-heading', {
+  Component: DivStyledAsH4
+});
+const AlertLink = (0, _createWithBsPrefix.default)('alert-link', {
+  Component: _Anchor.default
+});
+const defaultProps = {
+  variant: 'primary',
+  show: true,
+  transition: _Fade.default,
+  closeLabel: 'Close alert'
+};
+const Alert = /*#__PURE__*/React.forwardRef((uncontrolledProps, ref) => {
+  const {
+    bsPrefix,
+    show,
+    closeLabel,
+    closeVariant,
+    className,
+    children,
+    variant,
+    onClose,
+    dismissible,
+    transition,
+    ...props
+  } = (0, _uncontrollable.useUncontrolled)(uncontrolledProps, {
+    show: 'onClose'
+  });
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'alert');
+  const handleClose = (0, _useEventCallback.default)(e => {
+    if (onClose) {
+      onClose(false, e);
+    }
+  });
+  const Transition = transition === true ? _Fade.default : transition;
+  const alert = /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+    role: "alert",
+    ...(!Transition ? props : undefined),
+    ref: ref,
+    className: (0, _classnames.default)(className, prefix, variant && `${prefix}-${variant}`, dismissible && `${prefix}-dismissible`),
+    children: [dismissible && /*#__PURE__*/(0, _jsxRuntime.jsx)(_CloseButton.default, {
+      onClick: handleClose,
+      "aria-label": closeLabel,
+      variant: closeVariant
+    }), children]
+  });
+  if (!Transition) return show ? alert : null;
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Transition, {
+    unmountOnExit: true,
+    ...props,
+    ref: undefined,
+    in: show,
+    children: alert
+  });
+});
+Alert.displayName = 'Alert';
+Alert.defaultProps = defaultProps;
+var _default = Object.assign(Alert, {
+  Link: AlertLink,
+  Heading: AlertHeading
+});
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Anchor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _default = _Anchor.default;
+exports.default = _default;
+},{"@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js"}],"../../node_modules/react-bootstrap/esm/Badge.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  bg: 'primary',
+  pill: false
+};
+const Badge = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  bg,
+  pill,
+  text,
+  className,
+  as: Component = 'span',
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'badge');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: (0, _classnames.default)(className, prefix, pill && `rounded-pill`, text && `text-${text}`, bg && `bg-${bg}`)
+  });
+});
+Badge.displayName = 'Badge';
+Badge.defaultProps = defaultProps;
+var _default = Badge;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/BreadcrumbItem.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  active: false,
+  linkProps: {}
+};
+const BreadcrumbItem = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  active,
+  children,
+  className,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'li',
+  linkAs: LinkComponent = _Anchor.default,
+  linkProps,
+  href,
+  title,
+  target,
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'breadcrumb-item');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: (0, _classnames.default)(prefix, className, {
+      active
+    }),
+    "aria-current": active ? 'page' : undefined,
+    children: active ? children : /*#__PURE__*/(0, _jsxRuntime.jsx)(LinkComponent, {
+      ...linkProps,
+      href: href,
+      title: title,
+      target: target,
+      children: children
+    })
+  });
+});
+BreadcrumbItem.displayName = 'BreadcrumbItem';
+BreadcrumbItem.defaultProps = defaultProps;
+var _default = BreadcrumbItem;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Breadcrumb.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _BreadcrumbItem = _interopRequireDefault(require("./BreadcrumbItem"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  label: 'breadcrumb',
+  listProps: {}
+};
+const Breadcrumb = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  listProps,
+  children,
+  label,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'nav',
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'breadcrumb');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    "aria-label": label,
+    className: className,
+    ref: ref,
+    ...props,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)("ol", {
+      ...listProps,
+      className: (0, _classnames.default)(prefix, listProps == null ? void 0 : listProps.className),
+      children: children
+    })
+  });
+});
+Breadcrumb.displayName = 'Breadcrumb';
+Breadcrumb.defaultProps = defaultProps;
+var _default = Object.assign(Breadcrumb, {
+  Item: _BreadcrumbItem.default
+});
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./BreadcrumbItem":"../../node_modules/react-bootstrap/esm/BreadcrumbItem.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/ButtonGroup.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  vertical: false,
+  role: 'group'
+};
+const ButtonGroup = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  size,
+  vertical,
+  className,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...rest
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'btn-group');
+  let baseClass = prefix;
+  if (vertical) baseClass = `${prefix}-vertical`;
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ...rest,
+    ref: ref,
+    className: (0, _classnames.default)(className, baseClass, size && `${prefix}-${size}`)
+  });
+});
+ButtonGroup.displayName = 'ButtonGroup';
+ButtonGroup.defaultProps = defaultProps;
+var _default = ButtonGroup;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/ButtonToolbar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const defaultProps = {
+  role: 'toolbar'
+};
+const ButtonToolbar = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'btn-toolbar');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+    ...props,
+    ref: ref,
+    className: (0, _classnames.default)(className, prefix)
+  });
+});
+ButtonToolbar.displayName = 'ButtonToolbar';
+ButtonToolbar.defaultProps = defaultProps;
+var _default = ButtonToolbar;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardImg.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const CardImg = /*#__PURE__*/React.forwardRef(
+// Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+({
+  bsPrefix,
+  className,
+  variant,
+  as: Component = 'img',
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card-img');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ref: ref,
+    className: (0, _classnames.default)(variant ? `${prefix}-${variant}` : prefix, className),
+    ...props
+  });
+});
+CardImg.displayName = 'CardImg';
+var _default = CardImg;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardHeader.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _CardHeaderContext = _interopRequireDefault(require("./CardHeaderContext"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const CardHeader = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card-header');
+  const contextValue = (0, React.useMemo)(() => ({
+    cardHeaderBsPrefix: prefix
+  }), [prefix]);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_CardHeaderContext.default.Provider, {
+    value: contextValue,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+      ref: ref,
+      ...props,
+      className: (0, _classnames.default)(className, prefix)
+    })
+  });
+});
+CardHeader.displayName = 'CardHeader';
+var _default = CardHeader;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./CardHeaderContext":"../../node_modules/react-bootstrap/esm/CardHeaderContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Card.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
+var _CardImg = _interopRequireDefault(require("./CardImg"));
+var _CardHeader = _interopRequireDefault(require("./CardHeader"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const DivStyledAsH5 = (0, _divWithClassName.default)('h5');
+const DivStyledAsH6 = (0, _divWithClassName.default)('h6');
+const CardBody = (0, _createWithBsPrefix.default)('card-body');
+const CardTitle = (0, _createWithBsPrefix.default)('card-title', {
+  Component: DivStyledAsH5
+});
+const CardSubtitle = (0, _createWithBsPrefix.default)('card-subtitle', {
+  Component: DivStyledAsH6
+});
+const CardLink = (0, _createWithBsPrefix.default)('card-link', {
+  Component: 'a'
+});
+const CardText = (0, _createWithBsPrefix.default)('card-text', {
+  Component: 'p'
+});
+const CardFooter = (0, _createWithBsPrefix.default)('card-footer');
+const CardImgOverlay = (0, _createWithBsPrefix.default)('card-img-overlay');
+const defaultProps = {
+  body: false
+};
+const Card = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  bg,
+  text,
+  border,
+  body,
+  children,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: (0, _classnames.default)(className, prefix, bg && `bg-${bg}`, text && `text-${text}`, border && `border-${border}`),
+    children: body ? /*#__PURE__*/(0, _jsxRuntime.jsx)(CardBody, {
+      children: children
+    }) : children
+  });
+});
+Card.displayName = 'Card';
+Card.defaultProps = defaultProps;
+var _default = Object.assign(Card, {
+  Img: _CardImg.default,
+  Title: CardTitle,
+  Subtitle: CardSubtitle,
+  Body: CardBody,
+  Link: CardLink,
+  Text: CardText,
+  Header: _CardHeader.default,
+  Footer: CardFooter,
+  ImgOverlay: CardImgOverlay
+});
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js","./CardImg":"../../node_modules/react-bootstrap/esm/CardImg.js","./CardHeader":"../../node_modules/react-bootstrap/esm/CardHeader.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardGroup.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _default = (0, _createWithBsPrefix.default)('card-group');
+exports.default = _default;
+},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/@restart/hooks/esm/useUpdateEffect.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = require("react");
+/**
+ * Runs an effect only when the dependencies have changed, skipping the
+ * initial "on mount" run. Caution, if the dependency list never changes,
+ * the effect is **never run**
+ *
+ * ```ts
+ *  const ref = useRef<HTMLInput>(null);
+ *
+ *  // focuses an element only if the focus changes, and not on mount
+ *  useUpdateEffect(() => {
+ *    const element = ref.current?.children[focusedIdx] as HTMLElement
+ *
+ *    element?.focus()
+ *
+ *  }, [focusedIndex])
+ * ```
+ * @param effect An effect to run on mount
+ *
+ * @category effects
+ */
+
+function useUpdateEffect(fn, deps) {
+  var isFirst = (0, _react.useRef)(true);
+  (0, _react.useEffect)(function () {
+    if (isFirst.current) {
+      isFirst.current = false;
+      return;
+    }
+    return fn();
+  }, deps);
+}
+var _default = useUpdateEffect;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useTimeout.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useTimeout;
+var _react = require("react");
+var _useMounted = _interopRequireDefault(require("./useMounted"));
+var _useWillUnmount = _interopRequireDefault(require("./useWillUnmount"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/*
+ * Browsers including Internet Explorer, Chrome, Safari, and Firefox store the
+ * delay as a 32-bit signed integer internally. This causes an integer overflow
+ * when using delays larger than 2,147,483,647 ms (about 24.8 days),
+ * resulting in the timeout being executed immediately.
+ *
+ * via: https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout
+ */
+
+var MAX_DELAY_MS = Math.pow(2, 31) - 1;
+function setChainedTimeout(handleRef, fn, timeoutAtMs) {
+  var delayMs = timeoutAtMs - Date.now();
+  handleRef.current = delayMs <= MAX_DELAY_MS ? setTimeout(fn, delayMs) : setTimeout(function () {
+    return setChainedTimeout(handleRef, fn, timeoutAtMs);
+  }, MAX_DELAY_MS);
+}
+/**
+ * Returns a controller object for setting a timeout that is properly cleaned up
+ * once the component unmounts. New timeouts cancel and replace existing ones.
+ *
+ *
+ *
+ * ```tsx
+ * const { set, clear } = useTimeout();
+ * const [hello, showHello] = useState(false);
+ * //Display hello after 5 seconds
+ * set(() => showHello(true), 5000);
+ * return (
+ *   <div className="App">
+ *     {hello ? <h3>Hello</h3> : null}
+ *   </div>
+ * );
+ * ```
+ */
+
+function useTimeout() {
+  var isMounted = (0, _useMounted.default)(); // types are confused between node and web here IDK
+
+  var handleRef = (0, _react.useRef)();
+  (0, _useWillUnmount.default)(function () {
+    return clearTimeout(handleRef.current);
+  });
+  return (0, _react.useMemo)(function () {
+    var clear = function clear() {
+      return clearTimeout(handleRef.current);
+    };
+    function set(fn, delayMs) {
+      if (delayMs === void 0) {
+        delayMs = 0;
+      }
+      if (!isMounted()) return;
+      clear();
+      if (delayMs <= MAX_DELAY_MS) {
+        // For simplicity, if the timeout is short, just set a normal timeout.
+        handleRef.current = setTimeout(fn, delayMs);
+      } else {
+        setChainedTimeout(handleRef, fn, Date.now() + delayMs);
+      }
+    }
+    return {
+      set: set,
+      clear: clear
+    };
+  }, []);
+}
+},{"react":"../../node_modules/react/index.js","./useMounted":"../../node_modules/@restart/hooks/esm/useMounted.js","./useWillUnmount":"../../node_modules/@restart/hooks/esm/useWillUnmount.js"}],"../../node_modules/react-bootstrap/esm/CarouselCaption.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _default = (0, _createWithBsPrefix.default)('carousel-caption');
+exports.default = _default;
+},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/react-bootstrap/esm/CarouselItem.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const CarouselItem = /*#__PURE__*/React.forwardRef(({
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  bsPrefix,
+  className,
+  ...props
+}, ref) => {
+  const finalClassName = (0, _classnames.default)(className, (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'carousel-item'));
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: finalClassName
+  });
+});
+CarouselItem.displayName = 'CarouselItem';
+var _default = CarouselItem;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/ElementChildren.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.forEach = forEach;
+exports.hasChildOfType = hasChildOfType;
+exports.map = map;
+var React = _interopRequireWildcard(require("react"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+/**
+ * Iterates through children that are typically specified as `props.children`,
+ * but only maps over children that are "valid elements".
+ *
+ * The mapFunction provided index will be normalised to the components mapped,
+ * so an invalid component would not increase the index.
+ *
+ */
+function map(children, func) {
+  let index = 0;
+  return React.Children.map(children, child => /*#__PURE__*/React.isValidElement(child) ? func(child, index++) : child);
+}
+
+/**
+ * Iterates through children that are "valid elements".
+ *
+ * The provided forEachFunc(child, index) will be called for each
+ * leaf child with the index reflecting the position relative to "valid components".
+ */
+function forEach(children, func) {
+  let index = 0;
+  React.Children.forEach(children, child => {
+    if ( /*#__PURE__*/React.isValidElement(child)) func(child, index++);
+  });
+}
+
+/**
+ * Finds whether a component's `children` prop includes a React element of the
+ * specified type.
+ */
+function hasChildOfType(children, type) {
+  return React.Children.toArray(children).some(child => /*#__PURE__*/React.isValidElement(child) && child.type === type);
+}
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/Carousel.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _useUpdateEffect = _interopRequireDefault(require("@restart/hooks/useUpdateEffect"));
+var _useCommittedRef = _interopRequireDefault(require("@restart/hooks/useCommittedRef"));
+var _useTimeout = _interopRequireDefault(require("@restart/hooks/useTimeout"));
+var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _uncontrollable = require("uncontrollable");
+var _CarouselCaption = _interopRequireDefault(require("./CarouselCaption"));
+var _CarouselItem = _interopRequireDefault(require("./CarouselItem"));
+var _ElementChildren = require("./ElementChildren");
+var _ThemeProvider = require("./ThemeProvider");
+var _transitionEndListener = _interopRequireDefault(require("./transitionEndListener"));
+var _triggerBrowserReflow = _interopRequireDefault(require("./triggerBrowserReflow"));
+var _TransitionWrapper = _interopRequireDefault(require("./TransitionWrapper"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const SWIPE_THRESHOLD = 40;
+const defaultProps = {
+  slide: true,
+  fade: false,
+  controls: true,
+  indicators: true,
+  indicatorLabels: [],
+  defaultActiveIndex: 0,
+  interval: 5000,
+  keyboard: true,
+  pause: 'hover',
+  wrap: true,
+  touch: true,
+  prevIcon: /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+    "aria-hidden": "true",
+    className: "carousel-control-prev-icon"
+  }),
+  prevLabel: 'Previous',
+  nextIcon: /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+    "aria-hidden": "true",
+    className: "carousel-control-next-icon"
+  }),
+  nextLabel: 'Next'
+};
+function isVisible(element) {
+  if (!element || !element.style || !element.parentNode || !element.parentNode.style) {
+    return false;
+  }
+  const elementStyle = getComputedStyle(element);
+  return elementStyle.display !== 'none' && elementStyle.visibility !== 'hidden' && getComputedStyle(element.parentNode).display !== 'none';
+}
+const Carousel = /*#__PURE__*/React.forwardRef((uncontrolledProps, ref) => {
+  const {
+    // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+    as: Component = 'div',
+    bsPrefix,
+    slide,
+    fade,
+    controls,
+    indicators,
+    indicatorLabels,
+    activeIndex,
+    onSelect,
+    onSlide,
+    onSlid,
+    interval,
+    keyboard,
+    onKeyDown,
+    pause,
+    onMouseOver,
+    onMouseOut,
+    wrap,
+    touch,
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+    prevIcon,
+    prevLabel,
+    nextIcon,
+    nextLabel,
+    variant,
+    className,
+    children,
+    ...props
+  } = (0, _uncontrollable.useUncontrolled)(uncontrolledProps, {
+    activeIndex: 'onSelect'
+  });
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'carousel');
+  const isRTL = (0, _ThemeProvider.useIsRTL)();
+  const nextDirectionRef = (0, React.useRef)(null);
+  const [direction, setDirection] = (0, React.useState)('next');
+  const [paused, setPaused] = (0, React.useState)(false);
+  const [isSliding, setIsSliding] = (0, React.useState)(false);
+  const [renderedActiveIndex, setRenderedActiveIndex] = (0, React.useState)(activeIndex || 0);
+  (0, React.useEffect)(() => {
+    if (!isSliding && activeIndex !== renderedActiveIndex) {
+      if (nextDirectionRef.current) {
+        setDirection(nextDirectionRef.current);
+      } else {
+        setDirection((activeIndex || 0) > renderedActiveIndex ? 'next' : 'prev');
+      }
+      if (slide) {
+        setIsSliding(true);
+      }
+      setRenderedActiveIndex(activeIndex || 0);
+    }
+  }, [activeIndex, isSliding, renderedActiveIndex, slide]);
+  (0, React.useEffect)(() => {
+    if (nextDirectionRef.current) {
+      nextDirectionRef.current = null;
+    }
+  });
+  let numChildren = 0;
+  let activeChildInterval;
+
+  // Iterate to grab all of the children's interval values
+  // (and count them, too)
+  (0, _ElementChildren.forEach)(children, (child, index) => {
+    ++numChildren;
+    if (index === activeIndex) {
+      activeChildInterval = child.props.interval;
+    }
+  });
+  const activeChildIntervalRef = (0, _useCommittedRef.default)(activeChildInterval);
+  const prev = (0, React.useCallback)(event => {
+    if (isSliding) {
+      return;
+    }
+    let nextActiveIndex = renderedActiveIndex - 1;
+    if (nextActiveIndex < 0) {
+      if (!wrap) {
+        return;
+      }
+      nextActiveIndex = numChildren - 1;
+    }
+    nextDirectionRef.current = 'prev';
+    onSelect == null ? void 0 : onSelect(nextActiveIndex, event);
+  }, [isSliding, renderedActiveIndex, onSelect, wrap, numChildren]);
+
+  // This is used in the setInterval, so it should not invalidate.
+  const next = (0, _useEventCallback.default)(event => {
+    if (isSliding) {
+      return;
+    }
+    let nextActiveIndex = renderedActiveIndex + 1;
+    if (nextActiveIndex >= numChildren) {
+      if (!wrap) {
+        return;
+      }
+      nextActiveIndex = 0;
+    }
+    nextDirectionRef.current = 'next';
+    onSelect == null ? void 0 : onSelect(nextActiveIndex, event);
+  });
+  const elementRef = (0, React.useRef)();
+  (0, React.useImperativeHandle)(ref, () => ({
+    element: elementRef.current,
+    prev,
+    next
+  }));
+
+  // This is used in the setInterval, so it should not invalidate.
+  const nextWhenVisible = (0, _useEventCallback.default)(() => {
+    if (!document.hidden && isVisible(elementRef.current)) {
+      if (isRTL) {
+        prev();
+      } else {
+        next();
+      }
+    }
+  });
+  const slideDirection = direction === 'next' ? 'start' : 'end';
+  (0, _useUpdateEffect.default)(() => {
+    if (slide) {
+      // These callbacks will be handled by the <Transition> callbacks.
+      return;
+    }
+    onSlide == null ? void 0 : onSlide(renderedActiveIndex, slideDirection);
+    onSlid == null ? void 0 : onSlid(renderedActiveIndex, slideDirection);
+  }, [renderedActiveIndex]);
+  const orderClassName = `${prefix}-item-${direction}`;
+  const directionalClassName = `${prefix}-item-${slideDirection}`;
+  const handleEnter = (0, React.useCallback)(node => {
+    (0, _triggerBrowserReflow.default)(node);
+    onSlide == null ? void 0 : onSlide(renderedActiveIndex, slideDirection);
+  }, [onSlide, renderedActiveIndex, slideDirection]);
+  const handleEntered = (0, React.useCallback)(() => {
+    setIsSliding(false);
+    onSlid == null ? void 0 : onSlid(renderedActiveIndex, slideDirection);
+  }, [onSlid, renderedActiveIndex, slideDirection]);
+  const handleKeyDown = (0, React.useCallback)(event => {
+    if (keyboard && !/input|textarea/i.test(event.target.tagName)) {
+      switch (event.key) {
+        case 'ArrowLeft':
+          event.preventDefault();
+          if (isRTL) {
+            next(event);
+          } else {
+            prev(event);
+          }
+          return;
+        case 'ArrowRight':
+          event.preventDefault();
+          if (isRTL) {
+            prev(event);
+          } else {
+            next(event);
+          }
+          return;
+        default:
+      }
+    }
+    onKeyDown == null ? void 0 : onKeyDown(event);
+  }, [keyboard, onKeyDown, prev, next, isRTL]);
+  const handleMouseOver = (0, React.useCallback)(event => {
+    if (pause === 'hover') {
+      setPaused(true);
+    }
+    onMouseOver == null ? void 0 : onMouseOver(event);
+  }, [pause, onMouseOver]);
+  const handleMouseOut = (0, React.useCallback)(event => {
+    setPaused(false);
+    onMouseOut == null ? void 0 : onMouseOut(event);
+  }, [onMouseOut]);
+  const touchStartXRef = (0, React.useRef)(0);
+  const touchDeltaXRef = (0, React.useRef)(0);
+  const touchUnpauseTimeout = (0, _useTimeout.default)();
+  const handleTouchStart = (0, React.useCallback)(event => {
+    touchStartXRef.current = event.touches[0].clientX;
+    touchDeltaXRef.current = 0;
+    if (pause === 'hover') {
+      setPaused(true);
+    }
+    onTouchStart == null ? void 0 : onTouchStart(event);
+  }, [pause, onTouchStart]);
+  const handleTouchMove = (0, React.useCallback)(event => {
+    if (event.touches && event.touches.length > 1) {
+      touchDeltaXRef.current = 0;
+    } else {
+      touchDeltaXRef.current = event.touches[0].clientX - touchStartXRef.current;
+    }
+    onTouchMove == null ? void 0 : onTouchMove(event);
+  }, [onTouchMove]);
+  const handleTouchEnd = (0, React.useCallback)(event => {
+    if (touch) {
+      const touchDeltaX = touchDeltaXRef.current;
+      if (Math.abs(touchDeltaX) > SWIPE_THRESHOLD) {
+        if (touchDeltaX > 0) {
+          prev(event);
+        } else {
+          next(event);
+        }
+      }
+    }
+    if (pause === 'hover') {
+      touchUnpauseTimeout.set(() => {
+        setPaused(false);
+      }, interval || undefined);
+    }
+    onTouchEnd == null ? void 0 : onTouchEnd(event);
+  }, [touch, pause, prev, next, touchUnpauseTimeout, interval, onTouchEnd]);
+  const shouldPlay = interval != null && !paused && !isSliding;
+  const intervalHandleRef = (0, React.useRef)();
+  (0, React.useEffect)(() => {
+    var _ref, _activeChildIntervalR;
+    if (!shouldPlay) {
+      return undefined;
+    }
+    const nextFunc = isRTL ? prev : next;
+    intervalHandleRef.current = window.setInterval(document.visibilityState ? nextWhenVisible : nextFunc, (_ref = (_activeChildIntervalR = activeChildIntervalRef.current) != null ? _activeChildIntervalR : interval) != null ? _ref : undefined);
+    return () => {
+      if (intervalHandleRef.current !== null) {
+        clearInterval(intervalHandleRef.current);
+      }
+    };
+  }, [shouldPlay, prev, next, activeChildIntervalRef, interval, nextWhenVisible, isRTL]);
+  const indicatorOnClicks = (0, React.useMemo)(() => indicators && Array.from({
+    length: numChildren
+  }, (_, index) => event => {
+    onSelect == null ? void 0 : onSelect(index, event);
+  }), [indicators, numChildren, onSelect]);
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(Component, {
+    ref: elementRef,
+    ...props,
+    onKeyDown: handleKeyDown,
+    onMouseOver: handleMouseOver,
+    onMouseOut: handleMouseOut,
+    onTouchStart: handleTouchStart,
+    onTouchMove: handleTouchMove,
+    onTouchEnd: handleTouchEnd,
+    className: (0, _classnames.default)(className, prefix, slide && 'slide', fade && `${prefix}-fade`, variant && `${prefix}-${variant}`),
+    children: [indicators && /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      className: `${prefix}-indicators`,
+      children: (0, _ElementChildren.map)(children, (_, index) => /*#__PURE__*/(0, _jsxRuntime.jsx)("button", {
+        type: "button",
+        "data-bs-target": "" // Bootstrap requires this in their css.
+        ,
+
+        "aria-label": indicatorLabels != null && indicatorLabels.length ? indicatorLabels[index] : `Slide ${index + 1}`,
+        className: index === renderedActiveIndex ? 'active' : undefined,
+        onClick: indicatorOnClicks ? indicatorOnClicks[index] : undefined,
+        "aria-current": index === renderedActiveIndex
+      }, index))
+    }), /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+      className: `${prefix}-inner`,
+      children: (0, _ElementChildren.map)(children, (child, index) => {
+        const isActive = index === renderedActiveIndex;
+        return slide ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_TransitionWrapper.default, {
+          in: isActive,
+          onEnter: isActive ? handleEnter : undefined,
+          onEntered: isActive ? handleEntered : undefined,
+          addEndListener: _transitionEndListener.default,
+          children: (status, innerProps) => /*#__PURE__*/React.cloneElement(child, {
+            ...innerProps,
+            className: (0, _classnames.default)(child.props.className, isActive && status !== 'entered' && orderClassName, (status === 'entered' || status === 'exiting') && 'active', (status === 'entering' || status === 'exiting') && directionalClassName)
+          })
+        }) : /*#__PURE__*/React.cloneElement(child, {
+          className: (0, _classnames.default)(child.props.className, isActive && 'active')
+        });
+      })
+    }), controls && /*#__PURE__*/(0, _jsxRuntime.jsxs)(_jsxRuntime.Fragment, {
+      children: [(wrap || activeIndex !== 0) && /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Anchor.default, {
+        className: `${prefix}-control-prev`,
+        onClick: prev,
+        children: [prevIcon, prevLabel && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+          className: "visually-hidden",
+          children: prevLabel
+        })]
+      }), (wrap || activeIndex !== numChildren - 1) && /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Anchor.default, {
+        className: `${prefix}-control-next`,
+        onClick: next,
+        children: [nextIcon, nextLabel && /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
+          className: "visually-hidden",
+          children: nextLabel
+        })]
+      })]
+    })]
+  });
+});
+Carousel.displayName = 'Carousel';
+Carousel.defaultProps = defaultProps;
+var _default = Object.assign(Carousel, {
+  Caption: _CarouselCaption.default,
+  Item: _CarouselItem.default
+});
+exports.default = _default;
+},{"@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/hooks/useUpdateEffect":"../../node_modules/@restart/hooks/esm/useUpdateEffect.js","@restart/hooks/useCommittedRef":"../../node_modules/@restart/hooks/esm/useCommittedRef.js","@restart/hooks/useTimeout":"../../node_modules/@restart/hooks/esm/useTimeout.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","./CarouselCaption":"../../node_modules/react-bootstrap/esm/CarouselCaption.js","./CarouselItem":"../../node_modules/react-bootstrap/esm/CarouselItem.js","./ElementChildren":"../../node_modules/react-bootstrap/esm/ElementChildren.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./transitionEndListener":"../../node_modules/react-bootstrap/esm/transitionEndListener.js","./triggerBrowserReflow":"../../node_modules/react-bootstrap/esm/triggerBrowserReflow.js","./TransitionWrapper":"../../node_modules/react-bootstrap/esm/TransitionWrapper.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Col.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+exports.useCol = useCol;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function useCol({
+  as,
+  bsPrefix,
+  className,
+  ...props
+}) {
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'col');
+  const breakpoints = (0, _ThemeProvider.useBootstrapBreakpoints)();
+  const minBreakpoint = (0, _ThemeProvider.useBootstrapMinBreakpoint)();
+  const spans = [];
+  const classes = [];
+  breakpoints.forEach(brkPoint => {
+    const propValue = props[brkPoint];
+    delete props[brkPoint];
+    let span;
+    let offset;
+    let order;
+    if (typeof propValue === 'object' && propValue != null) {
+      ({
+        span,
+        offset,
+        order
+      } = propValue);
+    } else {
+      span = propValue;
+    }
+    const infix = brkPoint !== minBreakpoint ? `-${brkPoint}` : '';
+    if (span) spans.push(span === true ? `${bsPrefix}${infix}` : `${bsPrefix}${infix}-${span}`);
+    if (order != null) classes.push(`order${infix}-${order}`);
+    if (offset != null) classes.push(`offset${infix}-${offset}`);
+  });
+  return [{
+    ...props,
+    className: (0, _classnames.default)(className, ...spans, ...classes)
+  }, {
+    as,
+    bsPrefix,
+    spans
+  }];
+}
+const Col = /*#__PURE__*/React.forwardRef(
+// Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+(props, ref) => {
+  const [{
+    className,
+    ...colProps
+  }, {
+    as: Component = 'div',
+    bsPrefix,
+    spans
+  }] = useCol(props);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ...colProps,
+    ref: ref,
+    className: (0, _classnames.default)(className, !spans.length && bsPrefix)
+  });
+});
+Col.displayName = 'Col';
+var _default = Col;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/DropdownButton.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44313,44 +46518,7 @@ var _default = Object.assign(Form, {
   FloatingLabel: _FloatingLabel.default
 });
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","prop-types":"../../node_modules/prop-types/index.js","react":"../../node_modules/react/index.js","./FormCheck":"../../node_modules/react-bootstrap/esm/FormCheck.js","./FormControl":"../../node_modules/react-bootstrap/esm/FormControl.js","./FormFloating":"../../node_modules/react-bootstrap/esm/FormFloating.js","./FormGroup":"../../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../../node_modules/react-bootstrap/esm/FormLabel.js","./FormRange":"../../node_modules/react-bootstrap/esm/FormRange.js","./FormSelect":"../../node_modules/react-bootstrap/esm/FormSelect.js","./FormText":"../../node_modules/react-bootstrap/esm/FormText.js","./Switch":"../../node_modules/react-bootstrap/esm/Switch.js","./FloatingLabel":"../../node_modules/react-bootstrap/esm/FloatingLabel.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Container.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  fluid: false
-};
-const Container = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  fluid,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  className,
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'container');
-  const suffix = typeof fluid === 'string' ? `-${fluid}` : '-fluid';
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: (0, _classnames.default)(className, fluid ? `${prefix}${suffix}` : prefix)
-  });
-});
-Container.displayName = 'Container';
-Container.defaultProps = defaultProps;
-var _default = Container;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Image.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","prop-types":"../../node_modules/prop-types/index.js","react":"../../node_modules/react/index.js","./FormCheck":"../../node_modules/react-bootstrap/esm/FormCheck.js","./FormControl":"../../node_modules/react-bootstrap/esm/FormControl.js","./FormFloating":"../../node_modules/react-bootstrap/esm/FormFloating.js","./FormGroup":"../../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../../node_modules/react-bootstrap/esm/FormLabel.js","./FormRange":"../../node_modules/react-bootstrap/esm/FormRange.js","./FormSelect":"../../node_modules/react-bootstrap/esm/FormSelect.js","./FormText":"../../node_modules/react-bootstrap/esm/FormText.js","./Switch":"../../node_modules/react-bootstrap/esm/Switch.js","./FloatingLabel":"../../node_modules/react-bootstrap/esm/FloatingLabel.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Image.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44546,267 +46714,7 @@ var _default = Object.assign(InputGroup, {
   Checkbox: InputGroupCheckbox
 });
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./FormCheckInput":"../../node_modules/react-bootstrap/esm/FormCheckInput.js","./InputGroupContext":"../../node_modules/react-bootstrap/esm/InputGroupContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/TabContext.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var React = _interopRequireWildcard(require("react"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const TabContext = /*#__PURE__*/React.createContext(null);
-var _default = TabContext;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/NavItem.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-exports.useNavItem = useNavItem;
-var React = _interopRequireWildcard(require("react"));
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var _NavContext = _interopRequireDefault(require("./NavContext"));
-var _SelectableContext = _interopRequireWildcard(require("./SelectableContext"));
-var _Button = _interopRequireDefault(require("./Button"));
-var _DataKey = require("./DataKey");
-var _TabContext = _interopRequireDefault(require("./TabContext"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const _excluded = ["as", "active", "eventKey"];
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-  return target;
-}
-function useNavItem({
-  key,
-  onClick,
-  active,
-  id,
-  role,
-  disabled
-}) {
-  const parentOnSelect = (0, React.useContext)(_SelectableContext.default);
-  const navContext = (0, React.useContext)(_NavContext.default);
-  const tabContext = (0, React.useContext)(_TabContext.default);
-  let isActive = active;
-  const props = {
-    role
-  };
-  if (navContext) {
-    if (!role && navContext.role === 'tablist') props.role = 'tab';
-    const contextControllerId = navContext.getControllerId(key != null ? key : null);
-    const contextControlledId = navContext.getControlledId(key != null ? key : null);
-
-    // @ts-ignore
-    props[(0, _DataKey.dataAttr)('event-key')] = key;
-    props.id = contextControllerId || id;
-    isActive = active == null && key != null ? navContext.activeKey === key : active;
-
-    /**
-     * Simplified scenario for `mountOnEnter`.
-     *
-     * While it would make sense to keep 'aria-controls' for tabs that have been mounted at least
-     * once, it would also complicate the code quite a bit, for very little gain.
-     * The following implementation is probably good enough.
-     *
-     * @see https://github.com/react-restart/ui/pull/40#issuecomment-1009971561
-     */
-    if (isActive || !(tabContext != null && tabContext.unmountOnExit) && !(tabContext != null && tabContext.mountOnEnter)) props['aria-controls'] = contextControlledId;
-  }
-  if (props.role === 'tab') {
-    props['aria-selected'] = isActive;
-    if (!isActive) {
-      props.tabIndex = -1;
-    }
-    if (disabled) {
-      props.tabIndex = -1;
-      props['aria-disabled'] = true;
-    }
-  }
-  props.onClick = (0, _useEventCallback.default)(e => {
-    if (disabled) return;
-    onClick == null ? void 0 : onClick(e);
-    if (key == null) {
-      return;
-    }
-    if (parentOnSelect && !e.isPropagationStopped()) {
-      parentOnSelect(key, e);
-    }
-  });
-  return [props, {
-    isActive
-  }];
-}
-const NavItem = /*#__PURE__*/React.forwardRef((_ref, ref) => {
-  let {
-      as: Component = _Button.default,
-      active,
-      eventKey
-    } = _ref,
-    options = _objectWithoutPropertiesLoose(_ref, _excluded);
-  const [props, meta] = useNavItem(Object.assign({
-    key: (0, _SelectableContext.makeEventKey)(eventKey, options.href),
-    active
-  }, options));
-
-  // @ts-ignore
-  props[(0, _DataKey.dataAttr)('active')] = meta.isActive;
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, Object.assign({}, options, props, {
-    ref: ref
-  }));
-});
-NavItem.displayName = 'NavItem';
-var _default = NavItem;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./NavContext":"../../node_modules/@restart/ui/esm/NavContext.js","./SelectableContext":"../../node_modules/@restart/ui/esm/SelectableContext.js","./Button":"../../node_modules/@restart/ui/esm/Button.js","./DataKey":"../../node_modules/@restart/ui/esm/DataKey.js","./TabContext":"../../node_modules/@restart/ui/esm/TabContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/Nav.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _querySelectorAll = _interopRequireDefault(require("dom-helpers/querySelectorAll"));
-var React = _interopRequireWildcard(require("react"));
-var _useForceUpdate = _interopRequireDefault(require("@restart/hooks/useForceUpdate"));
-var _useMergedRefs = _interopRequireDefault(require("@restart/hooks/useMergedRefs"));
-var _NavContext = _interopRequireDefault(require("./NavContext"));
-var _SelectableContext = _interopRequireWildcard(require("./SelectableContext"));
-var _TabContext = _interopRequireDefault(require("./TabContext"));
-var _DataKey = require("./DataKey");
-var _NavItem = _interopRequireDefault(require("./NavItem"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const _excluded = ["as", "onSelect", "activeKey", "role", "onKeyDown"];
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-  return target;
-}
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const noop = () => {};
-const EVENT_KEY_ATTR = (0, _DataKey.dataAttr)('event-key');
-const Nav = /*#__PURE__*/React.forwardRef((_ref, ref) => {
-  let {
-      // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-      as: Component = 'div',
-      onSelect,
-      activeKey,
-      role,
-      onKeyDown
-    } = _ref,
-    props = _objectWithoutPropertiesLoose(_ref, _excluded);
-  // A ref and forceUpdate for refocus, b/c we only want to trigger when needed
-  // and don't want to reset the set in the effect
-  const forceUpdate = (0, _useForceUpdate.default)();
-  const needsRefocusRef = (0, React.useRef)(false);
-  const parentOnSelect = (0, React.useContext)(_SelectableContext.default);
-  const tabContext = (0, React.useContext)(_TabContext.default);
-  let getControlledId, getControllerId;
-  if (tabContext) {
-    role = role || 'tablist';
-    activeKey = tabContext.activeKey;
-    // TODO: do we need to duplicate these?
-    getControlledId = tabContext.getControlledId;
-    getControllerId = tabContext.getControllerId;
-  }
-  const listNode = (0, React.useRef)(null);
-  const getNextActiveTab = offset => {
-    const currentListNode = listNode.current;
-    if (!currentListNode) return null;
-    const items = (0, _querySelectorAll.default)(currentListNode, `[${EVENT_KEY_ATTR}]:not([aria-disabled=true])`);
-    const activeChild = currentListNode.querySelector('[aria-selected=true]');
-    if (!activeChild || activeChild !== document.activeElement) return null;
-    const index = items.indexOf(activeChild);
-    if (index === -1) return null;
-    let nextIndex = index + offset;
-    if (nextIndex >= items.length) nextIndex = 0;
-    if (nextIndex < 0) nextIndex = items.length - 1;
-    return items[nextIndex];
-  };
-  const handleSelect = (key, event) => {
-    if (key == null) return;
-    onSelect == null ? void 0 : onSelect(key, event);
-    parentOnSelect == null ? void 0 : parentOnSelect(key, event);
-  };
-  const handleKeyDown = event => {
-    onKeyDown == null ? void 0 : onKeyDown(event);
-    if (!tabContext) {
-      return;
-    }
-    let nextActiveChild;
-    switch (event.key) {
-      case 'ArrowLeft':
-      case 'ArrowUp':
-        nextActiveChild = getNextActiveTab(-1);
-        break;
-      case 'ArrowRight':
-      case 'ArrowDown':
-        nextActiveChild = getNextActiveTab(1);
-        break;
-      default:
-        return;
-    }
-    if (!nextActiveChild) return;
-    event.preventDefault();
-    handleSelect(nextActiveChild.dataset[(0, _DataKey.dataProp)('EventKey')] || null, event);
-    needsRefocusRef.current = true;
-    forceUpdate();
-  };
-  (0, React.useEffect)(() => {
-    if (listNode.current && needsRefocusRef.current) {
-      const activeChild = listNode.current.querySelector(`[${EVENT_KEY_ATTR}][aria-selected=true]`);
-      activeChild == null ? void 0 : activeChild.focus();
-    }
-    needsRefocusRef.current = false;
-  });
-  const mergedRef = (0, _useMergedRefs.default)(ref, listNode);
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_SelectableContext.default.Provider, {
-    value: handleSelect,
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_NavContext.default.Provider, {
-      value: {
-        role,
-        // used by NavLink to determine it's role
-        activeKey: (0, _SelectableContext.makeEventKey)(activeKey),
-        getControlledId: getControlledId || noop,
-        getControllerId: getControllerId || noop
-      },
-      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, Object.assign({}, props, {
-        onKeyDown: handleKeyDown,
-        ref: mergedRef,
-        role: role
-      }))
-    })
-  });
-});
-Nav.displayName = 'Nav';
-var _default = Object.assign(Nav, {
-  Item: _NavItem.default
-});
-exports.default = _default;
-},{"dom-helpers/querySelectorAll":"../../node_modules/dom-helpers/esm/querySelectorAll.js","react":"../../node_modules/react/index.js","@restart/hooks/useForceUpdate":"../../node_modules/@restart/hooks/esm/useForceUpdate.js","@restart/hooks/useMergedRefs":"../../node_modules/@restart/hooks/esm/useMergedRefs.js","./NavContext":"../../node_modules/@restart/ui/esm/NavContext.js","./SelectableContext":"../../node_modules/@restart/ui/esm/SelectableContext.js","./TabContext":"../../node_modules/@restart/ui/esm/TabContext.js","./DataKey":"../../node_modules/@restart/ui/esm/DataKey.js","./NavItem":"../../node_modules/@restart/ui/esm/NavItem.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/ListGroupItem.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./FormCheckInput":"../../node_modules/react-bootstrap/esm/FormCheckInput.js","./InputGroupContext":"../../node_modules/react-bootstrap/esm/InputGroupContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/ListGroupItem.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44943,747 +46851,7 @@ function scrollbarSize(recalc) {
   }
   return size;
 }
-},{"./canUseDOM":"../../node_modules/dom-helpers/esm/canUseDOM.js"}],"../../node_modules/dom-helpers/esm/activeElement.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = activeElement;
-var _ownerDocument = _interopRequireDefault(require("./ownerDocument"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-/**
- * Returns the actively focused element safely.
- *
- * @param doc the document to check
- */
-
-function activeElement(doc) {
-  if (doc === void 0) {
-    doc = (0, _ownerDocument.default)();
-  }
-
-  // Support: IE 9 only
-  // IE9 throws an "Unspecified error" accessing document.activeElement from an <iframe>
-  try {
-    var active = doc.activeElement; // IE11 returns a seemingly empty object in some cases when accessing
-    // document.activeElement from an <iframe>
-
-    if (!active || !active.nodeName) return null;
-    return active;
-  } catch (e) {
-    /* ie throws if no active element */
-    return doc.body;
-  }
-}
-},{"./ownerDocument":"../../node_modules/dom-helpers/esm/ownerDocument.js"}],"../../node_modules/@restart/ui/esm/getScrollbarWidth.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = getBodyScrollbarWidth;
-/**
- * Get the width of the vertical window scrollbar if it's visible
- */
-function getBodyScrollbarWidth(ownerDocument = document) {
-  const window = ownerDocument.defaultView;
-  return Math.abs(window.innerWidth - ownerDocument.documentElement.clientWidth);
-}
-},{}],"../../node_modules/@restart/ui/esm/ModalManager.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.OPEN_DATA_ATTRIBUTE = void 0;
-var _css = _interopRequireDefault(require("dom-helpers/css"));
-var _DataKey = require("./DataKey");
-var _getScrollbarWidth = _interopRequireDefault(require("./getScrollbarWidth"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const OPEN_DATA_ATTRIBUTE = (0, _DataKey.dataAttr)('modal-open');
-
-/**
- * Manages a stack of Modals as well as ensuring
- * body scrolling is is disabled and padding accounted for
- */
-exports.OPEN_DATA_ATTRIBUTE = OPEN_DATA_ATTRIBUTE;
-class ModalManager {
-  constructor({
-    ownerDocument,
-    handleContainerOverflow = true,
-    isRTL = false
-  } = {}) {
-    this.handleContainerOverflow = handleContainerOverflow;
-    this.isRTL = isRTL;
-    this.modals = [];
-    this.ownerDocument = ownerDocument;
-  }
-  getScrollbarWidth() {
-    return (0, _getScrollbarWidth.default)(this.ownerDocument);
-  }
-  getElement() {
-    return (this.ownerDocument || document).body;
-  }
-  setModalAttributes(_modal) {
-    // For overriding
-  }
-  removeModalAttributes(_modal) {
-    // For overriding
-  }
-  setContainerStyle(containerState) {
-    const style = {
-      overflow: 'hidden'
-    };
-
-    // we are only interested in the actual `style` here
-    // because we will override it
-    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
-    const container = this.getElement();
-    containerState.style = {
-      overflow: container.style.overflow,
-      [paddingProp]: container.style[paddingProp]
-    };
-    if (containerState.scrollBarWidth) {
-      // use computed style, here to get the real padding
-      // to add our scrollbar width
-      style[paddingProp] = `${parseInt((0, _css.default)(container, paddingProp) || '0', 10) + containerState.scrollBarWidth}px`;
-    }
-    container.setAttribute(OPEN_DATA_ATTRIBUTE, '');
-    (0, _css.default)(container, style);
-  }
-  reset() {
-    [...this.modals].forEach(m => this.remove(m));
-  }
-  removeContainerStyle(containerState) {
-    const container = this.getElement();
-    container.removeAttribute(OPEN_DATA_ATTRIBUTE);
-    Object.assign(container.style, containerState.style);
-  }
-  add(modal) {
-    let modalIdx = this.modals.indexOf(modal);
-    if (modalIdx !== -1) {
-      return modalIdx;
-    }
-    modalIdx = this.modals.length;
-    this.modals.push(modal);
-    this.setModalAttributes(modal);
-    if (modalIdx !== 0) {
-      return modalIdx;
-    }
-    this.state = {
-      scrollBarWidth: this.getScrollbarWidth(),
-      style: {}
-    };
-    if (this.handleContainerOverflow) {
-      this.setContainerStyle(this.state);
-    }
-    return modalIdx;
-  }
-  remove(modal) {
-    const modalIdx = this.modals.indexOf(modal);
-    if (modalIdx === -1) {
-      return;
-    }
-    this.modals.splice(modalIdx, 1);
-
-    // if that was the last modal in a container,
-    // clean up the container
-    if (!this.modals.length && this.handleContainerOverflow) {
-      this.removeContainerStyle(this.state);
-    }
-    this.removeModalAttributes(modal);
-  }
-  isTopModal(modal) {
-    return !!this.modals.length && this.modals[this.modals.length - 1] === modal;
-  }
-}
-var _default = ModalManager;
-exports.default = _default;
-},{"dom-helpers/css":"../../node_modules/dom-helpers/esm/css.js","./DataKey":"../../node_modules/@restart/ui/esm/DataKey.js","./getScrollbarWidth":"../../node_modules/@restart/ui/esm/getScrollbarWidth.js"}],"../../node_modules/@restart/ui/esm/useWaitForDOMRef.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useWaitForDOMRef;
-exports.resolveContainerRef = void 0;
-var _ownerDocument = _interopRequireDefault(require("dom-helpers/ownerDocument"));
-var _canUseDOM = _interopRequireDefault(require("dom-helpers/canUseDOM"));
-var _react = require("react");
-var _useWindow = _interopRequireDefault(require("./useWindow"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const resolveContainerRef = (ref, document) => {
-  if (!_canUseDOM.default) return null;
-  if (ref == null) return (document || (0, _ownerDocument.default)()).body;
-  if (typeof ref === 'function') ref = ref();
-  if (ref && 'current' in ref) ref = ref.current;
-  if (ref && ('nodeType' in ref || ref.getBoundingClientRect)) return ref;
-  return null;
-};
-exports.resolveContainerRef = resolveContainerRef;
-function useWaitForDOMRef(ref, onResolved) {
-  const window = (0, _useWindow.default)();
-  const [resolvedRef, setRef] = (0, _react.useState)(() => resolveContainerRef(ref, window == null ? void 0 : window.document));
-  if (!resolvedRef) {
-    const earlyRef = resolveContainerRef(ref);
-    if (earlyRef) setRef(earlyRef);
-  }
-  (0, _react.useEffect)(() => {
-    if (onResolved && resolvedRef) {
-      onResolved(resolvedRef);
-    }
-  }, [onResolved, resolvedRef]);
-  (0, _react.useEffect)(() => {
-    const nextRef = resolveContainerRef(ref);
-    if (nextRef !== resolvedRef) {
-      setRef(nextRef);
-    }
-  }, [ref, resolvedRef]);
-  return resolvedRef;
-}
-},{"dom-helpers/ownerDocument":"../../node_modules/dom-helpers/esm/ownerDocument.js","dom-helpers/canUseDOM":"../../node_modules/dom-helpers/esm/canUseDOM.js","react":"../../node_modules/react/index.js","./useWindow":"../../node_modules/@restart/ui/esm/useWindow.js"}],"../../node_modules/@restart/ui/esm/NoopTransition.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var _useMergedRefs = _interopRequireDefault(require("@restart/hooks/useMergedRefs"));
-var _react = require("react");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function NoopTransition({
-  children,
-  in: inProp,
-  onExited,
-  mountOnEnter,
-  unmountOnExit
-}) {
-  const ref = (0, _react.useRef)(null);
-  const hasEnteredRef = (0, _react.useRef)(inProp);
-  const handleExited = (0, _useEventCallback.default)(onExited);
-  (0, _react.useEffect)(() => {
-    if (inProp) hasEnteredRef.current = true;else {
-      handleExited(ref.current);
-    }
-  }, [inProp, handleExited]);
-  const combinedRef = (0, _useMergedRefs.default)(ref, children.ref);
-  const child = /*#__PURE__*/(0, _react.cloneElement)(children, {
-    ref: combinedRef
-  });
-  if (inProp) return child;
-  if (unmountOnExit) {
-    return null;
-  }
-  if (!hasEnteredRef.current && mountOnEnter) {
-    return null;
-  }
-  return child;
-}
-var _default = NoopTransition;
-exports.default = _default;
-},{"@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/hooks/useMergedRefs":"../../node_modules/@restart/hooks/esm/useMergedRefs.js","react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/ui/esm/ImperativeTransition.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = ImperativeTransition;
-exports.renderTransition = renderTransition;
-exports.useTransition = useTransition;
-var _useMergedRefs = _interopRequireDefault(require("@restart/hooks/useMergedRefs"));
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var _useIsomorphicEffect = _interopRequireDefault(require("@restart/hooks/useIsomorphicEffect"));
-var _react = _interopRequireWildcard(require("react"));
-var _NoopTransition = _interopRequireDefault(require("./NoopTransition"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function useTransition({
-  in: inProp,
-  onTransition
-}) {
-  const ref = (0, _react.useRef)(null);
-  const isInitialRef = (0, _react.useRef)(true);
-  const handleTransition = (0, _useEventCallback.default)(onTransition);
-  (0, _useIsomorphicEffect.default)(() => {
-    if (!ref.current) {
-      return undefined;
-    }
-    let stale = false;
-    handleTransition({
-      in: inProp,
-      element: ref.current,
-      initial: isInitialRef.current,
-      isStale: () => stale
-    });
-    return () => {
-      stale = true;
-    };
-  }, [inProp, handleTransition]);
-  (0, _useIsomorphicEffect.default)(() => {
-    isInitialRef.current = false;
-    // this is for strict mode
-    return () => {
-      isInitialRef.current = true;
-    };
-  }, []);
-  return ref;
-}
-/**
- * Adapts an imperative transition function to a subset of the RTG `<Transition>` component API.
- *
- * ImperativeTransition does not support mounting options or `appear` at the moment, meaning
- * that it always acts like: `mountOnEnter={true} unmountOnExit={true} appear={true}`
- */
-function ImperativeTransition({
-  children,
-  in: inProp,
-  onExited,
-  onEntered,
-  transition
-}) {
-  const [exited, setExited] = (0, _react.useState)(!inProp);
-
-  // TODO: I think this needs to be in an effect
-  if (inProp && exited) {
-    setExited(false);
-  }
-  const ref = useTransition({
-    in: !!inProp,
-    onTransition: options => {
-      const onFinish = () => {
-        if (options.isStale()) return;
-        if (options.in) {
-          onEntered == null ? void 0 : onEntered(options.element, options.initial);
-        } else {
-          setExited(true);
-          onExited == null ? void 0 : onExited(options.element);
-        }
-      };
-      Promise.resolve(transition(options)).then(onFinish, error => {
-        if (!options.in) setExited(true);
-        throw error;
-      });
-    }
-  });
-  const combinedRef = (0, _useMergedRefs.default)(ref, children.ref);
-  return exited && !inProp ? null : /*#__PURE__*/(0, _react.cloneElement)(children, {
-    ref: combinedRef
-  });
-}
-function renderTransition(Component, runTransition, props) {
-  if (Component) {
-    return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, Object.assign({}, props));
-  }
-  if (runTransition) {
-    return /*#__PURE__*/(0, _jsxRuntime.jsx)(ImperativeTransition, Object.assign({}, props, {
-      transition: runTransition
-    }));
-  }
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_NoopTransition.default, Object.assign({}, props));
-}
-},{"@restart/hooks/useMergedRefs":"../../node_modules/@restart/hooks/esm/useMergedRefs.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/hooks/useIsomorphicEffect":"../../node_modules/@restart/hooks/esm/useIsomorphicEffect.js","react":"../../node_modules/react/index.js","./NoopTransition":"../../node_modules/@restart/ui/esm/NoopTransition.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/utils.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.isEscKey = isEscKey;
-/* eslint-disable import/prefer-default-export */
-function isEscKey(e) {
-  return e.code === 'Escape' || e.keyCode === 27;
-}
-},{}],"../../node_modules/@restart/ui/esm/Modal.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _activeElement = _interopRequireDefault(require("dom-helpers/activeElement"));
-var _contains = _interopRequireDefault(require("dom-helpers/contains"));
-var _canUseDOM = _interopRequireDefault(require("dom-helpers/canUseDOM"));
-var _listen = _interopRequireDefault(require("dom-helpers/listen"));
-var React = _interopRequireWildcard(require("react"));
-var _reactDom = _interopRequireDefault(require("react-dom"));
-var _useMounted = _interopRequireDefault(require("@restart/hooks/useMounted"));
-var _useWillUnmount = _interopRequireDefault(require("@restart/hooks/useWillUnmount"));
-var _usePrevious = _interopRequireDefault(require("@restart/hooks/usePrevious"));
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var _ModalManager = _interopRequireDefault(require("./ModalManager"));
-var _useWaitForDOMRef = _interopRequireDefault(require("./useWaitForDOMRef"));
-var _useWindow = _interopRequireDefault(require("./useWindow"));
-var _ImperativeTransition = require("./ImperativeTransition");
-var _utils = require("./utils");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const _excluded = ["show", "role", "className", "style", "children", "backdrop", "keyboard", "onBackdropClick", "onEscapeKeyDown", "transition", "runTransition", "backdropTransition", "runBackdropTransition", "autoFocus", "enforceFocus", "restoreFocus", "restoreFocusOptions", "renderDialog", "renderBackdrop", "manager", "container", "onShow", "onHide", "onExit", "onExited", "onExiting", "onEnter", "onEntering", "onEntered"];
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-  return target;
-}
-/* eslint-disable @typescript-eslint/no-use-before-define, react/prop-types */
-
-let manager;
-function getManager(window) {
-  if (!manager) manager = new _ModalManager.default({
-    ownerDocument: window == null ? void 0 : window.document
-  });
-  return manager;
-}
-function useModalManager(provided) {
-  const window = (0, _useWindow.default)();
-  const modalManager = provided || getManager(window);
-  const modal = (0, React.useRef)({
-    dialog: null,
-    backdrop: null
-  });
-  return Object.assign(modal.current, {
-    add: () => modalManager.add(modal.current),
-    remove: () => modalManager.remove(modal.current),
-    isTopModal: () => modalManager.isTopModal(modal.current),
-    setDialogRef: (0, React.useCallback)(ref => {
-      modal.current.dialog = ref;
-    }, []),
-    setBackdropRef: (0, React.useCallback)(ref => {
-      modal.current.backdrop = ref;
-    }, [])
-  });
-}
-const Modal = /*#__PURE__*/(0, React.forwardRef)((_ref, ref) => {
-  let {
-      show = false,
-      role = 'dialog',
-      className,
-      style,
-      children,
-      backdrop = true,
-      keyboard = true,
-      onBackdropClick,
-      onEscapeKeyDown,
-      transition,
-      runTransition,
-      backdropTransition,
-      runBackdropTransition,
-      autoFocus = true,
-      enforceFocus = true,
-      restoreFocus = true,
-      restoreFocusOptions,
-      renderDialog,
-      renderBackdrop = props => /*#__PURE__*/(0, _jsxRuntime.jsx)("div", Object.assign({}, props)),
-      manager: providedManager,
-      container: containerRef,
-      onShow,
-      onHide = () => {},
-      onExit,
-      onExited,
-      onExiting,
-      onEnter,
-      onEntering,
-      onEntered
-    } = _ref,
-    rest = _objectWithoutPropertiesLoose(_ref, _excluded);
-  const container = (0, _useWaitForDOMRef.default)(containerRef);
-  const modal = useModalManager(providedManager);
-  const isMounted = (0, _useMounted.default)();
-  const prevShow = (0, _usePrevious.default)(show);
-  const [exited, setExited] = (0, React.useState)(!show);
-  const lastFocusRef = (0, React.useRef)(null);
-  (0, React.useImperativeHandle)(ref, () => modal, [modal]);
-  if (_canUseDOM.default && !prevShow && show) {
-    lastFocusRef.current = (0, _activeElement.default)();
-  }
-
-  // TODO: I think this needs to be in an effect
-  if (show && exited) {
-    setExited(false);
-  }
-  const handleShow = (0, _useEventCallback.default)(() => {
-    modal.add();
-    removeKeydownListenerRef.current = (0, _listen.default)(document, 'keydown', handleDocumentKeyDown);
-    removeFocusListenerRef.current = (0, _listen.default)(document, 'focus',
-    // the timeout is necessary b/c this will run before the new modal is mounted
-    // and so steals focus from it
-    () => setTimeout(handleEnforceFocus), true);
-    if (onShow) {
-      onShow();
-    }
-
-    // autofocus after onShow to not trigger a focus event for previous
-    // modals before this one is shown.
-    if (autoFocus) {
-      const currentActiveElement = (0, _activeElement.default)(document);
-      if (modal.dialog && currentActiveElement && !(0, _contains.default)(modal.dialog, currentActiveElement)) {
-        lastFocusRef.current = currentActiveElement;
-        modal.dialog.focus();
-      }
-    }
-  });
-  const handleHide = (0, _useEventCallback.default)(() => {
-    modal.remove();
-    removeKeydownListenerRef.current == null ? void 0 : removeKeydownListenerRef.current();
-    removeFocusListenerRef.current == null ? void 0 : removeFocusListenerRef.current();
-    if (restoreFocus) {
-      var _lastFocusRef$current;
-      // Support: <=IE11 doesn't support `focus()` on svg elements (RB: #917)
-      (_lastFocusRef$current = lastFocusRef.current) == null ? void 0 : _lastFocusRef$current.focus == null ? void 0 : _lastFocusRef$current.focus(restoreFocusOptions);
-      lastFocusRef.current = null;
-    }
-  });
-
-  // TODO: try and combine these effects: https://github.com/react-bootstrap/react-overlays/pull/794#discussion_r409954120
-
-  // Show logic when:
-  //  - show is `true` _and_ `container` has resolved
-  (0, React.useEffect)(() => {
-    if (!show || !container) return;
-    handleShow();
-  }, [show, container, /* should never change: */handleShow]);
-
-  // Hide cleanup logic when:
-  //  - `exited` switches to true
-  //  - component unmounts;
-  (0, React.useEffect)(() => {
-    if (!exited) return;
-    handleHide();
-  }, [exited, handleHide]);
-  (0, _useWillUnmount.default)(() => {
-    handleHide();
-  });
-
-  // --------------------------------
-
-  const handleEnforceFocus = (0, _useEventCallback.default)(() => {
-    if (!enforceFocus || !isMounted() || !modal.isTopModal()) {
-      return;
-    }
-    const currentActiveElement = (0, _activeElement.default)();
-    if (modal.dialog && currentActiveElement && !(0, _contains.default)(modal.dialog, currentActiveElement)) {
-      modal.dialog.focus();
-    }
-  });
-  const handleBackdropClick = (0, _useEventCallback.default)(e => {
-    if (e.target !== e.currentTarget) {
-      return;
-    }
-    onBackdropClick == null ? void 0 : onBackdropClick(e);
-    if (backdrop === true) {
-      onHide();
-    }
-  });
-  const handleDocumentKeyDown = (0, _useEventCallback.default)(e => {
-    if (keyboard && (0, _utils.isEscKey)(e) && modal.isTopModal()) {
-      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(e);
-      if (!e.defaultPrevented) {
-        onHide();
-      }
-    }
-  });
-  const removeFocusListenerRef = (0, React.useRef)();
-  const removeKeydownListenerRef = (0, React.useRef)();
-  const handleHidden = (...args) => {
-    setExited(true);
-    onExited == null ? void 0 : onExited(...args);
-  };
-  if (!container) {
-    return null;
-  }
-  const dialogProps = Object.assign({
-    role,
-    ref: modal.setDialogRef,
-    // apparently only works on the dialog role element
-    'aria-modal': role === 'dialog' ? true : undefined
-  }, rest, {
-    style,
-    className,
-    tabIndex: -1
-  });
-  let dialog = renderDialog ? renderDialog(dialogProps) : /*#__PURE__*/(0, _jsxRuntime.jsx)("div", Object.assign({}, dialogProps, {
-    children: /*#__PURE__*/React.cloneElement(children, {
-      role: 'document'
-    })
-  }));
-  dialog = (0, _ImperativeTransition.renderTransition)(transition, runTransition, {
-    unmountOnExit: true,
-    mountOnEnter: true,
-    appear: true,
-    in: !!show,
-    onExit,
-    onExiting,
-    onExited: handleHidden,
-    onEnter,
-    onEntering,
-    onEntered,
-    children: dialog
-  });
-  let backdropElement = null;
-  if (backdrop) {
-    backdropElement = renderBackdrop({
-      ref: modal.setBackdropRef,
-      onClick: handleBackdropClick
-    });
-    backdropElement = (0, _ImperativeTransition.renderTransition)(backdropTransition, runBackdropTransition, {
-      in: !!show,
-      appear: true,
-      mountOnEnter: true,
-      unmountOnExit: true,
-      children: backdropElement
-    });
-  }
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_jsxRuntime.Fragment, {
-    children: /*#__PURE__*/_reactDom.default.createPortal( /*#__PURE__*/(0, _jsxRuntime.jsxs)(_jsxRuntime.Fragment, {
-      children: [backdropElement, dialog]
-    }), container)
-  });
-});
-Modal.displayName = 'Modal';
-var _default = Object.assign(Modal, {
-  Manager: _ModalManager.default
-});
-exports.default = _default;
-},{"dom-helpers/activeElement":"../../node_modules/dom-helpers/esm/activeElement.js","dom-helpers/contains":"../../node_modules/dom-helpers/esm/contains.js","dom-helpers/canUseDOM":"../../node_modules/dom-helpers/esm/canUseDOM.js","dom-helpers/listen":"../../node_modules/dom-helpers/esm/listen.js","react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","@restart/hooks/useMounted":"../../node_modules/@restart/hooks/esm/useMounted.js","@restart/hooks/useWillUnmount":"../../node_modules/@restart/hooks/esm/useWillUnmount.js","@restart/hooks/usePrevious":"../../node_modules/@restart/hooks/esm/usePrevious.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./ModalManager":"../../node_modules/@restart/ui/esm/ModalManager.js","./useWaitForDOMRef":"../../node_modules/@restart/ui/esm/useWaitForDOMRef.js","./useWindow":"../../node_modules/@restart/ui/esm/useWindow.js","./ImperativeTransition":"../../node_modules/@restart/ui/esm/ImperativeTransition.js","./utils":"../../node_modules/@restart/ui/esm/utils.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/dom-helpers/esm/hasClass.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = hasClass;
-/**
- * Checks if a given element has a CSS class.
- * 
- * @param element the element
- * @param className the CSS class name
- */
-function hasClass(element, className) {
-  if (element.classList) return !!className && element.classList.contains(className);
-  return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
-}
-},{}],"../../node_modules/dom-helpers/esm/addClass.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = addClass;
-var _hasClass = _interopRequireDefault(require("./hasClass"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-/**
- * Adds a CSS class to a given element.
- * 
- * @param element the element
- * @param className the CSS class name
- */
-
-function addClass(element, className) {
-  if (element.classList) element.classList.add(className);else if (!(0, _hasClass.default)(element, className)) if (typeof element.className === 'string') element.className = element.className + " " + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + " " + className);
-}
-},{"./hasClass":"../../node_modules/dom-helpers/esm/hasClass.js"}],"../../node_modules/dom-helpers/esm/removeClass.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = removeClass;
-function replaceClassName(origClass, classToRemove) {
-  return origClass.replace(new RegExp("(^|\\s)" + classToRemove + "(?:\\s|$)", 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
-}
-/**
- * Removes a CSS class from a given element.
- * 
- * @param element the element
- * @param className the CSS class name
- */
-
-function removeClass(element, className) {
-  if (element.classList) {
-    element.classList.remove(className);
-  } else if (typeof element.className === 'string') {
-    element.className = replaceClassName(element.className, className);
-  } else {
-    element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
-  }
-}
-},{}],"../../node_modules/react-bootstrap/esm/BootstrapModalManager.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-exports.getSharedManager = getSharedManager;
-var _addClass = _interopRequireDefault(require("dom-helpers/addClass"));
-var _css = _interopRequireDefault(require("dom-helpers/css"));
-var _querySelectorAll = _interopRequireDefault(require("dom-helpers/querySelectorAll"));
-var _removeClass = _interopRequireDefault(require("dom-helpers/removeClass"));
-var _ModalManager = _interopRequireDefault(require("@restart/ui/ModalManager"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const Selector = {
-  FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
-  STICKY_CONTENT: '.sticky-top',
-  NAVBAR_TOGGLER: '.navbar-toggler'
-};
-class BootstrapModalManager extends _ModalManager.default {
-  adjustAndStore(prop, element, adjust) {
-    const actual = element.style[prop];
-    // TODO: DOMStringMap and CSSStyleDeclaration aren't strictly compatible
-    // @ts-ignore
-    element.dataset[prop] = actual;
-    (0, _css.default)(element, {
-      [prop]: `${parseFloat((0, _css.default)(element, prop)) + adjust}px`
-    });
-  }
-  restore(prop, element) {
-    const value = element.dataset[prop];
-    if (value !== undefined) {
-      delete element.dataset[prop];
-      (0, _css.default)(element, {
-        [prop]: value
-      });
-    }
-  }
-  setContainerStyle(containerState) {
-    super.setContainerStyle(containerState);
-    const container = this.getElement();
-    (0, _addClass.default)(container, 'modal-open');
-    if (!containerState.scrollBarWidth) return;
-    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
-    const marginProp = this.isRTL ? 'marginLeft' : 'marginRight';
-    (0, _querySelectorAll.default)(container, Selector.FIXED_CONTENT).forEach(el => this.adjustAndStore(paddingProp, el, containerState.scrollBarWidth));
-    (0, _querySelectorAll.default)(container, Selector.STICKY_CONTENT).forEach(el => this.adjustAndStore(marginProp, el, -containerState.scrollBarWidth));
-    (0, _querySelectorAll.default)(container, Selector.NAVBAR_TOGGLER).forEach(el => this.adjustAndStore(marginProp, el, containerState.scrollBarWidth));
-  }
-  removeContainerStyle(containerState) {
-    super.removeContainerStyle(containerState);
-    const container = this.getElement();
-    (0, _removeClass.default)(container, 'modal-open');
-    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
-    const marginProp = this.isRTL ? 'marginLeft' : 'marginRight';
-    (0, _querySelectorAll.default)(container, Selector.FIXED_CONTENT).forEach(el => this.restore(paddingProp, el));
-    (0, _querySelectorAll.default)(container, Selector.STICKY_CONTENT).forEach(el => this.restore(marginProp, el));
-    (0, _querySelectorAll.default)(container, Selector.NAVBAR_TOGGLER).forEach(el => this.restore(marginProp, el));
-  }
-}
-let sharedManager;
-function getSharedManager(options) {
-  if (!sharedManager) sharedManager = new BootstrapModalManager(options);
-  return sharedManager;
-}
-var _default = BootstrapModalManager;
-exports.default = _default;
-},{"dom-helpers/addClass":"../../node_modules/dom-helpers/esm/addClass.js","dom-helpers/css":"../../node_modules/dom-helpers/esm/css.js","dom-helpers/querySelectorAll":"../../node_modules/dom-helpers/esm/querySelectorAll.js","dom-helpers/removeClass":"../../node_modules/dom-helpers/esm/removeClass.js","@restart/ui/ModalManager":"../../node_modules/@restart/ui/esm/ModalManager.js"}],"../../node_modules/react-bootstrap/esm/ModalBody.js":[function(require,module,exports) {
+},{"./canUseDOM":"../../node_modules/dom-helpers/esm/canUseDOM.js"}],"../../node_modules/react-bootstrap/esm/ModalBody.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45694,23 +46862,7 @@ var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix")
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var _default = (0, _createWithBsPrefix.default)('modal-body');
 exports.default = _default;
-},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/react-bootstrap/esm/ModalContext.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var React = _interopRequireWildcard(require("react"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const ModalContext = /*#__PURE__*/React.createContext({
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onHide() {}
-});
-var _default = ModalContext;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/ModalDialog.js":[function(require,module,exports) {
+},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/react-bootstrap/esm/ModalDialog.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45762,52 +46914,7 @@ var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix")
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var _default = (0, _createWithBsPrefix.default)('modal-footer');
 exports.default = _default;
-},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/react-bootstrap/esm/AbstractModalHeader.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var React = _interopRequireWildcard(require("react"));
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var _CloseButton = _interopRequireDefault(require("./CloseButton"));
-var _ModalContext = _interopRequireDefault(require("./ModalContext"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const defaultProps = {
-  closeLabel: 'Close',
-  closeButton: false
-};
-const AbstractModalHeader = /*#__PURE__*/React.forwardRef(({
-  closeLabel,
-  closeVariant,
-  closeButton,
-  onHide,
-  children,
-  ...props
-}, ref) => {
-  const context = (0, React.useContext)(_ModalContext.default);
-  const handleClick = (0, _useEventCallback.default)(() => {
-    context == null ? void 0 : context.onHide();
-    onHide == null ? void 0 : onHide();
-  });
-  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-    ref: ref,
-    ...props,
-    children: [children, closeButton && /*#__PURE__*/(0, _jsxRuntime.jsx)(_CloseButton.default, {
-      "aria-label": closeLabel,
-      variant: closeVariant,
-      onClick: handleClick
-    })]
-  });
-});
-AbstractModalHeader.defaultProps = defaultProps;
-var _default = AbstractModalHeader;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./ModalContext":"../../node_modules/react-bootstrap/esm/ModalContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/ModalHeader.js":[function(require,module,exports) {
+},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/react-bootstrap/esm/ModalHeader.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46132,993 +47239,7 @@ var _default = Object.assign(Modal, {
   BACKDROP_TRANSITION_DURATION: 150
 });
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","dom-helpers/addEventListener":"../../node_modules/dom-helpers/esm/addEventListener.js","dom-helpers/canUseDOM":"../../node_modules/dom-helpers/esm/canUseDOM.js","dom-helpers/ownerDocument":"../../node_modules/dom-helpers/esm/ownerDocument.js","dom-helpers/removeEventListener":"../../node_modules/dom-helpers/esm/removeEventListener.js","dom-helpers/scrollbarSize":"../../node_modules/dom-helpers/esm/scrollbarSize.js","@restart/hooks/useCallbackRef":"../../node_modules/@restart/hooks/esm/useCallbackRef.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/hooks/useMergedRefs":"../../node_modules/@restart/hooks/esm/useMergedRefs.js","@restart/hooks/useWillUnmount":"../../node_modules/@restart/hooks/esm/useWillUnmount.js","dom-helpers/transitionEnd":"../../node_modules/dom-helpers/esm/transitionEnd.js","react":"../../node_modules/react/index.js","@restart/ui/Modal":"../../node_modules/@restart/ui/esm/Modal.js","./BootstrapModalManager":"../../node_modules/react-bootstrap/esm/BootstrapModalManager.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./ModalBody":"../../node_modules/react-bootstrap/esm/ModalBody.js","./ModalContext":"../../node_modules/react-bootstrap/esm/ModalContext.js","./ModalDialog":"../../node_modules/react-bootstrap/esm/ModalDialog.js","./ModalFooter":"../../node_modules/react-bootstrap/esm/ModalFooter.js","./ModalHeader":"../../node_modules/react-bootstrap/esm/ModalHeader.js","./ModalTitle":"../../node_modules/react-bootstrap/esm/ModalTitle.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/prop-types-extra/lib/utils/createChainableTypeChecker.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = createChainableTypeChecker;
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-// Mostly taken from ReactPropTypes.
-
-function createChainableTypeChecker(validate) {
-  function checkType(isRequired, props, propName, componentName, location, propFullName) {
-    var componentNameSafe = componentName || '<<anonymous>>';
-    var propFullNameSafe = propFullName || propName;
-
-    if (props[propName] == null) {
-      if (isRequired) {
-        return new Error('Required ' + location + ' `' + propFullNameSafe + '` was not specified ' + ('in `' + componentNameSafe + '`.'));
-      }
-
-      return null;
-    }
-
-    for (var _len = arguments.length, args = Array(_len > 6 ? _len - 6 : 0), _key = 6; _key < _len; _key++) {
-      args[_key - 6] = arguments[_key];
-    }
-
-    return validate.apply(undefined, [props, propName, componentNameSafe, location, propFullNameSafe].concat(args));
-  }
-
-  var chainedCheckType = checkType.bind(null, false);
-  chainedCheckType.isRequired = checkType.bind(null, true);
-
-  return chainedCheckType;
-}
-module.exports = exports['default'];
-},{}],"../../node_modules/prop-types-extra/lib/all.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = all;
-
-var _createChainableTypeChecker = require('./utils/createChainableTypeChecker');
-
-var _createChainableTypeChecker2 = _interopRequireDefault(_createChainableTypeChecker);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function all() {
-  for (var _len = arguments.length, validators = Array(_len), _key = 0; _key < _len; _key++) {
-    validators[_key] = arguments[_key];
-  }
-
-  function allPropTypes() {
-    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-
-    var error = null;
-
-    validators.forEach(function (validator) {
-      if (error != null) {
-        return;
-      }
-
-      var result = validator.apply(undefined, args);
-      if (result != null) {
-        error = result;
-      }
-    });
-
-    return error;
-  }
-
-  return (0, _createChainableTypeChecker2.default)(allPropTypes);
-}
-module.exports = exports['default'];
-},{"./utils/createChainableTypeChecker":"../../node_modules/prop-types-extra/lib/utils/createChainableTypeChecker.js"}],"../../node_modules/react-bootstrap/esm/NavItem.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var _default = (0, _createWithBsPrefix.default)('nav-item');
-exports.default = _default;
-},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/react-bootstrap/esm/NavLink.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
-var _NavItem = require("@restart/ui/NavItem");
-var _SelectableContext = require("@restart/ui/SelectableContext");
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  disabled: false
-};
-const NavLink = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  as: Component = _Anchor.default,
-  active,
-  eventKey,
-  ...props
-}, ref) => {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'nav-link');
-  const [navItemProps, meta] = (0, _NavItem.useNavItem)({
-    key: (0, _SelectableContext.makeEventKey)(eventKey, props.href),
-    active,
-    ...props
-  });
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ...props,
-    ...navItemProps,
-    ref: ref,
-    className: (0, _classnames.default)(className, bsPrefix, props.disabled && 'disabled', meta.isActive && 'active')
-  });
-});
-NavLink.displayName = 'NavLink';
-NavLink.defaultProps = defaultProps;
-var _default = NavLink;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","@restart/ui/NavItem":"../../node_modules/@restart/ui/esm/NavItem.js","@restart/ui/SelectableContext":"../../node_modules/@restart/ui/esm/SelectableContext.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Nav.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var _all = _interopRequireDefault(require("prop-types-extra/lib/all"));
-var React = _interopRequireWildcard(require("react"));
-var _uncontrollable = require("uncontrollable");
-var _Nav = _interopRequireDefault(require("@restart/ui/Nav"));
-var _ThemeProvider = require("./ThemeProvider");
-var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
-var _CardHeaderContext = _interopRequireDefault(require("./CardHeaderContext"));
-var _NavItem = _interopRequireDefault(require("./NavItem"));
-var _NavLink = _interopRequireDefault(require("./NavLink"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  justify: false,
-  fill: false
-};
-const Nav = /*#__PURE__*/React.forwardRef((uncontrolledProps, ref) => {
-  const {
-    as = 'div',
-    bsPrefix: initialBsPrefix,
-    variant,
-    fill,
-    justify,
-    navbar,
-    navbarScroll,
-    className,
-    activeKey,
-    ...props
-  } = (0, _uncontrollable.useUncontrolled)(uncontrolledProps, {
-    activeKey: 'onSelect'
-  });
-  const bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(initialBsPrefix, 'nav');
-  let navbarBsPrefix;
-  let cardHeaderBsPrefix;
-  let isNavbar = false;
-  const navbarContext = (0, React.useContext)(_NavbarContext.default);
-  const cardHeaderContext = (0, React.useContext)(_CardHeaderContext.default);
-  if (navbarContext) {
-    navbarBsPrefix = navbarContext.bsPrefix;
-    isNavbar = navbar == null ? true : navbar;
-  } else if (cardHeaderContext) {
-    ({
-      cardHeaderBsPrefix
-    } = cardHeaderContext);
-  }
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Nav.default, {
-    as: as,
-    ref: ref,
-    activeKey: activeKey,
-    className: (0, _classnames.default)(className, {
-      [bsPrefix]: !isNavbar,
-      [`${navbarBsPrefix}-nav`]: isNavbar,
-      [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
-      [`${cardHeaderBsPrefix}-${variant}`]: !!cardHeaderBsPrefix,
-      [`${bsPrefix}-${variant}`]: !!variant,
-      [`${bsPrefix}-fill`]: fill,
-      [`${bsPrefix}-justified`]: justify
-    }),
-    ...props
-  });
-});
-Nav.displayName = 'Nav';
-Nav.defaultProps = defaultProps;
-var _default = Object.assign(Nav, {
-  Item: _NavItem.default,
-  Link: _NavLink.default
-});
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","prop-types-extra/lib/all":"../../node_modules/prop-types-extra/lib/all.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","@restart/ui/Nav":"../../node_modules/@restart/ui/esm/Nav.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","./CardHeaderContext":"../../node_modules/react-bootstrap/esm/CardHeaderContext.js","./NavItem":"../../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../../node_modules/react-bootstrap/esm/NavLink.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavbarBrand.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const NavbarBrand = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  as,
-  ...props
-}, ref) => {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'navbar-brand');
-  const Component = as || (props.href ? 'a' : 'span');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ...props,
-    ref: ref,
-    className: (0, _classnames.default)(className, bsPrefix)
-  });
-});
-NavbarBrand.displayName = 'NavbarBrand';
-var _default = NavbarBrand;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavbarCollapse.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var React = _interopRequireWildcard(require("react"));
-var _Collapse = _interopRequireDefault(require("./Collapse"));
-var _ThemeProvider = require("./ThemeProvider");
-var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const NavbarCollapse = /*#__PURE__*/React.forwardRef(({
-  children,
-  bsPrefix,
-  ...props
-}, ref) => {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'navbar-collapse');
-  const context = (0, React.useContext)(_NavbarContext.default);
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Collapse.default, {
-    in: !!(context && context.expanded),
-    ...props,
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-      ref: ref,
-      className: bsPrefix,
-      children: children
-    })
-  });
-});
-NavbarCollapse.displayName = 'NavbarCollapse';
-var _default = NavbarCollapse;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./Collapse":"../../node_modules/react-bootstrap/esm/Collapse.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavbarToggle.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var _ThemeProvider = require("./ThemeProvider");
-var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  label: 'Toggle navigation'
-};
-const NavbarToggle = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  children,
-  label,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'button',
-  onClick,
-  ...props
-}, ref) => {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'navbar-toggler');
-  const {
-    onToggle,
-    expanded
-  } = (0, React.useContext)(_NavbarContext.default) || {};
-  const handleClick = (0, _useEventCallback.default)(e => {
-    if (onClick) onClick(e);
-    if (onToggle) onToggle();
-  });
-  if (Component === 'button') {
-    props.type = 'button';
-  }
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ...props,
-    ref: ref,
-    onClick: handleClick,
-    "aria-label": label,
-    className: (0, _classnames.default)(className, bsPrefix, !expanded && 'collapsed'),
-    children: children || /*#__PURE__*/(0, _jsxRuntime.jsx)("span", {
-      className: `${bsPrefix}-icon`
-    })
-  });
-});
-NavbarToggle.displayName = 'NavbarToggle';
-NavbarToggle.defaultProps = defaultProps;
-var _default = NavbarToggle;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/hooks/esm/useMediaQuery.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useMediaQuery;
-var _useIsomorphicEffect = _interopRequireDefault(require("./useIsomorphicEffect"));
-var _react = require("react");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var matchersByWindow = new WeakMap();
-var getMatcher = function getMatcher(query, targetWindow) {
-  if (!query || !targetWindow) return undefined;
-  var matchers = matchersByWindow.get(targetWindow) || new Map();
-  matchersByWindow.set(targetWindow, matchers);
-  var mql = matchers.get(query);
-  if (!mql) {
-    mql = targetWindow.matchMedia(query);
-    mql.refCount = 0;
-    matchers.set(mql.media, mql);
-  }
-  return mql;
-};
-/**
- * Match a media query and get updates as the match changes. The media string is
- * passed directly to `window.matchMedia` and run as a Layout Effect, so initial
- * matches are returned before the browser has a chance to paint.
- *
- * ```tsx
- * function Page() {
- *   const isWide = useMediaQuery('min-width: 1000px')
- *
- *   return isWide ? "very wide" : 'not so wide'
- * }
- * ```
- *
- * Media query lists are also reused globally, hook calls for the same query
- * will only create a matcher once under the hood.
- *
- * @param query A media query
- * @param targetWindow The window to match against, uses the globally available one as a default.
- */
-
-function useMediaQuery(query, targetWindow) {
-  if (targetWindow === void 0) {
-    targetWindow = typeof window === 'undefined' ? undefined : window;
-  }
-  var mql = getMatcher(query, targetWindow);
-  var _useState = (0, _react.useState)(function () {
-      return mql ? mql.matches : false;
-    }),
-    matches = _useState[0],
-    setMatches = _useState[1];
-  (0, _useIsomorphicEffect.default)(function () {
-    var mql = getMatcher(query, targetWindow);
-    if (!mql) {
-      return setMatches(false);
-    }
-    var matchers = matchersByWindow.get(targetWindow);
-    var handleChange = function handleChange() {
-      setMatches(mql.matches);
-    };
-    mql.refCount++;
-    mql.addListener(handleChange);
-    handleChange();
-    return function () {
-      mql.removeListener(handleChange);
-      mql.refCount--;
-      if (mql.refCount <= 0) {
-        matchers == null ? void 0 : matchers.delete(mql.media);
-      }
-      mql = undefined;
-    };
-  }, [query]);
-  return matches;
-}
-},{"./useIsomorphicEffect":"../../node_modules/@restart/hooks/esm/useIsomorphicEffect.js","react":"../../node_modules/react/index.js"}],"../../node_modules/@restart/hooks/esm/useBreakpoint.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createBreakpointHook = createBreakpointHook;
-exports.default = void 0;
-var _useMediaQuery = _interopRequireDefault(require("./useMediaQuery"));
-var _react = require("react");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-/**
- * Create a responsive hook we a set of breakpoint names and widths.
- * You can use any valid css units as well as a numbers (for pixels).
- *
- * **NOTE:** The object key order is important! it's assumed to be in order from smallest to largest
- *
- * ```ts
- * const useBreakpoint = createBreakpointHook({
- *  xs: 0,
- *  sm: 576,
- *  md: 768,
- *  lg: 992,
- *  xl: 1200,
- * })
- * ```
- *
- * **Watch out!** using string values will sometimes construct media queries using css `calc()` which
- * is NOT supported in media queries by all browsers at the moment. use numbers for
- * the widest range of browser support.
- *
- * @param breakpointValues A object hash of names to breakpoint dimensions
- */
-function createBreakpointHook(breakpointValues) {
-  var names = Object.keys(breakpointValues);
-  function and(query, next) {
-    if (query === next) {
-      return next;
-    }
-    return query ? query + " and " + next : next;
-  }
-  function getNext(breakpoint) {
-    return names[Math.min(names.indexOf(breakpoint) + 1, names.length - 1)];
-  }
-  function getMaxQuery(breakpoint) {
-    var next = getNext(breakpoint);
-    var value = breakpointValues[next];
-    if (typeof value === 'number') value = value - 0.2 + "px";else value = "calc(" + value + " - 0.2px)";
-    return "(max-width: " + value + ")";
-  }
-  function getMinQuery(breakpoint) {
-    var value = breakpointValues[breakpoint];
-    if (typeof value === 'number') {
-      value = value + "px";
-    }
-    return "(min-width: " + value + ")";
-  }
-  /**
-   * Match a set of breakpoints
-   *
-   * ```tsx
-   * const MidSizeOnly = () => {
-   *   const isMid = useBreakpoint({ lg: 'down', sm: 'up' });
-   *
-   *   if (isMid) return <div>On a Reasonable sized Screen!</div>
-   *   return null;
-   * }
-   * ```
-   * @param breakpointMap An object map of breakpoints and directions, queries are constructed using "and" to join
-   * breakpoints together
-   * @param window Optionally specify the target window to match against (useful when rendering into iframes)
-   */
-
-  function useBreakpoint(breakpointOrMap, direction, window) {
-    var breakpointMap;
-    if (typeof breakpointOrMap === 'object') {
-      breakpointMap = breakpointOrMap;
-      window = direction;
-      direction = true;
-    } else {
-      var _breakpointMap;
-      direction = direction || true;
-      breakpointMap = (_breakpointMap = {}, _breakpointMap[breakpointOrMap] = direction, _breakpointMap);
-    }
-    var query = (0, _react.useMemo)(function () {
-      return Object.entries(breakpointMap).reduce(function (query, _ref) {
-        var key = _ref[0],
-          direction = _ref[1];
-        if (direction === 'up' || direction === true) {
-          query = and(query, getMinQuery(key));
-        }
-        if (direction === 'down' || direction === true) {
-          query = and(query, getMaxQuery(key));
-        }
-        return query;
-      }, '');
-    }, [JSON.stringify(breakpointMap)]);
-    return (0, _useMediaQuery.default)(query, window);
-  }
-  return useBreakpoint;
-}
-var useBreakpoint = createBreakpointHook({
-  xs: 0,
-  sm: 576,
-  md: 768,
-  lg: 992,
-  xl: 1200,
-  xxl: 1400
-});
-var _default = useBreakpoint;
-exports.default = _default;
-},{"./useMediaQuery":"../../node_modules/@restart/hooks/esm/useMediaQuery.js","react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/OffcanvasBody.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var _default = (0, _createWithBsPrefix.default)('offcanvas-body');
-exports.default = _default;
-},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../../node_modules/react-bootstrap/esm/OffcanvasToggling.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _Transition = require("react-transition-group/Transition");
-var _transitionEndListener = _interopRequireDefault(require("./transitionEndListener"));
-var _TransitionWrapper = _interopRequireDefault(require("./TransitionWrapper"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  in: false,
-  mountOnEnter: false,
-  unmountOnExit: false,
-  appear: false
-};
-const transitionStyles = {
-  [_Transition.ENTERING]: 'show',
-  [_Transition.ENTERED]: 'show'
-};
-const OffcanvasToggling = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  children,
-  ...props
-}, ref) => {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'offcanvas');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_TransitionWrapper.default, {
-    ref: ref,
-    addEndListener: _transitionEndListener.default,
-    ...props,
-    childRef: children.ref,
-    children: (status, innerProps) => /*#__PURE__*/React.cloneElement(children, {
-      ...innerProps,
-      className: (0, _classnames.default)(className, children.props.className, (status === _Transition.ENTERING || status === _Transition.EXITING) && `${bsPrefix}-toggling`, transitionStyles[status])
-    })
-  });
-});
-OffcanvasToggling.defaultProps = defaultProps;
-OffcanvasToggling.displayName = 'OffcanvasToggling';
-var _default = OffcanvasToggling;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","react-transition-group/Transition":"../../node_modules/react-transition-group/esm/Transition.js","./transitionEndListener":"../../node_modules/react-bootstrap/esm/transitionEndListener.js","./TransitionWrapper":"../../node_modules/react-bootstrap/esm/TransitionWrapper.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/OffcanvasHeader.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _AbstractModalHeader = _interopRequireDefault(require("./AbstractModalHeader"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  closeLabel: 'Close',
-  closeButton: false
-};
-const OffcanvasHeader = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  ...props
-}, ref) => {
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'offcanvas-header');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_AbstractModalHeader.default, {
-    ref: ref,
-    ...props,
-    className: (0, _classnames.default)(className, bsPrefix)
-  });
-});
-OffcanvasHeader.displayName = 'OffcanvasHeader';
-OffcanvasHeader.defaultProps = defaultProps;
-var _default = OffcanvasHeader;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AbstractModalHeader":"../../node_modules/react-bootstrap/esm/AbstractModalHeader.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/OffcanvasTitle.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
-var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const DivStyledAsH5 = (0, _divWithClassName.default)('h5');
-var _default = (0, _createWithBsPrefix.default)('offcanvas-title', {
-  Component: DivStyledAsH5
-});
-exports.default = _default;
-},{"./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js"}],"../../node_modules/react-bootstrap/esm/Offcanvas.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var _useBreakpoint = _interopRequireDefault(require("@restart/hooks/useBreakpoint"));
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var React = _interopRequireWildcard(require("react"));
-var _Modal = _interopRequireDefault(require("@restart/ui/Modal"));
-var _Fade = _interopRequireDefault(require("./Fade"));
-var _OffcanvasBody = _interopRequireDefault(require("./OffcanvasBody"));
-var _OffcanvasToggling = _interopRequireDefault(require("./OffcanvasToggling"));
-var _ModalContext = _interopRequireDefault(require("./ModalContext"));
-var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
-var _OffcanvasHeader = _interopRequireDefault(require("./OffcanvasHeader"));
-var _OffcanvasTitle = _interopRequireDefault(require("./OffcanvasTitle"));
-var _ThemeProvider = require("./ThemeProvider");
-var _BootstrapModalManager = _interopRequireWildcard(require("./BootstrapModalManager"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const defaultProps = {
-  show: false,
-  backdrop: true,
-  keyboard: true,
-  scroll: false,
-  autoFocus: true,
-  enforceFocus: true,
-  restoreFocus: true,
-  placement: 'start',
-  renderStaticNode: false
-};
-function DialogTransition(props) {
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_OffcanvasToggling.default, {
-    ...props
-  });
-}
-function BackdropTransition(props) {
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Fade.default, {
-    ...props
-  });
-}
-const Offcanvas = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  children,
-  'aria-labelledby': ariaLabelledby,
-  placement,
-  responsive,
-  /* BaseModal props */
-
-  show,
-  backdrop,
-  keyboard,
-  scroll,
-  onEscapeKeyDown,
-  onShow,
-  onHide,
-  container,
-  autoFocus,
-  enforceFocus,
-  restoreFocus,
-  restoreFocusOptions,
-  onEntered,
-  onExit,
-  onExiting,
-  onEnter,
-  onEntering,
-  onExited,
-  backdropClassName,
-  manager: propsManager,
-  renderStaticNode,
-  ...props
-}, ref) => {
-  const modalManager = (0, React.useRef)();
-  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'offcanvas');
-  const {
-    onToggle
-  } = (0, React.useContext)(_NavbarContext.default) || {};
-  const [showOffcanvas, setShowOffcanvas] = (0, React.useState)(false);
-  const hideResponsiveOffcanvas = (0, _useBreakpoint.default)(responsive || 'xs', 'up');
-  (0, React.useEffect)(() => {
-    // Handles the case where screen is resized while the responsive
-    // offcanvas is shown. If `responsive` not provided, just use `show`.
-    setShowOffcanvas(responsive ? show && !hideResponsiveOffcanvas : show);
-  }, [show, responsive, hideResponsiveOffcanvas]);
-  const handleHide = (0, _useEventCallback.default)(() => {
-    onToggle == null ? void 0 : onToggle();
-    onHide == null ? void 0 : onHide();
-  });
-  const modalContext = (0, React.useMemo)(() => ({
-    onHide: handleHide
-  }), [handleHide]);
-  function getModalManager() {
-    if (propsManager) return propsManager;
-    if (scroll) {
-      // Have to use a different modal manager since the shared
-      // one handles overflow.
-      if (!modalManager.current) modalManager.current = new _BootstrapModalManager.default({
-        handleContainerOverflow: false
-      });
-      return modalManager.current;
-    }
-    return (0, _BootstrapModalManager.getSharedManager)();
-  }
-  const handleEnter = (node, ...args) => {
-    if (node) node.style.visibility = 'visible';
-    onEnter == null ? void 0 : onEnter(node, ...args);
-  };
-  const handleExited = (node, ...args) => {
-    if (node) node.style.visibility = '';
-    onExited == null ? void 0 : onExited(...args);
-  };
-  const renderBackdrop = (0, React.useCallback)(backdropProps => /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-    ...backdropProps,
-    className: (0, _classnames.default)(`${bsPrefix}-backdrop`, backdropClassName)
-  }), [backdropClassName, bsPrefix]);
-  const renderDialog = dialogProps => /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-    ...dialogProps,
-    ...props,
-    className: (0, _classnames.default)(className, responsive ? `${bsPrefix}-${responsive}` : bsPrefix, `${bsPrefix}-${placement}`),
-    "aria-labelledby": ariaLabelledby,
-    children: children
-  });
-  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_jsxRuntime.Fragment, {
-    children: [!showOffcanvas && (responsive || renderStaticNode) && renderDialog({}), /*#__PURE__*/(0, _jsxRuntime.jsx)(_ModalContext.default.Provider, {
-      value: modalContext,
-      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_Modal.default, {
-        show: showOffcanvas,
-        ref: ref,
-        backdrop: backdrop,
-        container: container,
-        keyboard: keyboard,
-        autoFocus: autoFocus,
-        enforceFocus: enforceFocus && !scroll,
-        restoreFocus: restoreFocus,
-        restoreFocusOptions: restoreFocusOptions,
-        onEscapeKeyDown: onEscapeKeyDown,
-        onShow: onShow,
-        onHide: handleHide,
-        onEnter: handleEnter,
-        onEntering: onEntering,
-        onEntered: onEntered,
-        onExit: onExit,
-        onExiting: onExiting,
-        onExited: handleExited,
-        manager: getModalManager(),
-        transition: DialogTransition,
-        backdropTransition: BackdropTransition,
-        renderBackdrop: renderBackdrop,
-        renderDialog: renderDialog
-      })
-    })]
-  });
-});
-Offcanvas.displayName = 'Offcanvas';
-Offcanvas.defaultProps = defaultProps;
-var _default = Object.assign(Offcanvas, {
-  Body: _OffcanvasBody.default,
-  Header: _OffcanvasHeader.default,
-  Title: _OffcanvasTitle.default
-});
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","@restart/hooks/useBreakpoint":"../../node_modules/@restart/hooks/esm/useBreakpoint.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","react":"../../node_modules/react/index.js","@restart/ui/Modal":"../../node_modules/@restart/ui/esm/Modal.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./OffcanvasBody":"../../node_modules/react-bootstrap/esm/OffcanvasBody.js","./OffcanvasToggling":"../../node_modules/react-bootstrap/esm/OffcanvasToggling.js","./ModalContext":"../../node_modules/react-bootstrap/esm/ModalContext.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","./OffcanvasHeader":"../../node_modules/react-bootstrap/esm/OffcanvasHeader.js","./OffcanvasTitle":"../../node_modules/react-bootstrap/esm/OffcanvasTitle.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./BootstrapModalManager":"../../node_modules/react-bootstrap/esm/BootstrapModalManager.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavbarOffcanvas.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var React = _interopRequireWildcard(require("react"));
-var _Offcanvas = _interopRequireDefault(require("./Offcanvas"));
-var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-const NavbarOffcanvas = /*#__PURE__*/React.forwardRef((props, ref) => {
-  const context = (0, React.useContext)(_NavbarContext.default);
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Offcanvas.default, {
-    ref: ref,
-    show: !!(context != null && context.expanded),
-    ...props,
-    renderStaticNode: true
-  });
-});
-NavbarOffcanvas.displayName = 'NavbarOffcanvas';
-var _default = NavbarOffcanvas;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./Offcanvas":"../../node_modules/react-bootstrap/esm/Offcanvas.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Navbar.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _SelectableContext = _interopRequireDefault(require("@restart/ui/SelectableContext"));
-var _uncontrollable = require("uncontrollable");
-var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
-var _NavbarBrand = _interopRequireDefault(require("./NavbarBrand"));
-var _NavbarCollapse = _interopRequireDefault(require("./NavbarCollapse"));
-var _NavbarToggle = _interopRequireDefault(require("./NavbarToggle"));
-var _NavbarOffcanvas = _interopRequireDefault(require("./NavbarOffcanvas"));
-var _ThemeProvider = require("./ThemeProvider");
-var _NavbarContext = _interopRequireDefault(require("./NavbarContext"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const NavbarText = (0, _createWithBsPrefix.default)('navbar-text', {
-  Component: 'span'
-});
-const defaultProps = {
-  expand: true,
-  variant: 'light',
-  collapseOnSelect: false
-};
-const Navbar = /*#__PURE__*/React.forwardRef((props, ref) => {
-  const {
-    bsPrefix: initialBsPrefix,
-    expand,
-    variant,
-    bg,
-    fixed,
-    sticky,
-    className,
-    // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-    as: Component = 'nav',
-    expanded,
-    onToggle,
-    onSelect,
-    collapseOnSelect,
-    ...controlledProps
-  } = (0, _uncontrollable.useUncontrolled)(props, {
-    expanded: 'onToggle'
-  });
-  const bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(initialBsPrefix, 'navbar');
-  const handleCollapse = (0, React.useCallback)((...args) => {
-    onSelect == null ? void 0 : onSelect(...args);
-    if (collapseOnSelect && expanded) {
-      onToggle == null ? void 0 : onToggle(false);
-    }
-  }, [onSelect, collapseOnSelect, expanded, onToggle]);
-
-  // will result in some false positives but that seems better
-  // than false negatives. strict `undefined` check allows explicit
-  // "nulling" of the role if the user really doesn't want one
-  if (controlledProps.role === undefined && Component !== 'nav') {
-    controlledProps.role = 'navigation';
-  }
-  let expandClass = `${bsPrefix}-expand`;
-  if (typeof expand === 'string') expandClass = `${expandClass}-${expand}`;
-  const navbarContext = (0, React.useMemo)(() => ({
-    onToggle: () => onToggle == null ? void 0 : onToggle(!expanded),
-    bsPrefix,
-    expanded: !!expanded,
-    expand
-  }), [bsPrefix, expanded, expand, onToggle]);
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_NavbarContext.default.Provider, {
-    value: navbarContext,
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_SelectableContext.default.Provider, {
-      value: handleCollapse,
-      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-        ref: ref,
-        ...controlledProps,
-        className: (0, _classnames.default)(className, bsPrefix, expand && expandClass, variant && `${bsPrefix}-${variant}`, bg && `bg-${bg}`, sticky && `sticky-${sticky}`, fixed && `fixed-${fixed}`)
-      })
-    })
-  });
-});
-Navbar.defaultProps = defaultProps;
-Navbar.displayName = 'Navbar';
-var _default = Object.assign(Navbar, {
-  Brand: _NavbarBrand.default,
-  Collapse: _NavbarCollapse.default,
-  Offcanvas: _NavbarOffcanvas.default,
-  Text: NavbarText,
-  Toggle: _NavbarToggle.default
-});
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","@restart/ui/SelectableContext":"../../node_modules/@restart/ui/esm/SelectableContext.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./NavbarBrand":"../../node_modules/react-bootstrap/esm/NavbarBrand.js","./NavbarCollapse":"../../node_modules/react-bootstrap/esm/NavbarCollapse.js","./NavbarToggle":"../../node_modules/react-bootstrap/esm/NavbarToggle.js","./NavbarOffcanvas":"../../node_modules/react-bootstrap/esm/NavbarOffcanvas.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./NavbarContext":"../../node_modules/react-bootstrap/esm/NavbarContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/NavDropdown.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _Dropdown = _interopRequireDefault(require("./Dropdown"));
-var _NavLink = _interopRequireDefault(require("./NavLink"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const NavDropdown = /*#__PURE__*/React.forwardRef(({
-  id,
-  title,
-  children,
-  bsPrefix,
-  className,
-  rootCloseEvent,
-  menuRole,
-  disabled,
-  active,
-  renderMenuOnMount,
-  menuVariant,
-  ...props
-}, ref) => {
-  /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
-  const navItemPrefix = (0, _ThemeProvider.useBootstrapPrefix)(undefined, 'nav-item');
-  return /*#__PURE__*/(0, _jsxRuntime.jsxs)(_Dropdown.default, {
-    ref: ref,
-    ...props,
-    className: (0, _classnames.default)(className, navItemPrefix),
-    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Dropdown.default.Toggle, {
-      id: id,
-      eventKey: null,
-      active: active,
-      disabled: disabled,
-      childBsPrefix: bsPrefix,
-      as: _NavLink.default,
-      children: title
-    }), /*#__PURE__*/(0, _jsxRuntime.jsx)(_Dropdown.default.Menu, {
-      role: menuRole,
-      renderOnMount: renderMenuOnMount,
-      rootCloseEvent: rootCloseEvent,
-      variant: menuVariant,
-      children: children
-    })]
-  });
-});
-NavDropdown.displayName = 'NavDropdown';
-var _default = Object.assign(NavDropdown, {
-  Item: _Dropdown.default.Item,
-  ItemText: _Dropdown.default.ItemText,
-  Divider: _Dropdown.default.Divider,
-  Header: _Dropdown.default.Header
-});
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Dropdown":"../../node_modules/react-bootstrap/esm/Dropdown.js","./NavLink":"../../node_modules/react-bootstrap/esm/NavLink.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/useRootClose.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","dom-helpers/addEventListener":"../../node_modules/dom-helpers/esm/addEventListener.js","dom-helpers/canUseDOM":"../../node_modules/dom-helpers/esm/canUseDOM.js","dom-helpers/ownerDocument":"../../node_modules/dom-helpers/esm/ownerDocument.js","dom-helpers/removeEventListener":"../../node_modules/dom-helpers/esm/removeEventListener.js","dom-helpers/scrollbarSize":"../../node_modules/dom-helpers/esm/scrollbarSize.js","@restart/hooks/useCallbackRef":"../../node_modules/@restart/hooks/esm/useCallbackRef.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/hooks/useMergedRefs":"../../node_modules/@restart/hooks/esm/useMergedRefs.js","@restart/hooks/useWillUnmount":"../../node_modules/@restart/hooks/esm/useWillUnmount.js","dom-helpers/transitionEnd":"../../node_modules/dom-helpers/esm/transitionEnd.js","react":"../../node_modules/react/index.js","@restart/ui/Modal":"../../node_modules/@restart/ui/esm/Modal.js","./BootstrapModalManager":"../../node_modules/react-bootstrap/esm/BootstrapModalManager.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./ModalBody":"../../node_modules/react-bootstrap/esm/ModalBody.js","./ModalContext":"../../node_modules/react-bootstrap/esm/ModalContext.js","./ModalDialog":"../../node_modules/react-bootstrap/esm/ModalDialog.js","./ModalFooter":"../../node_modules/react-bootstrap/esm/ModalFooter.js","./ModalHeader":"../../node_modules/react-bootstrap/esm/ModalHeader.js","./ModalTitle":"../../node_modules/react-bootstrap/esm/ModalTitle.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/@restart/ui/esm/useRootClose.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49956,185 +50077,7 @@ var _Tooltip = _interopRequireDefault(require("./Tooltip"));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Accordion":"../../node_modules/react-bootstrap/esm/Accordion.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","./Alert":"../../node_modules/react-bootstrap/esm/Alert.js","./Anchor":"../../node_modules/react-bootstrap/esm/Anchor.js","./Badge":"../../node_modules/react-bootstrap/esm/Badge.js","./Breadcrumb":"../../node_modules/react-bootstrap/esm/Breadcrumb.js","./BreadcrumbItem":"../../node_modules/react-bootstrap/esm/BreadcrumbItem.js","./Button":"../../node_modules/react-bootstrap/esm/Button.js","./ButtonGroup":"../../node_modules/react-bootstrap/esm/ButtonGroup.js","./ButtonToolbar":"../../node_modules/react-bootstrap/esm/ButtonToolbar.js","./Card":"../../node_modules/react-bootstrap/esm/Card.js","./CardImg":"../../node_modules/react-bootstrap/esm/CardImg.js","./CardGroup":"../../node_modules/react-bootstrap/esm/CardGroup.js","./Carousel":"../../node_modules/react-bootstrap/esm/Carousel.js","./CarouselItem":"../../node_modules/react-bootstrap/esm/CarouselItem.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./Col":"../../node_modules/react-bootstrap/esm/Col.js","./Collapse":"../../node_modules/react-bootstrap/esm/Collapse.js","./Dropdown":"../../node_modules/react-bootstrap/esm/Dropdown.js","./DropdownButton":"../../node_modules/react-bootstrap/esm/DropdownButton.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./Form":"../../node_modules/react-bootstrap/esm/Form.js","./FormControl":"../../node_modules/react-bootstrap/esm/FormControl.js","./FormCheck":"../../node_modules/react-bootstrap/esm/FormCheck.js","./FormFloating":"../../node_modules/react-bootstrap/esm/FormFloating.js","./FloatingLabel":"../../node_modules/react-bootstrap/esm/FloatingLabel.js","./FormGroup":"../../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../../node_modules/react-bootstrap/esm/FormLabel.js","./FormText":"../../node_modules/react-bootstrap/esm/FormText.js","./FormSelect":"../../node_modules/react-bootstrap/esm/FormSelect.js","./Container":"../../node_modules/react-bootstrap/esm/Container.js","./Image":"../../node_modules/react-bootstrap/esm/Image.js","./Figure":"../../node_modules/react-bootstrap/esm/Figure.js","./InputGroup":"../../node_modules/react-bootstrap/esm/InputGroup.js","./ListGroup":"../../node_modules/react-bootstrap/esm/ListGroup.js","./ListGroupItem":"../../node_modules/react-bootstrap/esm/ListGroupItem.js","./Modal":"../../node_modules/react-bootstrap/esm/Modal.js","./ModalBody":"../../node_modules/react-bootstrap/esm/ModalBody.js","./ModalDialog":"../../node_modules/react-bootstrap/esm/ModalDialog.js","./ModalHeader":"../../node_modules/react-bootstrap/esm/ModalHeader.js","./ModalFooter":"../../node_modules/react-bootstrap/esm/ModalFooter.js","./ModalTitle":"../../node_modules/react-bootstrap/esm/ModalTitle.js","./Nav":"../../node_modules/react-bootstrap/esm/Nav.js","./Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","./NavbarBrand":"../../node_modules/react-bootstrap/esm/NavbarBrand.js","./NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","./NavItem":"../../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../../node_modules/react-bootstrap/esm/NavLink.js","./Offcanvas":"../../node_modules/react-bootstrap/esm/Offcanvas.js","./OffcanvasHeader":"../../node_modules/react-bootstrap/esm/OffcanvasHeader.js","./OffcanvasTitle":"../../node_modules/react-bootstrap/esm/OffcanvasTitle.js","./OffcanvasBody":"../../node_modules/react-bootstrap/esm/OffcanvasBody.js","./Overlay":"../../node_modules/react-bootstrap/esm/Overlay.js","./OverlayTrigger":"../../node_modules/react-bootstrap/esm/OverlayTrigger.js","./PageItem":"../../node_modules/react-bootstrap/esm/PageItem.js","./Pagination":"../../node_modules/react-bootstrap/esm/Pagination.js","./Placeholder":"../../node_modules/react-bootstrap/esm/Placeholder.js","./PlaceholderButton":"../../node_modules/react-bootstrap/esm/PlaceholderButton.js","./Popover":"../../node_modules/react-bootstrap/esm/Popover.js","./PopoverHeader":"../../node_modules/react-bootstrap/esm/PopoverHeader.js","./PopoverBody":"../../node_modules/react-bootstrap/esm/PopoverBody.js","./ProgressBar":"../../node_modules/react-bootstrap/esm/ProgressBar.js","./Ratio":"../../node_modules/react-bootstrap/esm/Ratio.js","./Row":"../../node_modules/react-bootstrap/esm/Row.js","./Spinner":"../../node_modules/react-bootstrap/esm/Spinner.js","./SplitButton":"../../node_modules/react-bootstrap/esm/SplitButton.js","./SSRProvider":"../../node_modules/react-bootstrap/esm/SSRProvider.js","./Stack":"../../node_modules/react-bootstrap/esm/Stack.js","./Tab":"../../node_modules/react-bootstrap/esm/Tab.js","./TabContainer":"../../node_modules/react-bootstrap/esm/TabContainer.js","./TabContent":"../../node_modules/react-bootstrap/esm/TabContent.js","./Table":"../../node_modules/react-bootstrap/esm/Table.js","./TabPane":"../../node_modules/react-bootstrap/esm/TabPane.js","./Tabs":"../../node_modules/react-bootstrap/esm/Tabs.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Toast":"../../node_modules/react-bootstrap/esm/Toast.js","./ToastBody":"../../node_modules/react-bootstrap/esm/ToastBody.js","./ToastHeader":"../../node_modules/react-bootstrap/esm/ToastHeader.js","./ToastContainer":"../../node_modules/react-bootstrap/esm/ToastContainer.js","./ToggleButton":"../../node_modules/react-bootstrap/esm/ToggleButton.js","./ToggleButtonGroup":"../../node_modules/react-bootstrap/esm/ToggleButtonGroup.js","./Tooltip":"../../node_modules/react-bootstrap/esm/Tooltip.js"}],"components/Usability/Navbar.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
-var _Nav = _interopRequireDefault(require("react-bootstrap/Nav"));
-var _Navbar = _interopRequireDefault(require("react-bootstrap/Navbar"));
-var _NavDropdown = _interopRequireDefault(require("react-bootstrap/NavDropdown"));
-var _react = _interopRequireDefault(require("react"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function BlockNavbar() {
-  return /*#__PURE__*/_react.default.createElement(_Navbar.default, {
-    bg: "dark",
-    variant: "dark",
-    expand: "lg",
-    className: "fixed-top"
-  }, /*#__PURE__*/_react.default.createElement(_Container.default, null, /*#__PURE__*/_react.default.createElement(_Navbar.default.Brand, {
-    href: "/"
-  }, "Auction Chain"), /*#__PURE__*/_react.default.createElement(_Navbar.default.Toggle, {
-    "aria-controls": "basic-navbar-nav"
-  }), /*#__PURE__*/_react.default.createElement(_Navbar.default.Collapse, {
-    id: "basic-navbar-nav"
-  }, /*#__PURE__*/_react.default.createElement(_Nav.default, {
-    className: "me-auto"
-  }, /*#__PURE__*/_react.default.createElement(_Nav.default.Link, {
-    href: "/"
-  }, "Login"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
-    menuVariant: "dark",
-    title: "Chain",
-    id: "basic-nav-dropdown"
-  }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
-    href: "/blocks"
-  }, "Blocks"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
-    href: "/auctions"
-  }, "Auctions"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
-    href: "/address-book"
-  }, "Address Book")), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
-    menuVariant: "dark",
-    title: "Transact",
-    id: "basic-nav-dropdown"
-  }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
-    href: "/conduct-transaction"
-  }, "Send Money"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
-    href: "/auction-transaction"
-  }, "Create an auction"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
-    href: "/bid-transaction"
-  }, "Place a bid"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Divider, null), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
-    href: "/transaction-pool"
-  }, "Transaction Pool")), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
-    menuVariant: "dark",
-    title: "My Items",
-    id: "basic-nav-dropdown"
-  }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
-    href: "/user-items"
-  }, "My Items"))))));
-}
-var _default = BlockNavbar;
-exports.default = _default;
-},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _index = _interopRequireDefault(require("../assets/index.png"));
-var _reactBootstrap = require("react-bootstrap");
-var _reactRouterDom = require("react-router-dom");
-var _Navbar = _interopRequireDefault(require("./Usability/Navbar"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var App = /*#__PURE__*/function (_Component) {
-  _inherits(App, _Component);
-  var _super = _createSuper(App);
-  function App() {
-    var _this;
-    _classCallCheck(this, App);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      walletInfo: {},
-      passphrase: '',
-      canSubmit: false
-    });
-    _defineProperty(_assertThisInitialized(_this), "handlePassphraseChange", function (event) {
-      var passphrase = event.target.value;
-      var canSubmit = passphrase.split(' ').length >= 12;
-      _this.setState({
-        passphrase: passphrase,
-        canSubmit: canSubmit
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "handlePassphraseSubmit", function () {
-      fetch("".concat(document.location.origin, "/api/wallet"), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          phrase: _this.state.passphrase
-        })
-      }).then(function () {
-        return window.location.reload();
-      });
-    });
-    return _this;
-  }
-  _createClass(App, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      fetch("".concat(document.location.origin, "/api/wallet-info")).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        return _this2.setState({
-          walletInfo: json
-        });
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$state = this.state,
-        walletInfo = _this$state.walletInfo,
-        canSubmit = _this$state.canSubmit;
-      if (!walletInfo.address) {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          className: "App"
-        }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Login"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Enter your passphrase:"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-          input: "text",
-          placeholder: "pass phrase",
-          value: this.state.passphrase,
-          onChange: this.handlePassphraseChange
-        })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          variant: "danger",
-          onClick: this.handlePassphraseSubmit,
-          disabled: !canSubmit
-        }, "Submit")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-          to: "/get-wallet"
-        }, "No wallet? Get one now!")));
-      }
-      var address = walletInfo.address,
-        balance = walletInfo.balance;
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "App"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("img", {
-        className: "logo",
-        src: _index.default
-      }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Welcome to the blockchain...."), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
-        className: "WalletInfo"
-      }, /*#__PURE__*/_react.default.createElement("div", null, "Address: ", address), /*#__PURE__*/_react.default.createElement("div", null, "Balance: ", balance)));
-    }
-  }]);
-  return App;
-}(_react.Component);
-var _default = App;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","../assets/index.png":"assets/index.png","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./Usability/Navbar":"components/Usability/Navbar.js"}],"components/Block/Transaction.js":[function(require,module,exports) {
+},{"./Accordion":"../../node_modules/react-bootstrap/esm/Accordion.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","./Alert":"../../node_modules/react-bootstrap/esm/Alert.js","./Anchor":"../../node_modules/react-bootstrap/esm/Anchor.js","./Badge":"../../node_modules/react-bootstrap/esm/Badge.js","./Breadcrumb":"../../node_modules/react-bootstrap/esm/Breadcrumb.js","./BreadcrumbItem":"../../node_modules/react-bootstrap/esm/BreadcrumbItem.js","./Button":"../../node_modules/react-bootstrap/esm/Button.js","./ButtonGroup":"../../node_modules/react-bootstrap/esm/ButtonGroup.js","./ButtonToolbar":"../../node_modules/react-bootstrap/esm/ButtonToolbar.js","./Card":"../../node_modules/react-bootstrap/esm/Card.js","./CardImg":"../../node_modules/react-bootstrap/esm/CardImg.js","./CardGroup":"../../node_modules/react-bootstrap/esm/CardGroup.js","./Carousel":"../../node_modules/react-bootstrap/esm/Carousel.js","./CarouselItem":"../../node_modules/react-bootstrap/esm/CarouselItem.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./Col":"../../node_modules/react-bootstrap/esm/Col.js","./Collapse":"../../node_modules/react-bootstrap/esm/Collapse.js","./Dropdown":"../../node_modules/react-bootstrap/esm/Dropdown.js","./DropdownButton":"../../node_modules/react-bootstrap/esm/DropdownButton.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./Form":"../../node_modules/react-bootstrap/esm/Form.js","./FormControl":"../../node_modules/react-bootstrap/esm/FormControl.js","./FormCheck":"../../node_modules/react-bootstrap/esm/FormCheck.js","./FormFloating":"../../node_modules/react-bootstrap/esm/FormFloating.js","./FloatingLabel":"../../node_modules/react-bootstrap/esm/FloatingLabel.js","./FormGroup":"../../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../../node_modules/react-bootstrap/esm/FormLabel.js","./FormText":"../../node_modules/react-bootstrap/esm/FormText.js","./FormSelect":"../../node_modules/react-bootstrap/esm/FormSelect.js","./Container":"../../node_modules/react-bootstrap/esm/Container.js","./Image":"../../node_modules/react-bootstrap/esm/Image.js","./Figure":"../../node_modules/react-bootstrap/esm/Figure.js","./InputGroup":"../../node_modules/react-bootstrap/esm/InputGroup.js","./ListGroup":"../../node_modules/react-bootstrap/esm/ListGroup.js","./ListGroupItem":"../../node_modules/react-bootstrap/esm/ListGroupItem.js","./Modal":"../../node_modules/react-bootstrap/esm/Modal.js","./ModalBody":"../../node_modules/react-bootstrap/esm/ModalBody.js","./ModalDialog":"../../node_modules/react-bootstrap/esm/ModalDialog.js","./ModalHeader":"../../node_modules/react-bootstrap/esm/ModalHeader.js","./ModalFooter":"../../node_modules/react-bootstrap/esm/ModalFooter.js","./ModalTitle":"../../node_modules/react-bootstrap/esm/ModalTitle.js","./Nav":"../../node_modules/react-bootstrap/esm/Nav.js","./Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","./NavbarBrand":"../../node_modules/react-bootstrap/esm/NavbarBrand.js","./NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","./NavItem":"../../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../../node_modules/react-bootstrap/esm/NavLink.js","./Offcanvas":"../../node_modules/react-bootstrap/esm/Offcanvas.js","./OffcanvasHeader":"../../node_modules/react-bootstrap/esm/OffcanvasHeader.js","./OffcanvasTitle":"../../node_modules/react-bootstrap/esm/OffcanvasTitle.js","./OffcanvasBody":"../../node_modules/react-bootstrap/esm/OffcanvasBody.js","./Overlay":"../../node_modules/react-bootstrap/esm/Overlay.js","./OverlayTrigger":"../../node_modules/react-bootstrap/esm/OverlayTrigger.js","./PageItem":"../../node_modules/react-bootstrap/esm/PageItem.js","./Pagination":"../../node_modules/react-bootstrap/esm/Pagination.js","./Placeholder":"../../node_modules/react-bootstrap/esm/Placeholder.js","./PlaceholderButton":"../../node_modules/react-bootstrap/esm/PlaceholderButton.js","./Popover":"../../node_modules/react-bootstrap/esm/Popover.js","./PopoverHeader":"../../node_modules/react-bootstrap/esm/PopoverHeader.js","./PopoverBody":"../../node_modules/react-bootstrap/esm/PopoverBody.js","./ProgressBar":"../../node_modules/react-bootstrap/esm/ProgressBar.js","./Ratio":"../../node_modules/react-bootstrap/esm/Ratio.js","./Row":"../../node_modules/react-bootstrap/esm/Row.js","./Spinner":"../../node_modules/react-bootstrap/esm/Spinner.js","./SplitButton":"../../node_modules/react-bootstrap/esm/SplitButton.js","./SSRProvider":"../../node_modules/react-bootstrap/esm/SSRProvider.js","./Stack":"../../node_modules/react-bootstrap/esm/Stack.js","./Tab":"../../node_modules/react-bootstrap/esm/Tab.js","./TabContainer":"../../node_modules/react-bootstrap/esm/TabContainer.js","./TabContent":"../../node_modules/react-bootstrap/esm/TabContent.js","./Table":"../../node_modules/react-bootstrap/esm/Table.js","./TabPane":"../../node_modules/react-bootstrap/esm/TabPane.js","./Tabs":"../../node_modules/react-bootstrap/esm/Tabs.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Toast":"../../node_modules/react-bootstrap/esm/Toast.js","./ToastBody":"../../node_modules/react-bootstrap/esm/ToastBody.js","./ToastHeader":"../../node_modules/react-bootstrap/esm/ToastHeader.js","./ToastContainer":"../../node_modules/react-bootstrap/esm/ToastContainer.js","./ToggleButton":"../../node_modules/react-bootstrap/esm/ToggleButton.js","./ToggleButtonGroup":"../../node_modules/react-bootstrap/esm/ToggleButtonGroup.js","./Tooltip":"../../node_modules/react-bootstrap/esm/Tooltip.js"}],"components/Block/Transaction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50400,593 +50343,7 @@ var Blocks = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 var _default = Blocks;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./Block":"components/Block/Block.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/toggle-selection/index.js":[function(require,module,exports) {
-
-module.exports = function () {
-  var selection = document.getSelection();
-  if (!selection.rangeCount) {
-    return function () {};
-  }
-  var active = document.activeElement;
-
-  var ranges = [];
-  for (var i = 0; i < selection.rangeCount; i++) {
-    ranges.push(selection.getRangeAt(i));
-  }
-
-  switch (active.tagName.toUpperCase()) { // .toUpperCase handles XHTML
-    case 'INPUT':
-    case 'TEXTAREA':
-      active.blur();
-      break;
-
-    default:
-      active = null;
-      break;
-  }
-
-  selection.removeAllRanges();
-  return function () {
-    selection.type === 'Caret' &&
-    selection.removeAllRanges();
-
-    if (!selection.rangeCount) {
-      ranges.forEach(function(range) {
-        selection.addRange(range);
-      });
-    }
-
-    active &&
-    active.focus();
-  };
-};
-
-},{}],"../../node_modules/copy-to-clipboard/index.js":[function(require,module,exports) {
-"use strict";
-
-var deselectCurrent = require("toggle-selection");
-
-var clipboardToIE11Formatting = {
-  "text/plain": "Text",
-  "text/html": "Url",
-  "default": "Text"
-}
-
-var defaultMessage = "Copy to clipboard: #{key}, Enter";
-
-function format(message) {
-  var copyKey = (/mac os x/i.test(navigator.userAgent) ? "⌘" : "Ctrl") + "+C";
-  return message.replace(/#{\s*key\s*}/g, copyKey);
-}
-
-function copy(text, options) {
-  var debug,
-    message,
-    reselectPrevious,
-    range,
-    selection,
-    mark,
-    success = false;
-  if (!options) {
-    options = {};
-  }
-  debug = options.debug || false;
-  try {
-    reselectPrevious = deselectCurrent();
-
-    range = document.createRange();
-    selection = document.getSelection();
-
-    mark = document.createElement("span");
-    mark.textContent = text;
-    // avoid screen readers from reading out loud the text
-    mark.ariaHidden = "true"
-    // reset user styles for span element
-    mark.style.all = "unset";
-    // prevents scrolling to the end of the page
-    mark.style.position = "fixed";
-    mark.style.top = 0;
-    mark.style.clip = "rect(0, 0, 0, 0)";
-    // used to preserve spaces and line breaks
-    mark.style.whiteSpace = "pre";
-    // do not inherit user-select (it may be `none`)
-    mark.style.webkitUserSelect = "text";
-    mark.style.MozUserSelect = "text";
-    mark.style.msUserSelect = "text";
-    mark.style.userSelect = "text";
-    mark.addEventListener("copy", function(e) {
-      e.stopPropagation();
-      if (options.format) {
-        e.preventDefault();
-        if (typeof e.clipboardData === "undefined") { // IE 11
-          debug && console.warn("unable to use e.clipboardData");
-          debug && console.warn("trying IE specific stuff");
-          window.clipboardData.clearData();
-          var format = clipboardToIE11Formatting[options.format] || clipboardToIE11Formatting["default"]
-          window.clipboardData.setData(format, text);
-        } else { // all other browsers
-          e.clipboardData.clearData();
-          e.clipboardData.setData(options.format, text);
-        }
-      }
-      if (options.onCopy) {
-        e.preventDefault();
-        options.onCopy(e.clipboardData);
-      }
-    });
-
-    document.body.appendChild(mark);
-
-    range.selectNodeContents(mark);
-    selection.addRange(range);
-
-    var successful = document.execCommand("copy");
-    if (!successful) {
-      throw new Error("copy command was unsuccessful");
-    }
-    success = true;
-  } catch (err) {
-    debug && console.error("unable to copy using execCommand: ", err);
-    debug && console.warn("trying IE specific stuff");
-    try {
-      window.clipboardData.setData(options.format || "text", text);
-      options.onCopy && options.onCopy(window.clipboardData);
-      success = true;
-    } catch (err) {
-      debug && console.error("unable to copy using clipboardData: ", err);
-      debug && console.error("falling back to prompt");
-      message = format("message" in options ? options.message : defaultMessage);
-      window.prompt(message, text);
-    }
-  } finally {
-    if (selection) {
-      if (typeof selection.removeRange == "function") {
-        selection.removeRange(range);
-      } else {
-        selection.removeAllRanges();
-      }
-    }
-
-    if (mark) {
-      document.body.removeChild(mark);
-    }
-    reselectPrevious();
-  }
-
-  return success;
-}
-
-module.exports = copy;
-
-},{"toggle-selection":"../../node_modules/toggle-selection/index.js"}],"../../node_modules/react-copy-to-clipboard/lib/Component.js":[function(require,module,exports) {
-"use strict";
-
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.CopyToClipboard = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _copyToClipboard = _interopRequireDefault(require("copy-to-clipboard"));
-
-var _excluded = ["text", "onCopy", "options", "children"];
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var CopyToClipboard = /*#__PURE__*/function (_React$PureComponent) {
-  _inherits(CopyToClipboard, _React$PureComponent);
-
-  var _super = _createSuper(CopyToClipboard);
-
-  function CopyToClipboard() {
-    var _this;
-
-    _classCallCheck(this, CopyToClipboard);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _defineProperty(_assertThisInitialized(_this), "onClick", function (event) {
-      var _this$props = _this.props,
-          text = _this$props.text,
-          onCopy = _this$props.onCopy,
-          children = _this$props.children,
-          options = _this$props.options;
-
-      var elem = _react["default"].Children.only(children);
-
-      var result = (0, _copyToClipboard["default"])(text, options);
-
-      if (onCopy) {
-        onCopy(text, result);
-      } // Bypass onClick if it was present
-
-
-      if (elem && elem.props && typeof elem.props.onClick === 'function') {
-        elem.props.onClick(event);
-      }
-    });
-
-    return _this;
-  }
-
-  _createClass(CopyToClipboard, [{
-    key: "render",
-    value: function render() {
-      var _this$props2 = this.props,
-          _text = _this$props2.text,
-          _onCopy = _this$props2.onCopy,
-          _options = _this$props2.options,
-          children = _this$props2.children,
-          props = _objectWithoutProperties(_this$props2, _excluded);
-
-      var elem = _react["default"].Children.only(children);
-
-      return /*#__PURE__*/_react["default"].cloneElement(elem, _objectSpread(_objectSpread({}, props), {}, {
-        onClick: this.onClick
-      }));
-    }
-  }]);
-
-  return CopyToClipboard;
-}(_react["default"].PureComponent);
-
-exports.CopyToClipboard = CopyToClipboard;
-
-_defineProperty(CopyToClipboard, "defaultProps", {
-  onCopy: undefined,
-  options: undefined
-});
-},{"react":"../../node_modules/react/index.js","copy-to-clipboard":"../../node_modules/copy-to-clipboard/index.js"}],"../../node_modules/react-copy-to-clipboard/lib/index.js":[function(require,module,exports) {
-"use strict";
-
-var _require = require('./Component'),
-    CopyToClipboard = _require.CopyToClipboard;
-
-CopyToClipboard.CopyToClipboard = CopyToClipboard;
-module.exports = CopyToClipboard;
-},{"./Component":"../../node_modules/react-copy-to-clipboard/lib/Component.js"}],"components/Transact/ConductTransaction.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _reactCopyToClipboard = require("react-copy-to-clipboard");
-var _history = _interopRequireDefault(require("../../history"));
-var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var ConductTransaction = /*#__PURE__*/function (_Component) {
-  _inherits(ConductTransaction, _Component);
-  var _super = _createSuper(ConductTransaction);
-  function ConductTransaction() {
-    var _this;
-    _classCallCheck(this, ConductTransaction);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      recipient: '',
-      amount: 0,
-      knownAddresses: []
-    });
-    _defineProperty(_assertThisInitialized(_this), "updateRecipient", function (event) {
-      _this.setState({
-        recipient: event.target.value
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "updateAmount", function (event) {
-      _this.setState({
-        amount: Number(event.target.value)
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "conductTransaction", function () {
-      var _this$state = _this.state,
-        recipient = _this$state.recipient,
-        amount = _this$state.amount;
-      fetch("".concat(document.location.origin, "/api/transact"), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          recipient: recipient,
-          amount: amount
-        })
-      }).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        alert(json.message || json.type);
-        _history.default.push('/transaction-pool');
-      });
-    });
-    return _this;
-  }
-  _createClass(ConductTransaction, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      fetch("".concat(document.location.origin, "/api/known-addresses")).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        return _this2.setState({
-          knownAddresses: json
-        });
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "ConductTransaction"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Conduct a Transaction"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-        input: "text",
-        placeholder: "recipient",
-        value: this.state.recipient,
-        onChange: this.updateRecipient,
-        style: {
-          marginBottom: '10px',
-          width: '60%',
-          margin: '0 auto'
-        }
-      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-        input: "number",
-        placeholder: "amount",
-        value: this.state.amount,
-        onChange: this.updateAmount,
-        style: {
-          marginBottom: '10px',
-          width: '60%',
-          margin: '0 auto'
-        }
-      })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "danger",
-        onClick: this.conductTransaction
-      }, "Submit")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
-        className: "known-addresses",
-        style: {
-          marginTop: '20px'
-        }
-      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
-        className: "bg-dark",
-        style: {
-          height: "80%",
-          width: '90%',
-          margin: '0 auto',
-          overflowY: 'scroll',
-          padding: '10px'
-        }
-      }, this.state.knownAddresses.map(function (knownAddress) {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          key: knownAddress,
-          style: {
-            marginBottom: '10px',
-            color: 'white',
-            padding: '10px',
-            border: '1px solid white'
-          }
-        }, knownAddress, /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
-          text: knownAddress
-        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          variant: "danger",
-          size: "sm",
-          style: {
-            margin: '10px'
-          }
-        }, "Copy")));
-      }))), /*#__PURE__*/_react.default.createElement("br", null));
-    }
-  }]);
-  return ConductTransaction;
-}(_react.Component);
-;
-var _default = ConductTransaction;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Transact/ConductAuctionTransaction.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _history = _interopRequireDefault(require("../../history"));
-var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var auctionTransaction = /*#__PURE__*/function (_Component) {
-  _inherits(auctionTransaction, _Component);
-  var _super = _createSuper(auctionTransaction);
-  function auctionTransaction() {
-    var _this;
-    _classCallCheck(this, auctionTransaction);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      name: '',
-      description: '',
-      startingBid: 0,
-      auctionEndTime: ''
-    });
-    _defineProperty(_assertThisInitialized(_this), "updateName", function (event) {
-      _this.setState({
-        name: event.target.value
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "updateDescription", function (event) {
-      _this.setState({
-        description: event.target.value
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "updateStartingBid", function (event) {
-      _this.setState({
-        startingBid: Number(event.target.value)
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "updateAuctionEndTime", function (event) {
-      _this.setState({
-        auctionEndTime: event.target.value
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "auctionTransaction", function () {
-      var _this$state = _this.state,
-        name = _this$state.name,
-        description = _this$state.description,
-        startingBid = _this$state.startingBid,
-        auctionEndTime = _this$state.auctionEndTime;
-      fetch("".concat(document.location.origin, "/api/create-auction"), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-          description: description,
-          startingBid: startingBid,
-          auctionEndTime: auctionEndTime
-        })
-      }).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        alert(json.message || json.type);
-        _history.default.push('/transaction-pool');
-      });
-    });
-    return _this;
-  }
-  _createClass(auctionTransaction, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "AuctionTransaction"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auction a Transaction"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-        input: "text",
-        placeholder: "item name",
-        value: this.state.name,
-        onChange: this.updateName,
-        style: {
-          marginBottom: '10px',
-          width: '60%',
-          margin: '0 auto'
-        }
-      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-        input: "text",
-        placeholder: "item description",
-        value: this.state.description,
-        onChange: this.updateDescription,
-        style: {
-          marginBottom: '10px',
-          width: '60%',
-          margin: '0 auto'
-        }
-      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-        input: "number",
-        placeholder: "starting bid",
-        value: this.state.startingBid,
-        onChange: this.updateStartingBid,
-        style: {
-          marginBottom: '10px',
-          width: '60%',
-          margin: '0 auto'
-        }
-      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
-        controlId: "dob"
-      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
-        type: "datetime-local",
-        placeholder: "Auction end date",
-        value: this.state.auctionEndTime,
-        onChange: this.updateAuctionEndTime,
-        style: {
-          marginBottom: '10px',
-          width: '60%',
-          margin: '0 auto'
-        },
-        dateFormat: "dd/mm/yyyy"
-      })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "danger",
-        onClick: this.auctionTransaction
-      }, "Submit")));
-    }
-  }]);
-  return auctionTransaction;
-}(_react.Component);
-;
-var _default = auctionTransaction;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Transact/TransactionPool.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./Block":"components/Block/Block.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Transact/TransactionPool.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51086,117 +50443,7 @@ var TransactionPool = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 var _default = TransactionPool;
 exports.default = _default;
-},{"../Block/Transaction":"components/Block/Transaction.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Transact/CreateBid.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _history = _interopRequireDefault(require("../../history"));
-var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var bidTransaction = /*#__PURE__*/function (_Component) {
-  _inherits(bidTransaction, _Component);
-  var _super = _createSuper(bidTransaction);
-  function bidTransaction() {
-    var _this;
-    _classCallCheck(this, bidTransaction);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      prevAuctionItem: '',
-      bidAmount: 0
-    });
-    _defineProperty(_assertThisInitialized(_this), "updatePrevAuctionItem", function (event) {
-      _this.setState({
-        prevAuctionItem: event.target.value
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "updatebidAmount", function (event) {
-      _this.setState({
-        bidAmount: event.target.value
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "bidTransaction", function () {
-      var _this$state = _this.state,
-        prevAuctionItem = _this$state.prevAuctionItem,
-        bidAmount = _this$state.bidAmount;
-      fetch("".concat(document.location.origin, "/api/place-bid"), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          prevAuctionItem: prevAuctionItem,
-          bidAmount: bidAmount
-        })
-      }).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        alert(json.message || json.type);
-        _history.default.push('/transaction-pool');
-      });
-    });
-    return _this;
-  }
-  _createClass(bidTransaction, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "BidTransaction"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Place a bid"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-        input: "text",
-        placeholder: "auction id",
-        value: this.state.prevAuctionItem,
-        onChange: this.updatePrevAuctionItem,
-        style: {
-          marginBottom: '10px',
-          width: '60%',
-          margin: '0 auto'
-        }
-      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-        input: "number",
-        placeholder: "starting bid",
-        value: this.state.bidAmount,
-        onChange: this.updatebidAmount,
-        style: {
-          marginBottom: '10px',
-          width: '60%',
-          margin: '0 auto'
-        }
-      })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "danger",
-        onClick: this.bidTransaction
-      }, "Submit")));
-    }
-  }]);
-  return bidTransaction;
-}(_react.Component);
-;
-var _default = bidTransaction;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Auction/AuctionTransactionComponent.js":[function(require,module,exports) {
+},{"../Block/Transaction":"components/Block/Transaction.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Auction/AuctionTransactionComponent.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51481,133 +50728,288 @@ var Auctions = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 var _default = Auctions;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./Auction":"components/Auction/Auction.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Wallet/walletPhraseReturn.js":[function(require,module,exports) {
-"use strict";
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./Auction":"components/Auction/Auction.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/toggle-selection/index.js":[function(require,module,exports) {
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _reactCopyToClipboard = require("react-copy-to-clipboard");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function WalletMnemonic() {
-  var _useState = (0, _react.useState)(''),
-    _useState2 = _slicedToArray(_useState, 2),
-    walletPhrase = _useState2[0],
-    setWalletPhrase = _useState2[1];
-  (0, _react.useEffect)(function () {
-    fetch('/api/wallet-mnemoic-generate').then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      return setWalletPhrase(data);
-    });
-  }, []);
-  var handlePassphraseSubmit = function handlePassphraseSubmit() {
-    fetch("".concat(document.location.origin, "/api/wallet"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        phrase: walletPhrase
-      })
-    }).then(function () {
-      return window.location.href = "/";
-    });
-  };
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "wallet-phrase"
-  }, /*#__PURE__*/_react.default.createElement("div", null, walletPhrase), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
-    text: walletPhrase
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    size: "sm",
-    style: {
-      margin: '10px'
-    }
-  }, "Copy")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    size: "sm",
-    onClick: handlePassphraseSubmit
-  }, "Login with this phrase"));
-}
-var _default = WalletMnemonic;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/Usability/PhraseBanner.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _Alert = _interopRequireDefault(require("react-bootstrap/Alert"));
-var _react = _interopRequireDefault(require("react"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function AdditionalContentExample() {
-  return /*#__PURE__*/_react.default.createElement(_Alert.default, {
-    variant: "success"
-  }, /*#__PURE__*/_react.default.createElement(_Alert.default.Heading, null, "Hey, nice to see you"), /*#__PURE__*/_react.default.createElement("p", null, "Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content."), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", {
-    className: "mb-0"
-  }, "Whenever you need to, be sure to use margin utilities to keep things nice and tidy."));
-}
-var _default = AdditionalContentExample;
-exports.default = _default;
-},{"react-bootstrap/Alert":"../../node_modules/react-bootstrap/esm/Alert.js","react":"../../node_modules/react/index.js"}],"components/Wallet/NewWalletPhrase.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _walletPhraseReturn = _interopRequireDefault(require("./walletPhraseReturn"));
-var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
-var _PhraseBanner = _interopRequireDefault(require("../Usability/PhraseBanner"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-var NewWalletPhrase = /*#__PURE__*/function (_Component) {
-  _inherits(NewWalletPhrase, _Component);
-  var _super = _createSuper(NewWalletPhrase);
-  function NewWalletPhrase() {
-    _classCallCheck(this, NewWalletPhrase);
-    return _super.apply(this, arguments);
+module.exports = function () {
+  var selection = document.getSelection();
+  if (!selection.rangeCount) {
+    return function () {};
   }
-  _createClass(NewWalletPhrase, [{
+  var active = document.activeElement;
+
+  var ranges = [];
+  for (var i = 0; i < selection.rangeCount; i++) {
+    ranges.push(selection.getRangeAt(i));
+  }
+
+  switch (active.tagName.toUpperCase()) { // .toUpperCase handles XHTML
+    case 'INPUT':
+    case 'TEXTAREA':
+      active.blur();
+      break;
+
+    default:
+      active = null;
+      break;
+  }
+
+  selection.removeAllRanges();
+  return function () {
+    selection.type === 'Caret' &&
+    selection.removeAllRanges();
+
+    if (!selection.rangeCount) {
+      ranges.forEach(function(range) {
+        selection.addRange(range);
+      });
+    }
+
+    active &&
+    active.focus();
+  };
+};
+
+},{}],"../../node_modules/copy-to-clipboard/index.js":[function(require,module,exports) {
+"use strict";
+
+var deselectCurrent = require("toggle-selection");
+
+var clipboardToIE11Formatting = {
+  "text/plain": "Text",
+  "text/html": "Url",
+  "default": "Text"
+}
+
+var defaultMessage = "Copy to clipboard: #{key}, Enter";
+
+function format(message) {
+  var copyKey = (/mac os x/i.test(navigator.userAgent) ? "⌘" : "Ctrl") + "+C";
+  return message.replace(/#{\s*key\s*}/g, copyKey);
+}
+
+function copy(text, options) {
+  var debug,
+    message,
+    reselectPrevious,
+    range,
+    selection,
+    mark,
+    success = false;
+  if (!options) {
+    options = {};
+  }
+  debug = options.debug || false;
+  try {
+    reselectPrevious = deselectCurrent();
+
+    range = document.createRange();
+    selection = document.getSelection();
+
+    mark = document.createElement("span");
+    mark.textContent = text;
+    // avoid screen readers from reading out loud the text
+    mark.ariaHidden = "true"
+    // reset user styles for span element
+    mark.style.all = "unset";
+    // prevents scrolling to the end of the page
+    mark.style.position = "fixed";
+    mark.style.top = 0;
+    mark.style.clip = "rect(0, 0, 0, 0)";
+    // used to preserve spaces and line breaks
+    mark.style.whiteSpace = "pre";
+    // do not inherit user-select (it may be `none`)
+    mark.style.webkitUserSelect = "text";
+    mark.style.MozUserSelect = "text";
+    mark.style.msUserSelect = "text";
+    mark.style.userSelect = "text";
+    mark.addEventListener("copy", function(e) {
+      e.stopPropagation();
+      if (options.format) {
+        e.preventDefault();
+        if (typeof e.clipboardData === "undefined") { // IE 11
+          debug && console.warn("unable to use e.clipboardData");
+          debug && console.warn("trying IE specific stuff");
+          window.clipboardData.clearData();
+          var format = clipboardToIE11Formatting[options.format] || clipboardToIE11Formatting["default"]
+          window.clipboardData.setData(format, text);
+        } else { // all other browsers
+          e.clipboardData.clearData();
+          e.clipboardData.setData(options.format, text);
+        }
+      }
+      if (options.onCopy) {
+        e.preventDefault();
+        options.onCopy(e.clipboardData);
+      }
+    });
+
+    document.body.appendChild(mark);
+
+    range.selectNodeContents(mark);
+    selection.addRange(range);
+
+    var successful = document.execCommand("copy");
+    if (!successful) {
+      throw new Error("copy command was unsuccessful");
+    }
+    success = true;
+  } catch (err) {
+    debug && console.error("unable to copy using execCommand: ", err);
+    debug && console.warn("trying IE specific stuff");
+    try {
+      window.clipboardData.setData(options.format || "text", text);
+      options.onCopy && options.onCopy(window.clipboardData);
+      success = true;
+    } catch (err) {
+      debug && console.error("unable to copy using clipboardData: ", err);
+      debug && console.error("falling back to prompt");
+      message = format("message" in options ? options.message : defaultMessage);
+      window.prompt(message, text);
+    }
+  } finally {
+    if (selection) {
+      if (typeof selection.removeRange == "function") {
+        selection.removeRange(range);
+      } else {
+        selection.removeAllRanges();
+      }
+    }
+
+    if (mark) {
+      document.body.removeChild(mark);
+    }
+    reselectPrevious();
+  }
+
+  return success;
+}
+
+module.exports = copy;
+
+},{"toggle-selection":"../../node_modules/toggle-selection/index.js"}],"../../node_modules/react-copy-to-clipboard/lib/Component.js":[function(require,module,exports) {
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CopyToClipboard = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _copyToClipboard = _interopRequireDefault(require("copy-to-clipboard"));
+
+var _excluded = ["text", "onCopy", "options", "children"];
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var CopyToClipboard = /*#__PURE__*/function (_React$PureComponent) {
+  _inherits(CopyToClipboard, _React$PureComponent);
+
+  var _super = _createSuper(CopyToClipboard);
+
+  function CopyToClipboard() {
+    var _this;
+
+    _classCallCheck(this, CopyToClipboard);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "onClick", function (event) {
+      var _this$props = _this.props,
+          text = _this$props.text,
+          onCopy = _this$props.onCopy,
+          children = _this$props.children,
+          options = _this$props.options;
+
+      var elem = _react["default"].Children.only(children);
+
+      var result = (0, _copyToClipboard["default"])(text, options);
+
+      if (onCopy) {
+        onCopy(text, result);
+      } // Bypass onClick if it was present
+
+
+      if (elem && elem.props && typeof elem.props.onClick === 'function') {
+        elem.props.onClick(event);
+      }
+    });
+
+    return _this;
+  }
+
+  _createClass(CopyToClipboard, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "App"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "New Wallet Phrase"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_walletPhraseReturn.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_PhraseBanner.default, null));
+      var _this$props2 = this.props,
+          _text = _this$props2.text,
+          _onCopy = _this$props2.onCopy,
+          _options = _this$props2.options,
+          children = _this$props2.children,
+          props = _objectWithoutProperties(_this$props2, _excluded);
+
+      var elem = _react["default"].Children.only(children);
+
+      return /*#__PURE__*/_react["default"].cloneElement(elem, _objectSpread(_objectSpread({}, props), {}, {
+        onClick: this.onClick
+      }));
     }
   }]);
-  return NewWalletPhrase;
-}(_react.Component);
-var _default = NewWalletPhrase;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./walletPhraseReturn":"components/Wallet/walletPhraseReturn.js","../Usability/Navbar":"components/Usability/Navbar.js","../Usability/PhraseBanner":"components/Usability/PhraseBanner.js"}],"components/Usability/AddressBook.js":[function(require,module,exports) {
+
+  return CopyToClipboard;
+}(_react["default"].PureComponent);
+
+exports.CopyToClipboard = CopyToClipboard;
+
+_defineProperty(CopyToClipboard, "defaultProps", {
+  onCopy: undefined,
+  options: undefined
+});
+},{"react":"../../node_modules/react/index.js","copy-to-clipboard":"../../node_modules/copy-to-clipboard/index.js"}],"../../node_modules/react-copy-to-clipboard/lib/index.js":[function(require,module,exports) {
+"use strict";
+
+var _require = require('./Component'),
+    CopyToClipboard = _require.CopyToClipboard;
+
+CopyToClipboard.CopyToClipboard = CopyToClipboard;
+module.exports = CopyToClipboard;
+},{"./Component":"../../node_modules/react-copy-to-clipboard/lib/Component.js"}],"components/Usability/AddressBook.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51703,377 +51105,7 @@ var AddressBook = /*#__PURE__*/function (_Component) {
 ;
 var _default = AddressBook;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/User/UserAuctionTransactionComponent.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-var UserAuctionTransactionComponent = function UserAuctionTransactionComponent(_ref) {
-  var transaction = _ref.transaction;
-  var outputMap = transaction.outputMap;
-  var _useState = (0, _react.useState)(false),
-    _useState2 = _slicedToArray(_useState, 2),
-    showModal = _useState2[0],
-    setShowModal = _useState2[1];
-  var _useState3 = (0, _react.useState)(0),
-    _useState4 = _slicedToArray(_useState3, 2),
-    revisedStartingBid = _useState4[0],
-    setRevisedStartingBid = _useState4[1];
-  var _useState5 = (0, _react.useState)(''),
-    _useState6 = _slicedToArray(_useState5, 2),
-    revisedAuctionEndTime = _useState6[0],
-    setRevisedAuctionEndTime = _useState6[1];
-  var handleAuctionEnd = function handleAuctionEnd() {
-    // Send a request to the /api/end-auction endpoint with prevAuctionId
-    fetch("".concat(document.location.origin, "/api/end-auction"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prevAuctionId: outputMap['auction ID']
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
-    });
-  };
-  var handleAuctionClose = function handleAuctionClose() {
-    // Send a request to the /api/close-auction endpoint with prevAuctionId
-    fetch("".concat(document.location.origin, "/api/close-auction"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prevAuctionItem: outputMap['auction ID']
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
-    });
-  };
-  var handleModalShow = function handleModalShow() {
-    setShowModal(true);
-  };
-  var handleModalClose = function handleModalClose() {
-    setShowModal(false);
-  };
-  var handleReinitiateAuction = function handleReinitiateAuction() {
-    // Send a request to the /api/reinitiate-auction endpoint with prevAuctionItem, revisedStartingBid, and revisedAuctionEndTime
-    fetch("".concat(document.location.origin, "/api/reinitiate-auction"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prevAuctionItem: outputMap['auction ID'],
-        revisedStartingBid: revisedStartingBid,
-        revisedAuctionEndTime: revisedAuctionEndTime
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
-    });
-
-    // Reset the form values and close the modal
-    setRevisedStartingBid(0);
-    setRevisedAuctionEndTime('');
-    setShowModal(false);
-  };
-  return /*#__PURE__*/_react.default.createElement(_Card.default, {
-    className: "bg-dark text-white"
-  }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Auction ID: ", outputMap['auction ID']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Name: ", outputMap['name']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Description: ", outputMap['description']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Starting Bid: ", outputMap['starting bid']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Auction End Time:  ", outputMap['auction end time']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Owner:  ", outputMap['owner']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleAuctionEnd,
-    style: {
-      marginTop: '10px',
-      marginRight: '10px'
-    }
-  }, "End Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleAuctionClose,
-    style: {
-      marginTop: '10px',
-      marginRight: '10px'
-    }
-  }, "Close Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleModalShow,
-    style: {
-      marginTop: '10px',
-      marginRight: '10px'
-    }
-  }, "Reinitiate Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal, {
-    className: "Modal",
-    show: showModal,
-    onHide: handleModalClose,
-    backdrop: "static",
-    keyboard: false
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Header, {
-    className: "ModalColor",
-    closeButton: true
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Title, null, "Reinitiate Auction")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Body, {
-    className: "ModalColor"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
-    controlId: "revisedStartingBid"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Revised Starting Bid"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
-    type: "number",
-    placeholder: "Enter revised starting bid",
-    value: revisedStartingBid,
-    onChange: function onChange(e) {
-      return setRevisedStartingBid(e.target.value);
-    }
-  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
-    controlId: "revisedAuctionEndTime"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Revised Auction End Time"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
-    type: "datetime-local",
-    placeholder: "Enter revised auction end time",
-    value: revisedAuctionEndTime,
-    onChange: function onChange(e) {
-      return setRevisedAuctionEndTime(e.target.value);
-    }
-  })))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Footer, {
-    className: "ModalColor"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleModalClose
-  }, "Close"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleReinitiateAuction
-  }, "Save Changes")))));
-};
-var _default = UserAuctionTransactionComponent;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js"}],"components/User/UserAuction.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _UserAuctionTransactionComponent = _interopRequireDefault(require("./UserAuctionTransactionComponent"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var UserAuction = /*#__PURE__*/function (_Component) {
-  _inherits(UserAuction, _Component);
-  var _super = _createSuper(UserAuction);
-  function UserAuction() {
-    var _this;
-    _classCallCheck(this, UserAuction);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      displayTransaction: false,
-      walletAddress: null
-    });
-    _defineProperty(_assertThisInitialized(_this), "toggleTransaction", function () {
-      _this.setState({
-        displayTransaction: !_this.state.displayTransaction
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "displayTransaction", function () {
-      var data = _this.props.block.data;
-      if (!_this.state.walletAddress) {
-        // If wallet address is not fetched yet, show loading spinner or message
-        return /*#__PURE__*/_react.default.createElement("div", null, "Loading wallet address...");
-      }
-      var validTransactions = data.filter(function (transaction) {
-        var outputMap = transaction.outputMap;
-        return outputMap['owner'] === _this.state.walletAddress;
-      });
-      if (_this.state.displayTransaction) {
-        return /*#__PURE__*/_react.default.createElement("div", null, validTransactions.map(function (transaction) {
-          return /*#__PURE__*/_react.default.createElement("div", {
-            key: transaction.id
-          }, /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_UserAuctionTransactionComponent.default, {
-            transaction: transaction
-          }));
-        }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          variant: "danger",
-          bsSize: "small",
-          onClick: _this.toggleTransaction
-        }, "Show Less"));
-      }
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "danger",
-        bsSize: "small",
-        onClick: _this.toggleTransaction
-      }, "Show More"));
-    });
-    return _this;
-  }
-  _createClass(UserAuction, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      // Fetch the wallet address and store it in the component state
-      fetch('/api/my-wallet-address').then(function (res) {
-        return res.json();
-      }).then(function (data) {
-        return _this2.setState({
-          walletAddress: data
-        });
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props$block = this.props.block,
-        timestamp = _this$props$block.timestamp,
-        hash = _this$props$block.hash;
-      var hashDisplay = "".concat(hash.substring(0, 15), "...");
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "Block"
-      }, /*#__PURE__*/_react.default.createElement("div", null, "Hash: ", hashDisplay), /*#__PURE__*/_react.default.createElement("div", null, "Timestamp: ", new Date(timestamp).toLocaleDateString()), this.displayTransaction());
-    }
-  }]);
-  return UserAuction;
-}(_react.Component);
-;
-var _default = UserAuction;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./UserAuctionTransactionComponent":"components/User/UserAuctionTransactionComponent.js"}],"components/User/UserAuctions.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _UserAuction = _interopRequireDefault(require("./UserAuction"));
-var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var UserAuctions = /*#__PURE__*/function (_Component) {
-  _inherits(UserAuctions, _Component);
-  var _super = _createSuper(UserAuctions);
-  function UserAuctions() {
-    var _this;
-    _classCallCheck(this, UserAuctions);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      blocks: [],
-      paginatedId: 1,
-      blocksLength: 0
-    });
-    _defineProperty(_assertThisInitialized(_this), "fetchPaginatedBlocks", function (paginatedId) {
-      return function () {
-        fetch("".concat(document.location.origin, "/api/blocks/").concat(paginatedId)).then(function (response) {
-          return response.json();
-        }).then(function (json) {
-          return _this.setState({
-            blocks: json
-          });
-        });
-      };
-    });
-    return _this;
-  }
-  _createClass(UserAuctions, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      fetch("".concat(document.location.origin, "/api/blocks/length")).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        return _this2.setState({
-          blocksLength: json
-        });
-      });
-      this.fetchPaginatedBlocks(this.state.paginatedId)();
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
-      console.log('this.state', this.state);
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auctions"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, _toConsumableArray(Array(Math.ceil(this.state.blocksLength / 5)).keys()).map(function (key) {
-        var paginatedId = key + 1;
-        return /*#__PURE__*/_react.default.createElement("span", {
-          key: key,
-          onClick: _this3.fetchPaginatedBlocks(paginatedId)
-        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          bsSize: "small",
-          variant: "danger"
-        }, paginatedId), ' ');
-      })), this.state.blocks.map(function (block) {
-        return /*#__PURE__*/_react.default.createElement(_UserAuction.default, {
-          key: block.hash,
-          block: block
-        });
-      }));
-    }
-  }]);
-  return UserAuctions;
-}(_react.Component);
-var _default = UserAuctions;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./UserAuction":"components/User/UserAuction.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -52143,14 +51175,9 @@ var _reactRouterDom = require("react-router-dom");
 var _history = _interopRequireDefault(require("./history"));
 var _App = _interopRequireDefault(require("./components/App"));
 var _Blocks = _interopRequireDefault(require("./components/Block/Blocks"));
-var _ConductTransaction = _interopRequireDefault(require("./components/Transact/ConductTransaction"));
-var _ConductAuctionTransaction = _interopRequireDefault(require("./components/Transact/ConductAuctionTransaction"));
 var _TransactionPool = _interopRequireDefault(require("./components/Transact/TransactionPool"));
-var _CreateBid = _interopRequireDefault(require("./components/Transact/CreateBid"));
 var _Auctions = _interopRequireDefault(require("./components/Auction/Auctions"));
-var _NewWalletPhrase = _interopRequireDefault(require("./components/Wallet/NewWalletPhrase"));
 var _AddressBook = _interopRequireDefault(require("./components/Usability/AddressBook"));
-var _UserAuctions = _interopRequireDefault(require("./components/User/UserAuctions"));
 require("bootstrap/dist/css/bootstrap.min.css");
 require("./index.css");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -52164,31 +51191,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   path: "/blocks",
   component: _Blocks.default
 }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-  path: "/conduct-transaction",
-  component: _ConductTransaction.default
-}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-  path: "/auction-transaction",
-  component: _ConductAuctionTransaction.default
-}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-  path: "/bid-transaction",
-  component: _CreateBid.default
-}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
   path: "/transaction-pool",
   component: _TransactionPool.default
 }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
   path: "/auctions",
   component: _Auctions.default
 }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-  path: "/get-wallet",
-  component: _NewWalletPhrase.default
-}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
   path: "/address-book",
   component: _AddressBook.default
-}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-  path: "/user-items",
-  component: _UserAuctions.default
 }))), document.getElementById('root'));
-},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./history":"history.js","./components/App":"components/App.js","./components/Block/Blocks":"components/Block/Blocks.js","./components/Transact/ConductTransaction":"components/Transact/ConductTransaction.js","./components/Transact/ConductAuctionTransaction":"components/Transact/ConductAuctionTransaction.js","./components/Transact/TransactionPool":"components/Transact/TransactionPool.js","./components/Transact/CreateBid":"components/Transact/CreateBid.js","./components/Auction/Auctions":"components/Auction/Auctions.js","./components/Wallet/NewWalletPhrase":"components/Wallet/NewWalletPhrase.js","./components/Usability/AddressBook":"components/Usability/AddressBook.js","./components/User/UserAuctions":"components/User/UserAuctions.js","bootstrap/dist/css/bootstrap.min.css":"../../node_modules/bootstrap/dist/css/bootstrap.min.css","./index.css":"index.css"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./history":"history.js","./components/App":"components/App.js","./components/Block/Blocks":"components/Block/Blocks.js","./components/Transact/TransactionPool":"components/Transact/TransactionPool.js","./components/Auction/Auctions":"components/Auction/Auctions.js","./components/Usability/AddressBook":"components/Usability/AddressBook.js","bootstrap/dist/css/bootstrap.min.css":"../../node_modules/bootstrap/dist/css/bootstrap.min.css","./index.css":"index.css"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -52213,7 +51225,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58757" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51835" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

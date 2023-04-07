@@ -28,7 +28,7 @@ class Wallet {
   sign(data) {
     return this.keyPair.sign(cryptoHash(data))
   }
-
+/* 
   imageEncode(image) {
 
   }
@@ -59,7 +59,7 @@ class Wallet {
     return new Transaction({ senderWallet: this, recipient: null, amount: null, Id, name, description, startingBid, auctionEndTime, owner });
 
   }
-
+ */
   static calculateBalance ({ chain, address, timestamp }) {
     let outputsTotal = 0, hasConductedTransaction = false, lessThanTimestamp = false;
 
