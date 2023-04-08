@@ -15,7 +15,7 @@ class NewWalletPhrase extends Component {
         <br />
         <br />
         <br />
-        <div className="phrase-banner-container">
+        <div className="banner-container">
           <PhraseBanner />
         </div>
       </div>
