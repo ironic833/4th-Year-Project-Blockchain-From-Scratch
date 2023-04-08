@@ -52357,7 +52357,7 @@ var AuctionHistory = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, retrievedAuctionHistory &&
       /*#__PURE__*/
       // render the response when it exists
-      _react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Wallet History:"), /*#__PURE__*/_react.default.createElement("pre", null, JSON.stringify(retrievedAuctionHistory, null, 2))), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      _react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Auction History:"), /*#__PURE__*/_react.default.createElement("pre", null, JSON.stringify(retrievedAuctionHistory, null, 2))), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.auctionHistoryRequest
       }, "Submit")));
@@ -52516,7 +52516,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63857" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64191" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
