@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, Button, Card } from 'react-bootstrap';
+import { FormGroup, FormControl, Button, Card, Pagination } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import history from '../../history';
 import NavBar from "../Usability/Navbar";
 
 class ConductTransaction extends Component {
-  state = { recipient: '', amount: 0, knownAddresses: [] };
+  state = { recipient: '', amount: 0, knownAddresses: [], currentPage: 1, pageSize: 5, };
 
   componentDidMount() {
     fetch(`${document.location.origin}/api/known-addresses`)
@@ -19,6 +19,10 @@ class ConductTransaction extends Component {
 
   updateAmount = event => {
     this.setState({ amount: Number(event.target.value) });
+  }
+
+  handlePageChange = (page) => {
+    this.setState({ currentPage: page });
   }
 
   conductTransaction = () => {
@@ -36,6 +40,15 @@ class ConductTransaction extends Component {
   }
 
   render() {
+
+    const { knownAddresses, currentPage, pageSize } = this.state;
+    const pageCount = Math.ceil(knownAddresses.length / pageSize);
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
+
+    const displayedAddresses = knownAddresses.slice(startIndex, endIndex);
+
     return (
       <div className='ConductTransaction'>
         <NavBar />
@@ -74,18 +87,35 @@ class ConductTransaction extends Component {
         <br />
         <h4>Known Addresses</h4>
         <br />
-        <div className='known-addresses' style={{ marginTop: '20px' }}>
-        <Card className='bg-dark' style={{ height: "80%", width: '90%', margin: '0 auto', overflowY: 'scroll', padding: '10px' }}>
-          {this.state.knownAddresses.map(knownAddress => (
-            <div key={knownAddress} style={{ marginBottom: '10px', color: 'white', padding: '10px', border: '1px solid white' }}>
-              {knownAddress}
-              <CopyToClipboard text={knownAddress}>
-                <Button variant="danger" size="sm" style={{ margin: '10px' }}>Copy</Button>
-              </CopyToClipboard>
-            </div>
-          ))}
-        </Card>
-        </div>
+        {displayedAddresses.length === 0 ? (
+          <div>
+            <p>No wallets found, Check back later!</p>
+          </div>
+        ) : (
+          <div>
+            <Pagination className="justify-content-center">
+              {Array.from({ length: pageCount }).map((_, index) => (
+                <Button style={{ padding: 10 }} variant='danger' key={index} active={index + 1 === currentPage} onClick={() => this.handlePageChange(index + 1)}>
+                  {index + 1}
+                </Button>
+              ))}
+            </Pagination>
+            <br />
+            <ul style={{ listStyleType: 'none' }}>
+              {displayedAddresses.map((knownAddress, index) => (
+                <li key={knownAddress}>
+                  <Card className="bg-dark text-white" style={{ padding: '10px', margin: 'auto', maxWidth: '800px' }}>
+                    <Card.Text style={{ textAlign: 'center' }}>{knownAddress}</Card.Text>
+                    <CopyToClipboard text={knownAddress}>
+                      <Button variant="danger" size="sm" style={{ margin: '10px' }}>Copy</Button>
+                    </CopyToClipboard>
+                  </Card>
+                  <br />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <br />
       </div>
     )

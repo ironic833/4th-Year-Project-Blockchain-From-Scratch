@@ -33805,9 +33805,7 @@ var _createBrowserHistory = _interopRequireDefault(require("history/createBrowse
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var _default = (0, _createBrowserHistory.default)();
 exports.default = _default;
-},{"history/createBrowserHistory":"../../node_modules/history/createBrowserHistory.js"}],"assets/index.png":[function(require,module,exports) {
-module.exports = "/assets.795bb5f8.png";
-},{}],"../../node_modules/classnames/index.js":[function(require,module,exports) {
+},{"history/createBrowserHistory":"../../node_modules/history/createBrowserHistory.js"}],"../../node_modules/classnames/index.js":[function(require,module,exports) {
 var define;
 /*!
 	Copyright (c) 2018 Jed Watson.
@@ -50329,7 +50327,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
-var _index = _interopRequireDefault(require("../assets/index.png"));
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _Navbar = _interopRequireDefault(require("./Usability/Navbar"));
@@ -50365,7 +50362,8 @@ var App = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {
       walletInfo: {},
       passphrase: '',
-      canSubmit: false
+      canSubmit: false,
+      walletHistory: []
     });
     _defineProperty(_assertThisInitialized(_this), "handlePassphraseChange", function (event) {
       var passphrase = event.target.value;
@@ -50399,6 +50397,21 @@ var App = /*#__PURE__*/function (_Component) {
       }).then(function (json) {
         return _this2.setState({
           walletInfo: json
+        });
+      });
+      fetch("".concat(document.location.origin, "/api/wallet-history"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          walletAddress: this.state.walletInfo.address
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        return _this2.setState({
+          walletHistory: json
         });
       });
     }
@@ -50442,14 +50455,24 @@ var App = /*#__PURE__*/function (_Component) {
         }
       }, "Copy"))), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", {
         className: "mb-0"
-      }, "Balance: ", balance))));
+      }, "Balance: ", balance)), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "history-container"
+      }, /*#__PURE__*/_react.default.createElement("h4", null, "Transaction History"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Table, {
+        striped: true,
+        bordered: true,
+        hover: true
+      }, /*#__PURE__*/_react.default.createElement("thead", null, /*#__PURE__*/_react.default.createElement("tr", null, /*#__PURE__*/_react.default.createElement("th", null, "Block Number"), /*#__PURE__*/_react.default.createElement("th", null, "Transaction"))), /*#__PURE__*/_react.default.createElement("tbody", null, this.state.walletHistory.map(function (item, index) {
+        return /*#__PURE__*/_react.default.createElement("tr", {
+          key: index
+        }, /*#__PURE__*/_react.default.createElement("td", null, item.blockNumber), /*#__PURE__*/_react.default.createElement("td", null, JSON.stringify(item.transaction)));
+      }))))));
     }
   }]);
   return App;
 }(_react.Component);
 var _default = App;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","../assets/index.png":"assets/index.png","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./Usability/Navbar":"components/Usability/Navbar.js","./Usability/NoInputNavbar":"components/Usability/NoInputNavbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/Block/Transaction.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./Usability/Navbar":"components/Usability/Navbar.js","./Usability/NoInputNavbar":"components/Usability/NoInputNavbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/Block/Transaction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50754,7 +50777,9 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {
       recipient: '',
       amount: 0,
-      knownAddresses: []
+      knownAddresses: [],
+      currentPage: 1,
+      pageSize: 5
     });
     _defineProperty(_assertThisInitialized(_this), "updateRecipient", function (event) {
       _this.setState({
@@ -50764,6 +50789,11 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "updateAmount", function (event) {
       _this.setState({
         amount: Number(event.target.value)
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePageChange", function (page) {
+      _this.setState({
+        currentPage: page
       });
     });
     _defineProperty(_assertThisInitialized(_this), "conductTransaction", function () {
@@ -50803,6 +50833,15 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+      var _this$state2 = this.state,
+        knownAddresses = _this$state2.knownAddresses,
+        currentPage = _this$state2.currentPage,
+        pageSize = _this$state2.pageSize;
+      var pageCount = Math.ceil(knownAddresses.length / pageSize);
+      var startIndex = (currentPage - 1) * pageSize;
+      var endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
+      var displayedAddresses = knownAddresses.slice(startIndex, endIndex);
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "ConductTransaction"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Conduct a Transaction"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
@@ -50828,30 +50867,41 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.conductTransaction
-      }, "Submit")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
-        className: "known-addresses",
-        style: {
-          marginTop: '20px'
-        }
-      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
-        className: "bg-dark",
-        style: {
-          height: "80%",
-          width: '90%',
-          margin: '0 auto',
-          overflowY: 'scroll',
-          padding: '10px'
-        }
-      }, this.state.knownAddresses.map(function (knownAddress) {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          key: knownAddress,
+      }, "Submit")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), displayedAddresses.length === 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "No wallets found, Check back later!")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Pagination, {
+        className: "justify-content-center"
+      }, Array.from({
+        length: pageCount
+      }).map(function (_, index) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           style: {
-            marginBottom: '10px',
-            color: 'white',
-            padding: '10px',
-            border: '1px solid white'
+            padding: 10
+          },
+          variant: "danger",
+          key: index,
+          active: index + 1 === currentPage,
+          onClick: function onClick() {
+            return _this3.handlePageChange(index + 1);
           }
-        }, knownAddress, /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+        }, index + 1);
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("ul", {
+        style: {
+          listStyleType: 'none'
+        }
+      }, displayedAddresses.map(function (knownAddress, index) {
+        return /*#__PURE__*/_react.default.createElement("li", {
+          key: knownAddress
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
+          className: "bg-dark text-white",
+          style: {
+            padding: '10px',
+            margin: 'auto',
+            maxWidth: '800px'
+          }
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, {
+          style: {
+            textAlign: 'center'
+          }
+        }, knownAddress), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
           text: knownAddress
         }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           variant: "danger",
@@ -50859,7 +50909,7 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
           style: {
             margin: '10px'
           }
-        }, "Copy")));
+        }, "Copy"))), /*#__PURE__*/_react.default.createElement("br", null));
       }))), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
@@ -51109,7 +51159,7 @@ var TransactionPool = /*#__PURE__*/function (_Component) {
       }), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.fetchMineTransactions
-      }, "Mine the Transactions"));
+      }, "Mine the Transactions"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
   return TransactionPool;
@@ -51556,7 +51606,15 @@ function WalletMnemonic() {
   };
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "wallet-phrase"
-  }, /*#__PURE__*/_react.default.createElement("div", null, walletPhrase), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      columnCount: 4
+    }
+  }, walletPhrase.split(' ').map(function (word, index) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      key: index
+    }, word);
+  })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
     text: walletPhrase
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     variant: "danger",
@@ -51630,7 +51688,7 @@ var NewWalletPhrase = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "App"
-      }, /*#__PURE__*/_react.default.createElement(_NoInputNavbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "New Wallet Phrase"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_walletPhraseReturn.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement(_NoInputNavbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "New Wallet Phrase"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_walletPhraseReturn.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
         className: "banner-container"
       }, /*#__PURE__*/_react.default.createElement(_PhraseBanner.default, null)));
     }
@@ -51650,6 +51708,8 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactBootstrap = require("react-bootstrap");
 var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
 var _reactCopyToClipboard = require("react-copy-to-clipboard");
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+var _Pagination = _interopRequireDefault(require("react-bootstrap/Pagination"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -51680,7 +51740,14 @@ var AddressBook = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {
       recipient: '',
       amount: 0,
-      knownAddresses: []
+      knownAddresses: [],
+      currentPage: 1,
+      pageSize: 5
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePageChange", function (page) {
+      _this.setState({
+        currentPage: page
+      });
     });
     return _this;
   }
@@ -51699,26 +51766,52 @@ var AddressBook = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+      var _this$state = this.state,
+        knownAddresses = _this$state.knownAddresses,
+        currentPage = _this$state.currentPage,
+        pageSize = _this$state.pageSize;
+      var pageCount = Math.ceil(knownAddresses.length / pageSize);
+      var startIndex = (currentPage - 1) * pageSize;
+      var endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
+      var displayedAddresses = knownAddresses.slice(startIndex, endIndex);
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "ConductTransaction"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("ul", {
-        style: {
-          listStyleType: 'none',
-          padding: '10px',
-          backgroundColor: '#343a40',
-          borderRadius: '5px'
-        }
-      }, this.state.knownAddresses.map(function (knownAddress) {
-        return /*#__PURE__*/_react.default.createElement("li", {
-          key: knownAddress,
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("hr", null), displayedAddresses.length === 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "No wallets found, Check back later!")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Pagination.default, {
+        className: "justify-content-center"
+      }, Array.from({
+        length: pageCount
+      }).map(function (_, index) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           style: {
-            marginBottom: '10px',
-            color: 'white',
-            padding: '10px',
-            border: '1px solid white',
-            borderRadius: '5px'
+            padding: 10
+          },
+          variant: "danger",
+          key: index,
+          active: index + 1 === currentPage,
+          onClick: function onClick() {
+            return _this3.handlePageChange(index + 1);
           }
-        }, knownAddress, /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+        }, index + 1);
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("ul", {
+        style: {
+          listStyleType: 'none'
+        }
+      }, displayedAddresses.map(function (knownAddress, index) {
+        return /*#__PURE__*/_react.default.createElement("li", {
+          key: knownAddress
+        }, /*#__PURE__*/_react.default.createElement(_Card.default, {
+          className: "bg-dark text-white",
+          style: {
+            padding: '10px',
+            margin: 'auto',
+            maxWidth: '800px'
+          }
+        }, /*#__PURE__*/_react.default.createElement(_Card.default.Text, {
+          style: {
+            textAlign: 'center'
+          }
+        }, knownAddress), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
           text: knownAddress
         }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           variant: "danger",
@@ -51726,7 +51819,7 @@ var AddressBook = /*#__PURE__*/function (_Component) {
           style: {
             margin: '10px'
           }
-        }, "Copy")));
+        }, "Copy"))), /*#__PURE__*/_react.default.createElement("br", null));
       }))), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
@@ -51735,7 +51828,7 @@ var AddressBook = /*#__PURE__*/function (_Component) {
 ;
 var _default = AddressBook;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/User/UserAuctionTransactionComponent.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Pagination":"../../node_modules/react-bootstrap/esm/Pagination.js"}],"components/User/UserAuctionTransactionComponent.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52245,7 +52338,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62585" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62371" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

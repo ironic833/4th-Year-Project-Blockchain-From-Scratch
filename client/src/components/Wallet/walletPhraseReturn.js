@@ -22,7 +22,12 @@ function WalletMnemonic() {
 
   return (
     <div className="wallet-phrase">
-      <div>{walletPhrase}</div>
+      <div style={{ columnCount: 4 }}>
+        {walletPhrase.split(' ').map((word, index) => (
+          <div key={index}>{word}</div>
+        ))}
+      </div>
+      <br />
       <CopyToClipboard text={walletPhrase}>
         <Button variant="danger" size="sm" style={{ margin: '10px' }}>Copy</Button>
       </CopyToClipboard>

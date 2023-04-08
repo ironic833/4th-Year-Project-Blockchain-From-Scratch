@@ -13,8 +13,6 @@ class NewWalletPhrase extends Component {
         <hr />
         <WalletMnemonic />
         <br />
-        <br />
-        <br />
         <div className="banner-container">
           <PhraseBanner />
         </div>

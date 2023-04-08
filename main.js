@@ -8,10 +8,12 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 700,
+    title: "Auction Chain",
     webPreferences: {
       nodeIntegration: true,
     },
-    autoHideMenuBar: true
+    autoHideMenuBar: true,
+    icon: 'client/src/assets/icon.png'
   });
 
   mainWindow.loadURL("http://localhost:3000");
