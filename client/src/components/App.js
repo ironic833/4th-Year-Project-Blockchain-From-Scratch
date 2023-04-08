@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import index from '../assets/index.png';
 import { FormGroup, FormControl, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import NavBar from "./Usability/Navbar";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class App extends Component {
     state = { walletInfo: {}, passphrase: '', canSubmit: false };
@@ -72,23 +72,27 @@ class App extends Component {
         return(
             <div className="App">
                 <NavBar />
-                <img className='logo' src={index}></img>
                 <br />
                 <div>
                     Welcome to the blockchain....
                 </div>
                 <br />
                 <br />
-                <Alert variant="dark">
-                    <Alert.Heading>Wallet Details</Alert.Heading>
-                    <p>
-                        Address: {address}
-                    </p>
-                    <hr />
-                    <p className="mb-0">
-                        Balance: {balance}
-                    </p>
-                </Alert>
+                <div className="banner-container">
+                    <Alert variant="dark">
+                        <Alert.Heading>Wallet Details</Alert.Heading>
+                        <p>
+                            Address: {address} 
+                                <CopyToClipboard text={address}>
+                                    <Button variant="danger" size="sm" style={{ margin: '10px' }}>Copy</Button>
+                                </CopyToClipboard>
+                        </p>
+                        <hr />
+                        <p className="mb-0">
+                            Balance: {balance}
+                        </p>
+                    </Alert>
+                </div>
             </div>
         );
     }
