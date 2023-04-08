@@ -27,7 +27,7 @@ class UserAuctions extends Component {
       <div>
         <NavBar />
         <br />
-        <h3>Auctions</h3>
+        <h3>User Auctions</h3>
         <hr />
         <br />
         <div>

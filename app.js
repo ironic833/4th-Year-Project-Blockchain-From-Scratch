@@ -433,6 +433,7 @@ const startServer = async (phrase) => {
     });
 
 
+    // accessible in endpoint
     app.post('/api/item-history', (req, res) => {
 
       if(wallet.publicKey !== undefined){
@@ -468,6 +469,7 @@ const startServer = async (phrase) => {
       
     });
 
+    // couldn't make it work
     app.post('/api/wallet-history', (req, res) => {
       if (wallet.publicKey !== undefined) {
 

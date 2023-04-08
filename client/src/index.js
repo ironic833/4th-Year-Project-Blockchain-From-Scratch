@@ -11,9 +11,12 @@ import bidTransaction from "./components/Transact/CreateBid";
 import Auctions from "./components/Auction/Auctions";
 import NewWalletPhrase from "./components/Wallet/NewWalletPhrase";
 import AddressBook from "./components/Usability/AddressBook";
-import UserAuctions from "./components/User/UserAuctions"
+import UserAuctions from "./components/User/UserAuctions";
+import walletHistory from "./components/Wallet/walletHistoryRequest";
+import AuctionHistory from "./components/Auction/AuctionHistoryRequest";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+
 
 render(
         <Router history={history}>
@@ -28,6 +31,8 @@ render(
                 <Route path='/get-wallet' component={NewWalletPhrase} />
                 <Route path='/address-book' component={AddressBook} />
                 <Route path='/user-items' component={UserAuctions} />
+                <Route path='/wallet-history' component={walletHistory} />
+                <Route path='/item-history' component={AuctionHistory} />
             </Switch>
         </Router>, 
         document.getElementById('root')
