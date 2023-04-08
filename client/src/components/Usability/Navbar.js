@@ -13,7 +13,6 @@ function BlockNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Login</Nav.Link>
             <NavDropdown  menuVariant="dark" title="Chain" id="basic-nav-dropdown">
               <NavDropdown.Item href="/blocks">Blocks</NavDropdown.Item>
               <NavDropdown.Item href="/auctions">Auctions</NavDropdown.Item>
