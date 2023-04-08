@@ -49983,9 +49983,7 @@ function BlockNavbar() {
     id: "basic-navbar-nav"
   }, /*#__PURE__*/_react.default.createElement(_Nav.default, {
     className: "me-auto"
-  }, /*#__PURE__*/_react.default.createElement(_Nav.default.Link, {
-    href: "/"
-  }, "Login"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
+  }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
     menuVariant: "dark",
     title: "Chain",
     id: "basic-nav-dropdown"
@@ -51554,10 +51552,10 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function AdditionalContentExample() {
   return /*#__PURE__*/_react.default.createElement(_Alert.default, {
-    variant: "success"
-  }, /*#__PURE__*/_react.default.createElement(_Alert.default.Heading, null, "Hey, nice to see you"), /*#__PURE__*/_react.default.createElement("p", null, "Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content."), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", {
+    variant: "warning"
+  }, /*#__PURE__*/_react.default.createElement(_Alert.default.Heading, null, "A notice about wallet phrases"), /*#__PURE__*/_react.default.createElement("p", null, "Please note that wallet phrases are the method by which you use to login to our system. Your wallet holds your auction items and your coins. If you lose your wallet phrase there is no way to recover it."), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", {
     className: "mb-0"
-  }, "Whenever you need to, be sure to use margin utilities to keep things nice and tidy."));
+  }, "MAKE SURE YOU COPY YOUR WALLET PHRASE BEFORE LEAVING THIS PAGE"));
 }
 var _default = AdditionalContentExample;
 exports.default = _default;
@@ -52213,7 +52211,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58757" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60744" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
