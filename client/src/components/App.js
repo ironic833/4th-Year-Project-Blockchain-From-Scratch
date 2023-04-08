@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import index from '../assets/index.png';
-import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import NavBar from "./Usability/Navbar";
 
@@ -79,10 +79,16 @@ class App extends Component {
                 </div>
                 <br />
                 <br />
-                <div className="WalletInfo">
-                    <div>Address: {address}</div>
-                    <div>Balance: {balance}</div>
-                </div>
+                <Alert variant="dark">
+                    <Alert.Heading>Wallet Details</Alert.Heading>
+                    <p>
+                        Address: {address}
+                    </p>
+                    <hr />
+                    <p className="mb-0">
+                        Balance: {balance}
+                    </p>
+                </Alert>
             </div>
         );
     }
