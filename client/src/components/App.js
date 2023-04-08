@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormGroup, FormControl, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import NavBar from "./Usability/Navbar";
+import NoInputBlockNavbar from "./Usability/NoInputNavbar";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class App extends Component {
@@ -34,7 +35,7 @@ class App extends Component {
         if (!walletInfo.address) {
             return (
                 <div className="App">
-                    <NavBar />
+                    <NoInputBlockNavbar />
                     <br />
                     <h3>Login</h3>
                     <hr />

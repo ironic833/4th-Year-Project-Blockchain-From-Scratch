@@ -49991,7 +49991,11 @@ function BlockNavbar() {
     href: "/auctions"
   }, "Auctions"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
     href: "/address-book"
-  }, "Address Book")), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
+  }, "Address Book"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/wallet-history"
+  }, "Wallet History"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/item-history"
+  }, "Item History")), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
     menuVariant: "dark",
     title: "Transact",
     id: "basic-nav-dropdown"
@@ -50012,6 +50016,31 @@ function BlockNavbar() {
   }, "My Items"))))));
 }
 var _default = BlockNavbar;
+exports.default = _default;
+},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"components/Usability/NoInputNavbar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
+var _Nav = _interopRequireDefault(require("react-bootstrap/Nav"));
+var _Navbar = _interopRequireDefault(require("react-bootstrap/Navbar"));
+var _NavDropdown = _interopRequireDefault(require("react-bootstrap/NavDropdown"));
+var _react = _interopRequireDefault(require("react"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function NoInputBlockNavbar() {
+  return /*#__PURE__*/_react.default.createElement(_Navbar.default, {
+    bg: "dark",
+    variant: "dark",
+    expand: "lg",
+    className: "fixed-top"
+  }, /*#__PURE__*/_react.default.createElement(_Container.default, null, /*#__PURE__*/_react.default.createElement(_Navbar.default.Brand, {
+    href: "/"
+  }, "Auction Chain")));
+}
+var _default = NoInputBlockNavbar;
 exports.default = _default;
 },{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"../../node_modules/toggle-selection/index.js":[function(require,module,exports) {
 
@@ -50305,6 +50334,7 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _Navbar = _interopRequireDefault(require("./Usability/Navbar"));
+var _NoInputNavbar = _interopRequireDefault(require("./Usability/NoInputNavbar"));
 var _reactCopyToClipboard = require("react-copy-to-clipboard");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -50382,7 +50412,7 @@ var App = /*#__PURE__*/function (_Component) {
       if (!walletInfo.address) {
         return /*#__PURE__*/_react.default.createElement("div", {
           className: "App"
-        }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Login"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Enter your passphrase:"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+        }, /*#__PURE__*/_react.default.createElement(_NoInputNavbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Login"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Enter your passphrase:"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
           input: "text",
           placeholder: "pass phrase",
           value: this.state.passphrase,
@@ -50420,7 +50450,7 @@ var App = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 var _default = App;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/Block/Transaction.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./Usability/Navbar":"components/Usability/Navbar.js","./Usability/NoInputNavbar":"components/Usability/NoInputNavbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/Block/Transaction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50728,7 +50758,9 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {
       recipient: '',
       amount: 0,
-      knownAddresses: []
+      knownAddresses: [],
+      currentPage: 1,
+      pageSize: 5
     });
     _defineProperty(_assertThisInitialized(_this), "updateRecipient", function (event) {
       _this.setState({
@@ -50738,6 +50770,11 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "updateAmount", function (event) {
       _this.setState({
         amount: Number(event.target.value)
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePageChange", function (page) {
+      _this.setState({
+        currentPage: page
       });
     });
     _defineProperty(_assertThisInitialized(_this), "conductTransaction", function () {
@@ -50777,6 +50814,15 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+      var _this$state2 = this.state,
+        knownAddresses = _this$state2.knownAddresses,
+        currentPage = _this$state2.currentPage,
+        pageSize = _this$state2.pageSize;
+      var pageCount = Math.ceil(knownAddresses.length / pageSize);
+      var startIndex = (currentPage - 1) * pageSize;
+      var endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
+      var displayedAddresses = knownAddresses.slice(startIndex, endIndex);
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "ConductTransaction"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Conduct a Transaction"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
@@ -50802,30 +50848,41 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.conductTransaction
-      }, "Submit")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
-        className: "known-addresses",
-        style: {
-          marginTop: '20px'
-        }
-      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
-        className: "bg-dark",
-        style: {
-          height: "80%",
-          width: '90%',
-          margin: '0 auto',
-          overflowY: 'scroll',
-          padding: '10px'
-        }
-      }, this.state.knownAddresses.map(function (knownAddress) {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          key: knownAddress,
+      }, "Submit")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), displayedAddresses.length === 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "No wallets found, Check back later!")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Pagination, {
+        className: "justify-content-center"
+      }, Array.from({
+        length: pageCount
+      }).map(function (_, index) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           style: {
-            marginBottom: '10px',
-            color: 'white',
-            padding: '10px',
-            border: '1px solid white'
+            padding: 10
+          },
+          variant: "danger",
+          key: index,
+          active: index + 1 === currentPage,
+          onClick: function onClick() {
+            return _this3.handlePageChange(index + 1);
           }
-        }, knownAddress, /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+        }, index + 1);
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("ul", {
+        style: {
+          listStyleType: 'none'
+        }
+      }, displayedAddresses.map(function (knownAddress, index) {
+        return /*#__PURE__*/_react.default.createElement("li", {
+          key: knownAddress
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
+          className: "bg-dark text-white",
+          style: {
+            padding: '10px',
+            margin: 'auto',
+            maxWidth: '800px'
+          }
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, {
+          style: {
+            textAlign: 'center'
+          }
+        }, knownAddress), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
           text: knownAddress
         }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           variant: "danger",
@@ -50833,7 +50890,7 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
           style: {
             margin: '10px'
           }
-        }, "Copy")));
+        }, "Copy"))), /*#__PURE__*/_react.default.createElement("br", null));
       }))), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
@@ -51531,7 +51588,15 @@ function WalletMnemonic() {
   };
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "wallet-phrase"
-  }, /*#__PURE__*/_react.default.createElement("div", null, walletPhrase), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      columnCount: 4
+    }
+  }, walletPhrase.split(' ').map(function (word, index) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      key: index
+    }, word);
+  })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
     text: walletPhrase
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     variant: "danger",
@@ -51575,7 +51640,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _walletPhraseReturn = _interopRequireDefault(require("./walletPhraseReturn"));
-var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+var _NoInputNavbar = _interopRequireDefault(require("../Usability/NoInputNavbar"));
 var _PhraseBanner = _interopRequireDefault(require("../Usability/PhraseBanner"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -51605,7 +51670,7 @@ var NewWalletPhrase = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "App"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "New Wallet Phrase"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_walletPhraseReturn.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement(_NoInputNavbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "New Wallet Phrase"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_walletPhraseReturn.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
         className: "banner-container"
       }, /*#__PURE__*/_react.default.createElement(_PhraseBanner.default, null)));
     }
@@ -51614,7 +51679,7 @@ var NewWalletPhrase = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 var _default = NewWalletPhrase;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./walletPhraseReturn":"components/Wallet/walletPhraseReturn.js","../Usability/Navbar":"components/Usability/Navbar.js","../Usability/PhraseBanner":"components/Usability/PhraseBanner.js"}],"components/Usability/AddressBook.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./walletPhraseReturn":"components/Wallet/walletPhraseReturn.js","../Usability/NoInputNavbar":"components/Usability/NoInputNavbar.js","../Usability/PhraseBanner":"components/Usability/PhraseBanner.js"}],"components/Usability/AddressBook.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51625,6 +51690,8 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactBootstrap = require("react-bootstrap");
 var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
 var _reactCopyToClipboard = require("react-copy-to-clipboard");
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+var _Pagination = _interopRequireDefault(require("react-bootstrap/Pagination"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -51655,7 +51722,14 @@ var AddressBook = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {
       recipient: '',
       amount: 0,
-      knownAddresses: []
+      knownAddresses: [],
+      currentPage: 1,
+      pageSize: 5
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePageChange", function (page) {
+      _this.setState({
+        currentPage: page
+      });
     });
     return _this;
   }
@@ -51674,26 +51748,52 @@ var AddressBook = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+      var _this$state = this.state,
+        knownAddresses = _this$state.knownAddresses,
+        currentPage = _this$state.currentPage,
+        pageSize = _this$state.pageSize;
+      var pageCount = Math.ceil(knownAddresses.length / pageSize);
+      var startIndex = (currentPage - 1) * pageSize;
+      var endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
+      var displayedAddresses = knownAddresses.slice(startIndex, endIndex);
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "ConductTransaction"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("ul", {
-        style: {
-          listStyleType: 'none',
-          padding: '10px',
-          backgroundColor: '#343a40',
-          borderRadius: '5px'
-        }
-      }, this.state.knownAddresses.map(function (knownAddress) {
-        return /*#__PURE__*/_react.default.createElement("li", {
-          key: knownAddress,
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("hr", null), displayedAddresses.length === 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "No wallets found, Check back later!")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Pagination.default, {
+        className: "justify-content-center"
+      }, Array.from({
+        length: pageCount
+      }).map(function (_, index) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           style: {
-            marginBottom: '10px',
-            color: 'white',
-            padding: '10px',
-            border: '1px solid white',
-            borderRadius: '5px'
+            padding: 10
+          },
+          variant: "danger",
+          key: index,
+          active: index + 1 === currentPage,
+          onClick: function onClick() {
+            return _this3.handlePageChange(index + 1);
           }
-        }, knownAddress, /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+        }, index + 1);
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("ul", {
+        style: {
+          listStyleType: 'none'
+        }
+      }, displayedAddresses.map(function (knownAddress, index) {
+        return /*#__PURE__*/_react.default.createElement("li", {
+          key: knownAddress
+        }, /*#__PURE__*/_react.default.createElement(_Card.default, {
+          className: "bg-dark text-white",
+          style: {
+            padding: '10px',
+            margin: 'auto',
+            maxWidth: '800px'
+          }
+        }, /*#__PURE__*/_react.default.createElement(_Card.default.Text, {
+          style: {
+            textAlign: 'center'
+          }
+        }, knownAddress), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
           text: knownAddress
         }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           variant: "danger",
@@ -51701,7 +51801,7 @@ var AddressBook = /*#__PURE__*/function (_Component) {
           style: {
             margin: '10px'
           }
-        }, "Copy")));
+        }, "Copy"))), /*#__PURE__*/_react.default.createElement("br", null));
       }))), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
@@ -51710,7 +51810,7 @@ var AddressBook = /*#__PURE__*/function (_Component) {
 ;
 var _default = AddressBook;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/User/UserAuctionTransactionComponent.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Pagination":"../../node_modules/react-bootstrap/esm/Pagination.js"}],"components/User/UserAuctionTransactionComponent.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52059,7 +52159,7 @@ var UserAuctions = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this3 = this;
       console.log('this.state', this.state);
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auctions"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, _toConsumableArray(Array(Math.ceil(this.state.blocksLength / 5)).keys()).map(function (key) {
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "User Auctions"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, _toConsumableArray(Array(Math.ceil(this.state.blocksLength / 5)).keys()).map(function (key) {
         var paginatedId = key + 1;
         return /*#__PURE__*/_react.default.createElement("span", {
           key: key,
@@ -52080,7 +52180,199 @@ var UserAuctions = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 var _default = UserAuctions;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./UserAuction":"components/User/UserAuction.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./UserAuction":"components/User/UserAuction.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Wallet/walletHistoryRequest.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var walletHistory = /*#__PURE__*/function (_Component) {
+  _inherits(walletHistory, _Component);
+  var _super = _createSuper(walletHistory);
+  function walletHistory() {
+    var _this;
+    _classCallCheck(this, walletHistory);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      walletId: '',
+      retrievedWalletHistory: null // new state variable to store response
+    });
+    _defineProperty(_assertThisInitialized(_this), "updatewalletId", function (event) {
+      _this.setState({
+        walletId: event.target.value
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "walletHistoryRequest", function () {
+      var walletId = _this.state.walletId;
+      fetch("".concat(document.location.origin, "/api/wallet-history"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          walletId: walletId
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this.setState({
+          retrievedWalletHistory: json
+        }); // reload the page after response is received
+      });
+    });
+    return _this;
+  }
+  _createClass(walletHistory, [{
+    key: "render",
+    value: function render() {
+      var retrievedWalletHistory = this.state.retrievedWalletHistory;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "walletHistory"
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Wallet History"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+        input: "text",
+        placeholder: "Wallet ID",
+        value: this.state.walletId,
+        onChange: this.updatewalletId,
+        style: {
+          marginBottom: '10px',
+          width: '60%',
+          margin: '0 auto'
+        }
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, retrievedWalletHistory &&
+      /*#__PURE__*/
+      // render the response when it exists
+      _react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Wallet History:"), /*#__PURE__*/_react.default.createElement("pre", null, JSON.stringify(retrievedWalletHistory, null, 2))), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        onClick: this.walletHistoryRequest
+      }, "Submit")));
+    }
+  }]);
+  return walletHistory;
+}(_react.Component);
+;
+var _default = walletHistory;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Auction/AuctionHistoryRequest.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var AuctionHistory = /*#__PURE__*/function (_Component) {
+  _inherits(AuctionHistory, _Component);
+  var _super = _createSuper(AuctionHistory);
+  function AuctionHistory() {
+    var _this;
+    _classCallCheck(this, AuctionHistory);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      auctionItemId: '',
+      retrievedAuctionHistory: null // new state variable to store response
+    });
+    _defineProperty(_assertThisInitialized(_this), "updateauctionId", function (event) {
+      _this.setState({
+        auctionItemId: event.target.value
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "auctionHistoryRequest", function () {
+      var auctionItemId = _this.state.auctionItemId;
+      fetch("".concat(document.location.origin, "/api/item-history"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          auctionItemId: auctionItemId
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this.setState({
+          retrievedAuctionHistory: json
+        }); // reload the page after response is received
+      });
+    });
+    return _this;
+  }
+  _createClass(AuctionHistory, [{
+    key: "render",
+    value: function render() {
+      var retrievedAuctionHistory = this.state.retrievedAuctionHistory;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "auctionHistory"
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auction History"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+        input: "text",
+        placeholder: "Auction ID",
+        value: this.state.auctionItemId,
+        onChange: this.updateauctionId,
+        style: {
+          marginBottom: '10px',
+          width: '60%',
+          margin: '0 auto'
+        }
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, retrievedAuctionHistory &&
+      /*#__PURE__*/
+      // render the response when it exists
+      _react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Auction History:"), /*#__PURE__*/_react.default.createElement("pre", null, JSON.stringify(retrievedAuctionHistory, null, 2))), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        onClick: this.auctionHistoryRequest
+      }, "Submit")));
+    }
+  }]);
+  return AuctionHistory;
+}(_react.Component);
+;
+var _default = AuctionHistory;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -52158,6 +52450,8 @@ var _Auctions = _interopRequireDefault(require("./components/Auction/Auctions"))
 var _NewWalletPhrase = _interopRequireDefault(require("./components/Wallet/NewWalletPhrase"));
 var _AddressBook = _interopRequireDefault(require("./components/Usability/AddressBook"));
 var _UserAuctions = _interopRequireDefault(require("./components/User/UserAuctions"));
+var _walletHistoryRequest = _interopRequireDefault(require("./components/Wallet/walletHistoryRequest"));
+var _AuctionHistoryRequest = _interopRequireDefault(require("./components/Auction/AuctionHistoryRequest"));
 require("bootstrap/dist/css/bootstrap.min.css");
 require("./index.css");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -52194,8 +52488,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
   path: "/user-items",
   component: _UserAuctions.default
+}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  path: "/wallet-history",
+  component: _walletHistoryRequest.default
+}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  path: "/item-history",
+  component: _AuctionHistoryRequest.default
 }))), document.getElementById('root'));
-},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./history":"history.js","./components/App":"components/App.js","./components/Block/Blocks":"components/Block/Blocks.js","./components/Transact/ConductTransaction":"components/Transact/ConductTransaction.js","./components/Transact/ConductAuctionTransaction":"components/Transact/ConductAuctionTransaction.js","./components/Transact/TransactionPool":"components/Transact/TransactionPool.js","./components/Transact/CreateBid":"components/Transact/CreateBid.js","./components/Auction/Auctions":"components/Auction/Auctions.js","./components/Wallet/NewWalletPhrase":"components/Wallet/NewWalletPhrase.js","./components/Usability/AddressBook":"components/Usability/AddressBook.js","./components/User/UserAuctions":"components/User/UserAuctions.js","bootstrap/dist/css/bootstrap.min.css":"../../node_modules/bootstrap/dist/css/bootstrap.min.css","./index.css":"index.css"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./history":"history.js","./components/App":"components/App.js","./components/Block/Blocks":"components/Block/Blocks.js","./components/Transact/ConductTransaction":"components/Transact/ConductTransaction.js","./components/Transact/ConductAuctionTransaction":"components/Transact/ConductAuctionTransaction.js","./components/Transact/TransactionPool":"components/Transact/TransactionPool.js","./components/Transact/CreateBid":"components/Transact/CreateBid.js","./components/Auction/Auctions":"components/Auction/Auctions.js","./components/Wallet/NewWalletPhrase":"components/Wallet/NewWalletPhrase.js","./components/Usability/AddressBook":"components/Usability/AddressBook.js","./components/User/UserAuctions":"components/User/UserAuctions.js","./components/Wallet/walletHistoryRequest":"components/Wallet/walletHistoryRequest.js","./components/Auction/AuctionHistoryRequest":"components/Auction/AuctionHistoryRequest.js","bootstrap/dist/css/bootstrap.min.css":"../../node_modules/bootstrap/dist/css/bootstrap.min.css","./index.css":"index.css"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -52220,7 +52520,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62947" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49575" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

@@ -3,7 +3,6 @@ import React from 'react';
 
 function AdditionalContentExample() {
   return (
-    
     <Alert variant="warning">
       <Alert.Heading>A notice about wallet phrases</Alert.Heading>
       <p>

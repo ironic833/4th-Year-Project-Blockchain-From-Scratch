@@ -17,6 +17,8 @@ function BlockNavbar() {
               <NavDropdown.Item href="/blocks">Blocks</NavDropdown.Item>
               <NavDropdown.Item href="/auctions">Auctions</NavDropdown.Item>
               <NavDropdown.Item href="/address-book">Address Book</NavDropdown.Item>
+              <NavDropdown.Item href="/wallet-history">Wallet History</NavDropdown.Item>
+              <NavDropdown.Item href="/item-history">Item History</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown  menuVariant="dark" title="Transact" id="basic-nav-dropdown">
               <NavDropdown.Item href="/conduct-transaction">Send Money</NavDropdown.Item>

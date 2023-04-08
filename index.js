@@ -12,7 +12,7 @@ const isDevelopement = process.env.ENV ==='developement';
 
 const DEFAULT_PORT = 3000;
 
-const ROOT_NODE_ADDRESS = isDevelopement ? `http://localhost:${DEFAULT_PORT}` : 'https://blocktest.herokuapp.com';
+const ROOT_NODE_ADDRESS = /* isDevelopement ? `http://localhost:${DEFAULT_PORT}` : */ 'https://blocktest.herokuapp.com';
 
 const app = express();
 const blockchain = new Blockchain();
@@ -73,9 +73,9 @@ const startServer = async (phrase) => {
 
     const wallet = new Wallet(phrase), pubsub = new PubSub({ blockchain, transactionPool, wallet }), transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
 
-    if (PORT !== DEFAULT_PORT) {
+    /* if (PORT !== DEFAULT_PORT) { */
       syncWithRootState();
-    }
+    /* } */
 
     //accessible via gui
     app.get('/api/blocks', (req, res) => {
