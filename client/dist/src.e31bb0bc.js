@@ -44269,7 +44269,92 @@ function BlockNavbar() {
 }
 var _default = BlockNavbar;
 exports.default = _default;
-},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
+},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/Alert.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _uncontrollable = require("uncontrollable");
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
+var _ThemeProvider = require("./ThemeProvider");
+var _Fade = _interopRequireDefault(require("./Fade"));
+var _CloseButton = _interopRequireDefault(require("./CloseButton"));
+var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const DivStyledAsH4 = (0, _divWithClassName.default)('h4');
+DivStyledAsH4.displayName = 'DivStyledAsH4';
+const AlertHeading = (0, _createWithBsPrefix.default)('alert-heading', {
+  Component: DivStyledAsH4
+});
+const AlertLink = (0, _createWithBsPrefix.default)('alert-link', {
+  Component: _Anchor.default
+});
+const defaultProps = {
+  variant: 'primary',
+  show: true,
+  transition: _Fade.default,
+  closeLabel: 'Close alert'
+};
+const Alert = /*#__PURE__*/React.forwardRef((uncontrolledProps, ref) => {
+  const {
+    bsPrefix,
+    show,
+    closeLabel,
+    closeVariant,
+    className,
+    children,
+    variant,
+    onClose,
+    dismissible,
+    transition,
+    ...props
+  } = (0, _uncontrollable.useUncontrolled)(uncontrolledProps, {
+    show: 'onClose'
+  });
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'alert');
+  const handleClose = (0, _useEventCallback.default)(e => {
+    if (onClose) {
+      onClose(false, e);
+    }
+  });
+  const Transition = transition === true ? _Fade.default : transition;
+  const alert = /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+    role: "alert",
+    ...(!Transition ? props : undefined),
+    ref: ref,
+    className: (0, _classnames.default)(className, prefix, variant && `${prefix}-${variant}`, dismissible && `${prefix}-dismissible`),
+    children: [dismissible && /*#__PURE__*/(0, _jsxRuntime.jsx)(_CloseButton.default, {
+      onClick: handleClose,
+      "aria-label": closeLabel,
+      variant: closeVariant
+    }), children]
+  });
+  if (!Transition) return show ? alert : null;
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Transition, {
+    unmountOnExit: true,
+    ...props,
+    ref: undefined,
+    in: show,
+    children: alert
+  });
+});
+Alert.displayName = 'Alert';
+Alert.defaultProps = defaultProps;
+var _default = Object.assign(Alert, {
+  Link: AlertLink,
+  Heading: AlertHeading
+});
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44279,6 +44364,7 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _index = _interopRequireDefault(require("../assets/index.png"));
 var _Navbar = _interopRequireDefault(require("./Usability/Navbar"));
+var _Alert = _interopRequireDefault(require("react-bootstrap/Alert"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -44334,16 +44420,18 @@ var App = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("img", {
         className: "logo",
         src: _index.default
-      }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Welcome to the blockchain...."), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
-        className: "WalletInfo"
-      }, /*#__PURE__*/_react.default.createElement("div", null, "Address: ", address), /*#__PURE__*/_react.default.createElement("div", null, "Balance: ", balance)));
+      }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Welcome to the blockchain...."), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_Alert.default, {
+        variant: "dark"
+      }, /*#__PURE__*/_react.default.createElement(_Alert.default.Heading, null, "Wallet Details"), /*#__PURE__*/_react.default.createElement("p", null, "Address: ", address), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", {
+        className: "mb-0"
+      }, "Balance: ", balance)));
     }
   }]);
   return App;
 }(_react.Component);
 var _default = App;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","../assets/index.png":"assets/index.png","./Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/react-bootstrap/esm/AccordionContext.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../assets/index.png":"assets/index.png","./Usability/Navbar":"components/Usability/Navbar.js","react-bootstrap/Alert":"../../node_modules/react-bootstrap/esm/Alert.js"}],"../../node_modules/react-bootstrap/esm/AccordionContext.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44683,92 +44771,7 @@ var _default = Object.assign(Accordion, {
   Body: _AccordionBody.default
 });
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionBody":"../../node_modules/react-bootstrap/esm/AccordionBody.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionHeader":"../../node_modules/react-bootstrap/esm/AccordionHeader.js","./AccordionItem":"../../node_modules/react-bootstrap/esm/AccordionItem.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Alert.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _uncontrollable = require("uncontrollable");
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
-var _ThemeProvider = require("./ThemeProvider");
-var _Fade = _interopRequireDefault(require("./Fade"));
-var _CloseButton = _interopRequireDefault(require("./CloseButton"));
-var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
-var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const DivStyledAsH4 = (0, _divWithClassName.default)('h4');
-DivStyledAsH4.displayName = 'DivStyledAsH4';
-const AlertHeading = (0, _createWithBsPrefix.default)('alert-heading', {
-  Component: DivStyledAsH4
-});
-const AlertLink = (0, _createWithBsPrefix.default)('alert-link', {
-  Component: _Anchor.default
-});
-const defaultProps = {
-  variant: 'primary',
-  show: true,
-  transition: _Fade.default,
-  closeLabel: 'Close alert'
-};
-const Alert = /*#__PURE__*/React.forwardRef((uncontrolledProps, ref) => {
-  const {
-    bsPrefix,
-    show,
-    closeLabel,
-    closeVariant,
-    className,
-    children,
-    variant,
-    onClose,
-    dismissible,
-    transition,
-    ...props
-  } = (0, _uncontrollable.useUncontrolled)(uncontrolledProps, {
-    show: 'onClose'
-  });
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'alert');
-  const handleClose = (0, _useEventCallback.default)(e => {
-    if (onClose) {
-      onClose(false, e);
-    }
-  });
-  const Transition = transition === true ? _Fade.default : transition;
-  const alert = /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-    role: "alert",
-    ...(!Transition ? props : undefined),
-    ref: ref,
-    className: (0, _classnames.default)(className, prefix, variant && `${prefix}-${variant}`, dismissible && `${prefix}-dismissible`),
-    children: [dismissible && /*#__PURE__*/(0, _jsxRuntime.jsx)(_CloseButton.default, {
-      onClick: handleClose,
-      "aria-label": closeLabel,
-      variant: closeVariant
-    }), children]
-  });
-  if (!Transition) return show ? alert : null;
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Transition, {
-    unmountOnExit: true,
-    ...props,
-    ref: undefined,
-    in: show,
-    children: alert
-  });
-});
-Alert.displayName = 'Alert';
-Alert.defaultProps = defaultProps;
-var _default = Object.assign(Alert, {
-  Link: AlertLink,
-  Heading: AlertHeading
-});
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Anchor.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionBody":"../../node_modules/react-bootstrap/esm/AccordionBody.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionHeader":"../../node_modules/react-bootstrap/esm/AccordionHeader.js","./AccordionItem":"../../node_modules/react-bootstrap/esm/AccordionItem.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Anchor.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51225,7 +51228,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51835" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61587" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

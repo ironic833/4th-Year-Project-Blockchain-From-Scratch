@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import index from '../assets/index.png';
 import NavBar from "./Usability/Navbar";
+import Alert from 'react-bootstrap/Alert';
 
 class App extends Component {
     state = { walletInfo: {} };
@@ -26,10 +27,16 @@ class App extends Component {
                 </div>
                 <br />
                 <br />
-                <div className="WalletInfo">
-                    <div>Address: {address}</div>
-                    <div>Balance: {balance}</div>
-                </div>
+                <Alert variant="dark">
+                    <Alert.Heading>Wallet Details</Alert.Heading>
+                    <p>
+                        Address: {address}
+                    </p>
+                    <hr />
+                    <p className="mb-0">
+                        Balance: {balance}
+                    </p>
+                </Alert>
             </div>
         );
     }
