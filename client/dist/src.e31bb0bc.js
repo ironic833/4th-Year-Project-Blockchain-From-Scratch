@@ -49983,9 +49983,7 @@ function BlockNavbar() {
     id: "basic-navbar-nav"
   }, /*#__PURE__*/_react.default.createElement(_Nav.default, {
     className: "me-auto"
-  }, /*#__PURE__*/_react.default.createElement(_Nav.default.Link, {
-    href: "/"
-  }, "Login"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
+  }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
     menuVariant: "dark",
     title: "Chain",
     id: "basic-nav-dropdown"
@@ -52237,7 +52235,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58763" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60997" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
