@@ -52403,7 +52403,9 @@ var walletHistory = /*#__PURE__*/function (_Component) {
     _this = _super.call.apply(_super, [this].concat(args));
     _defineProperty(_assertThisInitialized(_this), "state", {
       walletId: '',
-      retrievedWalletHistory: null // new state variable to store response
+      retrievedWalletHistory: null,
+      alertMessage: '',
+      alertType: '' // new state variable to store response
     });
     _defineProperty(_assertThisInitialized(_this), "updatewalletId", function (event) {
       _this.setState({
@@ -52424,8 +52426,14 @@ var walletHistory = /*#__PURE__*/function (_Component) {
         return response.json();
       }).then(function (json) {
         _this.setState({
-          retrievedWalletHistory: json
-        }); // reload the page after response is received
+          alertMessage: json.message,
+          alertType: 'success'
+        });
+      }).catch(function (error) {
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
       });
     });
     return _this;
@@ -52433,7 +52441,9 @@ var walletHistory = /*#__PURE__*/function (_Component) {
   _createClass(walletHistory, [{
     key: "render",
     value: function render() {
-      var retrievedWalletHistory = this.state.retrievedWalletHistory;
+      var _this$state = this.state,
+        alertMessage = _this$state.alertMessage,
+        alertType = _this$state.alertType;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "walletHistory"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Wallet History"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
@@ -52446,13 +52456,17 @@ var walletHistory = /*#__PURE__*/function (_Component) {
           width: '60%',
           margin: '0 auto'
         }
-      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, retrievedWalletHistory &&
-      /*#__PURE__*/
-      // render the response when it exists
-      _react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Wallet History:"), /*#__PURE__*/_react.default.createElement("pre", null, JSON.stringify(retrievedWalletHistory, null, 2))), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.walletHistoryRequest
-      }, "Submit")));
+      }, "Submit"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, alertMessage)));
     }
   }]);
   return walletHistory;
@@ -52499,7 +52513,8 @@ var AuctionHistory = /*#__PURE__*/function (_Component) {
     _this = _super.call.apply(_super, [this].concat(args));
     _defineProperty(_assertThisInitialized(_this), "state", {
       auctionItemId: '',
-      retrievedAuctionHistory: null // new state variable to store response
+      retrievedAuctionHistory: null,
+      showAlert: false
     });
     _defineProperty(_assertThisInitialized(_this), "updateauctionId", function (event) {
       _this.setState({
@@ -52520,16 +52535,33 @@ var AuctionHistory = /*#__PURE__*/function (_Component) {
         return response.json();
       }).then(function (json) {
         _this.setState({
-          retrievedAuctionHistory: json
-        }); // reload the page after response is received
+          retrievedAuctionHistory: json,
+          showAlert: true
+        });
       });
+    });
+    _defineProperty(_assertThisInitialized(_this), "renderAlertBox", function (item) {
+      if (item.owner) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: item.timestamp,
+          variant: "success"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", item["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Name: ", item["name"]), /*#__PURE__*/_react.default.createElement("p", null, "Description: ", item["description"]), /*#__PURE__*/_react.default.createElement("p", null, "Starting bid: ", item["starting bid"]), /*#__PURE__*/_react.default.createElement("p", null, "Auction end time: ", item["auction end time"]), /*#__PURE__*/_react.default.createElement("p", null, "Owner: ", item["owner"]));
+      } else {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: item.timestamp,
+          variant: "info"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", item["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Bidder: ", item["bidder"]), /*#__PURE__*/_react.default.createElement("p", null, "Bid: ", item["bid"]));
+      }
     });
     return _this;
   }
   _createClass(AuctionHistory, [{
     key: "render",
     value: function render() {
-      var retrievedAuctionHistory = this.state.retrievedAuctionHistory;
+      var _this2 = this;
+      var _this$state = this.state,
+        retrievedAuctionHistory = _this$state.retrievedAuctionHistory,
+        showAlert = _this$state.showAlert;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "auctionHistory"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auction History"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
@@ -52542,10 +52574,11 @@ var AuctionHistory = /*#__PURE__*/function (_Component) {
           width: '60%',
           margin: '0 auto'
         }
-      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, retrievedAuctionHistory &&
-      /*#__PURE__*/
-      // render the response when it exists
-      _react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Auction History:"), /*#__PURE__*/_react.default.createElement("pre", null, JSON.stringify(retrievedAuctionHistory, null, 2))), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, retrievedAuctionHistory && showAlert && /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Auction History:"), retrievedAuctionHistory.map(function (item) {
+        return _this2.renderAlertBox(item);
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.auctionHistoryRequest
       }, "Submit")));
@@ -52704,7 +52737,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51329" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60211" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

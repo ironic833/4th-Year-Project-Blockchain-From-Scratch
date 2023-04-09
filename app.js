@@ -438,28 +438,28 @@ const startServer = async (phrase) => {
 
       if(wallet.publicKey !== undefined){
 
-      const { auctionItemId } = req.body, itemHistory = [];
-      let foundValidBlock = false;
+        const { auctionItemId } = req.body, itemHistory = [];
+        let foundValidBlock = false;
 
-      for (let i = 1; i < blockchain.chain.length; i++) {
-        const block = blockchain.chain[i];
+        for (let i = 1; i < blockchain.chain.length; i++) {
+          const block = blockchain.chain[i];
 
-        for (let j = 0; j < block.data.length; j++) {
-          const transaction = block.data[j];
-          console.log(JSON.stringify(transaction) + "\n");
+          for (let j = 0; j < block.data.length; j++) {
+            const transaction = block.data[j];
+            console.log(JSON.stringify(transaction) + "\n");
 
-          if (transaction.outputMap['auction ID'] === auctionItemId) {
-            itemHistory.push(transaction.outputMap);
-            foundValidBlock = true;
+            if (transaction.outputMap['auction ID'] === auctionItemId) {
+              itemHistory.push(transaction.outputMap);
+              foundValidBlock = true;
+            }
           }
         }
-      }
 
-      if(!foundValidBlock) {
-        return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
-      }
+        if(!foundValidBlock) {
+          return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+        }
 
-      res.json(itemHistory);
+        res.json(itemHistory);
 
       } else {
 

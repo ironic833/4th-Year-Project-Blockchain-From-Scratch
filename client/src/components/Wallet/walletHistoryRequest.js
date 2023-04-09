@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, Button, Alert } from 'react-bootstrap';
 import NavBar from "../Usability/Navbar";
 
 class walletHistory extends Component {
   state = {
     walletId: '',
-    retrievedWalletHistory: null // new state variable to store response
+    retrievedWalletHistory: null,
+    alertMessage: '', 
+    alertType: '' // new state variable to store response
   };
 
   updatewalletId = event => {
@@ -22,12 +24,15 @@ class walletHistory extends Component {
     })
       .then(response => response.json())
       .then(json => {
-        this.setState({ retrievedWalletHistory: json }); // reload the page after response is received
-      }); 
+        this.setState({ alertMessage: json.message, alertType: 'success' });
+      })
+      .catch(error => {
+        this.setState({ alertMessage: error.message, alertType: 'danger' });
+      });
   }
 
   render() {
-    const { retrievedWalletHistory } = this.state;
+    const { alertMessage, alertType } = this.state;
 
     return (
       <div className='walletHistory'>
@@ -46,21 +51,20 @@ class walletHistory extends Component {
           />
         </FormGroup>
         <br />
-        <div>
-          {retrievedWalletHistory && ( // render the response when it exists
-            <div>
-              <h4>Wallet History:</h4>
-              <pre>{JSON.stringify(retrievedWalletHistory, null, 2)}</pre>
-            </div>
-          )}
-          <br />
           <Button
             variant="danger"
             onClick={this.walletHistoryRequest}
           >
             Submit
           </Button>
-        </div>
+          <br />
+          <div className="banner-container">
+          {alertMessage &&
+              <Alert variant={alertType} style={{ marginTop: '10px' }}>
+              {alertMessage}
+              </Alert>
+          }
+          </div>
       </div>
     )
   }
