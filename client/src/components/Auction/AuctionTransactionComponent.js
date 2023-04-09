@@ -1,14 +1,15 @@
-
-
 import React, { useState } from 'react';
-import { Button, FormGroup, FormControl, FormLabel, Modal } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, FormLabel, Modal, Alert } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
+import history from "../../history";
 
 const AuctionTransactionComponent = ({ transaction }) => {
 
   const { outputMap } = transaction;
   const [bidAmount, setBidAmount] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('');
 
   const handleBidAmountChange = (event) => {
     setBidAmount(event.target.value);
@@ -31,8 +32,21 @@ const AuctionTransactionComponent = ({ transaction }) => {
     })
     .then(response => response.json())
     .then(json => {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
+      setAlertMessage(json.message || json.type);
+      setAlertType('success');
+      setTimeout(() => {
+        if (json.type === 'error') {
+          setAlertMessage(json.message);
+        } else {
+          history.push('/transaction-pool');
+        }
+      }, 5000); // delay of 5 seconds
+      /* alert(json.message || json.type);
+      history.push('/transaction-pool'); */
+    })
+    .catch(error => {
+      setAlertMessage(error.message);
+      setAlertType('danger');
     });
 
     setBidAmount('');
@@ -74,6 +88,13 @@ const AuctionTransactionComponent = ({ transaction }) => {
             <Button variant="danger" onClick={handleBidSubmit}>Submit Bid</Button>
           </Modal.Footer>
         </Modal>
+        <div className="banner-container">
+          {alertMessage &&
+            <Alert variant={alertType} style={{ marginTop: '10px' }}>
+              {alertMessage}
+            </Alert>
+          }
+        </div>
       </Card.Body>
     </Card>
   );

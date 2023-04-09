@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, Button, Card, Pagination } from 'react-bootstrap';
+import { FormGroup, FormControl, Button, Card, Pagination, Alert } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import history from '../../history';
 import NavBar from "../Usability/Navbar";
 
 class ConductTransaction extends Component {
   state = { recipient: '', amount: 0, knownAddresses: [], currentPage: 1, pageSize: 5, };
-
-  componentDidMount() {
-    fetch(`${document.location.origin}/api/known-addresses`)
-      .then(response => response.json())
-      .then(json => this.setState({ knownAddresses: json }));
-  }
 
   updateRecipient = event => {
     this.setState({ recipient: event.target.value });
@@ -20,6 +14,13 @@ class ConductTransaction extends Component {
   updateAmount = event => {
     this.setState({ amount: Number(event.target.value) });
   }
+
+  componentDidMount() {
+    fetch(`${document.location.origin}/api/known-addresses`)
+      .then(response => response.json())
+      .then(json => this.setState({ knownAddresses: json }));
+  }
+
 
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
@@ -34,14 +35,27 @@ class ConductTransaction extends Component {
       body: JSON.stringify({ recipient, amount })
     }).then(response => response.json())
       .then(json => {
+        this.setState({ alertMessage: json.message || json.type, alertType: 'success' });
+        setTimeout(() => {
+          if (json.type === 'error') {
+            this.setState({ alertMessage: json.message });
+          } else {
+            history.push('/transaction-pool');
+          }
+        }, 5000); // delay of 5 seconds
+      })
+      .catch(error => {
+        this.setState({ alertMessage: error.message, alertType: 'danger' });
+      });
+      /* .then(json => {
         alert(json.message || json.type);
         history.push('/transaction-pool');
-      });
+      }); */
   }
 
   render() {
 
-    const { knownAddresses, currentPage, pageSize } = this.state;
+    const { knownAddresses, currentPage, pageSize, alertMessage, alertType } = this.state;
     const pageCount = Math.ceil(knownAddresses.length / pageSize);
 
     const startIndex = (currentPage - 1) * pageSize;
@@ -83,6 +97,14 @@ class ConductTransaction extends Component {
           >
             Submit
           </Button>
+        </div>
+        <br />
+        <div className="banner-container">
+          {alertMessage &&
+            <Alert variant={alertType} style={{ marginTop: '10px' }}>
+              {alertMessage}
+            </Alert>
+          }
         </div>
         <br />
         <h4>Known Addresses</h4>

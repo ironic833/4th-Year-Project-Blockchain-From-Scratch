@@ -1,5 +1,5 @@
 import Transaction from "../Block/Transaction";
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import React, { Component } from "react";
 import history from "../../history";
 import NavBar from "../Usability/Navbar";
@@ -7,7 +7,7 @@ import NavBar from "../Usability/Navbar";
 const POLL_INTERVAL_MS = 10000;
 
 class TransactionPool extends Component { 
-    state = { transactionPoolMap: {} };
+    state = { transactionPoolMap: {}, alertMessage: '', alertType: '' };
 
     fetchTransactionPoolMap = () => {
         fetch(`${document.location.origin}/api/transaction-pool-map`)
@@ -19,12 +19,17 @@ class TransactionPool extends Component {
         fetch(`${document.location.origin}/api/mine-transactions`)
         .then(response => {
             if (response.status === 200) {
-                alert('success');
-                history.push('/blocks');
+                this.setState({ alertMessage: 'success' });
+                this.setState({ alertType: 'success' })
+                setTimeout(() => {
+                    history.push('/blocks');
+                }, 5000);
             } else {
-                alert('The mine-transactions block request did not complete.');
+                this.setState({ alertMessage: 'The mine-transactions block request did not complete.' });
             }
-        })
+        }).catch(error => {
+            this.setState({ alertMessage: error.message, alertType: 'danger' });
+        });
     }
 
     componentDidMount() {
@@ -41,6 +46,8 @@ class TransactionPool extends Component {
     }
 
     render() {
+        const { alertMessage, alertType } = this.state;
+
         return(
             <div className='TransactionPool'>
                 <NavBar />
@@ -60,6 +67,13 @@ class TransactionPool extends Component {
                 <br />
                 <Button variant="danger" onClick={this.fetchMineTransactions}>Mine the Transactions</Button>
                 <br />
+                <div className="banner-container">
+                {alertMessage &&
+                    <Alert variant={alertType} style={{ marginTop: '10px' }}>
+                    {alertMessage}
+                    </Alert>
+                }
+                </div>
                 <br />
             </div>
         )

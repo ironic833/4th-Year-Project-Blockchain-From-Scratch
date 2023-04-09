@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Alert } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 
 const UserAuctionTransactionComponent = ({ transaction }) => {
@@ -8,6 +8,8 @@ const UserAuctionTransactionComponent = ({ transaction }) => {
   const [showModal, setShowModal] = useState(false);
   const [revisedStartingBid, setRevisedStartingBid] = useState(0);
   const [revisedAuctionEndTime, setRevisedAuctionEndTime] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('');
 
   const handleAuctionEnd = () => {
     // Send a request to the /api/end-auction endpoint with prevAuctionId
@@ -18,8 +20,21 @@ const UserAuctionTransactionComponent = ({ transaction }) => {
     })
       .then(response => response.json())
       .then(json => {
-        alert(json.message || json.type);
-        history.push('/transaction-pool');
+        setAlertMessage( json.message || json.type );
+        setAlertType('success');
+        setTimeout(() => {
+          if (json.type === 'error') {
+            setAlertMessage( json.message );
+          } else {
+            history.push('/transaction-pool');
+          }
+        }, 5000); // delay of 5 seconds
+        /* alert(json.message || json.type);
+        history.push('/transaction-pool'); */
+      })
+      .catch(error => {
+        setAlertMessage(error.message);
+        setAlertType('danger');
       });
   };
 
@@ -32,8 +47,21 @@ const UserAuctionTransactionComponent = ({ transaction }) => {
     })
       .then(response => response.json())
       .then(json => {
-        alert(json.message || json.type);
-        history.push('/transaction-pool');
+        setAlertMessage( json.message || json.type );
+        setAlertType('success');
+        setTimeout(() => {
+          if (json.type === 'error') {
+            setAlertMessage( json.message );
+          } else {
+            history.push('/transaction-pool');
+          }
+        }, 5000); // delay of 5 seconds
+        /* alert(json.message || json.type);
+        history.push('/transaction-pool'); */
+      })
+      .catch(error => {
+        setAlertMessage(error.message);
+        setAlertType('danger');
       });
   };
 
@@ -58,8 +86,21 @@ const UserAuctionTransactionComponent = ({ transaction }) => {
     })
       .then(response => response.json())
       .then(json => {
-        alert(json.message || json.type);
-        history.push('/transaction-pool');
+        setAlertMessage( json.message || json.type );
+        setAlertType('success');
+        setTimeout(() => {
+          if (json.type === 'error') {
+            setAlertMessage( json.message );
+          } else {
+            history.push('/transaction-pool');
+          }
+        }, 5000); // delay of 5 seconds
+        /* alert(json.message || json.type);
+        history.push('/transaction-pool'); */
+      })
+      .catch(error => {
+        setAlertMessage(error.message);
+        setAlertType('danger');
       });
 
     // Reset the form values and close the modal
@@ -111,6 +152,13 @@ const UserAuctionTransactionComponent = ({ transaction }) => {
             <Button variant="danger" onClick={handleReinitiateAuction}>Save Changes</Button>
           </Modal.Footer>
         </Modal>
+        <div className="banner-container">
+          {alertMessage &&
+            <Alert variant={alertType} style={{ marginTop: '10px' }}>
+              {alertMessage}
+            </Alert>
+          }
+        </div>
       </Card.Body>
     </Card>
     );

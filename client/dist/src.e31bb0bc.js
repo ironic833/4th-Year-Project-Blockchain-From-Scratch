@@ -50790,9 +50790,29 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        alert(json.message || json.type);
-        _history.default.push('/transaction-pool');
+        _this.setState({
+          alertMessage: json.message || json.type,
+          alertType: 'success'
+        });
+        setTimeout(function () {
+          if (json.type === 'error') {
+            _this.setState({
+              alertMessage: json.message
+            });
+          } else {
+            _history.default.push('/transaction-pool');
+          }
+        }, 5000); // delay of 5 seconds
+      }).catch(function (error) {
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
       });
+      /* .then(json => {
+        alert(json.message || json.type);
+        history.push('/transaction-pool');
+      }); */
     });
     return _this;
   }
@@ -50815,7 +50835,9 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
       var _this$state2 = this.state,
         knownAddresses = _this$state2.knownAddresses,
         currentPage = _this$state2.currentPage,
-        pageSize = _this$state2.pageSize;
+        pageSize = _this$state2.pageSize,
+        alertMessage = _this$state2.alertMessage,
+        alertType = _this$state2.alertType;
       var pageCount = Math.ceil(knownAddresses.length / pageSize);
       var startIndex = (currentPage - 1) * pageSize;
       var endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
@@ -50845,7 +50867,14 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.conductTransaction
-      }, "Submit")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), displayedAddresses.length === 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "No wallets found, Check back later!")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Pagination, {
+      }, "Submit")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, alertMessage)), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), displayedAddresses.length === 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "No wallets found, Check back later!")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Pagination, {
         className: "justify-content-center"
       }, Array.from({
         length: pageCount
@@ -50938,7 +50967,9 @@ var auctionTransaction = /*#__PURE__*/function (_Component) {
       name: '',
       description: '',
       startingBid: 0,
-      auctionEndTime: ''
+      auctionEndTime: '',
+      alertMessage: '',
+      alertType: ''
     });
     _defineProperty(_assertThisInitialized(_this), "updateName", function (event) {
       _this.setState({
@@ -50980,15 +51011,32 @@ var auctionTransaction = /*#__PURE__*/function (_Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        alert(json.message || json.type);
-        _history.default.push('/transaction-pool');
+        _this.setState({
+          alertMessage: json.message || json.type,
+          alertType: 'success'
+        });
+        setTimeout(function () {
+          _history.default.push('/transaction-pool');
+        }, 5000); // delay of 5 seconds
+      }).catch(function (error) {
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
       });
+      /* .then(json => {
+        alert(json.message || json.type);
+        history.push('/transaction-pool');
+      }); */
     });
     return _this;
   }
   _createClass(auctionTransaction, [{
     key: "render",
     value: function render() {
+      var _this$state2 = this.state,
+        alertMessage = _this$state2.alertMessage,
+        alertType = _this$state2.alertType;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "AuctionTransaction"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auction a Transaction"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
@@ -51037,7 +51085,14 @@ var auctionTransaction = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.auctionTransaction
-      }, "Submit")));
+      }, "Submit")), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, alertMessage)));
     }
   }]);
   return auctionTransaction;
@@ -51086,7 +51141,9 @@ var TransactionPool = /*#__PURE__*/function (_Component) {
     }
     _this = _super.call.apply(_super, [this].concat(args));
     _defineProperty(_assertThisInitialized(_this), "state", {
-      transactionPoolMap: {}
+      transactionPoolMap: {},
+      alertMessage: '',
+      alertType: ''
     });
     _defineProperty(_assertThisInitialized(_this), "fetchTransactionPoolMap", function () {
       fetch("".concat(document.location.origin, "/api/transaction-pool-map")).then(function (response) {
@@ -51100,11 +51157,25 @@ var TransactionPool = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "fetchMineTransactions", function () {
       fetch("".concat(document.location.origin, "/api/mine-transactions")).then(function (response) {
         if (response.status === 200) {
-          alert('success');
-          _history.default.push('/blocks');
+          _this.setState({
+            alertMessage: 'success'
+          });
+          _this.setState({
+            alertType: 'success'
+          });
+          setTimeout(function () {
+            _history.default.push('/blocks');
+          }, 5000);
         } else {
-          alert('The mine-transactions block request did not complete.');
+          _this.setState({
+            alertMessage: 'The mine-transactions block request did not complete.'
+          });
         }
+      }).catch(function (error) {
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
       });
     });
     return _this;
@@ -51126,6 +51197,9 @@ var TransactionPool = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this$state = this.state,
+        alertMessage = _this$state.alertMessage,
+        alertType = _this$state.alertType;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "TransactionPool"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Transaction Pool"), Object.values(this.state.transactionPoolMap).map(function (transaction) {
@@ -51137,7 +51211,14 @@ var TransactionPool = /*#__PURE__*/function (_Component) {
       }), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.fetchMineTransactions
-      }, "Mine the Transactions"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null));
+      }, "Mine the Transactions"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, alertMessage)), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
   return TransactionPool;
@@ -51184,7 +51265,9 @@ var bidTransaction = /*#__PURE__*/function (_Component) {
     _this = _super.call.apply(_super, [this].concat(args));
     _defineProperty(_assertThisInitialized(_this), "state", {
       prevAuctionItem: '',
-      bidAmount: 0
+      bidAmount: 0,
+      alertMessage: '',
+      alertType: ''
     });
     _defineProperty(_assertThisInitialized(_this), "updatePrevAuctionItem", function (event) {
       _this.setState({
@@ -51212,8 +51295,24 @@ var bidTransaction = /*#__PURE__*/function (_Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        alert(json.message || json.type);
-        _history.default.push('/transaction-pool');
+        _this.setState({
+          alertMessage: json.message || json.type,
+          alertType: 'success'
+        });
+        setTimeout(function () {
+          if (json.message === 'No valid auction item block found for the given auction ID') {
+            _this.setState({
+              alertMessage: ''
+            });
+          } else {
+            _history.default.push('/transaction-pool');
+          }
+        }, 5000); // delay of 5 seconds
+      }).catch(function (error) {
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
       });
     });
     return _this;
@@ -51221,6 +51320,9 @@ var bidTransaction = /*#__PURE__*/function (_Component) {
   _createClass(bidTransaction, [{
     key: "render",
     value: function render() {
+      var _this$state2 = this.state,
+        alertMessage = _this$state2.alertMessage,
+        alertType = _this$state2.alertType;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "BidTransaction"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Place a bid"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
@@ -51246,7 +51348,14 @@ var bidTransaction = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.bidTransaction
-      }, "Submit")));
+      }, "Submit")), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, alertMessage)));
     }
   }]);
   return bidTransaction;
@@ -51264,6 +51373,7 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _reactBootstrap = require("react-bootstrap");
 var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+var _history = _interopRequireDefault(require("../../history"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -51284,6 +51394,14 @@ var AuctionTransactionComponent = function AuctionTransactionComponent(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     showModal = _useState4[0],
     setShowModal = _useState4[1];
+  var _useState5 = (0, _react.useState)(''),
+    _useState6 = _slicedToArray(_useState5, 2),
+    alertMessage = _useState6[0],
+    setAlertMessage = _useState6[1];
+  var _useState7 = (0, _react.useState)(''),
+    _useState8 = _slicedToArray(_useState7, 2),
+    alertType = _useState8[0],
+    setAlertType = _useState8[1];
   var handleBidAmountChange = function handleBidAmountChange(event) {
     setBidAmount(event.target.value);
   };
@@ -51307,8 +51425,20 @@ var AuctionTransactionComponent = function AuctionTransactionComponent(_ref) {
     }).then(function (response) {
       return response.json();
     }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
+      setAlertMessage(json.message || json.type);
+      setAlertType('success');
+      setTimeout(function () {
+        if (json.type === 'error') {
+          setAlertMessage(json.message);
+        } else {
+          _history.default.push('/transaction-pool');
+        }
+      }, 5000); // delay of 5 seconds
+      /* alert(json.message || json.type);
+      history.push('/transaction-pool'); */
+    }).catch(function (error) {
+      setAlertMessage(error.message);
+      setAlertType('danger');
     });
     setBidAmount('');
     setShowModal(false);
@@ -51346,11 +51476,18 @@ var AuctionTransactionComponent = function AuctionTransactionComponent(_ref) {
   }, "Close"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     variant: "danger",
     onClick: handleBidSubmit
-  }, "Submit Bid")))));
+  }, "Submit Bid"))), /*#__PURE__*/_react.default.createElement("div", {
+    className: "banner-container"
+  }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+    variant: alertType,
+    style: {
+      marginTop: '10px'
+    }
+  }, alertMessage))));
 };
 var _default = AuctionTransactionComponent;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js"}],"components/Auction/Auction.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js","../../history":"history.js"}],"components/Auction/Auction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51840,6 +51977,14 @@ var UserAuctionTransactionComponent = function UserAuctionTransactionComponent(_
     _useState6 = _slicedToArray(_useState5, 2),
     revisedAuctionEndTime = _useState6[0],
     setRevisedAuctionEndTime = _useState6[1];
+  var _useState7 = (0, _react.useState)(''),
+    _useState8 = _slicedToArray(_useState7, 2),
+    alertMessage = _useState8[0],
+    setAlertMessage = _useState8[1];
+  var _useState9 = (0, _react.useState)(''),
+    _useState10 = _slicedToArray(_useState9, 2),
+    alertType = _useState10[0],
+    setAlertType = _useState10[1];
   var handleAuctionEnd = function handleAuctionEnd() {
     // Send a request to the /api/end-auction endpoint with prevAuctionId
     fetch("".concat(document.location.origin, "/api/end-auction"), {
@@ -51853,8 +51998,20 @@ var UserAuctionTransactionComponent = function UserAuctionTransactionComponent(_
     }).then(function (response) {
       return response.json();
     }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
+      setAlertMessage(json.message || json.type);
+      setAlertType('success');
+      setTimeout(function () {
+        if (json.type === 'error') {
+          setAlertMessage(json.message);
+        } else {
+          history.push('/transaction-pool');
+        }
+      }, 5000); // delay of 5 seconds
+      /* alert(json.message || json.type);
+      history.push('/transaction-pool'); */
+    }).catch(function (error) {
+      setAlertMessage(error.message);
+      setAlertType('danger');
     });
   };
   var handleAuctionClose = function handleAuctionClose() {
@@ -51870,8 +52027,20 @@ var UserAuctionTransactionComponent = function UserAuctionTransactionComponent(_
     }).then(function (response) {
       return response.json();
     }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
+      setAlertMessage(json.message || json.type);
+      setAlertType('success');
+      setTimeout(function () {
+        if (json.type === 'error') {
+          setAlertMessage(json.message);
+        } else {
+          history.push('/transaction-pool');
+        }
+      }, 5000); // delay of 5 seconds
+      /* alert(json.message || json.type);
+      history.push('/transaction-pool'); */
+    }).catch(function (error) {
+      setAlertMessage(error.message);
+      setAlertType('danger');
     });
   };
   var handleModalShow = function handleModalShow() {
@@ -51895,8 +52064,20 @@ var UserAuctionTransactionComponent = function UserAuctionTransactionComponent(_
     }).then(function (response) {
       return response.json();
     }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
+      setAlertMessage(json.message || json.type);
+      setAlertType('success');
+      setTimeout(function () {
+        if (json.type === 'error') {
+          setAlertMessage(json.message);
+        } else {
+          history.push('/transaction-pool');
+        }
+      }, 5000); // delay of 5 seconds
+      /* alert(json.message || json.type);
+      history.push('/transaction-pool'); */
+    }).catch(function (error) {
+      setAlertMessage(error.message);
+      setAlertType('danger');
     });
 
     // Reset the form values and close the modal
@@ -51964,7 +52145,14 @@ var UserAuctionTransactionComponent = function UserAuctionTransactionComponent(_
   }, "Close"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     variant: "danger",
     onClick: handleReinitiateAuction
-  }, "Save Changes")))));
+  }, "Save Changes"))), /*#__PURE__*/_react.default.createElement("div", {
+    className: "banner-container"
+  }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+    variant: alertType,
+    style: {
+      marginTop: '10px'
+    }
+  }, alertMessage))));
 };
 var _default = UserAuctionTransactionComponent;
 exports.default = _default;
@@ -52516,7 +52704,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64012" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51329" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
