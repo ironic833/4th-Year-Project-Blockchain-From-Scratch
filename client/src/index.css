@@ -73,4 +73,18 @@ background-color: #222;
 .ModalColor{
     background-color: #444;
 }
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+.logo {
+    height: 50px;
+    width: 50px;
+    padding-right: 10px;;
+}
+
   

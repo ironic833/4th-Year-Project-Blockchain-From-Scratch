@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import index from '../assets/index.png';
 import NavBar from "./Usability/Navbar";
-import Alert from 'react-bootstrap/Alert';
+import Card from 'react-bootstrap/Card';
 
 class App extends Component {
     state = { walletInfo: {} };
@@ -20,23 +19,68 @@ class App extends Component {
         return(
             <div className="App">
                 <NavBar />
-                <img className='logo' src={index}></img>
                 <br />
                 <div>
                     Welcome to the blockchain....
                 </div>
                 <br />
                 <br />
-                <Alert variant="dark">
-                    <Alert.Heading>Wallet Details</Alert.Heading>
-                    <p>
-                        Address: {address}
-                    </p>
-                    <hr />
-                    <p className="mb-0">
-                        Balance: {balance}
-                    </p>
-                </Alert>
+                <div className="card-container">
+                    <Card className="bg-dark text-white">
+                        <Card.Header>Wallet Details</Card.Header>
+                        <Card.Body>
+                            <Card.Title>Address</Card.Title>
+                            <Card.Text>{address}</Card.Text>
+                            <Card.Title>Balance</Card.Title>
+                            <Card.Text>{balance}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card className="bg-dark text-white">
+                        <Card.Header>Wallet Details</Card.Header>
+                        <Card.Body>
+                            <Card.Title>Address</Card.Title>
+                            <Card.Text>{address}</Card.Text>
+                            <Card.Title>Balance</Card.Title>
+                            <Card.Text>{balance}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card className="bg-dark text-white">
+                        <Card.Header>Wallet Details</Card.Header>
+                        <Card.Body>
+                            <Card.Title>Address</Card.Title>
+                            <Card.Text>{address}</Card.Text>
+                            <Card.Title>Balance</Card.Title>
+                            <Card.Text>{balance}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card className="bg-dark text-white">
+                        <Card.Header>Wallet Details</Card.Header>
+                        <Card.Body>
+                            <Card.Title>Address</Card.Title>
+                            <Card.Text>{address}</Card.Text>
+                            <Card.Title>Balance</Card.Title>
+                            <Card.Text>{balance}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card className="bg-dark text-white">
+                        <Card.Header>Wallet Details</Card.Header>
+                        <Card.Body>
+                            <Card.Title>Address</Card.Title>
+                            <Card.Text>{address}</Card.Text>
+                            <Card.Title>Balance</Card.Title>
+                            <Card.Text>{balance}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card className="bg-dark text-white">
+                        <Card.Header>Wallet Details</Card.Header>
+                        <Card.Body>
+                            <Card.Title>Address</Card.Title>
+                            <Card.Text>{address}</Card.Text>
+                            <Card.Title>Balance</Card.Title>
+                            <Card.Text>{balance}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </div>
             </div>
         );
     }

@@ -33805,9 +33805,7 @@ var _createBrowserHistory = _interopRequireDefault(require("history/createBrowse
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var _default = (0, _createBrowserHistory.default)();
 exports.default = _default;
-},{"history/createBrowserHistory":"../../node_modules/history/createBrowserHistory.js"}],"assets/index.png":[function(require,module,exports) {
-module.exports = "/assets.795bb5f8.png";
-},{}],"../../node_modules/classnames/index.js":[function(require,module,exports) {
+},{"history/createBrowserHistory":"../../node_modules/history/createBrowserHistory.js"}],"../../node_modules/classnames/index.js":[function(require,module,exports) {
 var define;
 /*!
 	Copyright (c) 2018 Jed Watson.
@@ -44222,7 +44220,9 @@ var _default = Object.assign(NavDropdown, {
   Header: _Dropdown.default.Header
 });
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Dropdown":"../../node_modules/react-bootstrap/esm/Dropdown.js","./NavLink":"../../node_modules/react-bootstrap/esm/NavLink.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"components/Usability/Navbar.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Dropdown":"../../node_modules/react-bootstrap/esm/Dropdown.js","./NavLink":"../../node_modules/react-bootstrap/esm/NavLink.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"assets/icon.png":[function(require,module,exports) {
+module.exports = "/icon.9c86b69e.png";
+},{}],"components/Usability/Navbar.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44234,6 +44234,7 @@ var _Nav = _interopRequireDefault(require("react-bootstrap/Nav"));
 var _Navbar = _interopRequireDefault(require("react-bootstrap/Navbar"));
 var _NavDropdown = _interopRequireDefault(require("react-bootstrap/NavDropdown"));
 var _react = _interopRequireDefault(require("react"));
+var _icon = _interopRequireDefault(require("../../assets/icon.png"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function BlockNavbar() {
   return /*#__PURE__*/_react.default.createElement(_Navbar.default, {
@@ -44243,7 +44244,11 @@ function BlockNavbar() {
     className: "fixed-top"
   }, /*#__PURE__*/_react.default.createElement(_Container.default, null, /*#__PURE__*/_react.default.createElement(_Navbar.default.Brand, {
     href: "/"
-  }, "Auction Chain"), /*#__PURE__*/_react.default.createElement(_Navbar.default.Toggle, {
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _icon.default,
+    className: "logo",
+    alt: "Logo"
+  }), "Auction Chain"), /*#__PURE__*/_react.default.createElement(_Navbar.default.Toggle, {
     "aria-controls": "basic-navbar-nav"
   }), /*#__PURE__*/_react.default.createElement(_Navbar.default.Collapse, {
     id: "basic-navbar-nav"
@@ -44259,7 +44264,11 @@ function BlockNavbar() {
     href: "/auctions"
   }, "Auctions"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
     href: "/address-book"
-  }, "Address Book")), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
+  }, "Address Book"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/wallet-history"
+  }, "Wallet History"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/item-history"
+  }, "Item History")), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
     menuVariant: "dark",
     title: "Transact",
     id: "basic-nav-dropdown"
@@ -44269,7 +44278,7 @@ function BlockNavbar() {
 }
 var _default = BlockNavbar;
 exports.default = _default;
-},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"../../node_modules/react-bootstrap/esm/Alert.js":[function(require,module,exports) {
+},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js","../../assets/icon.png":"assets/icon.png"}],"../../node_modules/react-bootstrap/esm/CardImg.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44278,83 +44287,143 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _classnames = _interopRequireDefault(require("classnames"));
 var React = _interopRequireWildcard(require("react"));
-var _uncontrollable = require("uncontrollable");
-var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
-var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
 var _ThemeProvider = require("./ThemeProvider");
-var _Fade = _interopRequireDefault(require("./Fade"));
-var _CloseButton = _interopRequireDefault(require("./CloseButton"));
-var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
-var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
 var _jsxRuntime = require("react/jsx-runtime");
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const DivStyledAsH4 = (0, _divWithClassName.default)('h4');
-DivStyledAsH4.displayName = 'DivStyledAsH4';
-const AlertHeading = (0, _createWithBsPrefix.default)('alert-heading', {
-  Component: DivStyledAsH4
-});
-const AlertLink = (0, _createWithBsPrefix.default)('alert-link', {
-  Component: _Anchor.default
-});
-const defaultProps = {
-  variant: 'primary',
-  show: true,
-  transition: _Fade.default,
-  closeLabel: 'Close alert'
-};
-const Alert = /*#__PURE__*/React.forwardRef((uncontrolledProps, ref) => {
-  const {
-    bsPrefix,
-    show,
-    closeLabel,
-    closeVariant,
-    className,
-    children,
-    variant,
-    onClose,
-    dismissible,
-    transition,
-    ...props
-  } = (0, _uncontrollable.useUncontrolled)(uncontrolledProps, {
-    show: 'onClose'
-  });
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'alert');
-  const handleClose = (0, _useEventCallback.default)(e => {
-    if (onClose) {
-      onClose(false, e);
-    }
-  });
-  const Transition = transition === true ? _Fade.default : transition;
-  const alert = /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-    role: "alert",
-    ...(!Transition ? props : undefined),
+const CardImg = /*#__PURE__*/React.forwardRef(
+// Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+({
+  bsPrefix,
+  className,
+  variant,
+  as: Component = 'img',
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card-img');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
     ref: ref,
-    className: (0, _classnames.default)(className, prefix, variant && `${prefix}-${variant}`, dismissible && `${prefix}-dismissible`),
-    children: [dismissible && /*#__PURE__*/(0, _jsxRuntime.jsx)(_CloseButton.default, {
-      onClick: handleClose,
-      "aria-label": closeLabel,
-      variant: closeVariant
-    }), children]
-  });
-  if (!Transition) return show ? alert : null;
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Transition, {
-    unmountOnExit: true,
-    ...props,
-    ref: undefined,
-    in: show,
-    children: alert
+    className: (0, _classnames.default)(variant ? `${prefix}-${variant}` : prefix, className),
+    ...props
   });
 });
-Alert.displayName = 'Alert';
-Alert.defaultProps = defaultProps;
-var _default = Object.assign(Alert, {
-  Link: AlertLink,
-  Heading: AlertHeading
+CardImg.displayName = 'CardImg';
+var _default = CardImg;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardHeader.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _CardHeaderContext = _interopRequireDefault(require("./CardHeaderContext"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const CardHeader = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card-header');
+  const contextValue = (0, React.useMemo)(() => ({
+    cardHeaderBsPrefix: prefix
+  }), [prefix]);
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_CardHeaderContext.default.Provider, {
+    value: contextValue,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+      ref: ref,
+      ...props,
+      className: (0, _classnames.default)(className, prefix)
+    })
+  });
+});
+CardHeader.displayName = 'CardHeader';
+var _default = CardHeader;
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./CardHeaderContext":"../../node_modules/react-bootstrap/esm/CardHeaderContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Card.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _ThemeProvider = require("./ThemeProvider");
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
+var _CardImg = _interopRequireDefault(require("./CardImg"));
+var _CardHeader = _interopRequireDefault(require("./CardHeader"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const DivStyledAsH5 = (0, _divWithClassName.default)('h5');
+const DivStyledAsH6 = (0, _divWithClassName.default)('h6');
+const CardBody = (0, _createWithBsPrefix.default)('card-body');
+const CardTitle = (0, _createWithBsPrefix.default)('card-title', {
+  Component: DivStyledAsH5
+});
+const CardSubtitle = (0, _createWithBsPrefix.default)('card-subtitle', {
+  Component: DivStyledAsH6
+});
+const CardLink = (0, _createWithBsPrefix.default)('card-link', {
+  Component: 'a'
+});
+const CardText = (0, _createWithBsPrefix.default)('card-text', {
+  Component: 'p'
+});
+const CardFooter = (0, _createWithBsPrefix.default)('card-footer');
+const CardImgOverlay = (0, _createWithBsPrefix.default)('card-img-overlay');
+const defaultProps = {
+  body: false
+};
+const Card = /*#__PURE__*/React.forwardRef(({
+  bsPrefix,
+  className,
+  bg,
+  text,
+  border,
+  body,
+  children,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card');
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: (0, _classnames.default)(className, prefix, bg && `bg-${bg}`, text && `text-${text}`, border && `border-${border}`),
+    children: body ? /*#__PURE__*/(0, _jsxRuntime.jsx)(CardBody, {
+      children: children
+    }) : children
+  });
+});
+Card.displayName = 'Card';
+Card.defaultProps = defaultProps;
+var _default = Object.assign(Card, {
+  Img: _CardImg.default,
+  Title: CardTitle,
+  Subtitle: CardSubtitle,
+  Body: CardBody,
+  Link: CardLink,
+  Text: CardText,
+  Header: _CardHeader.default,
+  Footer: CardFooter,
+  ImgOverlay: CardImgOverlay
 });
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"components/App.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js","./CardImg":"../../node_modules/react-bootstrap/esm/CardImg.js","./CardHeader":"../../node_modules/react-bootstrap/esm/CardHeader.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"components/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44362,9 +44431,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
-var _index = _interopRequireDefault(require("../assets/index.png"));
 var _Navbar = _interopRequireDefault(require("./Usability/Navbar"));
-var _Alert = _interopRequireDefault(require("react-bootstrap/Alert"));
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -44417,21 +44485,28 @@ var App = /*#__PURE__*/function (_Component) {
         balance = _this$state$walletInf.balance;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "App"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("img", {
-        className: "logo",
-        src: _index.default
-      }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Welcome to the blockchain...."), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_Alert.default, {
-        variant: "dark"
-      }, /*#__PURE__*/_react.default.createElement(_Alert.default.Heading, null, "Wallet Details"), /*#__PURE__*/_react.default.createElement("p", null, "Address: ", address), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", {
-        className: "mb-0"
-      }, "Balance: ", balance)));
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Welcome to the blockchain...."), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "card-container"
+      }, /*#__PURE__*/_react.default.createElement(_Card.default, {
+        className: "bg-dark text-white"
+      }, /*#__PURE__*/_react.default.createElement(_Card.default.Header, null, "Wallet Details"), /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Address"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, address), /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Balance"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, balance))), /*#__PURE__*/_react.default.createElement(_Card.default, {
+        className: "bg-dark text-white"
+      }, /*#__PURE__*/_react.default.createElement(_Card.default.Header, null, "Wallet Details"), /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Address"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, address), /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Balance"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, balance))), /*#__PURE__*/_react.default.createElement(_Card.default, {
+        className: "bg-dark text-white"
+      }, /*#__PURE__*/_react.default.createElement(_Card.default.Header, null, "Wallet Details"), /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Address"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, address), /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Balance"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, balance))), /*#__PURE__*/_react.default.createElement(_Card.default, {
+        className: "bg-dark text-white"
+      }, /*#__PURE__*/_react.default.createElement(_Card.default.Header, null, "Wallet Details"), /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Address"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, address), /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Balance"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, balance))), /*#__PURE__*/_react.default.createElement(_Card.default, {
+        className: "bg-dark text-white"
+      }, /*#__PURE__*/_react.default.createElement(_Card.default.Header, null, "Wallet Details"), /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Address"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, address), /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Balance"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, balance))), /*#__PURE__*/_react.default.createElement(_Card.default, {
+        className: "bg-dark text-white"
+      }, /*#__PURE__*/_react.default.createElement(_Card.default.Header, null, "Wallet Details"), /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Address"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, address), /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Balance"), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, balance)))));
     }
   }]);
   return App;
 }(_react.Component);
 var _default = App;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","../assets/index.png":"assets/index.png","./Usability/Navbar":"components/Usability/Navbar.js","react-bootstrap/Alert":"../../node_modules/react-bootstrap/esm/Alert.js"}],"../../node_modules/react-bootstrap/esm/AccordionContext.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./Usability/Navbar":"components/Usability/Navbar.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js"}],"../../node_modules/react-bootstrap/esm/AccordionContext.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44771,7 +44846,92 @@ var _default = Object.assign(Accordion, {
   Body: _AccordionBody.default
 });
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionBody":"../../node_modules/react-bootstrap/esm/AccordionBody.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionHeader":"../../node_modules/react-bootstrap/esm/AccordionHeader.js","./AccordionItem":"../../node_modules/react-bootstrap/esm/AccordionItem.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Anchor.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./AccordionBody":"../../node_modules/react-bootstrap/esm/AccordionBody.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionHeader":"../../node_modules/react-bootstrap/esm/AccordionHeader.js","./AccordionItem":"../../node_modules/react-bootstrap/esm/AccordionItem.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Alert.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _classnames = _interopRequireDefault(require("classnames"));
+var React = _interopRequireWildcard(require("react"));
+var _uncontrollable = require("uncontrollable");
+var _useEventCallback = _interopRequireDefault(require("@restart/hooks/useEventCallback"));
+var _Anchor = _interopRequireDefault(require("@restart/ui/Anchor"));
+var _ThemeProvider = require("./ThemeProvider");
+var _Fade = _interopRequireDefault(require("./Fade"));
+var _CloseButton = _interopRequireDefault(require("./CloseButton"));
+var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+var _jsxRuntime = require("react/jsx-runtime");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const DivStyledAsH4 = (0, _divWithClassName.default)('h4');
+DivStyledAsH4.displayName = 'DivStyledAsH4';
+const AlertHeading = (0, _createWithBsPrefix.default)('alert-heading', {
+  Component: DivStyledAsH4
+});
+const AlertLink = (0, _createWithBsPrefix.default)('alert-link', {
+  Component: _Anchor.default
+});
+const defaultProps = {
+  variant: 'primary',
+  show: true,
+  transition: _Fade.default,
+  closeLabel: 'Close alert'
+};
+const Alert = /*#__PURE__*/React.forwardRef((uncontrolledProps, ref) => {
+  const {
+    bsPrefix,
+    show,
+    closeLabel,
+    closeVariant,
+    className,
+    children,
+    variant,
+    onClose,
+    dismissible,
+    transition,
+    ...props
+  } = (0, _uncontrollable.useUncontrolled)(uncontrolledProps, {
+    show: 'onClose'
+  });
+  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'alert');
+  const handleClose = (0, _useEventCallback.default)(e => {
+    if (onClose) {
+      onClose(false, e);
+    }
+  });
+  const Transition = transition === true ? _Fade.default : transition;
+  const alert = /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+    role: "alert",
+    ...(!Transition ? props : undefined),
+    ref: ref,
+    className: (0, _classnames.default)(className, prefix, variant && `${prefix}-${variant}`, dismissible && `${prefix}-dismissible`),
+    children: [dismissible && /*#__PURE__*/(0, _jsxRuntime.jsx)(_CloseButton.default, {
+      onClick: handleClose,
+      "aria-label": closeLabel,
+      variant: closeVariant
+    }), children]
+  });
+  if (!Transition) return show ? alert : null;
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Transition, {
+    unmountOnExit: true,
+    ...props,
+    ref: undefined,
+    in: show,
+    children: alert
+  });
+});
+Alert.displayName = 'Alert';
+Alert.defaultProps = defaultProps;
+var _default = Object.assign(Alert, {
+  Link: AlertLink,
+  Heading: AlertHeading
+});
+exports.default = _default;
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","uncontrollable":"../../node_modules/uncontrollable/lib/esm/index.js","@restart/hooks/useEventCallback":"../../node_modules/@restart/hooks/esm/useEventCallback.js","@restart/ui/Anchor":"../../node_modules/@restart/ui/esm/Anchor.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Anchor.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44995,152 +45155,7 @@ ButtonToolbar.displayName = 'ButtonToolbar';
 ButtonToolbar.defaultProps = defaultProps;
 var _default = ButtonToolbar;
 exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardImg.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const CardImg = /*#__PURE__*/React.forwardRef(
-// Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-({
-  bsPrefix,
-  className,
-  variant,
-  as: Component = 'img',
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card-img');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ref: ref,
-    className: (0, _classnames.default)(variant ? `${prefix}-${variant}` : prefix, className),
-    ...props
-  });
-});
-CardImg.displayName = 'CardImg';
-var _default = CardImg;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardHeader.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _CardHeaderContext = _interopRequireDefault(require("./CardHeaderContext"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const CardHeader = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card-header');
-  const contextValue = (0, React.useMemo)(() => ({
-    cardHeaderBsPrefix: prefix
-  }), [prefix]);
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_CardHeaderContext.default.Provider, {
-    value: contextValue,
-    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-      ref: ref,
-      ...props,
-      className: (0, _classnames.default)(className, prefix)
-    })
-  });
-});
-CardHeader.displayName = 'CardHeader';
-var _default = CardHeader;
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./CardHeaderContext":"../../node_modules/react-bootstrap/esm/CardHeaderContext.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/Card.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _classnames = _interopRequireDefault(require("classnames"));
-var React = _interopRequireWildcard(require("react"));
-var _ThemeProvider = require("./ThemeProvider");
-var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
-var _divWithClassName = _interopRequireDefault(require("./divWithClassName"));
-var _CardImg = _interopRequireDefault(require("./CardImg"));
-var _CardHeader = _interopRequireDefault(require("./CardHeader"));
-var _jsxRuntime = require("react/jsx-runtime");
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-const DivStyledAsH5 = (0, _divWithClassName.default)('h5');
-const DivStyledAsH6 = (0, _divWithClassName.default)('h6');
-const CardBody = (0, _createWithBsPrefix.default)('card-body');
-const CardTitle = (0, _createWithBsPrefix.default)('card-title', {
-  Component: DivStyledAsH5
-});
-const CardSubtitle = (0, _createWithBsPrefix.default)('card-subtitle', {
-  Component: DivStyledAsH6
-});
-const CardLink = (0, _createWithBsPrefix.default)('card-link', {
-  Component: 'a'
-});
-const CardText = (0, _createWithBsPrefix.default)('card-text', {
-  Component: 'p'
-});
-const CardFooter = (0, _createWithBsPrefix.default)('card-footer');
-const CardImgOverlay = (0, _createWithBsPrefix.default)('card-img-overlay');
-const defaultProps = {
-  body: false
-};
-const Card = /*#__PURE__*/React.forwardRef(({
-  bsPrefix,
-  className,
-  bg,
-  text,
-  border,
-  body,
-  children,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  const prefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'card');
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: (0, _classnames.default)(className, prefix, bg && `bg-${bg}`, text && `text-${text}`, border && `border-${border}`),
-    children: body ? /*#__PURE__*/(0, _jsxRuntime.jsx)(CardBody, {
-      children: children
-    }) : children
-  });
-});
-Card.displayName = 'Card';
-Card.defaultProps = defaultProps;
-var _default = Object.assign(Card, {
-  Img: _CardImg.default,
-  Title: CardTitle,
-  Subtitle: CardSubtitle,
-  Body: CardBody,
-  Link: CardLink,
-  Text: CardText,
-  Header: _CardHeader.default,
-  Footer: CardFooter,
-  ImgOverlay: CardImgOverlay
-});
-exports.default = _default;
-},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./createWithBsPrefix":"../../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./divWithClassName":"../../node_modules/react-bootstrap/esm/divWithClassName.js","./CardImg":"../../node_modules/react-bootstrap/esm/CardImg.js","./CardHeader":"../../node_modules/react-bootstrap/esm/CardHeader.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardGroup.js":[function(require,module,exports) {
+},{"classnames":"../../node_modules/classnames/index.js","react":"../../node_modules/react/index.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","react/jsx-runtime":"../../node_modules/react/jsx-runtime.js"}],"../../node_modules/react-bootstrap/esm/CardGroup.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51023,6 +51038,8 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactBootstrap = require("react-bootstrap");
 var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
 var _reactCopyToClipboard = require("react-copy-to-clipboard");
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+var _Pagination = _interopRequireDefault(require("react-bootstrap/Pagination"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -51053,7 +51070,14 @@ var AddressBook = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {
       recipient: '',
       amount: 0,
-      knownAddresses: []
+      knownAddresses: [],
+      currentPage: 1,
+      pageSize: 5
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePageChange", function (page) {
+      _this.setState({
+        currentPage: page
+      });
     });
     return _this;
   }
@@ -51072,26 +51096,52 @@ var AddressBook = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+      var _this$state = this.state,
+        knownAddresses = _this$state.knownAddresses,
+        currentPage = _this$state.currentPage,
+        pageSize = _this$state.pageSize;
+      var pageCount = Math.ceil(knownAddresses.length / pageSize);
+      var startIndex = (currentPage - 1) * pageSize;
+      var endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
+      var displayedAddresses = knownAddresses.slice(startIndex, endIndex);
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "ConductTransaction"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("ul", {
-        style: {
-          listStyleType: 'none',
-          padding: '10px',
-          backgroundColor: '#343a40',
-          borderRadius: '5px'
-        }
-      }, this.state.knownAddresses.map(function (knownAddress) {
-        return /*#__PURE__*/_react.default.createElement("li", {
-          key: knownAddress,
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("hr", null), displayedAddresses.length === 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "No wallets found, Check back later!")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Pagination.default, {
+        className: "justify-content-center"
+      }, Array.from({
+        length: pageCount
+      }).map(function (_, index) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           style: {
-            marginBottom: '10px',
-            color: 'white',
-            padding: '10px',
-            border: '1px solid white',
-            borderRadius: '5px'
+            padding: 10
+          },
+          variant: "danger",
+          key: index,
+          active: index + 1 === currentPage,
+          onClick: function onClick() {
+            return _this3.handlePageChange(index + 1);
           }
-        }, knownAddress, /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+        }, index + 1);
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("ul", {
+        style: {
+          listStyleType: 'none'
+        }
+      }, displayedAddresses.map(function (knownAddress, index) {
+        return /*#__PURE__*/_react.default.createElement("li", {
+          key: knownAddress
+        }, /*#__PURE__*/_react.default.createElement(_Card.default, {
+          className: "bg-dark text-white",
+          style: {
+            padding: '10px',
+            margin: 'auto',
+            maxWidth: '800px'
+          }
+        }, /*#__PURE__*/_react.default.createElement(_Card.default.Text, {
+          style: {
+            textAlign: 'center'
+          }
+        }, knownAddress), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
           text: knownAddress
         }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           variant: "danger",
@@ -51099,7 +51149,7 @@ var AddressBook = /*#__PURE__*/function (_Component) {
           style: {
             margin: '10px'
           }
-        }, "Copy")));
+        }, "Copy"))), /*#__PURE__*/_react.default.createElement("br", null));
       }))), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
@@ -51108,7 +51158,243 @@ var AddressBook = /*#__PURE__*/function (_Component) {
 ;
 var _default = AddressBook;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Pagination":"../../node_modules/react-bootstrap/esm/Pagination.js"}],"components/Usability/AuctionHistoryRequest.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var AuctionHistory = /*#__PURE__*/function (_Component) {
+  _inherits(AuctionHistory, _Component);
+  var _super = _createSuper(AuctionHistory);
+  function AuctionHistory() {
+    var _this;
+    _classCallCheck(this, AuctionHistory);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      auctionItemId: '',
+      retrievedAuctionHistory: null,
+      showAlert: false
+    });
+    _defineProperty(_assertThisInitialized(_this), "updateauctionId", function (event) {
+      _this.setState({
+        auctionItemId: event.target.value
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "auctionHistoryRequest", function () {
+      var auctionItemId = _this.state.auctionItemId;
+      fetch("".concat(document.location.origin, "/api/item-history"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          auctionItemId: auctionItemId
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this.setState({
+          retrievedAuctionHistory: json,
+          showAlert: true
+        });
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "renderAlertBox", function (item) {
+      if (item.owner) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: item.timestamp,
+          variant: "success"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", item["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Name: ", item["name"]), /*#__PURE__*/_react.default.createElement("p", null, "Description: ", item["description"]), /*#__PURE__*/_react.default.createElement("p", null, "Starting bid: ", item["starting bid"]), /*#__PURE__*/_react.default.createElement("p", null, "Auction end time: ", item["auction end time"]), /*#__PURE__*/_react.default.createElement("p", null, "Owner: ", item["owner"]));
+      } else {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: item.timestamp,
+          variant: "info"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", item["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Bidder: ", item["bidder"]), /*#__PURE__*/_react.default.createElement("p", null, "Bid: ", item["bid"]));
+      }
+    });
+    return _this;
+  }
+  _createClass(AuctionHistory, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var _this$state = this.state,
+        retrievedAuctionHistory = _this$state.retrievedAuctionHistory,
+        showAlert = _this$state.showAlert;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "auctionHistory"
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auction History"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+        input: "text",
+        placeholder: "Auction ID",
+        value: this.state.auctionItemId,
+        onChange: this.updateauctionId,
+        style: {
+          marginBottom: '10px',
+          width: '60%',
+          margin: '0 auto'
+        }
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, retrievedAuctionHistory && showAlert && /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Auction History:"), retrievedAuctionHistory.map(function (item) {
+        return _this2.renderAlertBox(item);
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        onClick: this.auctionHistoryRequest
+      }, "Submit")));
+    }
+  }]);
+  return AuctionHistory;
+}(_react.Component);
+;
+var _default = AuctionHistory;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Usability/walletHistoryRequest.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var walletHistory = /*#__PURE__*/function (_Component) {
+  _inherits(walletHistory, _Component);
+  var _super = _createSuper(walletHistory);
+  function walletHistory() {
+    var _this;
+    _classCallCheck(this, walletHistory);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      walletAddress: '',
+      retrievedWalletHistory: null,
+      showAlert: false // new state variable to store response
+    });
+    _defineProperty(_assertThisInitialized(_this), "updatewalletAddress", function (event) {
+      _this.setState({
+        walletAddress: event.target.value
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "walletHistoryRequest", function () {
+      var walletAddress = _this.state.walletAddress;
+      fetch("".concat(document.location.origin, "/api/wallet-history"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          walletAddress: walletAddress
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this.setState({
+          retrievedWalletHistory: json,
+          showAlert: true
+        }); // reload the page after response is received
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "renderAlertBox", function (historyItem) {
+      if (historyItem.owner) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: historyItem.timestamp,
+          variant: "success"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", historyItem["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Name: ", historyItem["name"]), /*#__PURE__*/_react.default.createElement("p", null, "Description: ", historyItem["description"]), /*#__PURE__*/_react.default.createElement("p", null, "Starting bid: ", historyItem["starting bid"]), /*#__PURE__*/_react.default.createElement("p", null, "Auction end time: ", historyItem["auction end time"]), /*#__PURE__*/_react.default.createElement("p", null, "Owner: ", historyItem["owner"]));
+      } else if (historyItem.bid) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: historyItem.timestamp,
+          variant: "info"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", historyItem["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Bidder: ", historyItem["bidder"]), /*#__PURE__*/_react.default.createElement("p", null, "Bid: ", historyItem["bid"]));
+      } /* else {
+        return (
+          <Alert key={historyItem.timestamp} variant="info">
+            <p>{historyItem[]}</p>
+          </Alert>
+        );
+        } */
+    });
+    return _this;
+  }
+  _createClass(walletHistory, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var _this$state = this.state,
+        retrievedWalletHistory = _this$state.retrievedWalletHistory,
+        showAlert = _this$state.showAlert;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "walletHistory"
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Wallet History"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+        input: "text",
+        placeholder: "Wallet ID",
+        value: this.state.walletAddress,
+        onChange: this.updatewalletAddress,
+        style: {
+          marginBottom: '10px',
+          width: '60%',
+          margin: '0 auto'
+        }
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, retrievedWalletHistory && showAlert && /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Wallet History:"), retrievedWalletHistory.map(function (historyItem) {
+        return _this2.renderAlertBox(historyItem);
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        onClick: this.walletHistoryRequest
+      }, "Submit")));
+    }
+  }]);
+  return walletHistory;
+}(_react.Component);
+;
+var _default = walletHistory;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -51181,6 +51467,8 @@ var _Blocks = _interopRequireDefault(require("./components/Block/Blocks"));
 var _TransactionPool = _interopRequireDefault(require("./components/Transact/TransactionPool"));
 var _Auctions = _interopRequireDefault(require("./components/Auction/Auctions"));
 var _AddressBook = _interopRequireDefault(require("./components/Usability/AddressBook"));
+var _AuctionHistoryRequest = _interopRequireDefault(require("./components/Usability/AuctionHistoryRequest"));
+var _walletHistoryRequest = _interopRequireDefault(require("./components/Usability/walletHistoryRequest"));
 require("bootstrap/dist/css/bootstrap.min.css");
 require("./index.css");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -51202,8 +51490,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
   path: "/address-book",
   component: _AddressBook.default
+}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  path: "/wallet-history",
+  component: _walletHistoryRequest.default
+}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  path: "/item-history",
+  component: _AuctionHistoryRequest.default
 }))), document.getElementById('root'));
-},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./history":"history.js","./components/App":"components/App.js","./components/Block/Blocks":"components/Block/Blocks.js","./components/Transact/TransactionPool":"components/Transact/TransactionPool.js","./components/Auction/Auctions":"components/Auction/Auctions.js","./components/Usability/AddressBook":"components/Usability/AddressBook.js","bootstrap/dist/css/bootstrap.min.css":"../../node_modules/bootstrap/dist/css/bootstrap.min.css","./index.css":"index.css"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./history":"history.js","./components/App":"components/App.js","./components/Block/Blocks":"components/Block/Blocks.js","./components/Transact/TransactionPool":"components/Transact/TransactionPool.js","./components/Auction/Auctions":"components/Auction/Auctions.js","./components/Usability/AddressBook":"components/Usability/AddressBook.js","./components/Usability/AuctionHistoryRequest":"components/Usability/AuctionHistoryRequest.js","./components/Usability/walletHistoryRequest":"components/Usability/walletHistoryRequest.js","bootstrap/dist/css/bootstrap.min.css":"../../node_modules/bootstrap/dist/css/bootstrap.min.css","./index.css":"index.css"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -51228,7 +51522,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61587" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61424" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
