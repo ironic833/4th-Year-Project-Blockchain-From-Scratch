@@ -82,4 +82,6 @@ background-color: #222;
 
 .logo {
     height: 50px;
+    width: 50px;
+    padding-right: 10px;;
 }
