@@ -79,4 +79,7 @@ background-color: #222;
     margin: 0 auto; /* center the container horizontally */
     padding: 20px; /* add equal padding on all sides */
 }
-  
+
+.logo {
+    height: 50px;
+}
