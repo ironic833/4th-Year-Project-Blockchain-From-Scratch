@@ -52402,71 +52402,82 @@ var walletHistory = /*#__PURE__*/function (_Component) {
     }
     _this = _super.call.apply(_super, [this].concat(args));
     _defineProperty(_assertThisInitialized(_this), "state", {
-      walletId: '',
+      walletAddress: '',
       retrievedWalletHistory: null,
-      alertMessage: '',
-      alertType: '' // new state variable to store response
+      showAlert: false // new state variable to store response
     });
-    _defineProperty(_assertThisInitialized(_this), "updatewalletId", function (event) {
+    _defineProperty(_assertThisInitialized(_this), "updatewalletAddress", function (event) {
       _this.setState({
-        walletId: event.target.value
+        walletAddress: event.target.value
       });
     });
     _defineProperty(_assertThisInitialized(_this), "walletHistoryRequest", function () {
-      var walletId = _this.state.walletId;
+      var walletAddress = _this.state.walletAddress;
       fetch("".concat(document.location.origin, "/api/wallet-history"), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          walletId: walletId
+          walletAddress: walletAddress
         })
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
         _this.setState({
-          alertMessage: json.message,
-          alertType: 'success'
-        });
-      }).catch(function (error) {
-        _this.setState({
-          alertMessage: error.message,
-          alertType: 'danger'
-        });
+          retrievedWalletHistory: json,
+          showAlert: true
+        }); // reload the page after response is received
       });
+    });
+    _defineProperty(_assertThisInitialized(_this), "renderAlertBox", function (historyItem) {
+      if (historyItem.owner) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: historyItem.timestamp,
+          variant: "success"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", historyItem["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Name: ", historyItem["name"]), /*#__PURE__*/_react.default.createElement("p", null, "Description: ", historyItem["description"]), /*#__PURE__*/_react.default.createElement("p", null, "Starting bid: ", historyItem["starting bid"]), /*#__PURE__*/_react.default.createElement("p", null, "Auction end time: ", historyItem["auction end time"]), /*#__PURE__*/_react.default.createElement("p", null, "Owner: ", historyItem["owner"]));
+      } else if (historyItem.bid) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: historyItem.timestamp,
+          variant: "info"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", historyItem["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Bidder: ", historyItem["bidder"]), /*#__PURE__*/_react.default.createElement("p", null, "Bid: ", historyItem["bid"]));
+      } /* else {
+        return (
+          <Alert key={historyItem.timestamp} variant="info">
+            <p>{historyItem[]}</p>
+          </Alert>
+        );
+        } */
     });
     return _this;
   }
   _createClass(walletHistory, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
       var _this$state = this.state,
-        alertMessage = _this$state.alertMessage,
-        alertType = _this$state.alertType;
+        retrievedWalletHistory = _this$state.retrievedWalletHistory,
+        showAlert = _this$state.showAlert;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "walletHistory"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Wallet History"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
         input: "text",
         placeholder: "Wallet ID",
-        value: this.state.walletId,
-        onChange: this.updatewalletId,
+        value: this.state.walletAddress,
+        onChange: this.updatewalletAddress,
         style: {
           marginBottom: '10px',
           width: '60%',
           margin: '0 auto'
         }
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, retrievedWalletHistory && showAlert && /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h4", null, "Wallet History:"), retrievedWalletHistory.map(function (historyItem) {
+        return _this2.renderAlertBox(historyItem);
       })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.walletHistoryRequest
-      }, "Submit"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
-        className: "banner-container"
-      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
-        variant: alertType,
-        style: {
-          marginTop: '10px'
-        }
-      }, alertMessage)));
+      }, "Submit")));
     }
   }]);
   return walletHistory;
@@ -52737,7 +52748,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60211" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59950" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
