@@ -22,15 +22,6 @@ app.use(bodyParser.json());
 app.use(express.static( path.join(__dirname, 'client/dist')));
 
 
-app.get('/api/wallet-mnemoic-generate', (req, res) => {
-
-  WalletMnemonic = new Wallet();
-
-  walletPhrase = WalletMnemonic.mnemonic;
-
-  res.json(walletPhrase);
-});
-
 const syncWithRootState = () => {
   request({ url: `${ROOT_NODE_ADDRESS}/api/blocks` }, (error, response, body) => {
     if (!error && response.statusCode === 200) {
@@ -133,7 +124,82 @@ app.get('/api/wallet-info', (req, res) => {
   }
 }); 
 
-//accessible via gui
+// accessible in endpoint
+app.post('/api/item-history', (req, res) => {
+
+  if(wallet.publicKey !== undefined){
+
+  const { auctionItemId } = req.body, itemHistory = [];
+  let foundValidBlock = false;
+
+  for (let i = 1; i < blockchain.chain.length; i++) {
+    const block = blockchain.chain[i];
+
+    for (let j = 0; j < block.data.length; j++) {
+      const transaction = block.data[j];
+      console.log(JSON.stringify(transaction) + "\n");
+
+      if (transaction.outputMap['auction ID'] === auctionItemId) {
+        itemHistory.push(transaction.outputMap);
+        foundValidBlock = true;
+      }
+    }
+  }
+
+  if(!foundValidBlock) {
+    return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+  }
+
+  res.json(itemHistory);
+
+  } else {
+
+    return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+    
+  }
+  
+});
+
+app.post('/api/wallet-history', (req, res) => {
+  if (wallet.publicKey !== undefined) {
+
+    const { walletAddress } = req.body, walletHistory = [], addedTransactions = {};
+    let foundValidAddress = false;
+
+    for (let blockNum = 0; blockNum < blockchain.chain.length; blockNum++) {
+
+      const block = blockchain.chain[blockNum];
+      for (let transaction of block.data) {
+
+        if (transaction.input["address"] === walletAddress) {
+
+          const transactionHash = JSON.stringify(transaction);
+
+          if (!addedTransactions[transactionHash]) {
+
+            addedTransactions[transactionHash] = true;
+
+            walletHistory.push( transaction.outputMap );
+
+            foundValidAddress = true;
+          }
+
+        }
+      }
+    }
+
+    if (!foundValidAddress) {
+      return res.status(404).json({ type: 'error', message: 'No history found for the ID' });
+    }
+
+    res.json(walletHistory);
+
+  } else {
+    return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+  }
+
+});
+
 app.get('/api/known-addresses', (req, res) => {
   const addressMap = {};
 

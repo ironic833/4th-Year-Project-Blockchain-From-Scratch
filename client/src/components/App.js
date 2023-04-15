@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import NavBar from "./Usability/Navbar";
-import Card from 'react-bootstrap/Card';
+import { Button, Card } from 'react-bootstrap';
+import { BsLinkedin, BsFillFileEarmarkPdfFill, BsGithub, BsFillFileCodeFill, BsFillMenuButtonWideFill, BsWindowDesktop } from "react-icons/bs";
+
 
 class App extends Component {
     state = { walletInfo: {} };
@@ -11,73 +13,35 @@ class App extends Component {
             .then(json => this.setState({ walletInfo: json })); 
     }
     
-    
     render() {
-
-        const { address, balance } = this.state.walletInfo;
 
         return(
             <div className="App">
                 <NavBar />
                 <br />
-                <div>
-                    Welcome to the blockchain....
-                </div>
-                <br />
                 <br />
                 <div className="card-container">
                     <Card className="bg-dark text-white">
-                        <Card.Header>Wallet Details</Card.Header>
+                        <Card.Header>Documentation</Card.Header>
                         <Card.Body>
-                            <Card.Title>Address</Card.Title>
-                            <Card.Text>{address}</Card.Text>
-                            <Card.Title>Balance</Card.Title>
-                            <Card.Text>{balance}</Card.Text>
+                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://example.com/projects-research.pdf')}><BsFillFileEarmarkPdfFill />  Download the projects research</Button>
+                            <Button variant="danger" className="home-card-button" onClick={() => window.open('../files/Functional Spec.pdf')}><BsFillFileEarmarkPdfFill />  Download the functional specification</Button>
+                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://example.com/final-report.pdf')}><BsFillFileEarmarkPdfFill />  Download the final report</Button>
+                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://example.com/code-documentation.pdf')}><BsFillFileCodeFill />  Read the code documentation</Button>
                         </Card.Body>
                     </Card>
                     <Card className="bg-dark text-white">
-                        <Card.Header>Wallet Details</Card.Header>
+                        <Card.Header>Deliverables</Card.Header>
                         <Card.Body>
-                            <Card.Title>Address</Card.Title>
-                            <Card.Text>{address}</Card.Text>
-                            <Card.Title>Balance</Card.Title>
-                            <Card.Text>{balance}</Card.Text>
+                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://blocktestpeer.herokuapp.com/')}><BsFillMenuButtonWideFill />  View demo version</Button>
+                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://example.com/desktop-app')}><BsWindowDesktop />  Download the desktop app</Button>
                         </Card.Body>
                     </Card>
                     <Card className="bg-dark text-white">
-                        <Card.Header>Wallet Details</Card.Header>
+                        <Card.Header>Contact Me</Card.Header>
                         <Card.Body>
-                            <Card.Title>Address</Card.Title>
-                            <Card.Text>{address}</Card.Text>
-                            <Card.Title>Balance</Card.Title>
-                            <Card.Text>{balance}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card className="bg-dark text-white">
-                        <Card.Header>Wallet Details</Card.Header>
-                        <Card.Body>
-                            <Card.Title>Address</Card.Title>
-                            <Card.Text>{address}</Card.Text>
-                            <Card.Title>Balance</Card.Title>
-                            <Card.Text>{balance}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card className="bg-dark text-white">
-                        <Card.Header>Wallet Details</Card.Header>
-                        <Card.Body>
-                            <Card.Title>Address</Card.Title>
-                            <Card.Text>{address}</Card.Text>
-                            <Card.Title>Balance</Card.Title>
-                            <Card.Text>{balance}</Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card className="bg-dark text-white">
-                        <Card.Header>Wallet Details</Card.Header>
-                        <Card.Body>
-                            <Card.Title>Address</Card.Title>
-                            <Card.Text>{address}</Card.Text>
-                            <Card.Title>Balance</Card.Title>
-                            <Card.Text>{balance}</Card.Text>
+                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://github.com/ironic833')}><BsGithub />  Github</Button>
+                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://www.linkedin.com/in/oisin-hickey-333572150')}><BsLinkedin />  Linkedin</Button>
                         </Card.Body>
                     </Card>
                 </div>
