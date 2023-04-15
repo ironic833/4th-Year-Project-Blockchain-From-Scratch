@@ -8,7 +8,6 @@ const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet');
 const TransactionMiner = require('./app/transaction-miner');
 const Peers = require('./app/peers');
-const { exec } = require('child_process');
 
 let ROOT_NODE_ADDRESS = /* isDevelopement ? `http://localhost:${DEFAULT_PORT}` : */ 'https://blocktest.herokuapp.com';
 
