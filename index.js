@@ -7,6 +7,7 @@ const PubSub = require('./app/pubsub');
 const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet');
 const TransactionMiner = require('./app/transaction-miner');
+const Peers = require('./app/peers');
 
 const DEFAULT_PORT = 3000;
 
@@ -16,11 +17,35 @@ const app = express();
 const blockchain = new Blockchain();
 const transactionPool = new TransactionPool();
 
-const wallet = new Wallet(), pubsub = new PubSub({ blockchain, transactionPool, wallet }), transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
+const wallet = new Wallet(), peers = new Peers(), pubsub = new PubSub({ blockchain, peers, transactionPool, wallet }), transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
 
 app.use(bodyParser.json()); 
 app.use(express.static( path.join(__dirname, 'client/dist')));
 
+request('http://ip-adresim.app', function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log('your ip is:', body);
+        pubsub.broadcastPeerMembership(body);
+      }
+    });
+
+    for (let i = 0; i < peers.length; i++) {
+      const peer = peers[i];
+      const url = `http://${peer}:3000`;
+    
+      request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          ROOT_NODE_ADDRESS = `${url}`;
+        }
+      });
+    }
+    
+    // Wait for all requests to finish before continuing
+    setTimeout(function() {
+      // Do something with ROOT_NODE_ADDRESS here
+      console.log("root node is: " + ROOT_NODE_ADDRESS);
+    }, peers.length * 1000);
+    
 
 const syncWithRootState = () => {
   request({ url: `${ROOT_NODE_ADDRESS}/api/blocks` }, (error, response, body) => {

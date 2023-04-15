@@ -1,4 +1,3 @@
-const Transaction = require('./transaction');
 const { STARTING_BALANCE } = require('../config');
 const { ec, cryptoHash } = require('../util');
 const bip39 = require('bip39');
@@ -28,38 +27,7 @@ class Wallet {
   sign(data) {
     return this.keyPair.sign(cryptoHash(data))
   }
-/* 
-  imageEncode(image) {
 
-  }
-
-  createTransaction({ recipient, amount, chain }) {
-    if (chain) {
-      this.balance = Wallet.calculateBalance({
-        chain,
-        address: this.publicKey
-      });
-    }
-
-    if (amount > this.balance) {
-      throw new Error('Amount exceeds balance');
-    }
-
-    return new Transaction({ senderWallet: this, recipient, amount });
-  }
-
-  createBid({ id, Bid }) {  
-
-    return new Transaction({ senderWallet: this, recipient: null, amount: null, Id: id , name: null, description: null, startingBid: null, auctionEndTime: null, bid: Bid});
-
-  }
-
-  createItemTransaction({ Id, name, description, image, startingBid, auctionEndTime, owner }) {
-
-    return new Transaction({ senderWallet: this, recipient: null, amount: null, Id, name, description, startingBid, auctionEndTime, owner });
-
-  }
- */
   static calculateBalance ({ chain, address, timestamp }) {
     let outputsTotal = 0, hasConductedTransaction = false, lessThanTimestamp = false;
 
