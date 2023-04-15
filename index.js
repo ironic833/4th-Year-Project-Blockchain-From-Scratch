@@ -7,12 +7,11 @@ const PubSub = require('./app/pubsub');
 const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet');
 const TransactionMiner = require('./app/transaction-miner');
-
-const isDevelopement = process.env.ENV ==='developement';
+const Peers = require('./app/peers');
 
 const DEFAULT_PORT = 3000;
 
-const ROOT_NODE_ADDRESS = /* isDevelopement ? `http://localhost:${DEFAULT_PORT}` : */ 'https://blocktest.herokuapp.com';
+const ROOT_NODE_ADDRESS = 'https://blocktest.herokuapp.com';
 
 const app = express();
 const blockchain = new Blockchain();
@@ -71,13 +70,34 @@ const PORT = process.env.PORT || PEER_PORT || DEFAULT_PORT;
 
 const startServer = async (phrase) => {
 
-    const wallet = new Wallet(phrase), pubsub = new PubSub({ blockchain, transactionPool, wallet }), transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
+    const wallet = new Wallet(phrase), peers = new Peers(), pubsub = new PubSub({ blockchain, transactionPool, wallet }), transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
 
-    /* if (PORT !== DEFAULT_PORT) { */
-      syncWithRootState();
-    /* } */
+    request('http://ip-adresim.app', function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log('your ip is:', body);
+        pubsub.broadcastPeerMembership(body);
+      }
+    });
 
-    //accessible via gui
+    for (let i = 0; i < peers.length; i++) {
+      const peer = peers[i];
+      const url = `http://${peer}:3000`;
+    
+      request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          ROOT_NODE_ADDRESS = `${url}`;
+        }
+      });
+    }
+    
+    // Wait for all requests to finish before continuing
+    setTimeout(function() {
+      // Do something with ROOT_NODE_ADDRESS here
+      console.log("root node is: " + ROOT_NODE_ADDRESS);
+    }, peers.length * 1000);
+    
+    syncWithRootState();
+   
     app.get('/api/blocks', (req, res) => {
       if(wallet.publicKey !== undefined){
         res.json(blockchain.chain);
@@ -563,85 +583,6 @@ const startServer = async (phrase) => {
     app.get('*', (req, res) => {
       res.sendFile(path.join( __dirname , 'client/dist/index.html'));
     });
-
-   /* if(isDevelopement && PORT === 3000 ){
-
-      // test wallets
-      const walletFoo = new Wallet("review wink submit ski mansion load artwork film master oak limb fox junior wage edge organ help equal reform inch used owner wisdom panel");
-      const walletBar = new Wallet("shoot guard response relax buzz wheel exotic come twist bind dentist similar monitor floor town promote advice rich wire solar ranch law patrol need");
-
-      // wallet helper method
-      const generateWalletTransaction = ({ recipient, amount }) => {
-        const transaction = wallet.createTransaction({
-          recipient, amount, chain: blockchain.chain
-        });
-
-        transactionPool.setTransaction(transaction);
-      };
-
-      const generateBidTransaction = ({ id, bid }) => {
-        const transaction = wallet.createBid({
-          id, bid
-        });
-
-        transactionPool.setTransaction(transaction);
-      };
-
-      // wallet helper method
-      const generateWalletItemTransaction = ({ Name, Description, StartingBid, AuctionEndTime }) => {
-        const transaction = wallet.createItemTransaction({ 
-          name: Name, description: Description, startingBid: StartingBid, auctionEndTime: AuctionEndTime
-        });
-
-        transactionPool.setTransaction(transaction);
-      };
-
-      const walletItemAction = () => generateWalletItemTransaction({
-        wallet, Name: "Item", Description: "Item number 001", StartingBid: "90", AuctionEndTime: "now"
-      });
-
-      const walletFooItemAction = () => generateWalletItemTransaction({
-        wallet, Name: "Item foo", Description: "Item foo number 001", StartingBid: "70", AuctionEndTime: "now"
-      });
-
-      const walletBarItemAction = () => generateWalletItemTransaction({
-        wallet, Name: "Item bar", Description: "Item bar number 001", StartingBid: "890", AuctionEndTime: "now"
-      });
-
-      const walletAction = () => generateWalletTransaction({
-        wallet, recipient: walletFoo.publicKey, amount: 5
-      });
-
-      const walletFooAction = () => generateWalletTransaction({
-        wallet: walletFoo, recipient: walletBar.publicKey, amount: 10
-      });
-
-      const walletBarAction = () => generateWalletTransaction({
-        wallet: walletBar, recipient: walletFoo.publicKey, amount: 15
-      });
-
-
-
-      walletItemAction();
-
-      for( let i=0; i<10; i++ ){
-        if(i % 3 === 0){
-          walletAction();
-          walletFooAction();
-          walletItemAction();
-        } else if (i % 3 === 1){
-          walletAction();
-          walletBarAction();
-          walletFooItemAction();
-        } else {
-          walletBarAction();
-          walletFooAction();
-          walletBarItemAction();
-        }
-
-        transactionMiner.mineTransactions();
-      } 
-  }; */ 
 
 }
 

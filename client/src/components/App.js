@@ -74,10 +74,6 @@ class App extends Component {
             <div className="App">
                 <NavBar />
                 <br />
-                <div>
-                    Welcome to the blockchain....
-                </div>
-                <br />
                 <br />
                 <div className="banner-container">
                     <Alert variant="dark">

@@ -50436,7 +50436,7 @@ var App = /*#__PURE__*/function (_Component) {
         balance = walletInfo.balance;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "App"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Welcome to the blockchain...."), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
         className: "banner-container"
       }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
         variant: "dark"
@@ -52527,7 +52527,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62979" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55292" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

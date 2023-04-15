@@ -3,24 +3,27 @@ const PubNub = require('pubnub');
 
 // Sets the API keys for access to PubNub
 const credentials = {
-  publishKey: 'pub-c-cfc32bfe-8f42-4848-8678-53d06f894bc9',
-  subscribeKey: 'sub-c-61d414a4-c78e-43af-82eb-7e799ba3080b',
-  secretKey: 'sec-c-YzFiYWUzYTMtY2QyOC00YzEyLTk3ZWEtNDU4YjY0MjYyMTc2'
+    publishKey: 'pub-c-cfc32bfe-8f42-4848-8678-53d06f894bc9',
+    subscribeKey: 'sub-c-61d414a4-c78e-43af-82eb-7e799ba3080b',
+    secretKey: 'sec-c-YzFiYWUzYTMtY2QyOC00YzEyLTk3ZWEtNDU4YjY0MjYyMTc2'
 };
 
 // Sets up our default channels to be used by the system to allow for transactions
 const CHANNELS = {
     TEST: 'TEST',
     BLOCKCHAIN: 'BLOCKCHAIN',
-    TRANSACTION: 'TRANSACTION'
+    TRANSACTION: 'TRANSACTION',
+    PEERS: 'PEERS'
 };
 
 class PubSub {
-    constructor({ blockchain, transactionPool, wallet }) {
+    constructor({ blockchain, peers, transactionPool, wallet }) {
         this.blockchain = blockchain;
         this.transactionPool = transactionPool;
+        this.peers = peers;
         this.wallet = wallet;
         this.heldChain = [];
+        this.heldPeers = [];
         this.pubnub = new PubNub(credentials);
         
         this.pubnub.subscribe({ channels: Object.values(CHANNELS) });
@@ -37,7 +40,9 @@ class PubSub {
             console.log(`Message received. Channel: ${channel}. Message: ${JSON.stringify(message)}`);
       
             switch(channel) {
+
               case CHANNELS.BLOCKCHAIN:
+
                 if (message !== "chain end") {
                   this.heldChain.push(message);
                 } else if (this.heldChain[0] !== undefined) {
@@ -57,7 +62,7 @@ class PubSub {
 
                 const organisedChain = this.heldChain.map(message => message.payload);
 
-                console.log(JSON.stringify(organisedChain));
+                console.log("organised chain" + JSON.stringify(organisedChain));
 
                 this.blockchain.replaceChain(organisedChain, true, () => {
                     this.transactionPool.clearBlockchainTransactions(
@@ -67,13 +72,36 @@ class PubSub {
       
                 break;
               case CHANNELS.TRANSACTION:
+
                 let parsedMessage = JSON.parse(message);
+
                 if (parsedMessage.input.address !== this.wallet.publicKey){
                   this.transactionPool.setTransaction(parsedMessage);
                 } else {
                   console.log('TRANSACTION broadcast received from self, ignoring..');
                 }
                 break;
+
+              case CHANNELS.PEERS:
+                
+                this.heldPeers.push(message);
+
+                console.log("Held Peers array" + JSON.stringify(this.heldPeers));
+
+                this.heldPeers.sort((a, b) => {
+                  const aTimestamp = new Date(a.timestamp);
+                  const bTimestamp = new Date(b.timestamp);
+                  return aTimestamp - bTimestamp;
+                });
+
+                const organisedPeers = this.heldPeers.map(message => message.payload);
+
+                console.log("Peer array " + JSON.stringify(organisedPeers));
+
+                this.peers.updatePeers(organisedPeers);
+
+                break;
+
               default:
                 return;
             }
@@ -85,6 +113,33 @@ class PubSub {
         }
       }
       
+
+    peerPublish({ channel, message }){
+
+      const getSize = message => {
+        const aString = JSON.stringify(message);
+        return (new TextEncoder().encode(aString)).length;
+      };
+
+      const messageSize = getSize(message);
+
+      console.log(`\n Publishing message of size ${messageSize} bytes to channel ${channel} \n`);
+
+      const regex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
+      const ipAddress = message.match(regex)[0];
+
+      console.log(ipAddress); 
+
+      const timestamp = new Date().toISOString();
+
+      this.pubnub.publish({
+        channel: channel,
+        message: {
+            timestamp: timestamp,
+            payload: ipAddress
+        }
+    });
+    }
 
     TransactionPublish({ channel, message }) {
         const getSize = message => {
@@ -123,11 +178,6 @@ class PubSub {
 
    broadcastChain() {
 
-        /* this.blockchainPublish({
-            channel: CHANNELS.BLOCKCHAIN,
-            message: this.blockchain.chain.length
-        }); */
-
         console.log("Chain Length is: " + this.blockchain.chain.length + "\n");
 
         for(let chainNumber = 0, chainItem; chainNumber < this.blockchain.chain.length; chainNumber++){
@@ -143,13 +193,6 @@ class PubSub {
 
         }
 
-       /*  this.blockchainPublish({
-            channel: CHANNELS.BLOCKCHAIN,
-            message: "chain end"
-        });    
-
-        console.log("Chain end message sent \n"); */
-
     } 
     
       
@@ -159,6 +202,14 @@ class PubSub {
             channel: CHANNELS.TRANSACTION,
             message: JSON.stringify(transaction)
         });
+    }
+
+    broadcastPeerMembership(peerRegistration) {
+      
+      this.peerPublish({
+          channel: CHANNELS.PEERS,
+          message: JSON.stringify(peerRegistration)
+      });
     }
 }
 
