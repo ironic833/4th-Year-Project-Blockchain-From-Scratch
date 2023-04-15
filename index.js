@@ -71,24 +71,6 @@ const PORT = process.env.PORT || PEER_PORT || DEFAULT_PORT;
 const startServer = async (phrase) => {
 
     const wallet = new Wallet(phrase), peers = new Peers(), pubsub = new PubSub({ blockchain, transactionPool, wallet }), transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
-
-    request('http://ip-adresim.app', function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        console.log('your ip is:', body);
-        pubsub.broadcastPeerMembership(body);
-      }
-    });
-
-    for (let i = 0; i < peers.length; i++) {
-      const peer = peers[i];
-      const url = `http://${peer}:3000`;
-    
-      request(url, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          ROOT_NODE_ADDRESS = `${url}`;
-        }
-      });
-    }
     
     // Wait for all requests to finish before continuing
     setTimeout(function() {
