@@ -80,6 +80,7 @@ const startServer = async (phrase) => {
     
     syncWithRootState();
    
+    //accessible via gui
     app.get('/api/blocks', (req, res) => {
       if(wallet.publicKey !== undefined){
         res.json(blockchain.chain);
@@ -453,6 +454,70 @@ const startServer = async (phrase) => {
         
       }
       
+    });
+
+    // couldn't make it work
+    app.post('/api/wallet-history', (req, res) => {
+      if (wallet.publicKey !== undefined) {
+
+        const { walletAddress } = req.body, walletHistory = [], addedTransactions = {};
+        let foundValidAddress = false;
+    
+        for (let blockNum = 0; blockNum < blockchain.chain.length; blockNum++) {
+
+          const block = blockchain.chain[blockNum];
+          for (let transaction of block.data) {
+
+            if (transaction.input["address"] === walletAddress) {
+
+              const transactionHash = JSON.stringify(transaction);
+
+              if (!addedTransactions[transactionHash]) {
+
+                addedTransactions[transactionHash] = true;
+
+                walletHistory.push( transaction.outputMap );
+
+                foundValidAddress = true;
+              }
+
+            }
+          }
+        }
+
+        if (!foundValidAddress) {
+          return res.status(404).json({ type: 'error', message: 'No history found for the ID' });
+        }
+
+        res.json(walletHistory);
+
+      } else {
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+      }
+
+    });
+
+    //accessible via gui
+    app.get('/api/transaction-pool-map', (req, res) => {
+        res.json(transactionPool.transactionMap);
+    });
+
+    //accessible via gui
+    app.get('/api/mine-transactions', (req, res) => {
+
+      if(wallet.publicKey !== undefined){
+
+        console.log("mining transaction \n");
+
+        transactionMiner.mineTransactions();
+
+        res.redirect('/api/blocks');
+
+      } else {
+
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+        
+      }
     });
 
     //accessible via gui

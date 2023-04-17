@@ -49998,7 +49998,7 @@ function BlockNavbar() {
     href: "/auctions"
   }, "Auctions"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
     href: "/address-book"
-  }, "Address Book"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+  }, "Address Book"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Divider, null), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
     href: "/wallet-history"
   }, "Wallet History"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
     href: "/item-history"
@@ -50019,7 +50019,7 @@ function BlockNavbar() {
     title: "My Items",
     id: "basic-nav-dropdown"
   }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
-    href: "/user-items"
+    href: "/user-auctions"
   }, "My Items"))))));
 }
 var _default = BlockNavbar;

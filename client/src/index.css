@@ -74,25 +74,15 @@ background-color: #222;
     background-color: #444;
 }
 
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-    padding: 20px;
+.banner-container {
+    max-width: 800px; /* adjust to your needs */
+    margin: 0 auto; /* center the container horizontally */
+    padding: 20px; /* add equal padding on all sides */
 }
+
 
 .logo {
     height: 50px;
     width: 50px;
     padding-right: 10px;;
 }
-
-.home-card-button {
-    display: block;
-    width: 100%;
-    height: 50px;
-    margin-bottom: 10px;
-}
-
-
-  
