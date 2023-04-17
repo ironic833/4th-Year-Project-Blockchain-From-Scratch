@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, Form, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, Form, Button, Alert } from 'react-bootstrap';
 import history from '../../history';
 import NavBar from "../Usability/Navbar";
 
 class auctionTransaction extends Component {
-  state = { name: '', description: '', startingBid: 0, auctionEndTime: '' };
+  state = { name: '', description: '', startingBid: 0, auctionEndTime: '', alertMessage: '', alertType: '' };
 
   updateName = event => {
     this.setState({ name: event.target.value });
@@ -26,18 +26,30 @@ class auctionTransaction extends Component {
   auctionTransaction = () => {
     const { name, description, startingBid, auctionEndTime } = this.state;
 
+    if (!name || !description || !startingBid || !auctionEndTime) {
+      this.setState({ alertMessage: 'All fields are required', alertType: 'danger' });
+      return;
+    }
+
     fetch(`${document.location.origin}/api/create-auction`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, description, startingBid, auctionEndTime })
     }).then(response => response.json())
-      .then(json => {
-        alert(json.message || json.type);
-        history.push('/transaction-pool');
+      .then( json => {
+        this.setState({ alertMessage: json.message || json.type, alertType: 'success' });
+        setTimeout(() => {
+            history.push('/transaction-pool');
+        }, 5000); // delay of 5 seconds
+      })
+      .catch(error => {
+        this.setState({ alertMessage: error.message, alertType: 'danger' });
       });
   } 
 
   render() {
+    const { alertMessage, alertType } = this.state;
+
     return (
       <div className='AuctionTransaction'>
         <NavBar />
@@ -93,6 +105,13 @@ class auctionTransaction extends Component {
           >
             Submit
           </Button>
+        </div>
+        <div className="banner-container">
+          {alertMessage &&
+            <Alert variant={alertType} style={{ marginTop: '10px' }}>
+              {alertMessage}
+            </Alert>
+          }
         </div>
       </div>
     )

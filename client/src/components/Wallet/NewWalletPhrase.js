@@ -22,3 +22,4 @@ class NewWalletPhrase extends Component {
 }
 
 export default NewWalletPhrase;
+

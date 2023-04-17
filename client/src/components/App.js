@@ -68,11 +68,15 @@ class App extends Component {
             );
         }
 
-        const { address, balance } = walletInfo;
+        const { address } = walletInfo;
 
         return(
             <div className="App">
                 <NavBar />
+                <br />
+                <div>
+                    Welcome to Auction Chain!
+                </div>
                 <br />
                 <br />
                 <div className="banner-container">
@@ -80,13 +84,10 @@ class App extends Component {
                         <Alert.Heading>Wallet Details</Alert.Heading>
                         <p>
                             Address: {address} 
+                            <hr />
                                 <CopyToClipboard text={address}>
-                                    <Button variant="danger" size="sm" style={{ margin: '10px' }}>Copy</Button>
+                                    <Button variant="danger" size="sm" style={{ marginTop: '10px' }}>Copy</Button>
                                 </CopyToClipboard>
-                        </p>
-                        <hr />
-                        <p className="mb-0">
-                            Balance: {balance}
                         </p>
                     </Alert>
                 </div>

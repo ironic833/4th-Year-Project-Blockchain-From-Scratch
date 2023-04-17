@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, Button, Card, Pagination } from 'react-bootstrap';
+import { FormGroup, FormControl, Button, Card, Pagination, Alert } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import history from '../../history';
 import NavBar from "../Usability/Navbar";
 
 class ConductTransaction extends Component {
   state = { recipient: '', amount: 0, knownAddresses: [], currentPage: 1, pageSize: 5, };
-
-  componentDidMount() {
-    fetch(`${document.location.origin}/api/known-addresses`)
-      .then(response => response.json())
-      .then(json => this.setState({ knownAddresses: json }));
-  }
 
   updateRecipient = event => {
     this.setState({ recipient: event.target.value });
@@ -21,12 +15,27 @@ class ConductTransaction extends Component {
     this.setState({ amount: Number(event.target.value) });
   }
 
-  handlePageChange = (page) => {
-    this.setState({ currentPage: page });
+  componentDidMount() {
+    fetch(`${document.location.origin}/api/known-addresses`)
+      .then(response => response.json())
+      .then(json => this.setState({ knownAddresses: json }));
   }
+
+
+  handlePageChange = (direction) => {
+    const { currentPage } = this.state;
+    const newPage = direction === 'next' ? currentPage + 1 : currentPage - 1;
+    this.setState({ currentPage: newPage });
+  }
+  
 
   conductTransaction = () => {
     const { recipient, amount } = this.state;
+
+    if (!recipient || !amount ) {
+      this.setState({ alertMessage: 'All fields are required', alertType: 'danger' });
+      return;
+    }
 
     fetch(`${document.location.origin}/api/transact`, {
       method: 'POST',
@@ -34,21 +43,29 @@ class ConductTransaction extends Component {
       body: JSON.stringify({ recipient, amount })
     }).then(response => response.json())
       .then(json => {
-        alert(json.message || json.type);
-        history.push('/transaction-pool');
+        this.setState({ alertMessage: json.message || json.type, alertType: 'success' });
+        setTimeout(() => {
+          if (json.type === 'error') {
+            this.setState({ alertMessage: json.message });
+          } else {
+            history.push('/transaction-pool');
+          }
+        }, 5000); // delay of 5 seconds
+      })
+      .catch(error => {
+        this.setState({ alertMessage: error.message, alertType: 'danger' });
       });
   }
 
   render() {
-
-    const { knownAddresses, currentPage, pageSize } = this.state;
+    const { knownAddresses, currentPage, pageSize, alertMessage, alertType } = this.state;
     const pageCount = Math.ceil(knownAddresses.length / pageSize);
-
+  
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
-
+  
     const displayedAddresses = knownAddresses.slice(startIndex, endIndex);
-
+  
     return (
       <div className='ConductTransaction'>
         <NavBar />
@@ -85,6 +102,14 @@ class ConductTransaction extends Component {
           </Button>
         </div>
         <br />
+        <div className="banner-container">
+          {alertMessage &&
+            <Alert variant={alertType} style={{ marginTop: '10px' }}>
+              {alertMessage}
+            </Alert>
+          }
+        </div>
+        <br />
         <h4>Known Addresses</h4>
         <br />
         {displayedAddresses.length === 0 ? (
@@ -94,11 +119,22 @@ class ConductTransaction extends Component {
         ) : (
           <div>
             <Pagination className="justify-content-center">
-              {Array.from({ length: pageCount }).map((_, index) => (
-                <Button style={{ padding: 10 }} variant='danger' key={index} active={index + 1 === currentPage} onClick={() => this.handlePageChange(index + 1)}>
-                  {index + 1}
-                </Button>
-              ))}
+              <Button
+                style={{ padding: 10, marginRight: 20 }}
+                variant='danger'
+                disabled={currentPage === 1}
+                onClick={() => this.handlePageChange(currentPage - 1)}
+              >
+                Previous
+              </Button>
+              <Button
+                style={{ padding: 10 }}
+                variant='danger'
+                disabled={currentPage === pageCount}
+                onClick={() => this.handlePageChange(currentPage + 1)}
+              >
+                Next
+              </Button>
             </Pagination>
             <br />
             <ul style={{ listStyleType: 'none' }}>
@@ -120,6 +156,7 @@ class ConductTransaction extends Component {
       </div>
     )
   }
+  
 };
 
 export default ConductTransaction;

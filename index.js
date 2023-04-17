@@ -9,9 +9,7 @@ const Wallet = require('./wallet');
 const TransactionMiner = require('./app/transaction-miner');
 const Peers = require('./app/peers');
 
-const DEFAULT_PORT = 3000;
-
-const ROOT_NODE_ADDRESS = 'https://blocktest.herokuapp.com';
+let ROOT_NODE_ADDRESS = /* isDevelopement ? `http://localhost:${DEFAULT_PORT}` : */ 'https://blocktest.herokuapp.com';
 
 const app = express();
 const blockchain = new Blockchain();
@@ -22,6 +20,7 @@ app.use(express.static( path.join(__dirname, 'client/dist')));
 
 //accessible via gui
 app.post('/api/wallet', (req, res) => {
+
   const { phrase } = req.body;
 
   if(phrase){
@@ -40,7 +39,10 @@ app.get('/api/wallet-mnemoic-generate', (req, res) => {
   res.json(walletPhrase);
 });
 
+
+
 const syncWithRootState = () => {
+
   request({ url: `${ROOT_NODE_ADDRESS}/api/blocks` }, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       const rootChain = JSON.parse(body);
@@ -58,19 +60,30 @@ const syncWithRootState = () => {
       transactionPool.setMap(rootTransactionPoolMap);
     }
   });
+
 };
-
-let PEER_PORT;
-
-if(process.env.GENERATE_PEER_PORT === 'true') {
-    PEER_PORT = DEFAULT_PORT + Math.ceil(Math.random() * 1000);
-}
-
-const PORT = process.env.PORT || PEER_PORT || DEFAULT_PORT;
 
 const startServer = async (phrase) => {
 
-    const wallet = new Wallet(phrase), peers = new Peers(), pubsub = new PubSub({ blockchain, transactionPool, wallet }), transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
+    const wallet = new Wallet(phrase), peers = new Peers(), pubsub = new PubSub({ blockchain, peers, transactionPool, wallet }), transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
+
+    request('http://ip-adresim.app', function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log('your ip is:', body);
+        pubsub.broadcastPeerMembership(body);
+      }
+    });
+
+    for (let i = 0; i < peers.length; i++) {
+      const peer = peers[i];
+      const url = `http://${peer}:3000`;
+    
+      request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          ROOT_NODE_ADDRESS = `${url}`;
+        }
+      });
+    }
     
     // Wait for all requests to finish before continuing
     setTimeout(function() {
@@ -78,8 +91,11 @@ const startServer = async (phrase) => {
       console.log("root node is: " + ROOT_NODE_ADDRESS);
     }, peers.length * 1000);
     
+    /* if (PORT !== DEFAULT_PORT) { */
     syncWithRootState();
-   
+    /* } */
+
+    //accessible via gui
     app.get('/api/blocks', (req, res) => {
       if(wallet.publicKey !== undefined){
         res.json(blockchain.chain);
@@ -195,7 +211,7 @@ const startServer = async (phrase) => {
               updatedName = Transaction.outputMap['name'];
               updatedDescrtiption = Transaction.outputMap['description'];
               foundValidBlock = true;
-              break;
+              /* break; */
 
             }
           } 
@@ -254,7 +270,7 @@ const startServer = async (phrase) => {
                 updatedBidAmount = Transaction.outputMap['starting bid'];
                 foundValidBlock = true;
 
-                break;
+                /* break; */
         
               }
             } 
@@ -313,7 +329,7 @@ const startServer = async (phrase) => {
             updatedStartingBid = Transaction.outputMap['starting bid'];
             foundValidBlock = true;
 
-            break;
+            /* break; */
           }
         }
       }
@@ -374,14 +390,17 @@ const startServer = async (phrase) => {
       const { prevAuctionItem, bidAmount } = req.body;
       let blocknum, block, foundValidBlock = false, transaction = {}; ;
 
-      for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+      for(blocknum = blockchain.chain.length - 1; blocknum > 0; blocknum--) {
+
+        let block = blockchain.chain[blocknum];
+
+        console.log(`Chain lengh is ${blockchain.chain.length} currently at block ${blocknum} block is ${JSON.stringify(block)}`);
 
         for (let Transaction of block.data) {
 
           if((Transaction.outputMap['auction ID'] === prevAuctionItem)){
 
             foundValidBlock = true;
-            break;
 
           }
         }                   
@@ -416,6 +435,7 @@ const startServer = async (phrase) => {
     });
 
 
+    // accessible in endpoint
     app.post('/api/item-history', (req, res) => {
 
       if(wallet.publicKey !== undefined){
@@ -451,6 +471,7 @@ const startServer = async (phrase) => {
       
     });
 
+    // couldn't make it work
     app.post('/api/wallet-history', (req, res) => {
       if (wallet.publicKey !== undefined) {
 
@@ -470,10 +491,7 @@ const startServer = async (phrase) => {
 
                 addedTransactions[transactionHash] = true;
 
-                walletHistory.push({
-                  blockNumber: blockNum,
-                  transaction: transaction
-                });
+                walletHistory.push( transaction.outputMap );
 
                 foundValidAddress = true;
               }
@@ -482,7 +500,7 @@ const startServer = async (phrase) => {
           }
         }
 
-        if (foundValidAddress === false) {
+        if (!foundValidAddress) {
           return res.status(404).json({ type: 'error', message: 'No history found for the ID' });
         }
 
@@ -568,6 +586,10 @@ const startServer = async (phrase) => {
 
 }
 
-app.listen(PORT, () => {
+/* app.listen(PORT, () => {
   console.log(`listening at localhost:${PORT}`);
+}); */
+
+app.listen(3000, () => {
+  console.log("listening at localhost:3000");
 });
