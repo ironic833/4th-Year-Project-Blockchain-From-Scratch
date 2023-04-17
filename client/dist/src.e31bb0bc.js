@@ -33805,9 +33805,7 @@ var _createBrowserHistory = _interopRequireDefault(require("history/createBrowse
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var _default = (0, _createBrowserHistory.default)();
 exports.default = _default;
-},{"history/createBrowserHistory":"../../node_modules/history/createBrowserHistory.js"}],"assets/index.png":[function(require,module,exports) {
-module.exports = "/assets.795bb5f8.png";
-},{}],"../../node_modules/classnames/index.js":[function(require,module,exports) {
+},{"history/createBrowserHistory":"../../node_modules/history/createBrowserHistory.js"}],"../../node_modules/classnames/index.js":[function(require,module,exports) {
 var define;
 /*!
 	Copyright (c) 2018 Jed Watson.
@@ -49956,7 +49954,9 @@ var _Tooltip = _interopRequireDefault(require("./Tooltip"));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Accordion":"../../node_modules/react-bootstrap/esm/Accordion.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","./Alert":"../../node_modules/react-bootstrap/esm/Alert.js","./Anchor":"../../node_modules/react-bootstrap/esm/Anchor.js","./Badge":"../../node_modules/react-bootstrap/esm/Badge.js","./Breadcrumb":"../../node_modules/react-bootstrap/esm/Breadcrumb.js","./BreadcrumbItem":"../../node_modules/react-bootstrap/esm/BreadcrumbItem.js","./Button":"../../node_modules/react-bootstrap/esm/Button.js","./ButtonGroup":"../../node_modules/react-bootstrap/esm/ButtonGroup.js","./ButtonToolbar":"../../node_modules/react-bootstrap/esm/ButtonToolbar.js","./Card":"../../node_modules/react-bootstrap/esm/Card.js","./CardImg":"../../node_modules/react-bootstrap/esm/CardImg.js","./CardGroup":"../../node_modules/react-bootstrap/esm/CardGroup.js","./Carousel":"../../node_modules/react-bootstrap/esm/Carousel.js","./CarouselItem":"../../node_modules/react-bootstrap/esm/CarouselItem.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./Col":"../../node_modules/react-bootstrap/esm/Col.js","./Collapse":"../../node_modules/react-bootstrap/esm/Collapse.js","./Dropdown":"../../node_modules/react-bootstrap/esm/Dropdown.js","./DropdownButton":"../../node_modules/react-bootstrap/esm/DropdownButton.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./Form":"../../node_modules/react-bootstrap/esm/Form.js","./FormControl":"../../node_modules/react-bootstrap/esm/FormControl.js","./FormCheck":"../../node_modules/react-bootstrap/esm/FormCheck.js","./FormFloating":"../../node_modules/react-bootstrap/esm/FormFloating.js","./FloatingLabel":"../../node_modules/react-bootstrap/esm/FloatingLabel.js","./FormGroup":"../../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../../node_modules/react-bootstrap/esm/FormLabel.js","./FormText":"../../node_modules/react-bootstrap/esm/FormText.js","./FormSelect":"../../node_modules/react-bootstrap/esm/FormSelect.js","./Container":"../../node_modules/react-bootstrap/esm/Container.js","./Image":"../../node_modules/react-bootstrap/esm/Image.js","./Figure":"../../node_modules/react-bootstrap/esm/Figure.js","./InputGroup":"../../node_modules/react-bootstrap/esm/InputGroup.js","./ListGroup":"../../node_modules/react-bootstrap/esm/ListGroup.js","./ListGroupItem":"../../node_modules/react-bootstrap/esm/ListGroupItem.js","./Modal":"../../node_modules/react-bootstrap/esm/Modal.js","./ModalBody":"../../node_modules/react-bootstrap/esm/ModalBody.js","./ModalDialog":"../../node_modules/react-bootstrap/esm/ModalDialog.js","./ModalHeader":"../../node_modules/react-bootstrap/esm/ModalHeader.js","./ModalFooter":"../../node_modules/react-bootstrap/esm/ModalFooter.js","./ModalTitle":"../../node_modules/react-bootstrap/esm/ModalTitle.js","./Nav":"../../node_modules/react-bootstrap/esm/Nav.js","./Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","./NavbarBrand":"../../node_modules/react-bootstrap/esm/NavbarBrand.js","./NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","./NavItem":"../../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../../node_modules/react-bootstrap/esm/NavLink.js","./Offcanvas":"../../node_modules/react-bootstrap/esm/Offcanvas.js","./OffcanvasHeader":"../../node_modules/react-bootstrap/esm/OffcanvasHeader.js","./OffcanvasTitle":"../../node_modules/react-bootstrap/esm/OffcanvasTitle.js","./OffcanvasBody":"../../node_modules/react-bootstrap/esm/OffcanvasBody.js","./Overlay":"../../node_modules/react-bootstrap/esm/Overlay.js","./OverlayTrigger":"../../node_modules/react-bootstrap/esm/OverlayTrigger.js","./PageItem":"../../node_modules/react-bootstrap/esm/PageItem.js","./Pagination":"../../node_modules/react-bootstrap/esm/Pagination.js","./Placeholder":"../../node_modules/react-bootstrap/esm/Placeholder.js","./PlaceholderButton":"../../node_modules/react-bootstrap/esm/PlaceholderButton.js","./Popover":"../../node_modules/react-bootstrap/esm/Popover.js","./PopoverHeader":"../../node_modules/react-bootstrap/esm/PopoverHeader.js","./PopoverBody":"../../node_modules/react-bootstrap/esm/PopoverBody.js","./ProgressBar":"../../node_modules/react-bootstrap/esm/ProgressBar.js","./Ratio":"../../node_modules/react-bootstrap/esm/Ratio.js","./Row":"../../node_modules/react-bootstrap/esm/Row.js","./Spinner":"../../node_modules/react-bootstrap/esm/Spinner.js","./SplitButton":"../../node_modules/react-bootstrap/esm/SplitButton.js","./SSRProvider":"../../node_modules/react-bootstrap/esm/SSRProvider.js","./Stack":"../../node_modules/react-bootstrap/esm/Stack.js","./Tab":"../../node_modules/react-bootstrap/esm/Tab.js","./TabContainer":"../../node_modules/react-bootstrap/esm/TabContainer.js","./TabContent":"../../node_modules/react-bootstrap/esm/TabContent.js","./Table":"../../node_modules/react-bootstrap/esm/Table.js","./TabPane":"../../node_modules/react-bootstrap/esm/TabPane.js","./Tabs":"../../node_modules/react-bootstrap/esm/Tabs.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Toast":"../../node_modules/react-bootstrap/esm/Toast.js","./ToastBody":"../../node_modules/react-bootstrap/esm/ToastBody.js","./ToastHeader":"../../node_modules/react-bootstrap/esm/ToastHeader.js","./ToastContainer":"../../node_modules/react-bootstrap/esm/ToastContainer.js","./ToggleButton":"../../node_modules/react-bootstrap/esm/ToggleButton.js","./ToggleButtonGroup":"../../node_modules/react-bootstrap/esm/ToggleButtonGroup.js","./Tooltip":"../../node_modules/react-bootstrap/esm/Tooltip.js"}],"components/Usability/Navbar.js":[function(require,module,exports) {
+},{"./Accordion":"../../node_modules/react-bootstrap/esm/Accordion.js","./AccordionContext":"../../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionCollapse":"../../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionButton":"../../node_modules/react-bootstrap/esm/AccordionButton.js","./Alert":"../../node_modules/react-bootstrap/esm/Alert.js","./Anchor":"../../node_modules/react-bootstrap/esm/Anchor.js","./Badge":"../../node_modules/react-bootstrap/esm/Badge.js","./Breadcrumb":"../../node_modules/react-bootstrap/esm/Breadcrumb.js","./BreadcrumbItem":"../../node_modules/react-bootstrap/esm/BreadcrumbItem.js","./Button":"../../node_modules/react-bootstrap/esm/Button.js","./ButtonGroup":"../../node_modules/react-bootstrap/esm/ButtonGroup.js","./ButtonToolbar":"../../node_modules/react-bootstrap/esm/ButtonToolbar.js","./Card":"../../node_modules/react-bootstrap/esm/Card.js","./CardImg":"../../node_modules/react-bootstrap/esm/CardImg.js","./CardGroup":"../../node_modules/react-bootstrap/esm/CardGroup.js","./Carousel":"../../node_modules/react-bootstrap/esm/Carousel.js","./CarouselItem":"../../node_modules/react-bootstrap/esm/CarouselItem.js","./CloseButton":"../../node_modules/react-bootstrap/esm/CloseButton.js","./Col":"../../node_modules/react-bootstrap/esm/Col.js","./Collapse":"../../node_modules/react-bootstrap/esm/Collapse.js","./Dropdown":"../../node_modules/react-bootstrap/esm/Dropdown.js","./DropdownButton":"../../node_modules/react-bootstrap/esm/DropdownButton.js","./Fade":"../../node_modules/react-bootstrap/esm/Fade.js","./Form":"../../node_modules/react-bootstrap/esm/Form.js","./FormControl":"../../node_modules/react-bootstrap/esm/FormControl.js","./FormCheck":"../../node_modules/react-bootstrap/esm/FormCheck.js","./FormFloating":"../../node_modules/react-bootstrap/esm/FormFloating.js","./FloatingLabel":"../../node_modules/react-bootstrap/esm/FloatingLabel.js","./FormGroup":"../../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../../node_modules/react-bootstrap/esm/FormLabel.js","./FormText":"../../node_modules/react-bootstrap/esm/FormText.js","./FormSelect":"../../node_modules/react-bootstrap/esm/FormSelect.js","./Container":"../../node_modules/react-bootstrap/esm/Container.js","./Image":"../../node_modules/react-bootstrap/esm/Image.js","./Figure":"../../node_modules/react-bootstrap/esm/Figure.js","./InputGroup":"../../node_modules/react-bootstrap/esm/InputGroup.js","./ListGroup":"../../node_modules/react-bootstrap/esm/ListGroup.js","./ListGroupItem":"../../node_modules/react-bootstrap/esm/ListGroupItem.js","./Modal":"../../node_modules/react-bootstrap/esm/Modal.js","./ModalBody":"../../node_modules/react-bootstrap/esm/ModalBody.js","./ModalDialog":"../../node_modules/react-bootstrap/esm/ModalDialog.js","./ModalHeader":"../../node_modules/react-bootstrap/esm/ModalHeader.js","./ModalFooter":"../../node_modules/react-bootstrap/esm/ModalFooter.js","./ModalTitle":"../../node_modules/react-bootstrap/esm/ModalTitle.js","./Nav":"../../node_modules/react-bootstrap/esm/Nav.js","./Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","./NavbarBrand":"../../node_modules/react-bootstrap/esm/NavbarBrand.js","./NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","./NavItem":"../../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../../node_modules/react-bootstrap/esm/NavLink.js","./Offcanvas":"../../node_modules/react-bootstrap/esm/Offcanvas.js","./OffcanvasHeader":"../../node_modules/react-bootstrap/esm/OffcanvasHeader.js","./OffcanvasTitle":"../../node_modules/react-bootstrap/esm/OffcanvasTitle.js","./OffcanvasBody":"../../node_modules/react-bootstrap/esm/OffcanvasBody.js","./Overlay":"../../node_modules/react-bootstrap/esm/Overlay.js","./OverlayTrigger":"../../node_modules/react-bootstrap/esm/OverlayTrigger.js","./PageItem":"../../node_modules/react-bootstrap/esm/PageItem.js","./Pagination":"../../node_modules/react-bootstrap/esm/Pagination.js","./Placeholder":"../../node_modules/react-bootstrap/esm/Placeholder.js","./PlaceholderButton":"../../node_modules/react-bootstrap/esm/PlaceholderButton.js","./Popover":"../../node_modules/react-bootstrap/esm/Popover.js","./PopoverHeader":"../../node_modules/react-bootstrap/esm/PopoverHeader.js","./PopoverBody":"../../node_modules/react-bootstrap/esm/PopoverBody.js","./ProgressBar":"../../node_modules/react-bootstrap/esm/ProgressBar.js","./Ratio":"../../node_modules/react-bootstrap/esm/Ratio.js","./Row":"../../node_modules/react-bootstrap/esm/Row.js","./Spinner":"../../node_modules/react-bootstrap/esm/Spinner.js","./SplitButton":"../../node_modules/react-bootstrap/esm/SplitButton.js","./SSRProvider":"../../node_modules/react-bootstrap/esm/SSRProvider.js","./Stack":"../../node_modules/react-bootstrap/esm/Stack.js","./Tab":"../../node_modules/react-bootstrap/esm/Tab.js","./TabContainer":"../../node_modules/react-bootstrap/esm/TabContainer.js","./TabContent":"../../node_modules/react-bootstrap/esm/TabContent.js","./Table":"../../node_modules/react-bootstrap/esm/Table.js","./TabPane":"../../node_modules/react-bootstrap/esm/TabPane.js","./Tabs":"../../node_modules/react-bootstrap/esm/Tabs.js","./ThemeProvider":"../../node_modules/react-bootstrap/esm/ThemeProvider.js","./Toast":"../../node_modules/react-bootstrap/esm/Toast.js","./ToastBody":"../../node_modules/react-bootstrap/esm/ToastBody.js","./ToastHeader":"../../node_modules/react-bootstrap/esm/ToastHeader.js","./ToastContainer":"../../node_modules/react-bootstrap/esm/ToastContainer.js","./ToggleButton":"../../node_modules/react-bootstrap/esm/ToggleButton.js","./ToggleButtonGroup":"../../node_modules/react-bootstrap/esm/ToggleButtonGroup.js","./Tooltip":"../../node_modules/react-bootstrap/esm/Tooltip.js"}],"assets/icon.png":[function(require,module,exports) {
+module.exports = "/icon.9c86b69e.png";
+},{}],"components/Usability/Navbar.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49968,6 +49968,7 @@ var _Nav = _interopRequireDefault(require("react-bootstrap/Nav"));
 var _Navbar = _interopRequireDefault(require("react-bootstrap/Navbar"));
 var _NavDropdown = _interopRequireDefault(require("react-bootstrap/NavDropdown"));
 var _react = _interopRequireDefault(require("react"));
+var _icon = _interopRequireDefault(require("../../assets/icon.png"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function BlockNavbar() {
   return /*#__PURE__*/_react.default.createElement(_Navbar.default, {
@@ -49977,15 +49978,17 @@ function BlockNavbar() {
     className: "fixed-top"
   }, /*#__PURE__*/_react.default.createElement(_Container.default, null, /*#__PURE__*/_react.default.createElement(_Navbar.default.Brand, {
     href: "/"
-  }, "Auction Chain"), /*#__PURE__*/_react.default.createElement(_Navbar.default.Toggle, {
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _icon.default,
+    className: "logo",
+    alt: "Logo"
+  }), "Auction Chain"), /*#__PURE__*/_react.default.createElement(_Navbar.default.Toggle, {
     "aria-controls": "basic-navbar-nav"
   }), /*#__PURE__*/_react.default.createElement(_Navbar.default.Collapse, {
     id: "basic-navbar-nav"
   }, /*#__PURE__*/_react.default.createElement(_Nav.default, {
     className: "me-auto"
-  }, /*#__PURE__*/_react.default.createElement(_Nav.default.Link, {
-    href: "/"
-  }, "Login"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
+  }, /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
     menuVariant: "dark",
     title: "Chain",
     id: "basic-nav-dropdown"
@@ -49995,7 +49998,11 @@ function BlockNavbar() {
     href: "/auctions"
   }, "Auctions"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
     href: "/address-book"
-  }, "Address Book")), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
+  }, "Address Book"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/wallet-history"
+  }, "Wallet History"), /*#__PURE__*/_react.default.createElement(_NavDropdown.default.Item, {
+    href: "/item-history"
+  }, "Item History")), /*#__PURE__*/_react.default.createElement(_NavDropdown.default, {
     menuVariant: "dark",
     title: "Transact",
     id: "basic-nav-dropdown"
@@ -50017,390 +50024,32 @@ function BlockNavbar() {
 }
 var _default = BlockNavbar;
 exports.default = _default;
-},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
+},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js","../../assets/icon.png":"assets/icon.png"}],"components/Usability/NoInputNavbar.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _index = _interopRequireDefault(require("../assets/index.png"));
-var _reactBootstrap = require("react-bootstrap");
-var _reactRouterDom = require("react-router-dom");
-var _Navbar = _interopRequireDefault(require("./Usability/Navbar"));
+var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
+var _Nav = _interopRequireDefault(require("react-bootstrap/Nav"));
+var _Navbar = _interopRequireDefault(require("react-bootstrap/Navbar"));
+var _NavDropdown = _interopRequireDefault(require("react-bootstrap/NavDropdown"));
+var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var App = /*#__PURE__*/function (_Component) {
-  _inherits(App, _Component);
-  var _super = _createSuper(App);
-  function App() {
-    var _this;
-    _classCallCheck(this, App);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      walletInfo: {},
-      passphrase: '',
-      canSubmit: false
-    });
-    _defineProperty(_assertThisInitialized(_this), "handlePassphraseChange", function (event) {
-      var passphrase = event.target.value;
-      var canSubmit = passphrase.split(' ').length >= 12;
-      _this.setState({
-        passphrase: passphrase,
-        canSubmit: canSubmit
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "handlePassphraseSubmit", function () {
-      fetch("".concat(document.location.origin, "/api/wallet"), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          phrase: _this.state.passphrase
-        })
-      }).then(function () {
-        return window.location.reload();
-      });
-    });
-    return _this;
-  }
-  _createClass(App, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      fetch("".concat(document.location.origin, "/api/wallet-info")).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        return _this2.setState({
-          walletInfo: json
-        });
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$state = this.state,
-        walletInfo = _this$state.walletInfo,
-        canSubmit = _this$state.canSubmit;
-      if (!walletInfo.address) {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          className: "App"
-        }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Login"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Enter your passphrase:"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-          input: "text",
-          placeholder: "pass phrase",
-          value: this.state.passphrase,
-          onChange: this.handlePassphraseChange
-        })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          variant: "danger",
-          onClick: this.handlePassphraseSubmit,
-          disabled: !canSubmit
-        }, "Submit")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-          to: "/get-wallet"
-        }, "No wallet? Get one now!")));
-      }
-      var address = walletInfo.address,
-        balance = walletInfo.balance;
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "App"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("img", {
-        className: "logo",
-        src: _index.default
-      }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Welcome to the blockchain...."), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
-        className: "WalletInfo"
-      }, /*#__PURE__*/_react.default.createElement("div", null, "Address: ", address), /*#__PURE__*/_react.default.createElement("div", null, "Balance: ", balance)));
-    }
-  }]);
-  return App;
-}(_react.Component);
-var _default = App;
+function NoInputBlockNavbar() {
+  return /*#__PURE__*/_react.default.createElement(_Navbar.default, {
+    bg: "dark",
+    variant: "dark",
+    expand: "lg",
+    className: "fixed-top"
+  }, /*#__PURE__*/_react.default.createElement(_Container.default, null, /*#__PURE__*/_react.default.createElement(_Navbar.default.Brand, {
+    href: "/"
+  }, "Auction Chain")));
+}
+var _default = NoInputBlockNavbar;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","../assets/index.png":"assets/index.png","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./Usability/Navbar":"components/Usability/Navbar.js"}],"components/Block/Transaction.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-var Transaction = function Transaction(_ref) {
-  var transaction = _ref.transaction;
-  var input = transaction.input,
-    outputMap = transaction.outputMap;
-  var recipients = Object.keys(outputMap);
-  var _useState = (0, _react.useState)(''),
-    _useState2 = _slicedToArray(_useState, 2),
-    bidAmount = _useState2[0],
-    setBidAmount = _useState2[1];
-  var isBidTransaction = outputMap['bid'] ? true : false;
-  var isOwnerTransaction = outputMap['owner'] ? true : false;
-  var isRecipientTransaction = !isBidTransaction && !isOwnerTransaction;
-  var handleBidAmountChange = function handleBidAmountChange(event) {
-    setBidAmount(event.target.value);
-  };
-  var handleBidSubmit = function handleBidSubmit() {
-    // Send a request to the /place-bid endpoint with prevAuctionId and bidAmount
-    fetch("".concat(document.location.origin, "/api/place-bid"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prevAuctionItem: outputMap['auction ID'],
-        bidAmount: bidAmount
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      return console.log(data);
-    }).catch(function (error) {
-      return console.error(error);
-    });
-  };
-  if (isBidTransaction) {
-    return /*#__PURE__*/_react.default.createElement("div", {
-      className: "Transaction"
-    }, /*#__PURE__*/_react.default.createElement("div", null, "Bid on Item: ", "".concat(outputMap['auction ID'].substring(0, 20), "...")), /*#__PURE__*/_react.default.createElement("div", null, "Bid from: ", "".concat(outputMap['bidder'].substring(0, 20), "...")), /*#__PURE__*/_react.default.createElement("div", null, "Bid amount: ", outputMap['bid']));
-  }
-  if (isOwnerTransaction) {
-    return /*#__PURE__*/_react.default.createElement("div", {
-      className: "AuctionTransaction"
-    }, /*#__PURE__*/_react.default.createElement("div", null, "Auction Item"), /*#__PURE__*/_react.default.createElement("div", null, "Auction ID: ", outputMap['auction ID']), /*#__PURE__*/_react.default.createElement("div", null, "Name: ", outputMap['name']), /*#__PURE__*/_react.default.createElement("div", null, "Description: ", outputMap['description']), /*#__PURE__*/_react.default.createElement("div", null, "Starting Bid: ", outputMap['starting bid']), /*#__PURE__*/_react.default.createElement("div", null, "Auction End Time: ", outputMap['auction end time']), /*#__PURE__*/_react.default.createElement("div", null, "Owner: ", "".concat(outputMap['owner'].substring(0, 20), "..."), " "));
-  }
-  if (isRecipientTransaction) {
-    return /*#__PURE__*/_react.default.createElement("div", {
-      className: "Transaction"
-    }, /*#__PURE__*/_react.default.createElement("div", null, "From: ", "".concat(input.address.substring(0, 20), "..."), " | Balance: ", input.amount), recipients.map(function (recipient) {
-      return /*#__PURE__*/_react.default.createElement("div", {
-        key: recipient
-      }, "To: ", "".concat(recipient.substring(0, 20), "..."), " | Sent: ", outputMap[recipient]);
-    }));
-  }
-  return null;
-};
-var _default = Transaction;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js"}],"components/Block/Block.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _Transaction = _interopRequireDefault(require("./Transaction"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var Block = /*#__PURE__*/function (_Component) {
-  _inherits(Block, _Component);
-  var _super = _createSuper(Block);
-  function Block() {
-    var _this;
-    _classCallCheck(this, Block);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      displayTransaction: false
-    });
-    _defineProperty(_assertThisInitialized(_this), "toggleTransaction", function () {
-      _this.setState({
-        displayTransaction: !_this.state.displayTransaction
-      });
-    });
-    return _this;
-  }
-  _createClass(Block, [{
-    key: "displayTransaction",
-    get: function get() {
-      var data = this.props.block.data;
-      var stringifiedData = JSON.stringify(data);
-      var dataDisplay = stringifiedData.length > 35 ? "".concat(stringifiedData.substring(0, 35), "...") : stringifiedData;
-      if (this.state.displayTransaction) {
-        return /*#__PURE__*/_react.default.createElement("div", null, data.map(function (transaction) {
-          return /*#__PURE__*/_react.default.createElement("div", {
-            key: transaction.id
-          }, /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_Transaction.default, {
-            transaction: transaction
-          }));
-        }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          variant: "danger",
-          bsSize: "small",
-          onClick: this.toggleTransaction
-        }, "Show Less"));
-      }
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, "Data: ", dataDisplay), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "danger",
-        bsSize: "small",
-        onClick: this.toggleTransaction
-      }, "Show More"));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props$block = this.props.block,
-        timestamp = _this$props$block.timestamp,
-        hash = _this$props$block.hash;
-      var hashDisplay = "".concat(hash.substring(0, 15), "...");
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "Block"
-      }, /*#__PURE__*/_react.default.createElement("div", null, "Hash: ", hashDisplay), /*#__PURE__*/_react.default.createElement("div", null, "Timestamp: ", new Date(timestamp).toLocaleDateString()), this.displayTransaction);
-    }
-  }]);
-  return Block;
-}(_react.Component);
-;
-var _default = Block;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./Transaction":"components/Block/Transaction.js"}],"components/Block/Blocks.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _Block = _interopRequireDefault(require("./Block"));
-var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var Blocks = /*#__PURE__*/function (_Component) {
-  _inherits(Blocks, _Component);
-  var _super = _createSuper(Blocks);
-  function Blocks() {
-    var _this;
-    _classCallCheck(this, Blocks);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      blocks: [],
-      paginatedId: 1,
-      blocksLength: 0
-    });
-    _defineProperty(_assertThisInitialized(_this), "fetchPaginatedBlocks", function (paginatedId) {
-      return function () {
-        fetch("".concat(document.location.origin, "/api/blocks/").concat(paginatedId)).then(function (response) {
-          return response.json();
-        }).then(function (json) {
-          return _this.setState({
-            blocks: json
-          });
-        });
-      };
-    });
-    return _this;
-  }
-  _createClass(Blocks, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      fetch("".concat(document.location.origin, "/api/blocks/length")).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        return _this2.setState({
-          blocksLength: json
-        });
-      });
-      this.fetchPaginatedBlocks(this.state.paginatedId)();
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
-      console.log('this.state', this.state);
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Blocks"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, _toConsumableArray(Array(Math.ceil(this.state.blocksLength / 5)).keys()).map(function (key) {
-        var paginatedId = key + 1;
-        return /*#__PURE__*/_react.default.createElement("span", {
-          key: key,
-          onClick: _this3.fetchPaginatedBlocks(paginatedId)
-        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          bsSize: "small",
-          variant: "danger"
-        }, paginatedId), ' ');
-      })), this.state.blocks.map(function (block) {
-        return /*#__PURE__*/_react.default.createElement(_Block.default, {
-          key: block.hash,
-          block: block
-        });
-      }));
-    }
-  }]);
-  return Blocks;
-}(_react.Component);
-var _default = Blocks;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./Block":"components/Block/Block.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/toggle-selection/index.js":[function(require,module,exports) {
+},{"react-bootstrap/Container":"../../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Nav":"../../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Navbar":"../../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/NavDropdown":"../../node_modules/react-bootstrap/esm/NavDropdown.js","react":"../../node_modules/react/index.js"}],"../../node_modules/toggle-selection/index.js":[function(require,module,exports) {
 
 module.exports = function () {
   var selection = document.getSelection();
@@ -50681,7 +50330,397 @@ var _require = require('./Component'),
 
 CopyToClipboard.CopyToClipboard = CopyToClipboard;
 module.exports = CopyToClipboard;
-},{"./Component":"../../node_modules/react-copy-to-clipboard/lib/Component.js"}],"components/Transact/ConductTransaction.js":[function(require,module,exports) {
+},{"./Component":"../../node_modules/react-copy-to-clipboard/lib/Component.js"}],"components/App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _reactRouterDom = require("react-router-dom");
+var _Navbar = _interopRequireDefault(require("./Usability/Navbar"));
+var _NoInputNavbar = _interopRequireDefault(require("./Usability/NoInputNavbar"));
+var _reactCopyToClipboard = require("react-copy-to-clipboard");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var App = /*#__PURE__*/function (_Component) {
+  _inherits(App, _Component);
+  var _super = _createSuper(App);
+  function App() {
+    var _this;
+    _classCallCheck(this, App);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      walletInfo: {},
+      passphrase: '',
+      canSubmit: false
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePassphraseChange", function (event) {
+      var passphrase = event.target.value;
+      var canSubmit = passphrase.split(' ').length >= 12;
+      _this.setState({
+        passphrase: passphrase,
+        canSubmit: canSubmit
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePassphraseSubmit", function () {
+      fetch("".concat(document.location.origin, "/api/wallet"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          phrase: _this.state.passphrase
+        })
+      }).then(function () {
+        return window.location.reload();
+      });
+    });
+    return _this;
+  }
+  _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      fetch("".concat(document.location.origin, "/api/wallet-info")).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        return _this2.setState({
+          walletInfo: json
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$state = this.state,
+        walletInfo = _this$state.walletInfo,
+        canSubmit = _this$state.canSubmit;
+      if (!walletInfo.address) {
+        return /*#__PURE__*/_react.default.createElement("div", {
+          className: "App"
+        }, /*#__PURE__*/_react.default.createElement(_NoInputNavbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Login"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Enter your passphrase:"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+          input: "text",
+          placeholder: "pass phrase",
+          value: this.state.passphrase,
+          onChange: this.handlePassphraseChange
+        })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          onClick: this.handlePassphraseSubmit,
+          disabled: !canSubmit
+        }, "Submit")), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+          to: "/get-wallet"
+        }, "No wallet? Get one now!")));
+      }
+      var address = walletInfo.address;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "App"
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, "Welcome to Auction Chain!"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: "dark"
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert.Heading, null, "Wallet Details"), /*#__PURE__*/_react.default.createElement("p", null, "Address: ", address, /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+        text: address
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        size: "sm",
+        style: {
+          marginTop: '10px'
+        }
+      }, "Copy"))))));
+    }
+  }]);
+  return App;
+}(_react.Component);
+var _default = App;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./Usability/Navbar":"components/Usability/Navbar.js","./Usability/NoInputNavbar":"components/Usability/NoInputNavbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/Block/Transaction.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var Transaction = function Transaction(_ref) {
+  var transaction = _ref.transaction;
+  var input = transaction.input,
+    outputMap = transaction.outputMap;
+  var recipients = Object.keys(outputMap);
+  var _useState = (0, _react.useState)(''),
+    _useState2 = _slicedToArray(_useState, 2),
+    bidAmount = _useState2[0],
+    setBidAmount = _useState2[1];
+  var isBidTransaction = outputMap['bid'] ? true : false;
+  var isOwnerTransaction = outputMap['owner'] ? true : false;
+  var isRecipientTransaction = !isBidTransaction && !isOwnerTransaction;
+  var handleBidAmountChange = function handleBidAmountChange(event) {
+    setBidAmount(event.target.value);
+  };
+  var handleBidSubmit = function handleBidSubmit() {
+    // Send a request to the /place-bid endpoint with prevAuctionId and bidAmount
+    fetch("".concat(document.location.origin, "/api/place-bid"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prevAuctionItem: outputMap['auction ID'],
+        bidAmount: bidAmount
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      return console.log(data);
+    }).catch(function (error) {
+      return console.error(error);
+    });
+  };
+  if (isBidTransaction) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "Transaction"
+    }, /*#__PURE__*/_react.default.createElement("div", null, "Bid on Item: ", "".concat(outputMap['auction ID'].substring(0, 20), "...")), /*#__PURE__*/_react.default.createElement("div", null, "Bid from: ", "".concat(outputMap['bidder'].substring(0, 20), "...")), /*#__PURE__*/_react.default.createElement("div", null, "Bid amount: ", outputMap['bid']));
+  }
+  if (isOwnerTransaction) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "AuctionTransaction"
+    }, /*#__PURE__*/_react.default.createElement("div", null, "Auction Item"), /*#__PURE__*/_react.default.createElement("div", null, "Auction ID: ", outputMap['auction ID']), /*#__PURE__*/_react.default.createElement("div", null, "Name: ", outputMap['name']), /*#__PURE__*/_react.default.createElement("div", null, "Description: ", outputMap['description']), /*#__PURE__*/_react.default.createElement("div", null, "Starting Bid: ", outputMap['starting bid']), /*#__PURE__*/_react.default.createElement("div", null, "Auction End Time: ", outputMap['auction end time']), /*#__PURE__*/_react.default.createElement("div", null, "Owner: ", "".concat(outputMap['owner'].substring(0, 20), "..."), " "));
+  }
+  if (isRecipientTransaction) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "Transaction"
+    }, /*#__PURE__*/_react.default.createElement("div", null, "From: ", "".concat(input.address.substring(0, 20), "..."), " | Balance: ", input.amount), recipients.map(function (recipient) {
+      return /*#__PURE__*/_react.default.createElement("div", {
+        key: recipient
+      }, "To: ", "".concat(recipient.substring(0, 20), "..."), " | Sent: ", outputMap[recipient]);
+    }));
+  }
+  return null;
+};
+var _default = Transaction;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js"}],"components/Block/Block.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Transaction = _interopRequireDefault(require("./Transaction"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var Block = /*#__PURE__*/function (_Component) {
+  _inherits(Block, _Component);
+  var _super = _createSuper(Block);
+  function Block() {
+    var _this;
+    _classCallCheck(this, Block);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      displayTransaction: false
+    });
+    _defineProperty(_assertThisInitialized(_this), "toggleTransaction", function () {
+      _this.setState({
+        displayTransaction: !_this.state.displayTransaction
+      });
+    });
+    return _this;
+  }
+  _createClass(Block, [{
+    key: "displayTransaction",
+    get: function get() {
+      var data = this.props.block.data;
+      var stringifiedData = JSON.stringify(data);
+      var dataDisplay = stringifiedData.length > 35 ? "".concat(stringifiedData.substring(0, 35), "...") : stringifiedData;
+      if (this.state.displayTransaction) {
+        return /*#__PURE__*/_react.default.createElement("div", null, data.map(function (transaction) {
+          return /*#__PURE__*/_react.default.createElement("div", {
+            key: transaction.id
+          }, /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_Transaction.default, {
+            transaction: transaction
+          }));
+        }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          bsSize: "small",
+          onClick: this.toggleTransaction
+        }, "Show Less"));
+      }
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, "Data: ", dataDisplay), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        bsSize: "small",
+        onClick: this.toggleTransaction
+      }, "Show More"));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props$block = this.props.block,
+        timestamp = _this$props$block.timestamp,
+        hash = _this$props$block.hash;
+      var hashDisplay = "".concat(hash.substring(0, 15), "...");
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "Block"
+      }, /*#__PURE__*/_react.default.createElement("div", null, "Hash: ", hashDisplay), /*#__PURE__*/_react.default.createElement("div", null, "Timestamp: ", new Date(timestamp).toLocaleDateString()), this.displayTransaction);
+    }
+  }]);
+  return Block;
+}(_react.Component);
+;
+var _default = Block;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./Transaction":"components/Block/Transaction.js"}],"components/Block/Blocks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Block = _interopRequireDefault(require("./Block"));
+var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var Blocks = /*#__PURE__*/function (_Component) {
+  _inherits(Blocks, _Component);
+  var _super = _createSuper(Blocks);
+  function Blocks() {
+    var _this;
+    _classCallCheck(this, Blocks);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      blocks: [],
+      paginatedId: 1,
+      blocksLength: 0
+    });
+    _defineProperty(_assertThisInitialized(_this), "fetchPaginatedBlocks", function (paginatedId) {
+      return function () {
+        fetch("".concat(document.location.origin, "/api/blocks/").concat(paginatedId)).then(function (response) {
+          return response.json();
+        }).then(function (json) {
+          return _this.setState({
+            blocks: json
+          });
+        });
+      };
+    });
+    return _this;
+  }
+  _createClass(Blocks, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      fetch("".concat(document.location.origin, "/api/blocks/length")).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        return _this2.setState({
+          blocksLength: json
+        });
+      });
+      this.fetchPaginatedBlocks(this.state.paginatedId)();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+      console.log('this.state', this.state);
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Blocks"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, _toConsumableArray(Array(Math.ceil(this.state.blocksLength / 5)).keys()).map(function (key) {
+        var paginatedId = key + 1;
+        return /*#__PURE__*/_react.default.createElement("span", {
+          key: key,
+          onClick: _this3.fetchPaginatedBlocks(paginatedId)
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          bsSize: "small",
+          variant: "danger"
+        }, paginatedId), ' ');
+      })), this.state.blocks.map(function (block) {
+        return /*#__PURE__*/_react.default.createElement(_Block.default, {
+          key: block.hash,
+          block: block
+        });
+      }));
+    }
+  }]);
+  return Blocks;
+}(_react.Component);
+var _default = Blocks;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./Block":"components/Block/Block.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Transact/ConductTransaction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50723,7 +50762,9 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {
       recipient: '',
       amount: 0,
-      knownAddresses: []
+      knownAddresses: [],
+      currentPage: 1,
+      pageSize: 5
     });
     _defineProperty(_assertThisInitialized(_this), "updateRecipient", function (event) {
       _this.setState({
@@ -50735,10 +50776,24 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
         amount: Number(event.target.value)
       });
     });
+    _defineProperty(_assertThisInitialized(_this), "handlePageChange", function (direction) {
+      var currentPage = _this.state.currentPage;
+      var newPage = direction === 'next' ? currentPage + 1 : currentPage - 1;
+      _this.setState({
+        currentPage: newPage
+      });
+    });
     _defineProperty(_assertThisInitialized(_this), "conductTransaction", function () {
       var _this$state = _this.state,
         recipient = _this$state.recipient,
         amount = _this$state.amount;
+      if (!recipient || !amount) {
+        _this.setState({
+          alertMessage: 'All fields are required',
+          alertType: 'danger'
+        });
+        return;
+      }
       fetch("".concat(document.location.origin, "/api/transact"), {
         method: 'POST',
         headers: {
@@ -50751,8 +50806,24 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        alert(json.message || json.type);
-        _history.default.push('/transaction-pool');
+        _this.setState({
+          alertMessage: json.message || json.type,
+          alertType: 'success'
+        });
+        setTimeout(function () {
+          if (json.type === 'error') {
+            _this.setState({
+              alertMessage: json.message
+            });
+          } else {
+            _history.default.push('/transaction-pool');
+          }
+        }, 5000); // delay of 5 seconds
+      }).catch(function (error) {
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
       });
     });
     return _this;
@@ -50772,6 +50843,17 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+      var _this$state2 = this.state,
+        knownAddresses = _this$state2.knownAddresses,
+        currentPage = _this$state2.currentPage,
+        pageSize = _this$state2.pageSize,
+        alertMessage = _this$state2.alertMessage,
+        alertType = _this$state2.alertType;
+      var pageCount = Math.ceil(knownAddresses.length / pageSize);
+      var startIndex = (currentPage - 1) * pageSize;
+      var endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
+      var displayedAddresses = knownAddresses.slice(startIndex, endIndex);
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "ConductTransaction"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Conduct a Transaction"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
@@ -50797,30 +50879,53 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.conductTransaction
-      }, "Submit")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
-        className: "known-addresses",
+      }, "Submit")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
         style: {
-          marginTop: '20px'
+          marginTop: '10px'
         }
-      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
-        className: "bg-dark",
+      }, alertMessage)), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), displayedAddresses.length === 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "No wallets found, Check back later!")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Pagination, {
+        className: "justify-content-center"
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         style: {
-          height: "80%",
-          width: '90%',
-          margin: '0 auto',
-          overflowY: 'scroll',
-          padding: '10px'
+          padding: 10,
+          marginRight: 20
+        },
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: function onClick() {
+          return _this3.handlePageChange(currentPage - 1);
         }
-      }, this.state.knownAddresses.map(function (knownAddress) {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          key: knownAddress,
+      }, "Previous"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        style: {
+          padding: 10
+        },
+        variant: "danger",
+        disabled: currentPage === pageCount,
+        onClick: function onClick() {
+          return _this3.handlePageChange(currentPage + 1);
+        }
+      }, "Next")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("ul", {
+        style: {
+          listStyleType: 'none'
+        }
+      }, displayedAddresses.map(function (knownAddress, index) {
+        return /*#__PURE__*/_react.default.createElement("li", {
+          key: knownAddress
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
+          className: "bg-dark text-white",
           style: {
-            marginBottom: '10px',
-            color: 'white',
             padding: '10px',
-            border: '1px solid white'
+            margin: 'auto',
+            maxWidth: '800px'
           }
-        }, knownAddress, /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, {
+          style: {
+            textAlign: 'center'
+          }
+        }, knownAddress), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
           text: knownAddress
         }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           variant: "danger",
@@ -50828,7 +50933,7 @@ var ConductTransaction = /*#__PURE__*/function (_Component) {
           style: {
             margin: '10px'
           }
-        }, "Copy")));
+        }, "Copy"))), /*#__PURE__*/_react.default.createElement("br", null));
       }))), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
@@ -50879,7 +50984,9 @@ var auctionTransaction = /*#__PURE__*/function (_Component) {
       name: '',
       description: '',
       startingBid: 0,
-      auctionEndTime: ''
+      auctionEndTime: '',
+      alertMessage: '',
+      alertType: ''
     });
     _defineProperty(_assertThisInitialized(_this), "updateName", function (event) {
       _this.setState({
@@ -50907,6 +51014,13 @@ var auctionTransaction = /*#__PURE__*/function (_Component) {
         description = _this$state.description,
         startingBid = _this$state.startingBid,
         auctionEndTime = _this$state.auctionEndTime;
+      if (!name || !description || !startingBid || !auctionEndTime) {
+        _this.setState({
+          alertMessage: 'All fields are required',
+          alertType: 'danger'
+        });
+        return;
+      }
       fetch("".concat(document.location.origin, "/api/create-auction"), {
         method: 'POST',
         headers: {
@@ -50921,8 +51035,18 @@ var auctionTransaction = /*#__PURE__*/function (_Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        alert(json.message || json.type);
-        _history.default.push('/transaction-pool');
+        _this.setState({
+          alertMessage: json.message || json.type,
+          alertType: 'success'
+        });
+        setTimeout(function () {
+          _history.default.push('/transaction-pool');
+        }, 5000); // delay of 5 seconds
+      }).catch(function (error) {
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
       });
     });
     return _this;
@@ -50930,6 +51054,9 @@ var auctionTransaction = /*#__PURE__*/function (_Component) {
   _createClass(auctionTransaction, [{
     key: "render",
     value: function render() {
+      var _this$state2 = this.state,
+        alertMessage = _this$state2.alertMessage,
+        alertType = _this$state2.alertType;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "AuctionTransaction"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auction a Transaction"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
@@ -50978,7 +51105,14 @@ var auctionTransaction = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.auctionTransaction
-      }, "Submit")));
+      }, "Submit")), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, alertMessage)));
     }
   }]);
   return auctionTransaction;
@@ -50996,7 +51130,6 @@ exports.default = void 0;
 var _Transaction = _interopRequireDefault(require("../Block/Transaction"));
 var _reactBootstrap = require("react-bootstrap");
 var _react = _interopRequireWildcard(require("react"));
-var _reactRouterDom = require("react-router-dom");
 var _history = _interopRequireDefault(require("../../history"));
 var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -51028,7 +51161,9 @@ var TransactionPool = /*#__PURE__*/function (_Component) {
     }
     _this = _super.call.apply(_super, [this].concat(args));
     _defineProperty(_assertThisInitialized(_this), "state", {
-      transactionPoolMap: {}
+      transactionPoolMap: {},
+      alertMessage: '',
+      alertType: ''
     });
     _defineProperty(_assertThisInitialized(_this), "fetchTransactionPoolMap", function () {
       fetch("".concat(document.location.origin, "/api/transaction-pool-map")).then(function (response) {
@@ -51042,11 +51177,25 @@ var TransactionPool = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "fetchMineTransactions", function () {
       fetch("".concat(document.location.origin, "/api/mine-transactions")).then(function (response) {
         if (response.status === 200) {
-          alert('success');
-          _history.default.push('/blocks');
+          _this.setState({
+            alertMessage: 'success'
+          });
+          _this.setState({
+            alertType: 'success'
+          });
+          setTimeout(function () {
+            _history.default.push('/blocks');
+          }, 5000);
         } else {
-          alert('The mine-transactions block request did not complete.');
+          _this.setState({
+            alertMessage: 'The mine-transactions block request did not complete.'
+          });
         }
+      }).catch(function (error) {
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
       });
     });
     return _this;
@@ -51068,25 +51217,36 @@ var TransactionPool = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this$state = this.state,
+        alertMessage = _this$state.alertMessage,
+        alertType = _this$state.alertType;
+      var poolIsEmpty = Object.keys(this.state.transactionPoolMap).length === 0;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "TransactionPool"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Transaction Pool"), Object.values(this.state.transactionPoolMap).map(function (transaction) {
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Transaction Pool"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), poolIsEmpty ? /*#__PURE__*/_react.default.createElement("p", null, "No transactions in pool, check back later!") : Object.values(this.state.transactionPoolMap).map(function (transaction) {
         return /*#__PURE__*/_react.default.createElement("div", {
           key: transaction.id
-        }, /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_Transaction.default, {
+        }, /*#__PURE__*/_react.default.createElement(_Transaction.default, {
           transaction: transaction
         }));
-      }), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "danger",
+      }), /*#__PURE__*/_react.default.createElement("br", null), !poolIsEmpty && /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        className: "btn btn-danger",
         onClick: this.fetchMineTransactions
-      }, "Mine the Transactions"));
+      }, "Mine the Transactions"), /*#__PURE__*/_react.default.createElement("br", null)), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, alertMessage)), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
   return TransactionPool;
 }(_react.Component);
 var _default = TransactionPool;
 exports.default = _default;
-},{"../Block/Transaction":"components/Block/Transaction.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Transact/CreateBid.js":[function(require,module,exports) {
+},{"../Block/Transaction":"components/Block/Transaction.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react":"../../node_modules/react/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Transact/CreateBid.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51126,7 +51286,9 @@ var bidTransaction = /*#__PURE__*/function (_Component) {
     _this = _super.call.apply(_super, [this].concat(args));
     _defineProperty(_assertThisInitialized(_this), "state", {
       prevAuctionItem: '',
-      bidAmount: 0
+      bidAmount: 0,
+      alertMessage: '',
+      alertType: ''
     });
     _defineProperty(_assertThisInitialized(_this), "updatePrevAuctionItem", function (event) {
       _this.setState({
@@ -51142,6 +51304,13 @@ var bidTransaction = /*#__PURE__*/function (_Component) {
       var _this$state = _this.state,
         prevAuctionItem = _this$state.prevAuctionItem,
         bidAmount = _this$state.bidAmount;
+      if (!prevAuctionItem || !bidAmount) {
+        _this.setState({
+          alertMessage: 'All fields are required',
+          alertType: 'danger'
+        });
+        return;
+      }
       fetch("".concat(document.location.origin, "/api/place-bid"), {
         method: 'POST',
         headers: {
@@ -51154,8 +51323,24 @@ var bidTransaction = /*#__PURE__*/function (_Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
-        alert(json.message || json.type);
-        _history.default.push('/transaction-pool');
+        _this.setState({
+          alertMessage: json.message || json.type,
+          alertType: 'success'
+        });
+        setTimeout(function () {
+          if (json.message === 'No valid auction item block found for the given auction ID') {
+            _this.setState({
+              alertMessage: ''
+            });
+          } else {
+            _history.default.push('/transaction-pool');
+          }
+        }, 5000); // delay of 5 seconds
+      }).catch(function (error) {
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
       });
     });
     return _this;
@@ -51163,6 +51348,9 @@ var bidTransaction = /*#__PURE__*/function (_Component) {
   _createClass(bidTransaction, [{
     key: "render",
     value: function render() {
+      var _this$state2 = this.state,
+        alertMessage = _this$state2.alertMessage,
+        alertType = _this$state2.alertType;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "BidTransaction"
       }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Place a bid"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
@@ -51188,7 +51376,14 @@ var bidTransaction = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "danger",
         onClick: this.bidTransaction
-      }, "Submit")));
+      }, "Submit")), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, alertMessage)));
     }
   }]);
   return bidTransaction;
@@ -51196,292 +51391,7 @@ var bidTransaction = /*#__PURE__*/function (_Component) {
 ;
 var _default = bidTransaction;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Auction/AuctionTransactionComponent.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-var AuctionTransactionComponent = function AuctionTransactionComponent(_ref) {
-  var transaction = _ref.transaction;
-  var outputMap = transaction.outputMap;
-  var _useState = (0, _react.useState)(''),
-    _useState2 = _slicedToArray(_useState, 2),
-    bidAmount = _useState2[0],
-    setBidAmount = _useState2[1];
-  var _useState3 = (0, _react.useState)(false),
-    _useState4 = _slicedToArray(_useState3, 2),
-    showModal = _useState4[0],
-    setShowModal = _useState4[1];
-  var handleBidAmountChange = function handleBidAmountChange(event) {
-    setBidAmount(event.target.value);
-  };
-  var handleModalClose = function handleModalClose() {
-    setShowModal(false);
-  };
-  var handleModalOpen = function handleModalOpen() {
-    setShowModal(true);
-  };
-  var handleBidSubmit = function handleBidSubmit() {
-    // Send a request to the /place-bid endpoint with prevAuctionId and bidAmount
-    fetch("".concat(document.location.origin, "/api/place-bid"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prevAuctionItem: outputMap['auction ID'],
-        bidAmount: bidAmount
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
-    });
-    setBidAmount('');
-    setShowModal(false);
-  };
-  return /*#__PURE__*/_react.default.createElement(_Card.default, {
-    className: "bg-dark text-white"
-  }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Auction ID: ", outputMap['auction ID']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Name: ", outputMap['name']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Description: ", outputMap['description']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Starting Bid: ", outputMap['starting bid']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Auction End Time: ", outputMap['auction end time']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Owner: ", outputMap['owner']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleModalOpen,
-    style: {
-      marginBottom: '10px'
-    }
-  }, "Place Bid"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal, {
-    className: "Modal",
-    show: showModal,
-    onHide: handleModalClose
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Header, {
-    className: "ModalColor",
-    closeButton: true
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Title, null, "Bid Amount")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Body, {
-    className: "ModalColor"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormLabel, null, "Bid Amount:"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-    type: "number",
-    placeholder: "Bid Amount",
-    value: bidAmount,
-    onChange: handleBidAmountChange,
-    style: {
-      width: '100%'
-    }
-  }))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Footer, {
-    className: "ModalColor"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleModalClose
-  }, "Close"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleBidSubmit
-  }, "Submit Bid")))));
-};
-var _default = AuctionTransactionComponent;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js"}],"components/Auction/Auction.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _AuctionTransactionComponent = _interopRequireDefault(require("./AuctionTransactionComponent"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var Auction = /*#__PURE__*/function (_Component) {
-  _inherits(Auction, _Component);
-  var _super = _createSuper(Auction);
-  function Auction() {
-    var _this;
-    _classCallCheck(this, Auction);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      displayTransaction: false
-    });
-    _defineProperty(_assertThisInitialized(_this), "toggleTransaction", function () {
-      _this.setState({
-        displayTransaction: !_this.state.displayTransaction
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "displayTransaction", function () {
-      var data = _this.props.block.data;
-      if (_this.state.displayTransaction) {
-        var validTransactions = data.filter(function (transaction) {
-          return transaction.outputMap['owner'];
-        });
-        return /*#__PURE__*/_react.default.createElement("div", null, validTransactions.map(function (transaction) {
-          return /*#__PURE__*/_react.default.createElement("div", {
-            key: transaction.id
-          }, /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_AuctionTransactionComponent.default, {
-            transaction: transaction
-          }));
-        }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          variant: "danger",
-          bsSize: "small",
-          onClick: _this.toggleTransaction
-        }, "Show Less"));
-      }
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "danger",
-        bsSize: "small",
-        onClick: _this.toggleTransaction
-      }, "Show More"));
-    });
-    return _this;
-  }
-  _createClass(Auction, [{
-    key: "render",
-    value: function render() {
-      var _this$props$block = this.props.block,
-        timestamp = _this$props$block.timestamp,
-        hash = _this$props$block.hash;
-      var hashDisplay = "".concat(hash.substring(0, 15), "...");
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "Block"
-      }, /*#__PURE__*/_react.default.createElement("div", null, "Hash: ", hashDisplay), /*#__PURE__*/_react.default.createElement("div", null, "Timestamp: ", new Date(timestamp).toLocaleDateString()), this.displayTransaction());
-    }
-  }]);
-  return Auction;
-}(_react.Component);
-;
-var _default = Auction;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./AuctionTransactionComponent":"components/Auction/AuctionTransactionComponent.js"}],"components/Auction/Auctions.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _Auction = _interopRequireDefault(require("./Auction"));
-var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var Auctions = /*#__PURE__*/function (_Component) {
-  _inherits(Auctions, _Component);
-  var _super = _createSuper(Auctions);
-  function Auctions() {
-    var _this;
-    _classCallCheck(this, Auctions);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      blocks: [],
-      paginatedId: 1,
-      blocksLength: 0
-    });
-    _defineProperty(_assertThisInitialized(_this), "fetchPaginatedBlocks", function (paginatedId) {
-      return function () {
-        fetch("".concat(document.location.origin, "/api/blocks/").concat(paginatedId)).then(function (response) {
-          return response.json();
-        }).then(function (json) {
-          return _this.setState({
-            blocks: json
-          });
-        });
-      };
-    });
-    return _this;
-  }
-  _createClass(Auctions, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      fetch("".concat(document.location.origin, "/api/blocks/length")).then(function (response) {
-        return response.json();
-      }).then(function (json) {
-        return _this2.setState({
-          blocksLength: json
-        });
-      });
-      this.fetchPaginatedBlocks(this.state.paginatedId)();
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
-      console.log('this.state', this.state);
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auctions"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, _toConsumableArray(Array(Math.ceil(this.state.blocksLength / 5)).keys()).map(function (key) {
-        var paginatedId = key + 1;
-        return /*#__PURE__*/_react.default.createElement("span", {
-          key: key,
-          onClick: _this3.fetchPaginatedBlocks(paginatedId)
-        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          bsSize: "small",
-          variant: "danger"
-        }, paginatedId), ' ');
-      })), this.state.blocks.map(function (block) {
-        return /*#__PURE__*/_react.default.createElement(_Auction.default, {
-          key: block.hash,
-          block: block
-        });
-      }));
-    }
-  }]);
-  return Auctions;
-}(_react.Component);
-var _default = Auctions;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./Auction":"components/Auction/Auction.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Wallet/walletPhraseReturn.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../../history":"history.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Wallet/walletPhraseReturn.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51526,7 +51436,15 @@ function WalletMnemonic() {
   };
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "wallet-phrase"
-  }, /*#__PURE__*/_react.default.createElement("div", null, walletPhrase), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      columnCount: 4
+    }
+  }, walletPhrase.split(' ').map(function (word, index) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      key: index
+    }, word);
+  })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
     text: walletPhrase
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     variant: "danger",
@@ -51554,10 +51472,10 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function AdditionalContentExample() {
   return /*#__PURE__*/_react.default.createElement(_Alert.default, {
-    variant: "success"
-  }, /*#__PURE__*/_react.default.createElement(_Alert.default.Heading, null, "Hey, nice to see you"), /*#__PURE__*/_react.default.createElement("p", null, "Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content."), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", {
+    variant: "warning"
+  }, /*#__PURE__*/_react.default.createElement(_Alert.default.Heading, null, "A notice about wallet phrases"), /*#__PURE__*/_react.default.createElement("p", null, "Please note that wallet phrases are the method by which you use to login to our system. Your wallet holds your auction items and your coins. If you lose your wallet phrase there is no way to recover it."), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", {
     className: "mb-0"
-  }, "Whenever you need to, be sure to use margin utilities to keep things nice and tidy."));
+  }, "MAKE SURE YOU COPY YOUR WALLET PHRASE BEFORE LEAVING THIS PAGE"));
 }
 var _default = AdditionalContentExample;
 exports.default = _default;
@@ -51570,7 +51488,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _walletPhraseReturn = _interopRequireDefault(require("./walletPhraseReturn"));
-var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+var _NoInputNavbar = _interopRequireDefault(require("../Usability/NoInputNavbar"));
 var _PhraseBanner = _interopRequireDefault(require("../Usability/PhraseBanner"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -51600,14 +51518,16 @@ var NewWalletPhrase = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "App"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "New Wallet Phrase"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_walletPhraseReturn.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_PhraseBanner.default, null));
+      }, /*#__PURE__*/_react.default.createElement(_NoInputNavbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "New Wallet Phrase"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_walletPhraseReturn.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, /*#__PURE__*/_react.default.createElement(_PhraseBanner.default, null)));
     }
   }]);
   return NewWalletPhrase;
 }(_react.Component);
 var _default = NewWalletPhrase;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./walletPhraseReturn":"components/Wallet/walletPhraseReturn.js","../Usability/Navbar":"components/Usability/Navbar.js","../Usability/PhraseBanner":"components/Usability/PhraseBanner.js"}],"components/Usability/AddressBook.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./walletPhraseReturn":"components/Wallet/walletPhraseReturn.js","../Usability/NoInputNavbar":"components/Usability/NoInputNavbar.js","../Usability/PhraseBanner":"components/Usability/PhraseBanner.js"}],"components/Usability/AddressBook.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51618,6 +51538,7 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactBootstrap = require("react-bootstrap");
 var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
 var _reactCopyToClipboard = require("react-copy-to-clipboard");
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -51648,7 +51569,29 @@ var AddressBook = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {
       recipient: '',
       amount: 0,
-      knownAddresses: []
+      knownAddresses: [],
+      currentPage: 1,
+      pageSize: 5
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePrevious", function () {
+      var currentPage = _this.state.currentPage;
+      if (currentPage > 1) {
+        _this.setState({
+          currentPage: currentPage - 1
+        });
+      }
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleNext", function () {
+      var _this$state = _this.state,
+        knownAddresses = _this$state.knownAddresses,
+        currentPage = _this$state.currentPage,
+        pageSize = _this$state.pageSize;
+      var pageCount = Math.ceil(knownAddresses.length / pageSize);
+      if (currentPage < pageCount) {
+        _this.setState({
+          currentPage: currentPage + 1
+        });
+      }
     });
     return _this;
   }
@@ -51667,26 +51610,55 @@ var AddressBook = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this$state2 = this.state,
+        knownAddresses = _this$state2.knownAddresses,
+        currentPage = _this$state2.currentPage,
+        pageSize = _this$state2.pageSize;
+      var pageCount = Math.ceil(knownAddresses.length / pageSize);
+      var startIndex = (currentPage - 1) * pageSize;
+      var endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
+      var displayedAddresses = knownAddresses.slice(startIndex, endIndex);
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "ConductTransaction"
-      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("ul", {
-        style: {
-          listStyleType: 'none',
-          padding: '10px',
-          backgroundColor: '#343a40',
-          borderRadius: '5px'
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h4", null, "Known Addresses"), /*#__PURE__*/_react.default.createElement("hr", null), displayedAddresses.length === 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("p", null, "No wallets found, Check back later!")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+        className: {
+          display: 'flex',
+          justifyContent: 'center'
         }
-      }, this.state.knownAddresses.map(function (knownAddress) {
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        style: {
+          padding: 10,
+          marginRight: 15
+        },
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: this.handlePrevious
+      }, "Previous"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        style: {
+          padding: 10
+        },
+        variant: "danger",
+        disabled: currentPage === pageCount,
+        onClick: this.handleNext
+      }, "Next")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("ul", {
+        style: {
+          listStyleType: 'none'
+        }
+      }, displayedAddresses.map(function (knownAddress, index) {
         return /*#__PURE__*/_react.default.createElement("li", {
-          key: knownAddress,
+          key: knownAddress
+        }, /*#__PURE__*/_react.default.createElement(_Card.default, {
+          className: "bg-dark text-white",
           style: {
-            marginBottom: '10px',
-            color: 'white',
             padding: '10px',
-            border: '1px solid white',
-            borderRadius: '5px'
+            margin: 'auto',
+            maxWidth: '800px'
           }
-        }, knownAddress, /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
+        }, /*#__PURE__*/_react.default.createElement(_Card.default.Text, {
+          style: {
+            textAlign: 'center'
+          }
+        }, knownAddress), /*#__PURE__*/_react.default.createElement(_reactCopyToClipboard.CopyToClipboard, {
           text: knownAddress
         }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
           variant: "danger",
@@ -51694,8 +51666,28 @@ var AddressBook = /*#__PURE__*/function (_Component) {
           style: {
             margin: '10px'
           }
-        }, "Copy")));
-      }))), /*#__PURE__*/_react.default.createElement("br", null));
+        }, "Copy"))), /*#__PURE__*/_react.default.createElement("br", null));
+      })), /*#__PURE__*/_react.default.createElement("div", {
+        className: {
+          display: 'flex',
+          justifyContent: 'center'
+        }
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        style: {
+          padding: 10,
+          marginRight: 15
+        },
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: this.handlePrevious
+      }, "Previous"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        style: {
+          padding: 10
+        },
+        variant: "danger",
+        disabled: currentPage === pageCount,
+        onClick: this.handleNext
+      }, "Next"))), /*#__PURE__*/_react.default.createElement("br", null));
     }
   }]);
   return AddressBook;
@@ -51703,7 +51695,7 @@ var AddressBook = /*#__PURE__*/function (_Component) {
 ;
 var _default = AddressBook;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js"}],"components/User/UserAuctionTransactionComponent.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js","react-copy-to-clipboard":"../../node_modules/react-copy-to-clipboard/lib/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js"}],"components/Wallet/walletHistoryRequest.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51712,287 +51704,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _reactBootstrap = require("react-bootstrap");
-var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-var UserAuctionTransactionComponent = function UserAuctionTransactionComponent(_ref) {
-  var transaction = _ref.transaction;
-  var outputMap = transaction.outputMap;
-  var _useState = (0, _react.useState)(false),
-    _useState2 = _slicedToArray(_useState, 2),
-    showModal = _useState2[0],
-    setShowModal = _useState2[1];
-  var _useState3 = (0, _react.useState)(0),
-    _useState4 = _slicedToArray(_useState3, 2),
-    revisedStartingBid = _useState4[0],
-    setRevisedStartingBid = _useState4[1];
-  var _useState5 = (0, _react.useState)(''),
-    _useState6 = _slicedToArray(_useState5, 2),
-    revisedAuctionEndTime = _useState6[0],
-    setRevisedAuctionEndTime = _useState6[1];
-  var handleAuctionEnd = function handleAuctionEnd() {
-    // Send a request to the /api/end-auction endpoint with prevAuctionId
-    fetch("".concat(document.location.origin, "/api/end-auction"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prevAuctionId: outputMap['auction ID']
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
-    });
-  };
-  var handleAuctionClose = function handleAuctionClose() {
-    // Send a request to the /api/close-auction endpoint with prevAuctionId
-    fetch("".concat(document.location.origin, "/api/close-auction"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prevAuctionItem: outputMap['auction ID']
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
-    });
-  };
-  var handleModalShow = function handleModalShow() {
-    setShowModal(true);
-  };
-  var handleModalClose = function handleModalClose() {
-    setShowModal(false);
-  };
-  var handleReinitiateAuction = function handleReinitiateAuction() {
-    // Send a request to the /api/reinitiate-auction endpoint with prevAuctionItem, revisedStartingBid, and revisedAuctionEndTime
-    fetch("".concat(document.location.origin, "/api/reinitiate-auction"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prevAuctionItem: outputMap['auction ID'],
-        revisedStartingBid: revisedStartingBid,
-        revisedAuctionEndTime: revisedAuctionEndTime
-      })
-    }).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      alert(json.message || json.type);
-      history.push('/transaction-pool');
-    });
-
-    // Reset the form values and close the modal
-    setRevisedStartingBid(0);
-    setRevisedAuctionEndTime('');
-    setShowModal(false);
-  };
-  return /*#__PURE__*/_react.default.createElement(_Card.default, {
-    className: "bg-dark text-white"
-  }, /*#__PURE__*/_react.default.createElement(_Card.default.Body, null, /*#__PURE__*/_react.default.createElement(_Card.default.Title, null, "Auction ID: ", outputMap['auction ID']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Name: ", outputMap['name']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Description: ", outputMap['description']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Starting Bid: ", outputMap['starting bid']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Auction End Time:  ", outputMap['auction end time']), /*#__PURE__*/_react.default.createElement(_Card.default.Text, null, "Owner:  ", outputMap['owner']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleAuctionEnd,
-    style: {
-      marginTop: '10px',
-      marginRight: '10px'
-    }
-  }, "End Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleAuctionClose,
-    style: {
-      marginTop: '10px',
-      marginRight: '10px'
-    }
-  }, "Close Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleModalShow,
-    style: {
-      marginTop: '10px',
-      marginRight: '10px'
-    }
-  }, "Reinitiate Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal, {
-    className: "Modal",
-    show: showModal,
-    onHide: handleModalClose,
-    backdrop: "static",
-    keyboard: false
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Header, {
-    className: "ModalColor",
-    closeButton: true
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Title, null, "Reinitiate Auction")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Body, {
-    className: "ModalColor"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
-    controlId: "revisedStartingBid"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Revised Starting Bid"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
-    type: "number",
-    placeholder: "Enter revised starting bid",
-    value: revisedStartingBid,
-    onChange: function onChange(e) {
-      return setRevisedStartingBid(e.target.value);
-    }
-  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
-    controlId: "revisedAuctionEndTime"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Revised Auction End Time"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
-    type: "datetime-local",
-    placeholder: "Enter revised auction end time",
-    value: revisedAuctionEndTime,
-    onChange: function onChange(e) {
-      return setRevisedAuctionEndTime(e.target.value);
-    }
-  })))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Footer, {
-    className: "ModalColor"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleModalClose
-  }, "Close"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    variant: "danger",
-    onClick: handleReinitiateAuction
-  }, "Save Changes")))));
-};
-var _default = UserAuctionTransactionComponent;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js"}],"components/User/UserAuction.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _UserAuctionTransactionComponent = _interopRequireDefault(require("./UserAuctionTransactionComponent"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var UserAuction = /*#__PURE__*/function (_Component) {
-  _inherits(UserAuction, _Component);
-  var _super = _createSuper(UserAuction);
-  function UserAuction() {
-    var _this;
-    _classCallCheck(this, UserAuction);
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    _this = _super.call.apply(_super, [this].concat(args));
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      displayTransaction: false,
-      walletAddress: null
-    });
-    _defineProperty(_assertThisInitialized(_this), "toggleTransaction", function () {
-      _this.setState({
-        displayTransaction: !_this.state.displayTransaction
-      });
-    });
-    _defineProperty(_assertThisInitialized(_this), "displayTransaction", function () {
-      var data = _this.props.block.data;
-      if (!_this.state.walletAddress) {
-        // If wallet address is not fetched yet, show loading spinner or message
-        return /*#__PURE__*/_react.default.createElement("div", null, "Loading wallet address...");
-      }
-      var validTransactions = data.filter(function (transaction) {
-        var outputMap = transaction.outputMap;
-        return outputMap['owner'] === _this.state.walletAddress;
-      });
-      if (_this.state.displayTransaction) {
-        return /*#__PURE__*/_react.default.createElement("div", null, validTransactions.map(function (transaction) {
-          return /*#__PURE__*/_react.default.createElement("div", {
-            key: transaction.id
-          }, /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_UserAuctionTransactionComponent.default, {
-            transaction: transaction
-          }));
-        }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          variant: "danger",
-          bsSize: "small",
-          onClick: _this.toggleTransaction
-        }, "Show Less"));
-      }
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "danger",
-        bsSize: "small",
-        onClick: _this.toggleTransaction
-      }, "Show More"));
-    });
-    return _this;
-  }
-  _createClass(UserAuction, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      // Fetch the wallet address and store it in the component state
-      fetch('/api/my-wallet-address').then(function (res) {
-        return res.json();
-      }).then(function (data) {
-        return _this2.setState({
-          walletAddress: data
-        });
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props$block = this.props.block,
-        timestamp = _this$props$block.timestamp,
-        hash = _this$props$block.hash;
-      var hashDisplay = "".concat(hash.substring(0, 15), "...");
-      return /*#__PURE__*/_react.default.createElement("div", {
-        className: "Block"
-      }, /*#__PURE__*/_react.default.createElement("div", null, "Hash: ", hashDisplay), /*#__PURE__*/_react.default.createElement("div", null, "Timestamp: ", new Date(timestamp).toLocaleDateString()), this.displayTransaction());
-    }
-  }]);
-  return UserAuction;
-}(_react.Component);
-;
-var _default = UserAuction;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./UserAuctionTransactionComponent":"components/User/UserAuctionTransactionComponent.js"}],"components/User/UserAuctions.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactBootstrap = require("react-bootstrap");
-var _UserAuction = _interopRequireDefault(require("./UserAuction"));
 var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -52006,74 +51722,1112 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var UserAuctions = /*#__PURE__*/function (_Component) {
-  _inherits(UserAuctions, _Component);
-  var _super = _createSuper(UserAuctions);
-  function UserAuctions() {
+var walletHistory = /*#__PURE__*/function (_Component) {
+  _inherits(walletHistory, _Component);
+  var _super = _createSuper(walletHistory);
+  function walletHistory() {
     var _this;
-    _classCallCheck(this, UserAuctions);
+    _classCallCheck(this, walletHistory);
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
     _this = _super.call.apply(_super, [this].concat(args));
     _defineProperty(_assertThisInitialized(_this), "state", {
-      blocks: [],
-      paginatedId: 1,
-      blocksLength: 0
+      walletIdSearch: '',
+      retrievedWalletHistory: null,
+      showAlert: false,
+      currentPage: 1,
+      itemsPerPage: 4
     });
-    _defineProperty(_assertThisInitialized(_this), "fetchPaginatedBlocks", function (paginatedId) {
-      return function () {
-        fetch("".concat(document.location.origin, "/api/blocks/").concat(paginatedId)).then(function (response) {
-          return response.json();
-        }).then(function (json) {
-          return _this.setState({
-            blocks: json
-          });
+    _defineProperty(_assertThisInitialized(_this), "updateWalletId", function (event) {
+      _this.setState({
+        walletIdSearch: event.target.value
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "walletHistoryRequest", function () {
+      var walletIdSearch = _this.state.walletIdSearch;
+      if (!walletIdSearch) {
+        _this.setState({
+          showAlert: true,
+          alertType: 'danger',
+          alertMessage: 'All inputs must be filled'
         });
-      };
+        return;
+      }
+      fetch("".concat(document.location.origin, "/api/wallet-history"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          walletAddress: walletIdSearch
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        if (!json.length) {
+          _this.setState({
+            retrievedWalletHistory: null,
+            showAlert: true,
+            currentPage: 1,
+            alertType: 'danger',
+            alertMessage: 'No wallet history found'
+          });
+        } else {
+          _this.setState({
+            retrievedWalletHistory: json,
+            showAlert: true,
+            currentPage: 1,
+            alertType: 'success',
+            alertMessage: 'Wallet history retrieved successfully'
+          });
+        }
+      }).catch(function (error) {
+        _this.setState({
+          showAlert: true,
+          alertType: 'danger',
+          alertMessage: 'Error retrieving wallet history'
+        });
+        console.error('Error retrieving wallet history:', error);
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "renderAlertBox", function (item) {
+      if (item.owner) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: item.timestamp,
+          variant: "dark"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", item["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Name: ", item["name"]), /*#__PURE__*/_react.default.createElement("p", null, "Description: ", item["description"]), /*#__PURE__*/_react.default.createElement("p", null, "Starting bid: ", item["starting bid"]), /*#__PURE__*/_react.default.createElement("p", null, "Auction end time: ", item["auction end time"]), /*#__PURE__*/_react.default.createElement("p", null, "Owner: ", item["owner"]));
+      } else if (item.bid) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: item.timestamp,
+          variant: "dark"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", item["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Bidder: ", item["bidder"]), /*#__PURE__*/_react.default.createElement("p", null, "Bid: ", item["bid"]));
+      }
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePaginationClick", function (event) {
+      _this.setState({
+        currentPage: Number(event.target.id)
+      });
     });
     return _this;
   }
-  _createClass(UserAuctions, [{
+  _createClass(walletHistory, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var _this$state = this.state,
+        retrievedWalletHistory = _this$state.retrievedWalletHistory,
+        showAlert = _this$state.showAlert,
+        currentPage = _this$state.currentPage,
+        itemsPerPage = _this$state.itemsPerPage,
+        alertMessage = _this$state.alertMessage,
+        alertType = _this$state.alertType;
+      var indexOfLastItem = currentPage * itemsPerPage;
+      var indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      var currentItems = retrievedWalletHistory && showAlert && retrievedWalletHistory.length > 0 ? retrievedWalletHistory.slice(indexOfFirstItem, indexOfLastItem) : [];
+      var totalPages = retrievedWalletHistory ? Math.ceil(retrievedWalletHistory.length / itemsPerPage) : 0;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "auctionHistory"
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Wallet History"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, alertMessage)), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+        input: "text",
+        placeholder: "Wallet ID",
+        value: this.state.walletIdSearch,
+        onChange: this.updateWalletId,
+        style: {
+          marginBottom: '10px',
+          width: '60%',
+          margin: '0 auto'
+        }
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, retrievedWalletHistory && showAlert && /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          marginBottom: '20px'
+        }
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: function onClick() {
+          return _this2.setState({
+            currentPage: currentPage - 1
+          });
+        }
+      }, "Previous"), ' ', /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === totalPages,
+        onClick: function onClick() {
+          return _this2.setState({
+            currentPage: currentPage + 1
+          });
+        }
+      }, "Next")), currentItems.map(function (item) {
+        return _this2.renderAlertBox(item);
+      }), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          marginTop: '20px'
+        }
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: function onClick() {
+          return _this2.setState({
+            currentPage: currentPage - 1
+          });
+        }
+      }, "Previous"), ' ', /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === totalPages,
+        onClick: function onClick() {
+          return _this2.setState({
+            currentPage: currentPage + 1
+          });
+        }
+      }, "Next")))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        onClick: this.walletHistoryRequest,
+        style: {
+          margin: '0 auto',
+          display: 'block'
+        }
+      }, "Get Wallet History"), /*#__PURE__*/_react.default.createElement("br", null));
+    }
+  }]);
+  return walletHistory;
+}(_react.Component);
+var _default = walletHistory;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Auction/AuctionHistoryRequest.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var AuctionHistory = /*#__PURE__*/function (_Component) {
+  _inherits(AuctionHistory, _Component);
+  var _super = _createSuper(AuctionHistory);
+  function AuctionHistory() {
+    var _this;
+    _classCallCheck(this, AuctionHistory);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      auctionItemId: '',
+      retrievedAuctionHistory: null,
+      showAlert: false,
+      currentPage: 1,
+      itemsPerPage: 4
+    });
+    _defineProperty(_assertThisInitialized(_this), "updateauctionId", function (event) {
+      _this.setState({
+        auctionItemId: event.target.value
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "auctionHistoryRequest", function () {
+      var auctionItemId = _this.state.auctionItemId;
+      if (!auctionItemId) {
+        _this.setState({
+          showAlert: true,
+          alertType: 'danger',
+          alertMessage: 'All inputs must be filled'
+        });
+        return;
+      }
+      fetch("".concat(document.location.origin, "/api/item-history"), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          auctionItemId: auctionItemId
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        if (!json.length) {
+          _this.setState({
+            retrievedAuctionHistory: null,
+            showAlert: true,
+            currentPage: 1,
+            alertType: 'danger',
+            alertMessage: 'No auction history found'
+          });
+        } else {
+          _this.setState({
+            retrievedAuctionHistory: json,
+            showAlert: true,
+            currentPage: 1,
+            alertType: 'success',
+            alertMessage: 'Auction history retrieved successfully'
+          });
+        }
+      }).catch(function (error) {
+        _this.setState({
+          showAlert: true,
+          alertType: 'danger',
+          alertMessage: 'Error retrieving auction history'
+        });
+        console.error('Error retrieving auction history:', error);
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "renderAlertBox", function (item) {
+      if (item.owner) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: item.timestamp,
+          variant: "dark"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", item["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Name: ", item["name"]), /*#__PURE__*/_react.default.createElement("p", null, "Description: ", item["description"]), /*#__PURE__*/_react.default.createElement("p", null, "Starting bid: ", item["starting bid"]), /*#__PURE__*/_react.default.createElement("p", null, "Auction end time: ", item["auction end time"]), /*#__PURE__*/_react.default.createElement("p", null, "Owner: ", item["owner"]));
+      } else {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+          key: item.timestamp,
+          variant: "dark"
+        }, /*#__PURE__*/_react.default.createElement("p", null, "Auction ID: ", item["auction ID"]), /*#__PURE__*/_react.default.createElement("p", null, "Bidder: ", item["bidder"]), /*#__PURE__*/_react.default.createElement("p", null, "Bid: ", item["bid"]));
+      }
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePaginationClick", function (event) {
+      _this.setState({
+        currentPage: Number(event.target.id)
+      });
+    });
+    return _this;
+  }
+  _createClass(AuctionHistory, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var _this$state = this.state,
+        retrievedAuctionHistory = _this$state.retrievedAuctionHistory,
+        showAlert = _this$state.showAlert,
+        currentPage = _this$state.currentPage,
+        itemsPerPage = _this$state.itemsPerPage,
+        alertMessage = _this$state.alertMessage,
+        alertType = _this$state.alertType;
+      var indexOfLastItem = currentPage * itemsPerPage;
+      var indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      var currentItems = retrievedAuctionHistory && showAlert && retrievedAuctionHistory.length > 0 ? retrievedAuctionHistory.slice(indexOfFirstItem, indexOfLastItem) : [];
+      var totalPages = retrievedAuctionHistory ? Math.ceil(retrievedAuctionHistory.length / itemsPerPage) : 0;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "auctionHistory"
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auction History"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, alertMessage)), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+        input: "text",
+        placeholder: "Auction ID",
+        value: this.state.auctionItemId,
+        onChange: this.updateauctionId,
+        style: {
+          marginBottom: '10px',
+          width: '60%',
+          margin: '0 auto'
+        }
+      })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, retrievedAuctionHistory && showAlert && /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          marginBottom: '20px'
+        }
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: function onClick() {
+          return _this2.setState({
+            currentPage: currentPage - 1
+          });
+        }
+      }, "Previous"), ' ', /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === totalPages,
+        onClick: function onClick() {
+          return _this2.setState({
+            currentPage: currentPage + 1
+          });
+        }
+      }, "Next")), currentItems.map(function (item) {
+        return _this2.renderAlertBox(item);
+      }), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          marginTop: '20px'
+        }
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: function onClick() {
+          return _this2.setState({
+            currentPage: currentPage - 1
+          });
+        }
+      }, "Previous"), ' ', /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === totalPages,
+        onClick: function onClick() {
+          return _this2.setState({
+            currentPage: currentPage + 1
+          });
+        }
+      }, "Next")))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        onClick: this.auctionHistoryRequest,
+        style: {
+          margin: '0 auto',
+          display: 'block'
+        }
+      }, "Get Auction History"), /*#__PURE__*/_react.default.createElement("br", null));
+    }
+  }]);
+  return AuctionHistory;
+}(_react.Component);
+var _default = AuctionHistory;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/Auction/AuctionScreen.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var PublicAuctions = /*#__PURE__*/function (_Component) {
+  _inherits(PublicAuctions, _Component);
+  var _super = _createSuper(PublicAuctions);
+  function PublicAuctions() {
+    var _this;
+    _classCallCheck(this, PublicAuctions);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      retrievedTransactions: [],
+      showAlert: false,
+      bidAmount: '',
+      showModal: false,
+      alertMessage: '',
+      alertType: '',
+      prevAuctionId: '',
+      currentPage: 1,
+      itemsPerPage: 4
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleBidAmountChange", function (event) {
+      _this.setState({
+        bidAmount: event.target.value
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleUpdatePrevAuctionId", function (auctionId) {
+      console.log(auctionId);
+      _this.setState({
+        prevAuctionId: auctionId
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleModalClose", function () {
+      _this.setState({
+        showModal: false
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleModalOpen", function () {
+      _this.setState({
+        showModal: true
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleBidSubmit", function () {
+      var _this$state = _this.state,
+        bidAmount = _this$state.bidAmount,
+        prevAuctionId = _this$state.prevAuctionId;
+      var requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prevAuctionItem: prevAuctionId,
+          bidAmount: bidAmount
+        })
+      };
+      console.log(prevAuctionId + "\n");
+      fetch("".concat(document.location.origin, "/api/place-bid"), requestOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        var alertMessage = json.message || json.type;
+        var alertType = 'success';
+        _this.setState({
+          alertMessage: alertMessage,
+          alertType: alertType
+        });
+        setTimeout(function () {
+          if (json.type === 'error') {
+            _this.setState({
+              alertMessage: json.message
+            });
+          } else {
+            _this.props.history.push('/transaction-pool');
+          }
+        }, 5000);
+      }).catch(function (error) {
+        console.error(error);
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
+      });
+      _this.setState({
+        bidAmount: '',
+        showModal: false /* , prevAuctionId: '' */
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePaginationClick", function (event) {
+      _this.setState({
+        currentPage: Number(event.target.id)
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "renderAlertBox", function (historyItem) {
+      var outputMap = historyItem["outputMap"];
+      if (outputMap && outputMap["owner"]) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
+          key: historyItem.timestamp,
+          style: {
+            marginBottom: 20,
+            marginTop: 20
+          },
+          className: "bg-dark text-white"
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, null, "Auction ID: ", outputMap['auction ID']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Name: ", outputMap['name']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Description: ", outputMap['description']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Starting Bid: ", outputMap['starting bid']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Auction End Time: ", outputMap['auction end time']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Owner: ", outputMap['owner']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          onClick: function onClick() {
+            _this.handleModalOpen();
+            _this.handleUpdatePrevAuctionId(outputMap['auction ID']);
+          },
+          style: {
+            marginBottom: '10px'
+          }
+        }, "Place Bid"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal, {
+          className: "Modal",
+          show: _this.state.showModal,
+          onHide: _this.handleModalClose
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Header, {
+          className: "ModalColor",
+          closeButton: true
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Title, null, "Bid Amount")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Body, {
+          className: "ModalColor"
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormLabel, null, "Bid Amount:"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+          type: "number",
+          placeholder: "Bid Amount",
+          value: _this.state.bidAmount,
+          onChange: _this.handleBidAmountChange,
+          style: {
+            width: '100%'
+          }
+        }))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Footer, {
+          className: "ModalColor"
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          onClick: _this.handleModalClose
+        }, "Close"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          onClick: _this.handleBidSubmit
+        }, "Submit Bid")))));
+      }
+    });
+    return _this;
+  }
+  _createClass(PublicAuctions, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
-      fetch("".concat(document.location.origin, "/api/blocks/length")).then(function (response) {
+      fetch("".concat(document.location.origin, "/api/blocks")).then(function (response) {
         return response.json();
       }).then(function (json) {
-        return _this2.setState({
-          blocksLength: json
+        var retrievedTransactions = [],
+          auctionIDs = new Set();
+        json.reverse().forEach(function (block) {
+          block.data.forEach(function (transaction) {
+            var auctionID = transaction.outputMap['auction ID'];
+            if (transaction.outputMap.owner && !auctionIDs.has(auctionID)) {
+              retrievedTransactions.push(transaction);
+              auctionIDs.add(auctionID); // add auction ID to the Set
+            }
+          });
+        });
+
+        _this2.setState({
+          retrievedTransactions: retrievedTransactions,
+          showAlert: true,
+          currentPage: 1
+        });
+      }).catch(function (error) {
+        console.error(error);
+        _this2.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
         });
       });
-      this.fetchPaginatedBlocks(this.state.paginatedId)();
     }
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
-      console.log('this.state', this.state);
-      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auctions"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", null, _toConsumableArray(Array(Math.ceil(this.state.blocksLength / 5)).keys()).map(function (key) {
-        var paginatedId = key + 1;
-        return /*#__PURE__*/_react.default.createElement("span", {
-          key: key,
-          onClick: _this3.fetchPaginatedBlocks(paginatedId)
-        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-          bsSize: "small",
-          variant: "danger"
-        }, paginatedId), ' ');
-      })), this.state.blocks.map(function (block) {
-        return /*#__PURE__*/_react.default.createElement(_UserAuction.default, {
-          key: block.hash,
-          block: block
-        });
-      }));
+      var _this$state2 = this.state,
+        retrievedTransactions = _this$state2.retrievedTransactions,
+        showAlert = _this$state2.showAlert,
+        currentPage = _this$state2.currentPage,
+        itemsPerPage = _this$state2.itemsPerPage;
+      var indexOfLastItem = currentPage * itemsPerPage;
+      var indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      var currentItems = retrievedTransactions && showAlert ? retrievedTransactions.slice(indexOfFirstItem, indexOfLastItem) : [];
+      var totalPages = retrievedTransactions ? Math.ceil(retrievedTransactions.length / itemsPerPage) : 0;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "walletHistory"
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "Auctions"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, this.state.alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: this.state.alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, this.state.alertMessage)), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, retrievedTransactions && showAlert ? /*#__PURE__*/_react.default.createElement("div", null, retrievedTransactions.length ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          marginTop: '20px'
+        }
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: function onClick() {
+          return _this3.setState({
+            currentPage: currentPage - 1
+          });
+        }
+      }, "Previous"), ' ', /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === totalPages,
+        onClick: function onClick() {
+          return _this3.setState({
+            currentPage: currentPage + 1
+          });
+        }
+      }, "Next")), currentItems.map(function (item) {
+        return _this3.renderAlertBox(item);
+      }), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          marginTop: '20px'
+        }
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: function onClick() {
+          return _this3.setState({
+            currentPage: currentPage - 1
+          });
+        }
+      }, "Previous"), ' ', /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === totalPages,
+        onClick: function onClick() {
+          return _this3.setState({
+            currentPage: currentPage + 1
+          });
+        }
+      }, "Next"))) : /*#__PURE__*/_react.default.createElement("p", null, "No auctions found, Check back later!")) : null));
     }
   }]);
-  return UserAuctions;
+  return PublicAuctions;
 }(_react.Component);
-var _default = UserAuctions;
+var _default = PublicAuctions;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","./UserAuction":"components/User/UserAuction.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"components/User/UserAuctionScreen.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactBootstrap = require("react-bootstrap");
+var _Navbar = _interopRequireDefault(require("../Usability/Navbar"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var UserAuctionScreen = /*#__PURE__*/function (_Component) {
+  _inherits(UserAuctionScreen, _Component);
+  var _super = _createSuper(UserAuctionScreen);
+  function UserAuctionScreen() {
+    var _this;
+    _classCallCheck(this, UserAuctionScreen);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _super.call.apply(_super, [this].concat(args));
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      walletInfo: {},
+      retrievedTransactions: [],
+      revisedStartingBid: '',
+      revisedAuctionEndTime: '',
+      showAlert: false,
+      showModal: false,
+      alertMessage: '',
+      alertType: '',
+      prevAuctionId: '',
+      currentPage: 1,
+      itemsPerPage: 4
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleBidAmountChange", function (event) {
+      _this.setState({
+        revisedStartingBid: event.target.value
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleAuctionTimeChange", function (event) {
+      _this.setState({
+        revisedAuctionEndTime: event.target.value
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleAuctionEnd", function () {
+      var requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prevAuctionId: _this.state.prevAuctionId
+        })
+      };
+
+      // Send a request to the /api/end-auction endpoint with prevAuctionId
+      fetch("".concat(document.location.origin, "/api/end-auction"), requestOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        var alertMessage = json.message || json.type;
+        var alertType = 'success';
+        _this.setState({
+          alertMessage: alertMessage,
+          alertType: alertType
+        });
+        setTimeout(function () {
+          if (json.type === 'error') {
+            _this.setState({
+              alertMessage: json.message
+            });
+          } else {
+            _this.props.history.push('/transaction-pool');
+          }
+        }, 5000);
+      }).catch(function (error) {
+        console.error(error);
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleAuctionClose", function () {
+      var requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prevAuctionItem: _this.state.prevAuctionId
+        })
+      };
+
+      // Send a request to the /api/end-auction endpoint with prevAuctionId
+      fetch("".concat(document.location.origin, "/api/close-auction"), requestOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        var alertMessage = json.message || json.type;
+        var alertType = 'success';
+        _this.setState({
+          alertMessage: alertMessage,
+          alertType: alertType
+        });
+        setTimeout(function () {
+          if (json.type === 'error') {
+            _this.setState({
+              alertMessage: json.message
+            });
+          } else {
+            _this.props.history.push('/transaction-pool');
+          }
+        }, 5000);
+      }).catch(function (error) {
+        console.error(error);
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
+      });
+      _this.setState({
+        showModal: false
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleReinitiateAuction", function () {
+      var requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prevAuctionItem: _this.state.prevAuctionId,
+          revisedStartingBid: _this.state.revisedStartingBid,
+          revisedAuctionEndTime: _this.state.revisedAuctionEndTime
+        })
+      };
+
+      // Send a request to the /api/end-auction endpoint with prevAuctionId
+      fetch("".concat(document.location.origin, "/api/reinitiate-auction"), requestOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        var alertMessage = json.message || json.type;
+        var alertType = 'success';
+        _this.setState({
+          alertMessage: alertMessage,
+          alertType: alertType
+        });
+        setTimeout(function () {
+          if (json.type === 'error') {
+            _this.setState({
+              alertMessage: json.message
+            });
+          } else {
+            _this.props.history.push('/transaction-pool');
+          }
+        }, 5000);
+      }).catch(function (error) {
+        console.error(error);
+        _this.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
+      });
+      _this.setState({
+        showModal: false
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleUpdatePrevAuctionIdEnd", function (auctionId) {
+      _this.setState({
+        prevAuctionId: auctionId
+      }, function () {
+        _this.handleAuctionEnd();
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleUpdatePrevAuctionIdClose", function (auctionId) {
+      _this.setState({
+        prevAuctionId: auctionId
+      }, function () {
+        _this.handleAuctionClose();
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleUpdatePrevAuctionId", function (auctionId) {
+      _this.setState({
+        prevAuctionId: auctionId
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleModalClose", function () {
+      _this.setState({
+        showModal: false
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handleModalOpen", function () {
+      _this.setState({
+        showModal: true
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "handlePaginationClick", function (event) {
+      _this.setState({
+        currentPage: Number(event.target.id)
+      });
+    });
+    _defineProperty(_assertThisInitialized(_this), "renderAlertBox", function (historyItem) {
+      var outputMap = historyItem["outputMap"];
+      if (outputMap && outputMap["owner"]) {
+        return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
+          key: historyItem.timestamp,
+          style: {
+            marginBottom: 20,
+            marginTop: 20
+          },
+          className: "bg-dark text-white"
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, null, "Auction ID: ", outputMap['auction ID']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Name: ", outputMap['name']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Description: ", outputMap['description']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Starting Bid: ", outputMap['starting bid']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Auction End Time: ", outputMap['auction end time']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, "Owner: ", outputMap['owner']), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          onClick: function onClick() {
+            _this.handleUpdatePrevAuctionIdEnd(outputMap['auction ID']);
+          },
+          style: {
+            marginTop: '10px',
+            marginRight: '10px'
+          }
+        }, "End Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          onClick: function onClick() {
+            _this.handleUpdatePrevAuctionIdClose(outputMap['auction ID']);
+          },
+          style: {
+            marginTop: '10px',
+            marginRight: '10px'
+          }
+        }, "Close Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          onClick: function onClick() {
+            _this.handleModalOpen();
+            _this.handleUpdatePrevAuctionId(outputMap['auction ID']);
+          },
+          style: {
+            marginTop: '10px'
+          }
+        }, "Reinitiate Auction"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal, {
+          className: "Modal",
+          show: _this.state.showModal,
+          onHide: _this.handleModalClose,
+          backdrop: "static",
+          keyboard: false
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Header, {
+          className: "ModalColor",
+          closeButton: true
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Title, null, "Reinitiate Auction")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Body, {
+          className: "ModalColor"
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
+          controlId: "revisedStartingBid"
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Revised Starting Bid"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
+          type: "number",
+          placeholder: "Enter revised starting bid",
+          value: _this.state.revisedStartingBid,
+          onChange: _this.handleBidAmountChange
+        })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
+          controlId: "revisedAuctionEndTime"
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Revised Auction End Time"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
+          type: "datetime-local",
+          placeholder: "Enter revised auction end time",
+          value: _this.state.revisedAuctionEndTime,
+          onChange: _this.handleAuctionTimeChange
+        })))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Modal.Footer, {
+          className: "ModalColor"
+        }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          onClick: _this.handleModalClose
+        }, "Close"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+          variant: "danger",
+          onClick: _this.handleReinitiateAuction
+        }, "Save Changes")))));
+      }
+    });
+    return _this;
+  }
+  _createClass(UserAuctionScreen, [{
+    key: "componentDidMount",
+    value:
+    /*  componentDidMount() {
+       fetch(`${document.location.origin}/api/blocks`)
+         .then(response => response.json())
+         .then(json => {
+           const retrievedTransactions = [];
+           json.forEach(block => {
+             block.data.forEach(transaction => {
+               if (transaction.outputMap.owner) {
+                 retrievedTransactions.push(transaction);
+               }
+             });
+           });
+           this.setState({ retrievedTransactions, showAlert: true, currentPage: 1 });
+         })
+         .catch(error => {
+           console.error(error);
+           this.setState({ alertMessage: error.message, alertType: 'danger' });
+         });
+     } */
+
+    function componentDidMount() {
+      var _this2 = this;
+      fetch("".concat(document.location.origin, "/api/wallet-info")).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        return _this2.setState({
+          walletInfo: json
+        });
+      }).then(fetch("".concat(document.location.origin, "/api/blocks")).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        var retrievedTransactions = [],
+          address = _this2.state.walletInfo.address,
+          auctionIDs = new Set(); // create a Set to store unique auction IDs
+        json.reverse().forEach(function (block) {
+          block.data.forEach(function (transaction) {
+            var auctionID = transaction.outputMap['auction ID'];
+            if (transaction.outputMap.owner === address && !auctionIDs.has(auctionID)) {
+              retrievedTransactions.push(transaction);
+              auctionIDs.add(auctionID); // add auction ID to the Set
+            }
+          });
+        });
+
+        _this2.setState({
+          retrievedTransactions: retrievedTransactions,
+          showAlert: true,
+          currentPage: 1
+        });
+      }).catch(function (error) {
+        console.error(error);
+        _this2.setState({
+          alertMessage: error.message,
+          alertType: 'danger'
+        });
+      })
+
+      /* fetch(`${document.location.origin}/api/blocks`)
+        .then(response => response.json())
+        .then(json => {
+          const retrievedTransactions = [], { address } = this.state.walletInfo;
+          console.log(address);
+          json.forEach(block => {
+            block.data.forEach(transaction => {
+              if (transaction.outputMap.owner === address) {
+                retrievedTransactions.push(transaction);
+              }
+            });
+          });
+          this.setState({ retrievedTransactions, showAlert: true, currentPage: 1 });
+        })
+        .catch(error => {
+          console.error(error);
+          this.setState({ alertMessage: error.message, alertType: 'danger' });
+        }) */);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+      var _this$state = this.state,
+        retrievedTransactions = _this$state.retrievedTransactions,
+        showAlert = _this$state.showAlert,
+        currentPage = _this$state.currentPage,
+        itemsPerPage = _this$state.itemsPerPage;
+      var indexOfLastItem = currentPage * itemsPerPage;
+      var indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      var currentItems = retrievedTransactions && showAlert ? retrievedTransactions.slice(indexOfFirstItem, indexOfLastItem) : [];
+      var totalPages = retrievedTransactions ? Math.ceil(retrievedTransactions.length / itemsPerPage) : 0;
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "walletHistory"
+      }, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", null, "User Owned Auctions"), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, this.state.alertMessage && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+        variant: this.state.alertType,
+        style: {
+          marginTop: '10px'
+        }
+      }, this.state.alertMessage)), /*#__PURE__*/_react.default.createElement("div", {
+        className: "banner-container"
+      }, retrievedTransactions && showAlert && retrievedTransactions.length > 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          marginTop: '20px'
+        }
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: function onClick() {
+          return _this3.setState({
+            currentPage: currentPage - 1
+          });
+        }
+      }, "Previous"), ' ', /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === totalPages,
+        onClick: function onClick() {
+          return _this3.setState({
+            currentPage: currentPage + 1
+          });
+        }
+      }, "Next")), currentItems.map(function (item) {
+        return _this3.renderAlertBox(item);
+      }), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          marginTop: '20px'
+        }
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === 1,
+        onClick: function onClick() {
+          return _this3.setState({
+            currentPage: currentPage - 1
+          });
+        }
+      }, "Previous"), ' ', /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "danger",
+        disabled: currentPage === totalPages,
+        onClick: function onClick() {
+          return _this3.setState({
+            currentPage: currentPage + 1
+          });
+        }
+      }, "Next"))) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "No user items found, Check back later!"))), /*#__PURE__*/_react.default.createElement("br", null));
+    }
+  }]);
+  return UserAuctionScreen;
+}(_react.Component);
+var _default = UserAuctionScreen;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-bootstrap":"../../node_modules/react-bootstrap/esm/index.js","../Usability/Navbar":"components/Usability/Navbar.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -52147,10 +52901,12 @@ var _ConductTransaction = _interopRequireDefault(require("./components/Transact/
 var _ConductAuctionTransaction = _interopRequireDefault(require("./components/Transact/ConductAuctionTransaction"));
 var _TransactionPool = _interopRequireDefault(require("./components/Transact/TransactionPool"));
 var _CreateBid = _interopRequireDefault(require("./components/Transact/CreateBid"));
-var _Auctions = _interopRequireDefault(require("./components/Auction/Auctions"));
 var _NewWalletPhrase = _interopRequireDefault(require("./components/Wallet/NewWalletPhrase"));
 var _AddressBook = _interopRequireDefault(require("./components/Usability/AddressBook"));
-var _UserAuctions = _interopRequireDefault(require("./components/User/UserAuctions"));
+var _walletHistoryRequest = _interopRequireDefault(require("./components/Wallet/walletHistoryRequest"));
+var _AuctionHistoryRequest = _interopRequireDefault(require("./components/Auction/AuctionHistoryRequest"));
+var _AuctionScreen = _interopRequireDefault(require("./components/Auction/AuctionScreen"));
+var _UserAuctionScreen = _interopRequireDefault(require("./components/User/UserAuctionScreen"));
 require("bootstrap/dist/css/bootstrap.min.css");
 require("./index.css");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -52176,19 +52932,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   path: "/transaction-pool",
   component: _TransactionPool.default
 }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-  path: "/auctions",
-  component: _Auctions.default
-}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
   path: "/get-wallet",
   component: _NewWalletPhrase.default
 }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
   path: "/address-book",
   component: _AddressBook.default
 }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-  path: "/user-items",
-  component: _UserAuctions.default
+  path: "/wallet-history",
+  component: _walletHistoryRequest.default
+}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  path: "/item-history",
+  component: _AuctionHistoryRequest.default
+}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  path: "/auctions",
+  component: _AuctionScreen.default
+}), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  path: "/user-auctions",
+  component: _UserAuctionScreen.default
 }))), document.getElementById('root'));
-},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./history":"history.js","./components/App":"components/App.js","./components/Block/Blocks":"components/Block/Blocks.js","./components/Transact/ConductTransaction":"components/Transact/ConductTransaction.js","./components/Transact/ConductAuctionTransaction":"components/Transact/ConductAuctionTransaction.js","./components/Transact/TransactionPool":"components/Transact/TransactionPool.js","./components/Transact/CreateBid":"components/Transact/CreateBid.js","./components/Auction/Auctions":"components/Auction/Auctions.js","./components/Wallet/NewWalletPhrase":"components/Wallet/NewWalletPhrase.js","./components/Usability/AddressBook":"components/Usability/AddressBook.js","./components/User/UserAuctions":"components/User/UserAuctions.js","bootstrap/dist/css/bootstrap.min.css":"../../node_modules/bootstrap/dist/css/bootstrap.min.css","./index.css":"index.css"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","./history":"history.js","./components/App":"components/App.js","./components/Block/Blocks":"components/Block/Blocks.js","./components/Transact/ConductTransaction":"components/Transact/ConductTransaction.js","./components/Transact/ConductAuctionTransaction":"components/Transact/ConductAuctionTransaction.js","./components/Transact/TransactionPool":"components/Transact/TransactionPool.js","./components/Transact/CreateBid":"components/Transact/CreateBid.js","./components/Wallet/NewWalletPhrase":"components/Wallet/NewWalletPhrase.js","./components/Usability/AddressBook":"components/Usability/AddressBook.js","./components/Wallet/walletHistoryRequest":"components/Wallet/walletHistoryRequest.js","./components/Auction/AuctionHistoryRequest":"components/Auction/AuctionHistoryRequest.js","./components/Auction/AuctionScreen":"components/Auction/AuctionScreen.js","./components/User/UserAuctionScreen":"components/User/UserAuctionScreen.js","bootstrap/dist/css/bootstrap.min.css":"../../node_modules/bootstrap/dist/css/bootstrap.min.css","./index.css":"index.css"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -52213,7 +52975,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61681" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62101" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
