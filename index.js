@@ -455,8 +455,6 @@ const startServer = async (phrase) => {
       
     });
 
-
-    });
     //accessible via gui
     app.get('/api/wallet-info', (req, res) => {
 
