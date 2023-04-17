@@ -175,4 +175,4 @@ class walletHistory extends Component {
   
 }
 
-export default walletHistory;     
+export default walletHistory;    
