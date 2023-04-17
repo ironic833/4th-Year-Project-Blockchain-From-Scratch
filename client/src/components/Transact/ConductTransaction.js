@@ -22,12 +22,20 @@ class ConductTransaction extends Component {
   }
 
 
-  handlePageChange = (page) => {
-    this.setState({ currentPage: page });
+  handlePageChange = (direction) => {
+    const { currentPage } = this.state;
+    const newPage = direction === 'next' ? currentPage + 1 : currentPage - 1;
+    this.setState({ currentPage: newPage });
   }
+  
 
   conductTransaction = () => {
     const { recipient, amount } = this.state;
+
+    if (!recipient || !amount ) {
+      this.setState({ alertMessage: 'All fields are required', alertType: 'danger' });
+      return;
+    }
 
     fetch(`${document.location.origin}/api/transact`, {
       method: 'POST',
@@ -47,22 +55,17 @@ class ConductTransaction extends Component {
       .catch(error => {
         this.setState({ alertMessage: error.message, alertType: 'danger' });
       });
-      /* .then(json => {
-        alert(json.message || json.type);
-        history.push('/transaction-pool');
-      }); */
   }
 
   render() {
-
     const { knownAddresses, currentPage, pageSize, alertMessage, alertType } = this.state;
     const pageCount = Math.ceil(knownAddresses.length / pageSize);
-
+  
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = Math.min(startIndex + pageSize, knownAddresses.length);
-
+  
     const displayedAddresses = knownAddresses.slice(startIndex, endIndex);
-
+  
     return (
       <div className='ConductTransaction'>
         <NavBar />
@@ -116,11 +119,22 @@ class ConductTransaction extends Component {
         ) : (
           <div>
             <Pagination className="justify-content-center">
-              {Array.from({ length: pageCount }).map((_, index) => (
-                <Button style={{ padding: 10 }} variant='danger' key={index} active={index + 1 === currentPage} onClick={() => this.handlePageChange(index + 1)}>
-                  {index + 1}
-                </Button>
-              ))}
+              <Button
+                style={{ padding: 10, marginRight: 20 }}
+                variant='danger'
+                disabled={currentPage === 1}
+                onClick={() => this.handlePageChange(currentPage - 1)}
+              >
+                Previous
+              </Button>
+              <Button
+                style={{ padding: 10 }}
+                variant='danger'
+                disabled={currentPage === pageCount}
+                onClick={() => this.handlePageChange(currentPage + 1)}
+              >
+                Next
+              </Button>
             </Pagination>
             <br />
             <ul style={{ listStyleType: 'none' }}>
@@ -142,6 +156,7 @@ class ConductTransaction extends Component {
       </div>
     )
   }
+  
 };
 
 export default ConductTransaction;

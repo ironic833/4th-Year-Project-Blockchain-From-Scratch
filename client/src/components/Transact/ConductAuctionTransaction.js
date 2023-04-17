@@ -26,6 +26,11 @@ class auctionTransaction extends Component {
   auctionTransaction = () => {
     const { name, description, startingBid, auctionEndTime } = this.state;
 
+    if (!name || !description || !startingBid || !auctionEndTime) {
+      this.setState({ alertMessage: 'All fields are required', alertType: 'danger' });
+      return;
+    }
+
     fetch(`${document.location.origin}/api/create-auction`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -40,10 +45,6 @@ class auctionTransaction extends Component {
       .catch(error => {
         this.setState({ alertMessage: error.message, alertType: 'danger' });
       });
-      /* .then(json => {
-        alert(json.message || json.type);
-        history.push('/transaction-pool');
-      }); */
   } 
 
   render() {

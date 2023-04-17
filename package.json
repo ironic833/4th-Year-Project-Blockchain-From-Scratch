@@ -1,15 +1,26 @@
 {
-  "name": "cryptochain",
+  "name": "auctionchain",
+  "productName": "Auction Chain",
   "version": "1.0.0",
-  "description": "",
+  "description": "Auction chain is a blockchain based auction system",
   "main": "index.js",
+  "build": {
+    "appId": "Hickey.AuctionChain",
+    "win": {
+      "target": "portable",
+      "icon": "client/src/assets/icon.png"
+    }
+  },
   "scripts": {
     "test": "jest --watchAll",
-    "start": "electron main.js",
+    "start": "electron index.js",
     "rebuild-client": "npm run dev-client",
     "dev-client": "npm run clean && parcel client/src/index.html --out-dir client/dist",
-    "clean": "if exist (rmdir /s/q .cache client/dist)"
+    "clean": "if exist (rmdir /s/q .cache client/dist)",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
+  "postinstall": "electron-builder install-app-deps",
   "jest": {
     "testEnvironment": "node"
   },
@@ -19,6 +30,7 @@
   "devDependencies": {
     "cross-env": "^5.2.0",
     "electron": "^24.0.0",
+    "electron-builder": "^23.6.0",
     "jest": "^29.3.1",
     "nodemon": "^1.18.4"
   },
@@ -33,7 +45,6 @@
     "hex-to-binary": "^1.0.1",
     "history": "^4.7.2",
     "parcel-bundler": "^1.12.5",
-    "public-ip": "^6.0.1",
     "pubnub": "^4.21.6",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",

@@ -211,7 +211,7 @@ const startServer = async (phrase) => {
               updatedName = Transaction.outputMap['name'];
               updatedDescrtiption = Transaction.outputMap['description'];
               foundValidBlock = true;
-              break;
+              /* break; */
 
             }
           } 
@@ -270,7 +270,7 @@ const startServer = async (phrase) => {
                 updatedBidAmount = Transaction.outputMap['starting bid'];
                 foundValidBlock = true;
 
-                break;
+                /* break; */
         
               }
             } 
@@ -329,7 +329,7 @@ const startServer = async (phrase) => {
             updatedStartingBid = Transaction.outputMap['starting bid'];
             foundValidBlock = true;
 
-            break;
+            /* break; */
           }
         }
       }
@@ -390,14 +390,17 @@ const startServer = async (phrase) => {
       const { prevAuctionItem, bidAmount } = req.body;
       let blocknum, block, foundValidBlock = false, transaction = {}; ;
 
-      for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+      for(blocknum = blockchain.chain.length - 1; blocknum > 0; blocknum--) {
+
+        let block = blockchain.chain[blocknum];
+
+        console.log(`Chain lengh is ${blockchain.chain.length} currently at block ${blocknum} block is ${JSON.stringify(block)}`);
 
         for (let Transaction of block.data) {
 
           if((Transaction.outputMap['auction ID'] === prevAuctionItem)){
 
             foundValidBlock = true;
-            break;
 
           }
         }                   

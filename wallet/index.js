@@ -29,10 +29,6 @@ class Wallet {
     return this.keyPair.sign(cryptoHash(data))
   }
 
-  imageEncode(image) {
-
-  }
-
   createTransaction({ recipient, amount, chain }) {
     if (chain) {
       this.balance = Wallet.calculateBalance({

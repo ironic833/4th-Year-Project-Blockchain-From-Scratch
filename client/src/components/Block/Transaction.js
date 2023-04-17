@@ -1,30 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Transaction = ({ transaction }) => {
 
   const { input, outputMap } = transaction;
   const recipients = Object.keys(outputMap);
-  const [bidAmount, setBidAmount] = useState('');
 
   const isBidTransaction = outputMap['bid'] ? true : false;
   const isOwnerTransaction = outputMap['owner'] ? true : false;
   const isRecipientTransaction = !isBidTransaction && !isOwnerTransaction;
-
-  const handleBidAmountChange = (event) => {
-    setBidAmount(event.target.value);
-  };
-
-  const handleBidSubmit = () => {
-    // Send a request to the /place-bid endpoint with prevAuctionId and bidAmount
-    fetch(`${document.location.origin}/api/place-bid`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prevAuctionItem: outputMap['auction ID'], bidAmount })
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
-  };
 
   if (isBidTransaction) {
     return (

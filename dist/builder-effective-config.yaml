@@ -1,0 +1,9 @@
+directories:
+  output: dist
+  buildResources: build
+appId: Hickey.AuctionChain
+win:
+  target: portable
+  icon: client/src/assets/icon.png
+files: []
+electronVersion: 24.0.0

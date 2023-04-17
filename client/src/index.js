@@ -8,12 +8,12 @@ import ConductTransaction from "./components/Transact/ConductTransaction";
 import auctionTransaction from "./components/Transact/ConductAuctionTransaction";
 import TransactionPool from "./components/Transact/TransactionPool";
 import bidTransaction from "./components/Transact/CreateBid";
-import Auctions from "./components/Auction/Auctions";
 import NewWalletPhrase from "./components/Wallet/NewWalletPhrase";
 import AddressBook from "./components/Usability/AddressBook";
-import UserAuctions from "./components/User/UserAuctions";
 import walletHistory from "./components/Wallet/walletHistoryRequest";
 import AuctionHistory from "./components/Auction/AuctionHistoryRequest";
+import publicAuctions from "./components/Auction/AuctionScreen";
+import UserAuctionScreen from "./components/User/UserAuctionScreen";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
@@ -27,12 +27,12 @@ render(
                 <Route path='/auction-transaction' component={auctionTransaction} />
                 <Route path='/bid-transaction' component={bidTransaction} />
                 <Route path='/transaction-pool' component={TransactionPool} />
-                <Route path='/auctions' component={Auctions} />
                 <Route path='/get-wallet' component={NewWalletPhrase} />
                 <Route path='/address-book' component={AddressBook} />
-                <Route path='/user-items' component={UserAuctions} />
                 <Route path='/wallet-history' component={walletHistory} />
                 <Route path='/item-history' component={AuctionHistory} />
+                <Route path='/auctions' component={publicAuctions} />
+                <Route path='/user-auctions' component={UserAuctionScreen} />
             </Switch>
         </Router>, 
         document.getElementById('root')

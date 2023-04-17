@@ -17,6 +17,7 @@ function BlockNavbar() {
               <NavDropdown.Item href="/blocks">Blocks</NavDropdown.Item>
               <NavDropdown.Item href="/auctions">Auctions</NavDropdown.Item>
               <NavDropdown.Item href="/address-book">Address Book</NavDropdown.Item>
+              <NavDropdown.Divider />
               <NavDropdown.Item href="/wallet-history">Wallet History</NavDropdown.Item>
               <NavDropdown.Item href="/item-history">Item History</NavDropdown.Item>
             </NavDropdown>
@@ -28,7 +29,7 @@ function BlockNavbar() {
               <NavDropdown.Item href="/transaction-pool">Transaction Pool</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown  menuVariant="dark" title="My Items" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/user-items">My Items</NavDropdown.Item>
+              <NavDropdown.Item href="/user-auctions">My Items</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
