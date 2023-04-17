@@ -88,11 +88,13 @@ background-color: #222;
     padding: 20px;
 }
 
-.logo {
-    height: 50px;
-    width: 50px;
-    padding-right: 10px;;
+.banner-container {
+    max-width: 800px; /* adjust to your needs */
+    margin: 0 auto; /* center the container horizontally */
+    padding: 20px; /* add equal padding on all sides */
 }
+
+
 
 .home-card-button {
     display: block;
@@ -102,6 +104,10 @@ background-color: #222;
 }
 
 
-  
+.logo {
+    height: 50px;
+    width: 50px;
+    padding-right: 10px;;
+}  
 
 /*# sourceMappingURL=/src.e31bb0bc.css.map */

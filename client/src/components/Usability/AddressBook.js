@@ -1,9 +1,9 @@
+
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import NavBar from "../Usability/Navbar";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Card from 'react-bootstrap/Card';
-import Pagination from 'react-bootstrap/Pagination';
 
 class AddressBook extends Component {
   state = {
@@ -20,8 +20,19 @@ class AddressBook extends Component {
       .then(json => this.setState({ knownAddresses: json }));
   }
 
-  handlePageChange = (page) => {
-    this.setState({ currentPage: page });
+  handlePrevious = () => {
+    const { currentPage } = this.state;
+    if (currentPage > 1) {
+      this.setState({ currentPage: currentPage - 1 });
+    }
+  }
+
+  handleNext = () => {
+    const { knownAddresses, currentPage, pageSize } = this.state;
+    const pageCount = Math.ceil(knownAddresses.length / pageSize);
+    if (currentPage < pageCount) {
+      this.setState({ currentPage: currentPage + 1 });
+    }
   }
 
   render() {
@@ -38,21 +49,19 @@ class AddressBook extends Component {
         <NavBar />
         <br />
         <h4>Known Addresses</h4>
-        <br />
         <hr />
         {displayedAddresses.length === 0 ? (
           <div>
+            <br />
+            <br />
             <p>No wallets found, Check back later!</p>
           </div>
         ) : (
           <div>
-            <Pagination className="justify-content-center">
-              {Array.from({ length: pageCount }).map((_, index) => (
-                <Button style={{ padding: 10 }} variant='danger' key={index} active={index + 1 === currentPage} onClick={() => this.handlePageChange(index + 1)}>
-                  {index + 1}
-                </Button>
-              ))}
-            </Pagination>
+            <div className={{ display: 'flex', justifyContent: 'center' }}>
+              <Button style={{ padding: 10, marginRight: 15 }} variant='danger' disabled={currentPage === 1} onClick={this.handlePrevious}>Previous</Button>
+              <Button style={{ padding: 10 }} variant='danger' disabled={currentPage === pageCount} onClick={this.handleNext}>Next</Button>
+            </div>
             <br />
             <ul style={{ listStyleType: 'none' }}>
               {displayedAddresses.map((knownAddress, index) => (
@@ -67,6 +76,10 @@ class AddressBook extends Component {
                 </li>
               ))}
             </ul>
+            <div className={{ display: 'flex', justifyContent: 'center' }}>
+              <Button style={{ padding: 10, marginRight: 15 }} variant='danger' disabled={currentPage === 1} onClick={this.handlePrevious}>Previous</Button>
+              <Button style={{ padding: 10 }} variant='danger' disabled={currentPage === pageCount} onClick={this.handleNext}>Next</Button>
+            </div>
           </div>
         )}
         <br />

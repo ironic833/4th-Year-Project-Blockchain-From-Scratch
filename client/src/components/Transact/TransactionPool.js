@@ -1,14 +1,13 @@
 import Transaction from "../Block/Transaction";
-import { Button } from 'react-bootstrap';
+import { Alert, Button } from 'react-bootstrap';
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
 import history from "../../history";
 import NavBar from "../Usability/Navbar";
 
 const POLL_INTERVAL_MS = 10000;
 
 class TransactionPool extends Component { 
-    state = { transactionPoolMap: {} };
+    state = { transactionPoolMap: {}, alertMessage: '', alertType: '' };
 
     fetchTransactionPoolMap = () => {
         fetch(`${document.location.origin}/api/transaction-pool-map`)
@@ -20,12 +19,17 @@ class TransactionPool extends Component {
         fetch(`${document.location.origin}/api/mine-transactions`)
         .then(response => {
             if (response.status === 200) {
-                alert('success');
-                history.push('/blocks');
+                this.setState({ alertMessage: 'success' });
+                this.setState({ alertType: 'success' })
+                setTimeout(() => {
+                    history.push('/blocks');
+                }, 5000);
             } else {
-                alert('The mine-transactions block request did not complete.');
+                this.setState({ alertMessage: 'The mine-transactions block request did not complete.' });
             }
-        })
+        }).catch(error => {
+            this.setState({ alertMessage: error.message, alertType: 'danger' });
+        });
     }
 
     componentDidMount() {
@@ -42,24 +46,45 @@ class TransactionPool extends Component {
     }
 
     render() {
+        const { alertMessage, alertType } = this.state;
+        const poolIsEmpty = Object.keys(this.state.transactionPoolMap).length === 0;
+
         return(
             <div className='TransactionPool'>
                 <NavBar />
                 <br />
                 <h3>Transaction Pool</h3>
-                {
+                <hr />
+                <br />
+                {poolIsEmpty ?
+                    <p>No transactions in pool, check back later!</p>
+                    :
                     Object.values(this.state.transactionPoolMap).map(transaction => {
                         return (
                             <div key={transaction.id}>
-                                <hr />
+                                <br />
                                 <Transaction transaction={transaction}/>
                             </div>
                         )
                     })
                 }
-                <hr />
                 <br />
-                <Button variant="danger" onClick={this.fetchMineTransactions}>Mine the Transactions</Button>
+                {!poolIsEmpty &&
+                    <div>
+                        <hr />
+                        <br />
+                        <Button className="btn btn-danger" onClick={this.fetchMineTransactions}>Mine the Transactions</Button>
+                        <br />
+                    </div>
+                }
+                <div className="banner-container">
+                {alertMessage &&
+                    <Alert variant={alertType} style={{ marginTop: '10px' }}>
+                        {alertMessage}
+                    </Alert>
+                }
+                </div>
+                <br />
             </div>
         )
     }
