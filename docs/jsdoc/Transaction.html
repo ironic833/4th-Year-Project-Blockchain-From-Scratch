@@ -1,0 +1,2413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Transaction - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/ironic833/4th-Year-Project-Blockchain-From-Scratch" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="Block.html">Block</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Block.html#.adjustDifficulty">adjustDifficulty</a></li><li data-type='method' style='display: none;'><a href="Block.html#.genesis">genesis</a></li><li data-type='method' style='display: none;'><a href="Block.html#.mineBlock">mineBlock</a></li></ul></li><li><a href="Blockchain.html">Blockchain</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Blockchain.html#addBlock">addBlock</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#replaceChain">replaceChain</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#validTransactionData">validTransactionData</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#.isValidChain">isValidChain</a></li></ul></li><li><a href="Peers.html">Peers</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Peers.html#updatePeers">updatePeers</a></li></ul></li><li><a href="PubSub.html">PubSub</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PubSub.html#TransactionPublish">TransactionPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#blockchainPublish">blockchainPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastChain">broadcastChain</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastPeerMembership">broadcastPeerMembership</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastTransaction">broadcastTransaction</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#listener">listener</a></li></ul></li><li><a href="Transaction.html">Transaction</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Transaction.html#createAuctionItem">createAuctionItem</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createInput">createInput</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createMap">createMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createTransactionMap">createTransactionMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#updateTransaction">updateTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.rewardTransaction">rewardTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.validTransaction">validTransaction</a></li></ul></li><li><a href="TransactionMiner.html">TransactionMiner</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionMiner.html#mineTransactions">mineTransactions</a></li></ul></li><li><a href="TransactionPool.html">TransactionPool</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionPool.html#clear">clear</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#clearBlockchainTransactions">clearBlockchainTransactions</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#existingTransaction">existingTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setMap">setMap</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setTransaction">setTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#validTransactions">validTransactions</a></li></ul></li><li><a href="Wallet.html">Wallet</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Wallet.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createItemTransaction">createItemTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createTransaction">createTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#sign">sign</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#.calculateBalance">calculateBalance</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-Transaction.html">Transaction</a></li><li><a href="module-TransactionPool.html">TransactionPool</a></li><li><a href="module-Wallet.html">Wallet</a></li><li><a href="module-cryptoHash.html">cryptoHash</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chain">chain</a></li><li><a href="global.html#cryptoHash">cryptoHash</a></li><li><a href="global.html#data">data</a></li><li><a href="global.html#inputMap">inputMap</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#outputMap">outputMap</a></li><li><a href="global.html#publicKey">publicKey</a></li><li><a href="global.html#transaction">transaction</a></li><li><a href="global.html#transactionMap">transactionMap</a></li><li><a href="global.html#uuid">uuid</a></li><li><a href="global.html#verifySignature">verifySignature</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Transaction</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            Transaction
+        
+        </h2>
+        
+            <div class="class-description usertext"><p>A transaction is a record of an interaction between a user wallet and the chain. This may be the processing of currency, an auction item, CRUD operation on an auction item or a bid.</p></div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="Transaction"><span class="type-signature"></span>new Transaction<span class="signature">(senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, owner, bid, outputMap, input)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Creates a new transaction object.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_transaction.js.html">wallet/transaction.js</a>, <a href="wallet_transaction.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>senderWallet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Wallet.html">Wallet</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The wallet of the sender.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>recipient</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#publicKey">publicKey</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the recipient.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>amount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The amount to be transferred.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the transaction.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the auction item (if this transaction represents an auction).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The description of the auction item (if this transaction represents an auction).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startingBid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The starting bid for the auction (if this transaction represents an auction).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>auctionEndTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The end time for the auction (if this transaction represents an auction).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>owner</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the owner of the auction item (if this transaction represents an auction).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The bid amount (if this transaction represents a bid).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>outputMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#outputMap">outputMap</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The output map for the transaction.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#inputMap">inputMap</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The input object for the transaction.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="createAuctionItem"><span class="type-signature"></span>createAuctionItem<span class="signature">(senderWallet, Id, name, description, startingBid, auctionEndTime, owner<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#outputMap">outputMap</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Creates an outputMap representing an auction item. An owner value by default is the creator of the auction unless the auctions ownership is being reassigned.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_transaction.js.html">wallet/transaction.js</a>, <a href="wallet_transaction.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>senderWallet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Wallet.html">Wallet</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The public key of the wallet of the sender.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The ID of the auction item. When an auction is reintiated the old ID will go here, otherwise a unique one will be cryptographically generated</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The name of the auction item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The description of the auction item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startingBid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The starting bid of the auction item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>auctionEndTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The end time of the auction item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>owner</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#publicKey">publicKey</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>conditional</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The public key of the wallet of the owner of the auction item.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The map representing the auction item.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#outputMap">outputMap</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createBid"><span class="type-signature"></span>createBid<span class="signature">(senderWallet, Id, bid)</span><span class="type-signature"> &rarr; {<a href="global.html#outputMap">outputMap</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Creates an outputMap representing a bid on an auction item.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_transaction.js.html">wallet/transaction.js</a>, <a href="wallet_transaction.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>senderWallet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Wallet.html">Wallet</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the wallet of the bidder.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the auction item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The amount of the bid.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The map representing the bid.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#outputMap">outputMap</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createInput"><span class="type-signature"></span>createInput<span class="signature">(senderWallet, outputMap)</span><span class="type-signature"> &rarr; {<a href="global.html#inputMap">inputMap</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Creates an inputMap for the transaction.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_transaction.js.html">wallet/transaction.js</a>, <a href="wallet_transaction.js.html#line170">line 170</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>senderWallet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Wallet.html">Wallet</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the wallet of the sender.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>outputMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#outputMap">outputMap</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The previously generated output map for the transaction.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The input map for the transaction.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#inputMap">inputMap</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createMap"><span class="type-signature"></span>createMap<span class="signature">(senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, owner, bid)</span><span class="type-signature"> &rarr; {<a href="global.html#outputMap">outputMap</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Creates a map representing the transaction based on the inputs given. The inputs given allow for automatic map generation selection.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_transaction.js.html">wallet/transaction.js</a>, <a href="wallet_transaction.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>senderWallet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Wallet.html">Wallet</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the wallet of the sender.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>recipient</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#publicKey">publicKey</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the wallet of the recipient (if applicable).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>amount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The amount to be transferred (if applicable).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the transaction. This is seperate from the block ID and is used to identify an auction item in the event of a bid or when CRUD functions are used on a pr-existing item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the auction item (if applicable).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The description of the auction item (if applicable).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startingBid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The starting bid of the auction item (if applicable).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>auctionEndTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The end time of the auction item (if applicable).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>owner</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#publicKey">publicKey</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the owner of the auction item (if applicable).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The bid amount (if applicable).</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The outputMap representing the transaction.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#outputMap">outputMap</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createTransactionMap"><span class="type-signature"></span>createTransactionMap<span class="signature">(senderWallet, recipient, amount)</span><span class="type-signature"> &rarr; {<a href="global.html#outputMap">outputMap</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Creates an output map for a currency transaction.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_transaction.js.html">wallet/transaction.js</a>, <a href="wallet_transaction.js.html#line155">line 155</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>senderWallet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Wallet.html">Wallet</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the wallet of the sender.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>recipient</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#publicKey">publicKey</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the wallet of the recipient.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>amount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The amount to be transferred.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The output map for the transaction.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#outputMap">outputMap</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="updateTransaction"><span class="type-signature"></span>updateTransaction<span class="signature">(senderWallet, recipient, amount)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Updates the transaction by adding a new recipient and reducing the sender's balance.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_transaction.js.html">wallet/transaction.js</a>, <a href="wallet_transaction.js.html#line188">line 188</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>senderWallet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Wallet.html">Wallet</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The wallet of the sender. This is checked to ensure that the sender has enough balance to send more currency in the chain</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>recipient</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#publicKey">publicKey</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the recipient.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>amount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The amount to be transferred.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-throws">Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc usertext">
+        <p>If the amount exceeds the sender's balance.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl class="param-type">
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
+
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".rewardTransaction"><span class="type-signature type-signature-static">(static) </span>rewardTransaction<span class="signature">(minerWallet)</span><span class="type-signature"> &rarr; {<a href="Transaction.html">Transaction</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Creates a reward transaction for the miner who mined the block.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_transaction.js.html">wallet/transaction.js</a>, <a href="wallet_transaction.js.html#line232">line 232</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>minerWallet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Wallet.html">Wallet</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The wallet of the miner. Their public key is derived from this.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The reward transaction. By default this is set in the config file.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Transaction.html">Transaction</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".validTransaction"><span class="type-signature type-signature-static">(static) </span>validTransaction<span class="signature">(transaction)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Validates a transaction by checking the signature.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_transaction.js.html">wallet/transaction.js</a>, <a href="wallet_transaction.js.html#line214">line 214</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>transaction</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Transaction.html">Transaction</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The transaction to be validated. This is deconstructed in the method.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>After the transaction is verified it returns <code>true</code> if the transaction is valid, <code>false</code> otherwise.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Apr 17 2023 22:59:48 GMT+0100 (Irish Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

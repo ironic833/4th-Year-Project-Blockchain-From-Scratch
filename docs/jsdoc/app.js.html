@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>app.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/ironic833/4th-Year-Project-Blockchain-From-Scratch" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Modules</h3><ul><li><a href="module-config.html">config</a></li></ul><h3>Namespaces</h3><ul><li><a href="ElectronWindow.html">ElectronWindow</a><ul class='members'><li data-type='member' style='display: none;'><a href="ElectronWindow.html#.mainWindow">mainWindow</a></li></ul><ul class='methods'><li data-type='method' style='display: none;'><a href="ElectronWindow.html#.createWindow">createWindow</a></li></ul></li><li><a href="config.html">config</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GENESIS_DATA">GENESIS_DATA</a></li><li><a href="global.html#INITIAL_DIFFICULTY">INITIAL_DIFFICULTY</a></li><li><a href="global.html#MINE_RATE">MINE_RATE</a></li><li><a href="global.html#MINING_REWARD">MINING_REWARD</a></li><li><a href="global.html#POST/api/create-auction">POST /api/create-auction</a></li><li><a href="global.html#POST/api/end-auction">POST /api/end-auction</a></li><li><a href="global.html#POST/api/place-bid">POST /api/place-bid</a></li><li><a href="global.html#REWARD_INPUT">REWARD_INPUT</a></li><li><a href="global.html#ROOT_NODE_ADDRESS">ROOT_NODE_ADDRESS</a></li><li><a href="global.html#STARTING_BALANCE">STARTING_BALANCE</a></li><li><a href="global.html#startServer">startServer</a></li><li><a href="global.html#syncWithRootState">syncWithRootState</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">app.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const bodyParser = require('body-parser');
+const express = require('express');
+const request = (require)('request');
+const path = require('path');
+const Blockchain = require('./blockchain');
+const PubSub = require('./app/pubsub');
+const TransactionPool = require('./wallet/transaction-pool');
+const Wallet = require('./wallet');
+const TransactionMiner = require('./app/transaction-miner');
+const Peers = require('./app/peers');
+const { exec } = require('child_process');
+
+/**
+ * The root node address.
+ * @type {string}
+ */
+let ROOT_NODE_ADDRESS = /* isDevelopement ? `http://localhost:${DEFAULT_PORT}` : */ 'https://blocktest.herokuapp.com';
+
+// Create an Express app
+const app = express();
+const blockchain = new Blockchain();
+const transactionPool = new TransactionPool();
+
+// Use the body-parser middleware to parse request bodies
+app.use(bodyParser.json()); 
+app.use(express.static( path.join(__dirname, 'client/dist')));
+
+/**
+ * Handles the wallet API route.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+app.post('/api/wallet', (req, res) => {
+
+  const { phrase } = req.body;
+
+  if(phrase){
+    startServer(phrase);
+  }
+
+  res.sendStatus(200);
+});
+
+/**
+ * Handles the wallet mnemonic generation API route.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+app.get('/api/wallet-mnemoic-generate', (req, res) => {
+
+  WalletMnemonic = new Wallet();
+
+  walletPhrase = WalletMnemonic.mnemonic;
+
+  res.json(walletPhrase);
+});
+
+/**
+ * Syncs with the root state.
+ */
+const syncWithRootState = () => {
+
+  request({ url: `${ROOT_NODE_ADDRESS}/api/blocks` }, (error, response, body) => {
+    if (!error &amp;&amp; response.statusCode === 200) {
+      const rootChain = JSON.parse(body);
+
+      console.log('replace chain on a sync with', rootChain);
+      blockchain.replaceChain(rootChain);
+    }
+  });
+
+  request({ url: `${ROOT_NODE_ADDRESS}/api/transaction-pool-map` }, (error, response, body) => {
+    if (!error &amp;&amp; response.statusCode === 200) {
+      const rootTransactionPoolMap = JSON.parse(body);
+
+      console.log('replace transaction pool map on a sync with', rootTransactionPoolMap);
+      transactionPool.setMap(rootTransactionPoolMap);
+    }
+  });
+
+};
+
+/**
+ * Start the server with the given phrase.
+ * @async
+ * @param {string} phrase - The phrase to use for generating the wallet.
+ */
+const startServer = async (phrase) => {
+
+    const wallet = new Wallet(phrase), peers = new Peers(), pubsub = new PubSub({ blockchain, peers, transactionPool, wallet }), transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
+
+    request('http://ip-adresim.app', function (error, response, body) {
+      if (!error &amp;&amp; response.statusCode == 200) {
+        console.log('your ip is:', body);
+        pubsub.broadcastPeerMembership(body);
+      }
+    });
+
+    for (let i = 0; i &lt; peers.length; i++) {
+      const peer = peers[i];
+      const url = `http://${peer}:3000`;
+    
+      request(url, function (error, response, body) {
+        if (!error &amp;&amp; response.statusCode == 200) {
+          ROOT_NODE_ADDRESS = `${url}`;
+        }
+      });
+    }
+    
+    // Wait for all requests to finish before continuing
+    setTimeout(function() {
+      // Do something with ROOT_NODE_ADDRESS here
+      console.log("root node is: " + ROOT_NODE_ADDRESS);
+    }, peers.length * 1000);
+    
+    /* if (PORT !== DEFAULT_PORT) { */
+    syncWithRootState();
+    /* } */
+
+    // Define an endpoint that returns the blockchain
+    /**
+     * Endpoint that returns the current blockchain.
+     *
+     * @param {object} req - The Express request object.
+     * @param {object} res - The Express response object.
+     * @returns {object} The current blockchain.
+     */
+    app.get('/api/blocks', (req, res) => {
+      if(wallet.publicKey !== undefined){
+        res.json(blockchain.chain);
+      } else {
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+      }
+    });
+
+    // Define an endpoint that returns the length of the blockchain
+    /**
+     * Endpoint that returns the length of the blockchain.
+     *
+     * @param {object} req - The Express request object.
+     * @param {object} res - The Express response object.
+     * @returns {number} The length of the blockchain.
+     */
+    app.get('/api/blocks/length', (req, res) => {
+        res.json(blockchain.chain.length);
+    });
+
+    // Define an endpoint that returns a range of blocks from the blockchain
+    /**
+     * Endpoint that returns a range of blocks from the blockchain.
+     *
+     * @param {object} req - The Express request object.
+     * @param {object} res - The Express response object.
+     * @returns {Array&lt;object>} The requested range of blocks from the blockchain.
+     */
+    app.get('/api/blocks/:id', (req, res) => {
+      const { id } = req.params;
+      const { length } = blockchain.chain;
+
+      console.log(typeof blockchain.chain);
+    
+      const blocksReversed = blockchain.chain.slice().reverse();
+    
+      let startIndex = (id-1) * 5;
+      let endIndex = id * 5;
+    
+      startIndex = startIndex &lt; length ? startIndex : length;
+      endIndex = endIndex &lt; length ? endIndex : length;
+    
+      res.json(blocksReversed.slice(startIndex, endIndex));
+    });
+
+    // Set up an endpoint to process transactions and add them to the transaction pool
+    /**
+     * Processes a new transaction and adds it to the transaction pool.
+     * @param {Object} req - The HTTP request object.
+     * @param {Object} res - The HTTP response object.
+     * @returns {Object} - The response object containing information about the transaction.
+     */
+    app.post('/api/transact', (req, res) => {
+      if(wallet.publicKey !== undefined){
+        const { amount, recipient } = req.body;
+      
+        let transaction = transactionPool.existingTransaction({ inputAddress: wallet.publicKey });
+      
+        try {
+          if (transaction) {
+            transaction.updateTransaction({ senderWallet: wallet, recipient, amount });
+          } else {
+            transaction = wallet.createTransaction({
+              recipient,
+              amount,
+              chain: blockchain.chain
+            });
+          }
+        } catch(error) {
+          return res.status(400).json({ type: 'error', message: error.message });
+        }
+      
+        transactionPool.setTransaction(transaction);
+      
+        pubsub.broadcastTransaction(transaction);
+      
+        res.json({ type: 'success', transaction });
+      } else {
+
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+
+      }
+    });
+
+    /**
+   * Endpoint for creating a new auction item transaction.
+   * @namespace API
+   * @name POST /api/create-auction
+   * @function
+   *
+   * @param {Object} req - The HTTP request object.
+   * @param {Object} req.body - The request body containing the auction item information.
+   * @param {string} req.body.name - The name of the auction item.
+   * @param {string} req.body.description - The description of the auction item.
+   * @param {number} req.body.startingBid - The starting bid for the auction item.
+   * @param {string} req.body.auctionEndTime - The end time of the auction item.
+   *
+   * @param {Object} res - The HTTP response object.
+   * @returns {Object} The JSON response object.
+   * @returns {string} The type of response ("success" or "error").
+   * @returns {Object} The transaction object created by the wallet.
+   */
+    app.post('/api/create-auction', (req, res) => {
+      if(wallet.publicKey !== undefined){
+
+        const { name, description, startingBid, auctionEndTime } = req.body;
+      
+        let transaction = {};
+      
+        try {
+            transaction = wallet.createItemTransaction({
+              name,
+              description,
+              startingBid,
+              auctionEndTime
+            });
+          } catch(error) {
+            return res.status(400).json({ type: 'error', message: error.message });
+        }
+      
+        transactionPool.setTransaction(transaction);
+      
+        pubsub.broadcastTransaction(transaction);
+      
+        res.json({ type: 'success', transaction });
+
+      } else {
+
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+
+      }
+    });
+
+    /**
+     * Endpoint for reinitiating an auction item with updated details.
+     * @param {Object} req - The request object.
+     * @param {Object} res - The response object.
+     * @returns {Object} A JSON object with information about the transaction.
+     */
+    app.post('/api/reinitiate-auction', (req, res) => {
+
+      if(wallet.publicKey !== undefined){
+
+      const { prevAuctionItem, revisedStartingBid, revisedAuctionEndTime } = req.body;
+      let updatedName, updatedDescrtiption, foundValidBlock = false, transaction = {};
+
+      for (let i = 1; i &lt; blockchain.chain.length; i++) {
+        const block = blockchain.chain[i];
+
+        for (let j = 0; j &lt; block.data.length; j++) {
+          const Transaction = block.data[j];
+
+          if (Transaction.outputMap['owner']){
+
+            if((Transaction.outputMap['auction ID'] === prevAuctionItem) &amp;&amp; (Transaction.outputMap['owner'] === wallet.publicKey)){
+
+              updatedName = Transaction.outputMap['name'];
+              updatedDescrtiption = Transaction.outputMap['description'];
+              foundValidBlock = true;
+              break;
+
+            }
+          } 
+        }                    
+      }
+
+      if(!foundValidBlock) {
+        return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+      }
+
+      try {
+        transaction = wallet.createItemTransaction({
+          Id: prevAuctionItem, 
+          name: updatedName, 
+          description: updatedDescrtiption , 
+          startingBid: revisedStartingBid, 
+          auctionEndTime: revisedAuctionEndTime
+        });
+
+      } catch(error) {
+        return res.status(400).json({ type: 'error', message: error.message });
+      }
+
+      transactionPool.setTransaction(transaction);
+
+      pubsub.broadcastTransaction(transaction);
+
+      res.json({ type: 'success', transaction });
+      } else {
+
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+        
+      }
+
+    });
+
+    /**
+     * Endpoint for closing an auction item.
+     * @param {Object} req - The request object.
+     * @param {Object} res - The response object.
+     * @returns {Object} A JSON object with information about the transaction.
+     */
+    app.post('/api/close-auction', (req, res) => {
+
+      if(wallet.publicKey !== undefined){
+
+        const { prevAuctionItem } = req.body;
+        let updatedName, updatedDescrtiption, updatedBidAmount, foundValidBlock = false, blocknum, block, transaction = {};;
+
+        for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+
+          for (let Transaction of block.data) {
+
+            // fairly sure this is unneccessart
+            if (Transaction.outputMap['owner']){
+
+              if((Transaction.outputMap['auction ID'] === prevAuctionItem) &amp;&amp; (Transaction.outputMap['owner'] === wallet.publicKey)){
+
+                updatedName = Transaction.outputMap['name'];
+                updatedDescrtiption = Transaction.outputMap['description'];
+                updatedBidAmount = Transaction.outputMap['starting bid'];
+                foundValidBlock = true;
+
+                break;
+        
+              }
+            } 
+          }                    
+        }
+
+        if(!foundValidBlock) {
+          return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+        }
+
+        try {
+        
+          transaction = wallet.createItemTransaction({
+            Id: prevAuctionItem, 
+            name: updatedName, 
+            description: updatedDescrtiption , 
+            startingBid: updatedBidAmount, 
+            auctionEndTime: "closed by seller"
+          });
+      
+        } catch(error) {
+          return res.status(400).json({ type: 'error', message: error.message });
+        }
+
+        transactionPool.setTransaction(transaction);
+
+        pubsub.broadcastTransaction(transaction);
+
+        res.json({ type: 'success', transaction });
+
+      } else {
+
+          return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+          
+      }
+      
+    });
+
+    /**
+     * Endpoint for ending an auction item and transferring ownership to the highest bidder.
+     *
+     * @name POST /api/end-auction
+     * @function
+     *
+     * @param {Object} req - The HTTP request object.
+     * @param {Object} req.body - The request body containing the auction item ID.
+     * @param {string} req.body.prevAuctionId - The ID of the auction item being ended.
+     *
+     * @param {Object} res - The HTTP response object.
+     * @returns {Object} The JSON response object.
+     * @returns {string} The type of response ("success" or "error").
+     * @returns {Object} The transaction object created by the wallet.
+     */
+    app.post('/api/end-auction', (req, res) => {
+
+      if(wallet.publicKey !== undefined){
+
+      const { prevAuctionId } = req.body;
+      let updatedName, updatedDescription, updatedStartingBid, highestBid = 0, highestBidder, foundValidBlock = false, transaction = {}, blocknum, block;
+
+      // Find the latest version of the item on the chain
+      for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0 &amp;&amp; !foundValidBlock; blocknum--) {
+
+        for(let Transaction of block.data) {
+
+          if(Transaction.outputMap['auction ID'] === prevAuctionId &amp;&amp; Transaction.outputMap['owner'] != undefined &amp;&amp; Transaction.outputMap['owner'] === wallet.publicKey) {
+
+            updatedName = Transaction.outputMap['name'];
+            updatedDescription = Transaction.outputMap['description'];
+            updatedStartingBid = Transaction.outputMap['starting bid'];
+            foundValidBlock = true;
+
+            break;
+          }
+        }
+      }
+
+      if(!foundValidBlock) {
+        return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+      }
+
+      // Find the highest bid and the address of the highest bidder
+      for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+
+        for(let Transaction of block.data) {
+          if(Transaction.outputMap['auction ID'] === prevAuctionId &amp;&amp; Transaction.outputMap['bid'] > highestBid) {
+
+            highestBid = Transaction.outputMap['bid'];
+            highestBidder = Transaction.input.address;
+
+          }
+        }
+      }
+
+      if(highestBid === 0){
+        highestBid = updatedStartingBid;
+      }
+
+      try {
+        transaction = wallet.createItemTransaction({
+          Id: prevAuctionId,
+          name: updatedName,
+          description: updatedDescription,
+          startingBid: highestBid,
+          auctionEndTime: "ended",
+          owner: highestBidder
+        });
+      } catch(error) {
+        return res.status(400).json({ type: 'error', message: error.message });
+      }
+
+      transactionPool.setTransaction(transaction);
+
+      pubsub.broadcastTransaction(transaction);
+
+      res.json({ type: 'success', transaction });
+
+      }else {
+
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+        
+      }
+
+    });
+
+    /**
+     * Endpoint for placing a bid on an auction item.
+     *
+     * @name POST /api/place-bid
+     * @function
+     *
+     * @param {Object} req - The HTTP request object.
+     * @param {Object} req.body - The request body containing the auction item ID and bid amount.
+     * @param {string} req.body.prevAuctionItem - The ID of the auction item being bid on.
+     * @param {number} req.body.bidAmount - The amount of the bid.
+     *
+     * @param {Object} res - The HTTP response object.
+     * @returns {Object} The JSON response object.
+     * @returns {string} The type of response ("success" or "error").
+     * @returns {Object} The transaction object created by the wallet.
+     */
+    app.post('/api/place-bid', (req, res) => {
+
+      if(wallet.publicKey !== undefined){
+
+      const { prevAuctionItem, bidAmount } = req.body;
+      let blocknum, block, foundValidBlock = false, transaction = {}; ;
+
+      for(blocknum = blockchain.chain.length - 1, block = blockchain.chain[blocknum]; blocknum > 0; blocknum--) {
+
+        for (let Transaction of block.data) {
+
+          if((Transaction.outputMap['auction ID'] === prevAuctionItem)){
+
+            foundValidBlock = true;
+            break;
+
+          }
+        }                   
+      }
+
+      if(!foundValidBlock) {
+        return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+      }
+
+      try {
+        transaction = wallet.createBid({
+          id: prevAuctionItem, 
+          Bid: bidAmount
+        });
+
+      } catch(error) {
+        return res.status(400).json({ type: 'error', message: error.message });
+      }
+
+      transactionPool.setTransaction(transaction);
+
+      pubsub.broadcastTransaction(transaction);
+
+      res.json({ type: 'success', transaction });
+
+      } else {
+
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+        
+      }
+      
+    });
+
+
+    // Set up an endpoint to retrieve the transaction history for a specific item
+  /**
+   * Retrieves the transaction history for a specific auction item.
+   * @param {Object} req - The HTTP request object.
+   * @param {Object} res - The HTTP response object.
+   * @returns {Object} - The response object containing the item history.
+   */
+    app.post('/api/item-history', (req, res) => {
+
+      if(wallet.publicKey !== undefined){
+
+      const { auctionItemId } = req.body, itemHistory = [];
+      let foundValidBlock = false;
+
+      for (let i = 1; i &lt; blockchain.chain.length; i++) {
+        const block = blockchain.chain[i];
+
+        for (let j = 0; j &lt; block.data.length; j++) {
+          const transaction = block.data[j];
+          console.log(JSON.stringify(transaction) + "\n");
+
+          if (transaction.outputMap['auction ID'] === auctionItemId) {
+            itemHistory.push(transaction.outputMap);
+            foundValidBlock = true;
+          }
+        }
+      }
+
+      if(!foundValidBlock) {
+        return res.status(404).json({ type: 'error', message: 'No valid auction item block found for the given auction ID' });
+      }
+
+      res.json(itemHistory);
+
+      } else {
+
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+        
+      }
+      
+    });
+
+     /**
+     * Endpoint to get transaction history for a given wallet address.
+     * @name POST /api/wallet-history
+     * @function
+     * @memberof startServer
+     * @inner
+     * @param {Object} req - The HTTP request object.
+     * @param {string} req.body.walletAddress - The wallet address to query for transaction history.
+     * @param {Object} res - The HTTP response object.
+     * @returns {Object} JSON object containing the transaction history for the given wallet address.
+     */
+    app.post('/api/wallet-history', (req, res) => {
+      if (wallet.publicKey !== undefined) {
+
+        const { walletAddress } = req.body, walletHistory = [], addedTransactions = {};
+        let foundValidAddress = false;
+    
+        for (let blockNum = 0; blockNum &lt; blockchain.chain.length; blockNum++) {
+
+          const block = blockchain.chain[blockNum];
+          for (let transaction of block.data) {
+
+            if (transaction.input["address"] === walletAddress) {
+
+              const transactionHash = JSON.stringify(transaction);
+
+              if (!addedTransactions[transactionHash]) {
+
+                addedTransactions[transactionHash] = true;
+
+                walletHistory.push( transaction.outputMap );
+
+                foundValidAddress = true;
+              }
+
+            }
+          }
+        }
+
+        if (!foundValidAddress) {
+          return res.status(404).json({ type: 'error', message: 'No history found for the ID' });
+        }
+
+        res.json(walletHistory);
+
+      } else {
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+      }
+
+    });
+
+    /**
+     * Endpoint to get the current transaction pool map.
+     * @name GET /api/transaction-pool-map
+     * @function
+     * @memberof startServer
+     * @inner
+     * @param {Object} req - The HTTP request object.
+     * @param {Object} res - The HTTP response object.
+     * @returns {Object} JSON object containing the current transaction pool map.
+     */
+    app.get('/api/transaction-pool-map', (req, res) => {
+        res.json(transactionPool.transactionMap);
+    });
+
+    /**
+     * GET endpoint to mine transactions
+     * Accessible via the GUI
+     *
+     * @param {Object} req - The request object
+     * @param {Object} res - The response object
+     */
+    app.get('/api/mine-transactions', (req, res) => {
+
+      if(wallet.publicKey !== undefined){
+
+        console.log("mining transaction \n");
+
+        transactionMiner.mineTransactions();
+
+        res.redirect('/api/blocks');
+
+      } else {
+
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+        
+      }
+    });
+
+    /**
+     * GET endpoint to get wallet information
+     * Accessible via the GUI
+     *
+     * @param {Object} req - The request object
+     * @param {Object} res - The response object
+     */
+    app.get('/api/wallet-info', (req, res) => {
+
+      if(wallet.publicKey !== undefined){
+
+        const address = wallet.publicKey;
+      
+        res.json({
+          address,
+          balance: Wallet.calculateBalance({ chain: blockchain.chain, address })
+        });
+
+      } else {
+
+        return res.status(400).json({ type: 'error', message: 'Wallet Key undefined' });
+        
+      }
+    }); 
+
+    /**
+     * GET endpoint to get known addresses
+     * Accessible via the GUI
+     *
+     * @param {Object} req - The request object
+     * @param {Object} res - The response object
+     */
+    app.get('/api/known-addresses', (req, res) => {
+      const addressMap = {};
+
+      for(let block of blockchain.chain){
+        for (let transaction of block.data){
+          const recipient = Object.keys(transaction.outputMap);
+
+          recipient.forEach(recipient => {
+            if (recipient.length > 50) {
+              addressMap[recipient] = recipient;
+            }
+          });
+        }
+      }
+
+      res.json(Object.keys(addressMap));
+    });
+
+    /**
+     * GET endpoint to get the user's wallet address
+     * Used in the GUI
+     *
+     * @param {Object} req - The request object
+     * @param {Object} res - The response object
+     */
+    app.get('/api/my-wallet-address', (req, res) => {
+    
+      res.json(wallet.publicKey);
+
+    });
+
+    // Define a fallback endpoint that serves the client-side app
+    /**
+     * Fallback endpoint that serves the client-side app.
+     *
+     * @param {object} req - The Express request object.
+     * @param {object} res - The Express response object.
+     * @returns {void}
+     */
+    app.get('*', (req, res) => {
+      res.sendFile(path.join( __dirname , 'client/dist/index.html'));
+    });
+
+}
+
+// Start the server
+app.listen(3000, () => {
+  console.log("listening at localhost:3000");
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Wed Apr 12 2023 01:08:52 GMT+0100 (Irish Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

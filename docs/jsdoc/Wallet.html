@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Wallet - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/ironic833/4th-Year-Project-Blockchain-From-Scratch" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="Block.html">Block</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Block.html#.adjustDifficulty">adjustDifficulty</a></li><li data-type='method' style='display: none;'><a href="Block.html#.genesis">genesis</a></li><li data-type='method' style='display: none;'><a href="Block.html#.mineBlock">mineBlock</a></li></ul></li><li><a href="Blockchain.html">Blockchain</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Blockchain.html#addBlock">addBlock</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#replaceChain">replaceChain</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#validTransactionData">validTransactionData</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#.isValidChain">isValidChain</a></li></ul></li><li><a href="Peers.html">Peers</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Peers.html#updatePeers">updatePeers</a></li></ul></li><li><a href="PubSub.html">PubSub</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PubSub.html#TransactionPublish">TransactionPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#blockchainPublish">blockchainPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastChain">broadcastChain</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastPeerMembership">broadcastPeerMembership</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastTransaction">broadcastTransaction</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#listener">listener</a></li></ul></li><li><a href="Transaction.html">Transaction</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Transaction.html#createAuctionItem">createAuctionItem</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createInput">createInput</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createMap">createMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createTransactionMap">createTransactionMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#updateTransaction">updateTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.rewardTransaction">rewardTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.validTransaction">validTransaction</a></li></ul></li><li><a href="TransactionMiner.html">TransactionMiner</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionMiner.html#mineTransactions">mineTransactions</a></li></ul></li><li><a href="TransactionPool.html">TransactionPool</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionPool.html#clear">clear</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#clearBlockchainTransactions">clearBlockchainTransactions</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#existingTransaction">existingTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setMap">setMap</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setTransaction">setTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#validTransactions">validTransactions</a></li></ul></li><li><a href="Wallet.html">Wallet</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Wallet.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createItemTransaction">createItemTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createTransaction">createTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#sign">sign</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#.calculateBalance">calculateBalance</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-Transaction.html">Transaction</a></li><li><a href="module-TransactionPool.html">TransactionPool</a></li><li><a href="module-Wallet.html">Wallet</a></li><li><a href="module-cryptoHash.html">cryptoHash</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chain">chain</a></li><li><a href="global.html#cryptoHash">cryptoHash</a></li><li><a href="global.html#data">data</a></li><li><a href="global.html#inputMap">inputMap</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#outputMap">outputMap</a></li><li><a href="global.html#publicKey">publicKey</a></li><li><a href="global.html#transaction">transaction</a></li><li><a href="global.html#transactionMap">transactionMap</a></li><li><a href="global.html#uuid">uuid</a></li><li><a href="global.html#verifySignature">verifySignature</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Wallet</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            Wallet
+        
+        </h2>
+        
+            <div class="class-description usertext"><p>Class representing a blockchain wallet.</p></div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="Wallet"><span class="type-signature"></span>new Wallet<span class="signature">(mnemonic<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Create a new wallet.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_index.js.html">wallet/index.js</a>, <a href="wallet_index.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>mnemonic</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A 12-word mnemonic phrase to create the wallet from. If not provided, a new mnemonic will be generated.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="createBid"><span class="type-signature"></span>createBid<span class="signature">(Id, bid)</span><span class="type-signature"> &rarr; {<a href="Transaction.html">Transaction</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Creates a new bid transaction object for an auction.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_index.js.html">wallet/index.js</a>, <a href="wallet_index.js.html#line95">line 95</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#uuid">uuid</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of a previous auction item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The bid amount.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>The new transaction object.</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Transaction.html">Transaction</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createItemTransaction"><span class="type-signature"></span>createItemTransaction<span class="signature">(Id, name, description, startingBid, auctionEndTime, owner)</span><span class="type-signature"> &rarr; {<a href="Transaction.html">Transaction</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Creates a new transaction object for creating a new auction item.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_index.js.html">wallet/index.js</a>, <a href="wallet_index.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#uuid">uuid</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the auction item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the auction item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The description of the auction item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startingBid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The starting bid amount.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>auctionEndTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The end time of the auction.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>owner</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#publicKey">publicKey</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the item owner.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>The new transaction object.</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Transaction.html">Transaction</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createTransaction"><span class="type-signature"></span>createTransaction<span class="signature">(recipient, amount, chain)</span><span class="type-signature"> &rarr; {<a href="Transaction.html">Transaction</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Create a new currency transaction.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_index.js.html">wallet/index.js</a>, <a href="wallet_index.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>recipient</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#publicKey">publicKey</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The address of the recipient of the transaction.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>amount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The amount to transfer in the transaction.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>chain</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#chain">chain</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The blockchain to check for transaction history.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-throws">Throws:</h5>
+
+        
+
+    <div class="param-desc usertext">
+    
+        <p>Will throw an error if the wallet does not have sufficient funds.</p>
+    
+    </div>
+
+
+    
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A new transaction object.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Transaction.html">Transaction</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="sign"><span class="type-signature"></span>sign<span class="signature">(data)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Sign a piece of data with the wallet's private key.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_index.js.html">wallet/index.js</a>, <a href="wallet_index.js.html#line56">line 56</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The data to sign.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The signature of the data.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".calculateBalance"><span class="type-signature type-signature-static">(static) </span>calculateBalance<span class="signature">(chain, address, timestamp)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Calculates the balance of the wallet for the given blockchain and timestamp.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wallet_index.js.html">wallet/index.js</a>, <a href="wallet_index.js.html#line128">line 128</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>chain</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#chain">chain</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The blockchain to use for calculating the balance.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#publicKey">publicKey</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The public key of the wallet to calculate the balance for.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timestamp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The timestamp to calculate the balance at.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>The balance of the wallet.</li>
+</ul>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Apr 17 2023 22:59:48 GMT+0100 (Irish Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

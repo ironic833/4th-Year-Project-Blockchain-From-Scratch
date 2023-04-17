@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>wallet/transaction.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/ironic833/4th-Year-Project-Blockchain-From-Scratch" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="Block.html">Block</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Block.html#.adjustDifficulty">adjustDifficulty</a></li><li data-type='method' style='display: none;'><a href="Block.html#.genesis">genesis</a></li><li data-type='method' style='display: none;'><a href="Block.html#.mineBlock">mineBlock</a></li></ul></li><li><a href="Blockchain.html">Blockchain</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Blockchain.html#addBlock">addBlock</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#replaceChain">replaceChain</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#validTransactionData">validTransactionData</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#.isValidChain">isValidChain</a></li></ul></li><li><a href="Peers.html">Peers</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Peers.html#updatePeers">updatePeers</a></li></ul></li><li><a href="PubSub.html">PubSub</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PubSub.html#TransactionPublish">TransactionPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#blockchainPublish">blockchainPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastChain">broadcastChain</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastPeerMembership">broadcastPeerMembership</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastTransaction">broadcastTransaction</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#listener">listener</a></li></ul></li><li><a href="Transaction.html">Transaction</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Transaction.html#createAuctionItem">createAuctionItem</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createInput">createInput</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createMap">createMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createTransactionMap">createTransactionMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#updateTransaction">updateTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.rewardTransaction">rewardTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.validTransaction">validTransaction</a></li></ul></li><li><a href="TransactionMiner.html">TransactionMiner</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionMiner.html#mineTransactions">mineTransactions</a></li></ul></li><li><a href="TransactionPool.html">TransactionPool</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionPool.html#clear">clear</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#clearBlockchainTransactions">clearBlockchainTransactions</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#existingTransaction">existingTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setMap">setMap</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setTransaction">setTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#validTransactions">validTransactions</a></li></ul></li><li><a href="Wallet.html">Wallet</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Wallet.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createItemTransaction">createItemTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createTransaction">createTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#sign">sign</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#.calculateBalance">calculateBalance</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-Transaction.html">Transaction</a></li><li><a href="module-TransactionPool.html">TransactionPool</a></li><li><a href="module-Wallet.html">Wallet</a></li><li><a href="module-cryptoHash.html">cryptoHash</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chain">chain</a></li><li><a href="global.html#cryptoHash">cryptoHash</a></li><li><a href="global.html#data">data</a></li><li><a href="global.html#inputMap">inputMap</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#outputMap">outputMap</a></li><li><a href="global.html#publicKey">publicKey</a></li><li><a href="global.html#transaction">transaction</a></li><li><a href="global.html#transactionMap">transactionMap</a></li><li><a href="global.html#uuid">uuid</a></li><li><a href="global.html#verifySignature">verifySignature</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">wallet/transaction.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const uuid = require('uuid/v1');
+const { verifySignature } = require('../util');
+const { REWARD_INPUT, MINING_REWARD } = require('../config');
+const Wallet = require('.');
+
+/**
+ * An outputMap is a definition of the data to be written to the chain
+ * @typedef {Object} outputMap
+ */
+
+/**
+ * An inputmap is a definition of the block generated based on the inputted wallet public key and outputMap
+ * @typedef {Object} inputMap
+ */
+
+/**
+ * A publicKey is the shared key created in the asymetric encryption process used to generate wallet objects. This allows users to transact with each other and assign the ownership of auctions items and bids and is a component of a wallet object
+ * @typedef {string} publicKey
+ */
+
+/**
+ * A transaction is an event that is written to the blockchain consisting of an input and an output map.
+ * @typedef {Object} transaction
+ */
+
+
+
+/**
+ * A transaction is a record of an interaction between a user wallet and the chain. This may be the processing of currency, an auction item, CRUD operation on an auction item or a bid.
+ */
+class Transaction {
+  /**
+   * Creates a new transaction object.
+   * @constructor
+   * @param {Wallet} senderWallet - The wallet of the sender.
+   * @param {publicKey} recipient - The public key of the recipient.
+   * @param {number} amount - The amount to be transferred.
+   * @param {string} Id - The ID of the transaction.
+   * @param {string} name - The name of the auction item (if this transaction represents an auction).
+   * @param {string} description - The description of the auction item (if this transaction represents an auction).
+   * @param {number} startingBid - The starting bid for the auction (if this transaction represents an auction).
+   * @param {number} auctionEndTime - The end time for the auction (if this transaction represents an auction).
+   * @param {string} owner - The public key of the owner of the auction item (if this transaction represents an auction).
+   * @param {number} bid - The bid amount (if this transaction represents a bid).
+   * @param {outputMap} outputMap - The output map for the transaction.
+   * @param {inputMap} input - The input object for the transaction.
+   */
+  constructor({ senderWallet, recipient, amount = null, Id, name = null, description, startingBid, auctionEndTime, owner = null, bid = null, outputMap, input }) {
+    this.id = uuid();
+    this.outputMap = outputMap || this.createMap({senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, owner, bid });
+    this.input = input || this.createInput({ senderWallet, outputMap: this.outputMap });
+  }
+
+
+  /**
+   * Creates a map representing the transaction based on the inputs given. The inputs given allow for automatic map generation selection.
+   * @param {Wallet} senderWallet - The public key of the wallet of the sender.
+   * @param {publicKey} recipient - The public key of the wallet of the recipient (if applicable).
+   * @param {number} amount - The amount to be transferred (if applicable).
+   * @param {string} Id - The ID of the transaction. This is seperate from the block ID and is used to identify an auction item in the event of a bid or when CRUD functions are used on a pr-existing item. 
+   * @param {string} name - The name of the auction item (if applicable).
+   * @param {string} description - The description of the auction item (if applicable).
+   * @param {number} startingBid - The starting bid of the auction item (if applicable).
+   * @param {number} auctionEndTime - The end time of the auction item (if applicable).
+   * @param {publicKey} owner - The public key of the owner of the auction item (if applicable).
+   * @param {number} bid - The bid amount (if applicable).
+   * @returns {outputMap} The outputMap representing the transaction.
+   */
+  createMap({senderWallet, recipient, amount, Id, name , description, startingBid, auctionEndTime, owner, bid}){
+
+    if(name !== null){
+
+      return this.createAuctionItem({ Id, name, description, startingBid, auctionEndTime, senderWallet, owner });
+
+    } else if( bid !== null){
+
+      return this.createBid({ Id, bid, senderWallet });
+
+    } else if (amount !== null){
+
+      return this.createTransactionMap({ senderWallet, recipient, amount });
+
+    } else {
+
+      console.log('No valid inputs');
+
+    }
+ 
+  }
+
+  /**
+   * Creates an outputMap representing a bid on an auction item.
+   * @param {Wallet} senderWallet - The public key of the wallet of the bidder.
+   * @param {string} Id - The ID of the auction item.
+   * @param {number} bid - The amount of the bid.
+   * @returns {outputMap} The map representing the bid.
+   */
+  createBid({ senderWallet, Id, bid}) {   
+
+    const Bid = {};
+
+    Bid['auction ID'] = Id;
+    Bid['bidder'] = senderWallet.publicKey;
+    Bid['bid'] = bid;
+    
+    
+    return Bid;
+  }
+
+  /**
+   * Creates an outputMap representing an auction item. An owner value by default is the creator of the auction unless the auctions ownership is being reassigned.
+   * @param {Wallet} senderWallet - The public key of the wallet of the sender.
+   * @param {string} Id - The ID of the auction item. When an auction is reintiated the old ID will go here, otherwise a unique one will be cryptographically generated
+   * @param {string} name - The name of the auction item.
+   * @param {string} description - The description of the auction item.
+   * @param {number} startingBid - The starting bid of the auction item.
+   * @param {number} auctionEndTime - The end time of the auction item.
+   * @param {publicKey} [owner=conditional] - The public key of the wallet of the owner of the auction item.
+   * @returns {outputMap} The map representing the auction item.
+   */
+
+  createAuctionItem({ senderWallet, Id, name, description, startingBid, auctionEndTime, owner }) {
+    const auctionItem = {};
+
+    if (owner === null) {
+
+      auctionItem['auction ID'] = Id || uuid();
+      auctionItem['name'] = name;
+      auctionItem['description'] = description;
+      auctionItem['starting bid'] = startingBid;
+      auctionItem['auction end time'] = auctionEndTime;
+      auctionItem['owner'] = senderWallet.publicKey;
+
+    } else {
+
+      auctionItem['auction ID'] = Id || uuid();
+      auctionItem['name'] = name;
+      auctionItem['description'] = description;
+      auctionItem['starting bid'] = startingBid;
+      auctionItem['auction end time'] = auctionEndTime;
+      auctionItem['owner'] = owner;
+
+    }
+    
+    return auctionItem;
+  }
+
+  /**
+   * Creates an output map for a currency transaction.
+   * @param {Wallet} senderWallet - The public key of the wallet of the sender.
+   * @param {publicKey} recipient - The public key of the wallet of the recipient.
+   * @param {number} amount - The amount to be transferred.
+   * @returns {outputMap} The output map for the transaction.
+   */
+  createTransactionMap({ senderWallet, recipient, amount }) {
+    const outputMap = {};
+
+    outputMap[recipient] = amount;
+    outputMap[senderWallet.publicKey] = senderWallet.balance - amount;
+    
+    return outputMap;
+  }
+
+  /**
+   * Creates an inputMap for the transaction.
+   * @param {Wallet} senderWallet - The public key of the wallet of the sender.
+   * @param {outputMap} outputMap - The previously generated output map for the transaction.
+   * @returns {inputMap} The input map for the transaction.
+   */
+  createInput({ senderWallet, outputMap }) {
+
+    return {
+      timestamp: Date.now(),
+      amount: senderWallet.balance,
+      address: senderWallet.publicKey,
+      signature: senderWallet.sign(outputMap)
+    };
+
+  }
+
+  /**
+   * Updates the transaction by adding a new recipient and reducing the sender's balance.
+   * @param {Wallet} senderWallet - The wallet of the sender. This is checked to ensure that the sender has enough balance to send more currency in the chain
+   * @param {publicKey} recipient - The public key of the recipient.
+   * @param {number} amount - The amount to be transferred.
+   * @throws {Error} If the amount exceeds the sender's balance.
+   */
+  updateTransaction({ senderWallet, recipient, amount }) {
+
+    if (amount > this.outputMap[senderWallet.publicKey]) {
+      throw new Error('Amount exceeds balance');
+    }
+
+    if (!this.outputMap[recipient]) {
+
+      this.outputMap[recipient] = amount;
+
+    } else {
+
+      this.outputMap[recipient] = this.outputMap[recipient] + amount;
+
+    }
+
+    this.outputMap[senderWallet.publicKey] = this.outputMap[senderWallet.publicKey] - amount;
+
+    this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
+  }
+
+  /**
+   * Validates a transaction by checking the signature.
+   * @param {Transaction} transaction - The transaction to be validated. This is deconstructed in the method.
+   * @returns {boolean} After the transaction is verified it returns `true` if the transaction is valid, `false` otherwise.
+   */
+  static validTransaction(transaction) {
+
+    const { input: { address, amount, signature }, outputMap } = transaction;
+
+    if (!verifySignature({ publicKey: address, data: outputMap, signature })) {
+      console.error(`Invalid signature from ${address}`);
+      return false;
+    }
+
+    return true;
+
+  }
+
+  /**
+   * Creates a reward transaction for the miner who mined the block.
+   * @param {Wallet} minerWallet - The wallet of the miner. Their public key is derived from this.
+   * @returns {Transaction} The reward transaction. By default this is set in the config file.
+   */
+  static rewardTransaction({ minerWallet }) {
+
+    return new this({
+      input: REWARD_INPUT,
+      outputMap: { [minerWallet.publicKey]: MINING_REWARD }
+    });
+
+  }
+}
+
+/**
+ * Exports the Transaction class as a module.
+ * @module Transaction
+ */
+module.exports = Transaction;</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Apr 17 2023 22:59:48 GMT+0100 (Irish Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

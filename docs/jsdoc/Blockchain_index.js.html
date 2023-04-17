@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Blockchain/index.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/ironic833/4th-Year-Project-Blockchain-From-Scratch" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="Block.html">Block</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Block.html#.adjustDifficulty">adjustDifficulty</a></li><li data-type='method' style='display: none;'><a href="Block.html#.genesis">genesis</a></li><li data-type='method' style='display: none;'><a href="Block.html#.mineBlock">mineBlock</a></li></ul></li><li><a href="Blockchain.html">Blockchain</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Blockchain.html#addBlock">addBlock</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#replaceChain">replaceChain</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#validTransactionData">validTransactionData</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#.isValidChain">isValidChain</a></li></ul></li><li><a href="Peers.html">Peers</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Peers.html#updatePeers">updatePeers</a></li></ul></li><li><a href="PubSub.html">PubSub</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PubSub.html#TransactionPublish">TransactionPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#blockchainPublish">blockchainPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastChain">broadcastChain</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastPeerMembership">broadcastPeerMembership</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastTransaction">broadcastTransaction</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#listener">listener</a></li></ul></li><li><a href="Transaction.html">Transaction</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Transaction.html#createAuctionItem">createAuctionItem</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createInput">createInput</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createMap">createMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createTransactionMap">createTransactionMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#updateTransaction">updateTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.rewardTransaction">rewardTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.validTransaction">validTransaction</a></li></ul></li><li><a href="TransactionMiner.html">TransactionMiner</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionMiner.html#mineTransactions">mineTransactions</a></li></ul></li><li><a href="TransactionPool.html">TransactionPool</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionPool.html#clear">clear</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#clearBlockchainTransactions">clearBlockchainTransactions</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#existingTransaction">existingTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setMap">setMap</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setTransaction">setTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#validTransactions">validTransactions</a></li></ul></li><li><a href="Wallet.html">Wallet</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Wallet.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createItemTransaction">createItemTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createTransaction">createTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#sign">sign</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#.calculateBalance">calculateBalance</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-Transaction.html">Transaction</a></li><li><a href="module-TransactionPool.html">TransactionPool</a></li><li><a href="module-Wallet.html">Wallet</a></li><li><a href="module-cryptoHash.html">cryptoHash</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chain">chain</a></li><li><a href="global.html#cryptoHash">cryptoHash</a></li><li><a href="global.html#data">data</a></li><li><a href="global.html#inputMap">inputMap</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#outputMap">outputMap</a></li><li><a href="global.html#publicKey">publicKey</a></li><li><a href="global.html#transaction">transaction</a></li><li><a href="global.html#transactionMap">transactionMap</a></li><li><a href="global.html#uuid">uuid</a></li><li><a href="global.html#verifySignature">verifySignature</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Blockchain/index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Block = require('./block');
+const Transaction = require('../wallet/transaction');
+const Wallet = require('../wallet');
+const { cryptoHash } = require('../util');
+const { REWARD_INPUT, MINING_REWARD } = require('../config');
+
+/**
+ * Represents a blockchain.
+ */
+class Blockchain {
+  /**
+   * Creates a new blockchain with a genesis block.
+   */
+  constructor() {
+    this.chain = [Block.genesis()];
+  }
+
+  /**
+   * Adds a new block to the chain.
+   * @param {data} blockData - The data for the new block.
+   */
+  addBlock({ data }) {
+    const newBlock = Block.mineBlock({
+      lastBlock: this.chain[this.chain.length-1],
+      data
+    });
+
+    this.chain.push(newBlock);
+  }
+
+  /**
+   * Replaces the current chain with a new one.
+   * @param {chain} chain - The new chain to replace the current one upon validation.
+   * @param {boolean} validateTransactions - Whether or not to validate the transactions in the new chain. 
+   * @param {function} onSuccess - A callback function to be called upon successful replacement of the chain. Logs to console and replaces current blockchain
+   */
+  replaceChain(chain, validateTransactions, onSuccess) {
+    if (chain.length &lt;= this.chain.length) {
+      console.error('The incoming chain must be longer');
+      return;
+    } 
+
+    if (validateTransactions &amp;&amp; !this.validTransactionData({ chain })) {
+      console.error('The incoming chain has invalid data');
+      return;
+    }
+
+    if (onSuccess) onSuccess();
+    console.log('replacing chain with', chain);
+    this.chain = chain;
+  }
+
+  /**
+   * Validates the transaction data in a chain.
+   * @param {chain} chain - The array of blocks in the chain.
+   * @returns {boolean} Whether or not the transaction data is valid.
+   */
+  validTransactionData({ chain }) {
+    for (let i=1; i&lt;chain.length; i++) {
+      const block = chain[i];
+      const transactionSet = new Set();
+      let rewardTransactionCount = 0;
+
+      for (let transaction of block.data) {
+        if (transaction.input.address === REWARD_INPUT.address) {
+          rewardTransactionCount += 1;
+
+          if (rewardTransactionCount > 1) {
+            console.error('Miner rewards exceed limit');
+            return false;
+          }
+
+          if (Object.values(transaction.outputMap)[0] !== MINING_REWARD) {
+            console.error('Miner reward amount is invalid');
+            return false;
+          }
+        } else {
+          if (!Transaction.validTransaction(transaction)) {
+            console.error('Invalid transaction');
+            return false;
+          }
+
+          const trueBalance = Wallet.calculateBalance({
+            chain: this.chain,
+            address: transaction.input.address
+          });
+
+          if (transaction.input.amount !== trueBalance) {
+            console.error('Invalid input amount');
+            return false;
+          }
+
+          if (transactionSet.has(transaction)) {
+            console.error('An identical transaction appears more than once in the block');
+            return false;
+          } else {
+            transactionSet.add(transaction);
+          }
+        }
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Determines whether or not a chain is valid. Returns a boolean to be used in the replace chain process.
+   * @param {Array} chain - The chain to validate.
+   * @returns {boolean} Whether or not the chain is valid.
+   */
+  static isValidChain(chain) {
+
+    console.log(JSON.stringify(chain[0]) + "\n");
+    if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {
+      return false
+    };
+
+    for (let i=1; i&lt;chain.length; i++) {
+      const { timestamp, lastHash, hash, nonce, difficulty, data } = chain[i];
+      const actualLastHash = chain[i-1].hash;
+      const lastDifficulty = chain[i-1].difficulty;
+
+      if (lastHash !== actualLastHash) return false;
+
+      const validatedHash = cryptoHash(timestamp, lastHash, data, nonce, difficulty);
+
+      if (hash !== validatedHash) return false;
+
+      if (Math.abs(lastDifficulty - difficulty) > 1) return false;
+    }
+
+    return true;
+  }
+}
+
+module.exports = Blockchain;</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Apr 17 2023 22:59:48 GMT+0100 (Irish Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

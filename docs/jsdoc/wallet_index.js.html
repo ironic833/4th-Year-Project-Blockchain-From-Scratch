@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>wallet/index.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/ironic833/4th-Year-Project-Blockchain-From-Scratch" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="Block.html">Block</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Block.html#.adjustDifficulty">adjustDifficulty</a></li><li data-type='method' style='display: none;'><a href="Block.html#.genesis">genesis</a></li><li data-type='method' style='display: none;'><a href="Block.html#.mineBlock">mineBlock</a></li></ul></li><li><a href="Blockchain.html">Blockchain</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Blockchain.html#addBlock">addBlock</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#replaceChain">replaceChain</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#validTransactionData">validTransactionData</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#.isValidChain">isValidChain</a></li></ul></li><li><a href="Peers.html">Peers</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Peers.html#updatePeers">updatePeers</a></li></ul></li><li><a href="PubSub.html">PubSub</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PubSub.html#TransactionPublish">TransactionPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#blockchainPublish">blockchainPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastChain">broadcastChain</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastPeerMembership">broadcastPeerMembership</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastTransaction">broadcastTransaction</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#listener">listener</a></li></ul></li><li><a href="Transaction.html">Transaction</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Transaction.html#createAuctionItem">createAuctionItem</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createInput">createInput</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createMap">createMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createTransactionMap">createTransactionMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#updateTransaction">updateTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.rewardTransaction">rewardTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.validTransaction">validTransaction</a></li></ul></li><li><a href="TransactionMiner.html">TransactionMiner</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionMiner.html#mineTransactions">mineTransactions</a></li></ul></li><li><a href="TransactionPool.html">TransactionPool</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionPool.html#clear">clear</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#clearBlockchainTransactions">clearBlockchainTransactions</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#existingTransaction">existingTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setMap">setMap</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setTransaction">setTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#validTransactions">validTransactions</a></li></ul></li><li><a href="Wallet.html">Wallet</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Wallet.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createItemTransaction">createItemTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createTransaction">createTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#sign">sign</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#.calculateBalance">calculateBalance</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-Transaction.html">Transaction</a></li><li><a href="module-TransactionPool.html">TransactionPool</a></li><li><a href="module-Wallet.html">Wallet</a></li><li><a href="module-cryptoHash.html">cryptoHash</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chain">chain</a></li><li><a href="global.html#cryptoHash">cryptoHash</a></li><li><a href="global.html#data">data</a></li><li><a href="global.html#inputMap">inputMap</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#outputMap">outputMap</a></li><li><a href="global.html#publicKey">publicKey</a></li><li><a href="global.html#transaction">transaction</a></li><li><a href="global.html#transactionMap">transactionMap</a></li><li><a href="global.html#uuid">uuid</a></li><li><a href="global.html#verifySignature">verifySignature</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">wallet/index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Transaction = require('./transaction');
+const { STARTING_BALANCE } = require('../config');
+const { ec, cryptoHash } = require('../util');
+const bip39 = require('bip39');
+const hdkey = require('hdkey');
+const crypto = require('crypto');
+/**
+ * A uuid is a unique cryptographicly generated identifier
+ * @typedef {string} uuid
+ */
+
+/**
+ * Class representing a blockchain wallet.
+ * @class
+ */
+class Wallet {
+  /**
+   * Create a new wallet.
+   * @constructor
+   * @param {string} [mnemonic] - A 12-word mnemonic phrase to create the wallet from. If not provided, a new mnemonic will be generated.
+   */
+  constructor(mnemonic) {
+      if (mnemonic) {
+        // If a mnemonic is provided, generate a seed from it
+        const seed = bip39.mnemonicToSeedSync(mnemonic);
+        // Generate the master node of the wallet from the seed
+        this.masterNode = hdkey.fromMasterSeed(seed);
+      } else {
+        // If no mnemonic is provided, generate a new seed
+        const seed = crypto.randomBytes(32);
+        // Generate the master node of the wallet from the seed
+        this.masterNode = hdkey.fromMasterSeed(seed);
+        // Generate a new mnemonic from the seed and log it to the console
+        mnemonic = bip39.entropyToMnemonic(seed);
+        console.log(`Generated mnemonic: ${mnemonic}`);
+      }
+      // Set the wallet's starting balance
+      this.balance = STARTING_BALANCE;
+      // Set the path of the wallet
+      this.path = "m/0'/0'/0'";
+      // Derive the first child node from the master node, using the specified path
+      this.node = this.masterNode.derive(this.path);
+      // Generate the key pair for the wallet
+      this.keyPair = ec.keyFromPrivate(this.node.privateKey);
+      // Encode the public key as a hexadecimal string
+      this.publicKey = this.keyPair.getPublic().encode('hex');
+      // Save the generated mnemonic
+      this.mnemonic = mnemonic;
+  }
+  
+  /**
+   * Sign a piece of data with the wallet's private key.
+   * @param {Object} data - The data to sign.
+   * @returns {Object} The signature of the data.
+   */
+  sign(data) {
+    return this.keyPair.sign(cryptoHash(data))
+  }
+
+
+  /**
+   * Create a new currency transaction.
+   * @param {publicKey} recipient - The address of the recipient of the transaction.
+   * @param {number} amount - The amount to transfer in the transaction.
+   * @param {chain} chain - The blockchain to check for transaction history.
+   * @returns {Transaction} A new transaction object.
+   * @throws Will throw an error if the wallet does not have sufficient funds.
+   */
+  createTransaction({ recipient, amount, chain }) {
+    if (chain) {
+      // If a blockchain is provided, calculate the wallet's balance from it
+      this.balance = Wallet.calculateBalance({
+        chain,
+        address: this.publicKey
+      });
+    }
+
+    if (amount > this.balance) {
+      // If the requested transfer amount exceeds the wallet's balance, throw an error
+      throw new Error('Amount exceeds balance');
+    }
+
+
+    return new Transaction({ senderWallet: this, recipient, amount });
+  }
+
+  /**
+   * Creates a new bid transaction object for an auction.
+   *
+   * @param {uuid} Id - The ID of a previous auction item.
+   * @param {number} bid - The bid amount.
+   * @returns {Transaction} - The new transaction object.
+   */
+
+  createBid({ id, Bid }) {  
+
+    return new Transaction({ senderWallet: this, recipient: null, amount: null, Id: id , name: null, description: null, startingBid: null, auctionEndTime: null, bid: Bid});
+
+  }
+
+   /**
+   * Creates a new transaction object for creating a new auction item.
+   *
+   * @param {uuid} Id - The ID of the auction item.
+   * @param {string} name - The name of the auction item.
+   * @param {string} description - The description of the auction item.
+   * @param {number} startingBid - The starting bid amount.
+   * @param {number} auctionEndTime - The end time of the auction.
+   * @param {publicKey} owner - The public key of the item owner.
+   * @returns {Transaction} - The new transaction object.
+   */
+
+  createItemTransaction({ Id, name, description, image, startingBid, auctionEndTime, owner }) {
+
+    return new Transaction({ senderWallet: this, recipient: null, amount: null, Id, name, description, startingBid, auctionEndTime, owner });
+
+  }
+
+    /**
+   * Calculates the balance of the wallet for the given blockchain and timestamp.
+   *
+   * @param {chain} chain - The blockchain to use for calculating the balance.
+   * @param {publicKey} address - The public key of the wallet to calculate the balance for.
+   * @param {number} timestamp - The timestamp to calculate the balance at.
+   * @returns {number} - The balance of the wallet.
+   */
+
+  static calculateBalance ({ chain, address, timestamp }) {
+    let outputsTotal = 0, hasConductedTransaction = false, lessThanTimestamp = false;
+
+    for (let i = chain.length - 1; i > 0; i--) {
+      lessThanTimestamp = chain[i].timestamp &lt;= timestamp;
+
+      for (const transaction of chain[i].data) {
+
+        if (transaction.input.timestamp >= timestamp &amp;&amp; transaction.input.address !== REWARD_INPUT.address) {
+          break;
+        }
+
+        if (transaction.input.address === address) {
+          hasConductedTransaction = true;
+        }
+
+        // need to finish this appears to be double adding somewhere
+        if (transaction.outputMap[address]) {
+          outputsTotal += transaction.outputMap[address];
+          console.log("value found is: " + outputsTotal + "\n");
+        } else if(transaction.outputMap['bidder']){
+          outputsTotal -= transaction.outputMap['bid'];
+          console.log(`this is an bid, current balance is ${outputsTotal} \n`);
+
+        } else if(transaction.outputMap['owner']){
+          console.log(`this is an auction, current balance is ${outputsTotal} \n`);
+
+        }
+
+      }
+
+      if (hasConductedTransaction &amp;&amp; lessThanTimestamp) break;
+
+    }
+
+    return hasConductedTransaction
+      ? outputsTotal
+      : STARTING_BALANCE + outputsTotal;
+  }
+};
+
+
+/**
+ * Exports the Wallet class as a module.
+ * @module Wallet
+ */
+module.exports = Wallet;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Apr 17 2023 22:59:48 GMT+0100 (Irish Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

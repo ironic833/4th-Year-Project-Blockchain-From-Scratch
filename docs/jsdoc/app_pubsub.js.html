@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>app/pubsub.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/ironic833/4th-Year-Project-Blockchain-From-Scratch" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="Block.html">Block</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Block.html#.adjustDifficulty">adjustDifficulty</a></li><li data-type='method' style='display: none;'><a href="Block.html#.genesis">genesis</a></li><li data-type='method' style='display: none;'><a href="Block.html#.mineBlock">mineBlock</a></li></ul></li><li><a href="Blockchain.html">Blockchain</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Blockchain.html#addBlock">addBlock</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#replaceChain">replaceChain</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#validTransactionData">validTransactionData</a></li><li data-type='method' style='display: none;'><a href="Blockchain.html#.isValidChain">isValidChain</a></li></ul></li><li><a href="Peers.html">Peers</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Peers.html#updatePeers">updatePeers</a></li></ul></li><li><a href="PubSub.html">PubSub</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PubSub.html#TransactionPublish">TransactionPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#blockchainPublish">blockchainPublish</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastChain">broadcastChain</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastPeerMembership">broadcastPeerMembership</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#broadcastTransaction">broadcastTransaction</a></li><li data-type='method' style='display: none;'><a href="PubSub.html#listener">listener</a></li></ul></li><li><a href="Transaction.html">Transaction</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Transaction.html#createAuctionItem">createAuctionItem</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createInput">createInput</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createMap">createMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#createTransactionMap">createTransactionMap</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#updateTransaction">updateTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.rewardTransaction">rewardTransaction</a></li><li data-type='method' style='display: none;'><a href="Transaction.html#.validTransaction">validTransaction</a></li></ul></li><li><a href="TransactionMiner.html">TransactionMiner</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionMiner.html#mineTransactions">mineTransactions</a></li></ul></li><li><a href="TransactionPool.html">TransactionPool</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TransactionPool.html#clear">clear</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#clearBlockchainTransactions">clearBlockchainTransactions</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#existingTransaction">existingTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setMap">setMap</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#setTransaction">setTransaction</a></li><li data-type='method' style='display: none;'><a href="TransactionPool.html#validTransactions">validTransactions</a></li></ul></li><li><a href="Wallet.html">Wallet</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Wallet.html#createBid">createBid</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createItemTransaction">createItemTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#createTransaction">createTransaction</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#sign">sign</a></li><li data-type='method' style='display: none;'><a href="Wallet.html#.calculateBalance">calculateBalance</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-Transaction.html">Transaction</a></li><li><a href="module-TransactionPool.html">TransactionPool</a></li><li><a href="module-Wallet.html">Wallet</a></li><li><a href="module-cryptoHash.html">cryptoHash</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chain">chain</a></li><li><a href="global.html#cryptoHash">cryptoHash</a></li><li><a href="global.html#data">data</a></li><li><a href="global.html#inputMap">inputMap</a></li><li><a href="global.html#message">message</a></li><li><a href="global.html#outputMap">outputMap</a></li><li><a href="global.html#publicKey">publicKey</a></li><li><a href="global.html#transaction">transaction</a></li><li><a href="global.html#transactionMap">transactionMap</a></li><li><a href="global.html#uuid">uuid</a></li><li><a href="global.html#verifySignature">verifySignature</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">app/pubsub.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { json } = require('body-parser');
+const PubNub = require('pubnub');
+
+// Sets the API keys for access to PubNub
+const credentials = {
+    publishKey: 'pub-c-cfc32bfe-8f42-4848-8678-53d06f894bc9',
+    subscribeKey: 'sub-c-61d414a4-c78e-43af-82eb-7e799ba3080b',
+    secretKey: 'sec-c-YzFiYWUzYTMtY2QyOC00YzEyLTk3ZWEtNDU4YjY0MjYyMTc2'
+};
+
+// Sets up our default channels to be used by the system to allow for transactions
+const CHANNELS = {
+    TEST: 'TEST',
+    BLOCKCHAIN: 'BLOCKCHAIN',
+    TRANSACTION: 'TRANSACTION',
+    PEERS: 'PEERS'
+};
+
+/**
+ * Class representing a PubSub system for blockchain
+ */
+class PubSub {
+    
+    /**
+     * Create a PubSub system.
+     * @constructor
+     * @param {Blockchain} blockchain - The blockchain instance.
+     * @param {TransactionPool} transactionPool - The transaction pool instance.
+     * @param {Peers} peers - The peers instance.
+     * @param {Wallet} wallet - The wallet instance.
+     */
+    constructor({ blockchain, peers, transactionPool, wallet }) {
+        /**
+         * The blockchain instance to interact with.
+         * @type {object}
+         */
+        this.blockchain = blockchain;
+
+        /**
+         * The transaction pool instance to interact with.
+         * @type {object}
+         */
+        this.transactionPool = transactionPool;
+
+        /**
+         * The peers instance to interact with.
+         * @type {object}
+         */
+        this.peers = peers;
+
+        /**
+         * The wallet instance to interact with.
+         * @type {object}
+         */
+        this.wallet = wallet;
+
+        /**
+         * The held chain.
+         * @type {Array}
+         */
+        this.heldChain = [];
+
+        /**
+         * The held peers.
+         * @type {Array}
+         */
+        this.heldPeers = [];
+
+        this.pubnub = new PubNub(credentials);
+        
+        this.pubnub.subscribe({ channels: Object.values(CHANNELS) });
+        this.pubnub.addListener(this.listener());
+    }
+
+    /**
+     * Returns an object with listener methods for PubNub.
+     * @returns {Object} Object containing listener methods.
+     */
+    listener() {
+        return {
+            /**
+             * Event listener for incoming messages.
+             * @param {Object} messageObject - The message object containing the message and the channel it was received on.
+             */
+            message: messageObject => {
+                const { channel, message } = messageObject;
+
+                let clearFlag = false;
+
+                console.log(`Message received. Channel: ${channel}. Message: ${JSON.stringify(message)}`);
+
+                switch(channel) {
+
+                    case CHANNELS.BLOCKCHAIN:
+
+                        if (message !== "chain end") {
+                            this.heldChain.push(message);
+                        } else if (this.heldChain[0] !== undefined) {
+                            console.log("chain end added to held chain");
+                            this.heldChain.push(message);
+                            clearFlag = true;
+                        }
+
+                        // Sort the messages by their timestamps before adding them to the heldChain
+                        this.heldChain.sort((a, b) => {
+                            const aTimestamp = new Date(a.timestamp);
+                            const bTimestamp = new Date(b.timestamp);
+                            return aTimestamp - bTimestamp;
+                        });
+
+                        console.log(JSON.stringify(this.heldChain));
+
+                        const organisedChain = this.heldChain.map(message => message.payload);
+
+                        console.log("organised chain" + JSON.stringify(organisedChain));
+
+                        this.blockchain.replaceChain(organisedChain, true, () => {
+                            this.transactionPool.clearBlockchainTransactions(
+                                { chain: organisedChain }
+                            );
+                        });
+
+                        break;
+             // Handles incoming transaction messages
+             case CHANNELS.TRANSACTION:
+              let parsedMessage = JSON.parse(message);
+              if (parsedMessage.input.address !== this.wallet.publicKey){
+                  this.transactionPool.setTransaction(parsedMessage);
+              } else {
+                  console.log('TRANSACTION broadcast received from self, ignoring..');
+              }
+              break;
+
+          // Handles incoming peer messages
+          case CHANNELS.PEERS:
+              this.heldPeers.push(message);
+              console.log("Held Peers array" + JSON.stringify(this.heldPeers));
+              
+              // Sorts peers by timestamp and converts to an array of peer objects
+              this.heldPeers.sort((a, b) => {
+                  const aTimestamp = new Date(a.timestamp);
+                  const bTimestamp = new Date(b.timestamp);
+                  return aTimestamp - bTimestamp;
+              });
+              const organisedPeers = this.heldPeers.map(message => message.payload);
+              console.log("Peer array " + JSON.stringify(organisedPeers));
+              
+              // Updates the list of peers in the peers instance
+              this.peers.updatePeers(organisedPeers);
+              break;
+
+          default:
+              return;
+      }
+      
+            if (clearFlag === true) {
+              this.heldChain = [];
+            }
+          }
+        }
+      }
+      
+
+    peerPublish({ channel, message }){
+
+      /**
+         * Gets the size of a message.
+         * @function
+         * @param {string} message - The message to get the size of.
+         * @returns {number} The size of the message in bytes.
+         */
+      const getSize = message => {
+        const aString = JSON.stringify(message);
+        return (new TextEncoder().encode(aString)).length;
+    };
+
+    /**
+     * Calculates the size of the message.
+     * @type {number}
+     */
+    const messageSize = getSize(message);
+
+    console.log(`\n Publishing message of size ${messageSize} bytes to channel ${channel} \n`);
+
+    /**
+     * Regex for finding an IP address.
+     * @type {RegExp}
+     */
+    const regex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
+
+    /**
+     * The IP address from the message.
+     * @type {string}
+     */
+    const ipAddress = message.match(regex)[0];
+
+    console.log(ipAddress);
+
+    /**
+     * The current timestamp in ISO format.
+     * @type {string}
+     */
+    const timestamp = new Date().toISOString();
+
+    /**
+     * Publishes the message to the specified channel.
+     */
+
+      this.pubnub.publish({
+        channel: channel,
+        message: {
+            timestamp: timestamp,
+            payload: ipAddress
+        }
+    });
+    }
+
+    /**
+     * Publish a transaction to a PubNub channel.
+     * @param {string} channel - The channel to publish the transaction to.
+     * @param {Transaction} message - The transaction to publish.
+     */
+    TransactionPublish({ channel, message }) {
+      /**
+       * A function to get the size of a message in bytes.
+       * @param {any} message - The message to get the size of.
+       * @returns {number} The size of the message in bytes.
+       */
+      const getSize = message => {
+          const aString = JSON.stringify(message);
+          return (new TextEncoder().encode(aString)).length;
+      };
+      const messageSize = getSize(message);
+
+      console.log(`\n Publishing message of size ${messageSize} bytes to channel ${channel} \n`);
+
+      // Publish the transaction to the specified channel
+      this.pubnub.publish({
+          channel,
+          message,
+      });
+  }
+
+    /**
+     * Publish a blockchain item to a PubNub channel.
+     * @param {string} channel - The channel to publish the blockchain item to.
+     * @param {Blockchain} message - The blockchain item to publish.
+     */
+    blockchainPublish({ channel, message }) {
+        const getSize = message => {
+            const aString = JSON.stringify(message);
+            return (new TextEncoder().encode(aString)).length;
+        };
+        const messageSize = getSize(message);
+
+        console.log(`\n Publishing message of size ${messageSize} bytes to channel ${channel} \n`);
+
+        const timestamp = new Date().toISOString(); // get the current timestamp in ISO format
+
+        this.pubnub.publish({
+            channel: channel,
+            message: {
+                timestamp: timestamp,
+                payload: message
+            }
+        });
+    }
+
+   /**
+     * This function broadcasts the blockchain to all connected peers. Chain is disorganised in this method
+     */
+   broadcastChain() {
+    // Logs the length of the blockchain
+    console.log("Chain Length is: " + this.blockchain.chain.length + "\n");
+
+    // Loops through all the blocks in the blockchain
+    for(let chainNumber = 0, chainItem; chainNumber &lt; this.blockchain.chain.length; chainNumber++){
+        chainItem = this.blockchain.chain[chainNumber];
+
+        // Publishes each block to the BLOCKCHAIN channel
+        this.blockchainPublish({
+            channel: CHANNELS.BLOCKCHAIN,
+            message: chainItem
+        });
+
+        // Logs the block that was sent
+        console.log("Message sent is: " + JSON.stringify(chainItem) + "\n");
+    }
+}
+
+/**
+ * This function broadcasts a transaction to all connected peers.
+ * 
+ * @param {Transaction} transaction - The transaction object.
+ */
+broadcastTransaction(transaction) {
+    // Publishes the transaction to the TRANSACTION channel
+    this.TransactionPublish({
+        channel: CHANNELS.TRANSACTION,
+        message: JSON.stringify(transaction)
+    });
+}
+
+/**
+ * This function broadcasts a new peer registration to all connected peers. This is just a string wrapped with pubnub
+ * 
+ * @param {object} peerRegistration - The peer registration object.
+ */
+
+  broadcastPeerMembership(peerRegistration) {
+    
+    this.peerPublish({
+        channel: CHANNELS.PEERS,
+        message: JSON.stringify(peerRegistration)
+    });
+  }
+}
+
+module.exports = PubSub;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Apr 17 2023 22:59:48 GMT+0100 (Irish Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>
