@@ -24,17 +24,14 @@ class App extends Component {
                     <Card className="bg-dark text-white">
                         <Card.Header>Documentation</Card.Header>
                         <Card.Body>
-                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://example.com/projects-research.pdf')}><BsFillFileEarmarkPdfFill />  Download the projects research</Button>
-                            <Button variant="danger" className="home-card-button" onClick={() => window.open('../files/Functional Spec.pdf')}><BsFillFileEarmarkPdfFill />  Download the functional specification</Button>
-                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://example.com/final-report.pdf')}><BsFillFileEarmarkPdfFill />  Download the final report</Button>
-                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://example.com/code-documentation.pdf')}><BsFillFileCodeFill />  Read the code documentation</Button>
+                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://github.com/ironic833/4th-Year-Project-Blockchain-From-Scratch')}><BsFillFileCodeFill />  Read the code documentation</Button>
                         </Card.Body>
                     </Card>
                     <Card className="bg-dark text-white">
                         <Card.Header>Deliverables</Card.Header>
                         <Card.Body>
                             <Button variant="danger" className="home-card-button" onClick={() => window.open('https://blocktestpeer.herokuapp.com/')}><BsFillMenuButtonWideFill />  View demo version</Button>
-                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://example.com/desktop-app')}><BsWindowDesktop />  Download the desktop app</Button>
+                            <Button variant="danger" className="home-card-button" onClick={() => window.open('https://github.com/ironic833/4th-Year-Project-Blockchain-From-Scratch/releases/tag/Release-V2')}><BsWindowDesktop />  Download the desktop app</Button>
                         </Card.Body>
                     </Card>
                     <Card className="bg-dark text-white">
