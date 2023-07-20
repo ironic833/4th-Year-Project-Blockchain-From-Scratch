@@ -1,5 +1,7 @@
 # 4th-Year-Project-Blockchain-From-Scratch
 
+Please note as of the 20/07/2023 due to continued hosting costs, the main root node has been deactivated and only self hosted or local instances will function correctly
+
 ## Modules
 
 <dl>
