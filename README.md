@@ -160,7 +160,7 @@ Class representing a PubSub system for blockchain
     * [.wallet](#PubSub+wallet) : <code>object</code>
     * [.heldChain](#PubSub+heldChain) : <code>Array</code>
     * [.heldPeers](#PubSub+heldPeers) : <code>Array</code>
-    * [.listener()](#PubSub+listener) ÔçÆ <code>Object</code>
+    * [.listener()](#PubSub+listener)  <code>Object</code>
     * [.TransactionPublish(channel, message)](#PubSub+TransactionPublish)
     * [.blockchainPublish(channel, message)](#PubSub+blockchainPublish)
     * [.broadcastChain()](#PubSub+broadcastChain)
@@ -218,7 +218,7 @@ The held peers.
 **Kind**: instance property of [<code>PubSub</code>](#PubSub)  
 <a name="PubSub+listener"></a>
 
-### pubSub.listener() ÔçÆ <code>Object</code>
+### pubSub.listener()  <code>Object</code>
 Returns an object with listener methods for PubNub.
 
 **Kind**: instance method of [<code>PubSub</code>](#PubSub)  
@@ -315,9 +315,9 @@ Class representing a block.
 
 * [Block](#Block)
     * [new Block(timestamp, lastHash, hash, data, nonce, difficulty)](#new_Block_new)
-    * [.genesis()](#Block.genesis) ÔçÆ [<code>Block</code>](#Block)
-    * [.mineBlock(lastBlock, data)](#Block.mineBlock) ÔçÆ [<code>Block</code>](#Block)
-    * [.adjustDifficulty(originalBlock, timestamp)](#Block.adjustDifficulty) ÔçÆ <code>number</code>
+    * [.genesis()](#Block.genesis)  [<code>Block</code>](#Block)
+    * [.mineBlock(lastBlock, data)](#Block.mineBlock)  [<code>Block</code>](#Block)
+    * [.adjustDifficulty(originalBlock, timestamp)](#Block.adjustDifficulty)  <code>number</code>
 
 <a name="new_Block_new"></a>
 
@@ -336,14 +336,14 @@ Creates a new block.
 
 <a name="Block.genesis"></a>
 
-### Block.genesis() ÔçÆ [<code>Block</code>](#Block)
+### Block.genesis()  [<code>Block</code>](#Block)
 Creates the genesis block of the blockchain.
 
 **Kind**: static method of [<code>Block</code>](#Block)  
 **Returns**: [<code>Block</code>](#Block) - The genesis block.  
 <a name="Block.mineBlock"></a>
 
-### Block.mineBlock(lastBlock, data) ÔçÆ [<code>Block</code>](#Block)
+### Block.mineBlock(lastBlock, data)  [<code>Block</code>](#Block)
 Mines a new block to add to the blockchain.
 
 **Kind**: static method of [<code>Block</code>](#Block)  
@@ -356,7 +356,7 @@ Mines a new block to add to the blockchain.
 
 <a name="Block.adjustDifficulty"></a>
 
-### Block.adjustDifficulty(originalBlock, timestamp) ÔçÆ <code>number</code>
+### Block.adjustDifficulty(originalBlock, timestamp)  <code>number</code>
 Adjusts the difficulty of the proof-of-work algorithm for mining the next block in the blockchain.
 
 **Kind**: static method of [<code>Block</code>](#Block)  
@@ -379,9 +379,9 @@ Represents a blockchain.
     * _instance_
         * [.addBlock(blockData)](#Blockchain+addBlock)
         * [.replaceChain(chain, validateTransactions, onSuccess)](#Blockchain+replaceChain)
-        * [.validTransactionData(chain)](#Blockchain+validTransactionData) ÔçÆ <code>boolean</code>
+        * [.validTransactionData(chain)](#Blockchain+validTransactionData)  <code>boolean</code>
     * _static_
-        * [.isValidChain(chain)](#Blockchain.isValidChain) ÔçÆ <code>boolean</code>
+        * [.isValidChain(chain)](#Blockchain.isValidChain)  <code>boolean</code>
 
 <a name="new_Blockchain_new"></a>
 
@@ -414,7 +414,7 @@ Replaces the current chain with a new one.
 
 <a name="Blockchain+validTransactionData"></a>
 
-### blockchain.validTransactionData(chain) ÔçÆ <code>boolean</code>
+### blockchain.validTransactionData(chain)  <code>boolean</code>
 Validates the transaction data in a chain.
 
 **Kind**: instance method of [<code>Blockchain</code>](#Blockchain)  
@@ -426,7 +426,7 @@ Validates the transaction data in a chain.
 
 <a name="Blockchain.isValidChain"></a>
 
-### Blockchain.isValidChain(chain) ÔçÆ <code>boolean</code>
+### Blockchain.isValidChain(chain)  <code>boolean</code>
 Determines whether or not a chain is valid. Returns a boolean to be used in the replace chain process.
 
 **Kind**: static method of [<code>Blockchain</code>](#Blockchain)  
@@ -446,12 +446,12 @@ Class representing a blockchain wallet.
 * [Wallet](#Wallet)
     * [new Wallet([mnemonic])](#new_Wallet_new)
     * _instance_
-        * [.sign(data)](#Wallet+sign) ÔçÆ <code>Object</code>
-        * [.createTransaction(recipient, amount, chain)](#Wallet+createTransaction) ÔçÆ [<code>Transaction</code>](#Transaction)
-        * [.createBid(Id, bid)](#Wallet+createBid) ÔçÆ [<code>Transaction</code>](#Transaction)
-        * [.createItemTransaction(Id, name, description, startingBid, auctionEndTime, owner)](#Wallet+createItemTransaction) ÔçÆ [<code>Transaction</code>](#Transaction)
+        * [.sign(data)](#Wallet+sign)  <code>Object</code>
+        * [.createTransaction(recipient, amount, chain)](#Wallet+createTransaction)  [<code>Transaction</code>](#Transaction)
+        * [.createBid(Id, bid)](#Wallet+createBid)  [<code>Transaction</code>](#Transaction)
+        * [.createItemTransaction(Id, name, description, startingBid, auctionEndTime, owner)](#Wallet+createItemTransaction)  [<code>Transaction</code>](#Transaction)
     * _static_
-        * [.calculateBalance(chain, address, timestamp)](#Wallet.calculateBalance) ÔçÆ <code>number</code>
+        * [.calculateBalance(chain, address, timestamp)](#Wallet.calculateBalance)  <code>number</code>
 
 <a name="new_Wallet_new"></a>
 
@@ -465,7 +465,7 @@ Create a new wallet.
 
 <a name="Wallet+sign"></a>
 
-### wallet.sign(data) ÔçÆ <code>Object</code>
+### wallet.sign(data)  <code>Object</code>
 Sign a piece of data with the wallet's private key.
 
 **Kind**: instance method of [<code>Wallet</code>](#Wallet)  
@@ -477,7 +477,7 @@ Sign a piece of data with the wallet's private key.
 
 <a name="Wallet+createTransaction"></a>
 
-### wallet.createTransaction(recipient, amount, chain) ÔçÆ [<code>Transaction</code>](#Transaction)
+### wallet.createTransaction(recipient, amount, chain)  [<code>Transaction</code>](#Transaction)
 Create a new currency transaction.
 
 **Kind**: instance method of [<code>Wallet</code>](#Wallet)  
@@ -495,7 +495,7 @@ Create a new currency transaction.
 
 <a name="Wallet+createBid"></a>
 
-### wallet.createBid(Id, bid) ÔçÆ [<code>Transaction</code>](#Transaction)
+### wallet.createBid(Id, bid)  [<code>Transaction</code>](#Transaction)
 Creates a new bid transaction object for an auction.
 
 **Kind**: instance method of [<code>Wallet</code>](#Wallet)  
@@ -508,7 +508,7 @@ Creates a new bid transaction object for an auction.
 
 <a name="Wallet+createItemTransaction"></a>
 
-### wallet.createItemTransaction(Id, name, description, startingBid, auctionEndTime, owner) ÔçÆ [<code>Transaction</code>](#Transaction)
+### wallet.createItemTransaction(Id, name, description, startingBid, auctionEndTime, owner)  [<code>Transaction</code>](#Transaction)
 Creates a new transaction object for creating a new auction item.
 
 **Kind**: instance method of [<code>Wallet</code>](#Wallet)  
@@ -525,7 +525,7 @@ Creates a new transaction object for creating a new auction item.
 
 <a name="Wallet.calculateBalance"></a>
 
-### Wallet.calculateBalance(chain, address, timestamp) ÔçÆ <code>number</code>
+### Wallet.calculateBalance(chain, address, timestamp)  <code>number</code>
 Calculates the balance of the wallet for the given blockchain and timestamp.
 
 **Kind**: static method of [<code>Wallet</code>](#Wallet)  
@@ -550,8 +550,8 @@ The transaction pool holds all pending and yet to be mined transactions. After a
     * [.clear()](#TransactionPool+clear)
     * [.setTransaction(transaction)](#TransactionPool+setTransaction)
     * [.setMap(transactionMap)](#TransactionPool+setMap)
-    * [.existingTransaction(inputAddress)](#TransactionPool+existingTransaction) ÔçÆ [<code>Transaction</code>](#Transaction) \| <code>undefined</code>
-    * [.validTransactions()](#TransactionPool+validTransactions) ÔçÆ [<code>Array.&lt;Transaction&gt;</code>](#Transaction)
+    * [.existingTransaction(inputAddress)](#TransactionPool+existingTransaction)  [<code>Transaction</code>](#Transaction) \| <code>undefined</code>
+    * [.validTransactions()](#TransactionPool+validTransactions)  [<code>Array.&lt;Transaction&gt;</code>](#Transaction)
     * [.clearBlockchainTransactions(chain)](#TransactionPool+clearBlockchainTransactions)
 
 <a name="new_TransactionPool_new"></a>
@@ -595,7 +595,7 @@ Replaces the current transaction pool with a new one. This is used when pools ar
 
 <a name="TransactionPool+existingTransaction"></a>
 
-### transactionPool.existingTransaction(inputAddress) ÔçÆ [<code>Transaction</code>](#Transaction) \| <code>undefined</code>
+### transactionPool.existingTransaction(inputAddress)  [<code>Transaction</code>](#Transaction) \| <code>undefined</code>
 Returns the first transaction in the pool that has a matching input address.
 
 **Kind**: instance method of [<code>TransactionPool</code>](#TransactionPool)  
@@ -607,7 +607,7 @@ Returns the first transaction in the pool that has a matching input address.
 
 <a name="TransactionPool+validTransactions"></a>
 
-### transactionPool.validTransactions() ÔçÆ [<code>Array.&lt;Transaction&gt;</code>](#Transaction)
+### transactionPool.validTransactions()  [<code>Array.&lt;Transaction&gt;</code>](#Transaction)
 Returns an array of all valid transactions in the pool.
 
 **Kind**: instance method of [<code>TransactionPool</code>](#TransactionPool)  
@@ -633,15 +633,15 @@ A transaction is a record of an interaction between a user wallet and the chain.
 * [Transaction](#Transaction)
     * [new Transaction(senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, owner, bid, outputMap, input)](#new_Transaction_new)
     * _instance_
-        * [.createMap(senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, owner, bid)](#Transaction+createMap) ÔçÆ [<code>outputMap</code>](#outputMap)
-        * [.createBid(senderWallet, Id, bid)](#Transaction+createBid) ÔçÆ [<code>outputMap</code>](#outputMap)
-        * [.createAuctionItem(senderWallet, Id, name, description, startingBid, auctionEndTime, [owner])](#Transaction+createAuctionItem) ÔçÆ [<code>outputMap</code>](#outputMap)
-        * [.createTransactionMap(senderWallet, recipient, amount)](#Transaction+createTransactionMap) ÔçÆ [<code>outputMap</code>](#outputMap)
-        * [.createInput(senderWallet, outputMap)](#Transaction+createInput) ÔçÆ [<code>inputMap</code>](#inputMap)
+        * [.createMap(senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, owner, bid)](#Transaction+createMap)  [<code>outputMap</code>](#outputMap)
+        * [.createBid(senderWallet, Id, bid)](#Transaction+createBid)  [<code>outputMap</code>](#outputMap)
+        * [.createAuctionItem(senderWallet, Id, name, description, startingBid, auctionEndTime, [owner])](#Transaction+createAuctionItem)  [<code>outputMap</code>](#outputMap)
+        * [.createTransactionMap(senderWallet, recipient, amount)](#Transaction+createTransactionMap)  [<code>outputMap</code>](#outputMap)
+        * [.createInput(senderWallet, outputMap)](#Transaction+createInput)  [<code>inputMap</code>](#inputMap)
         * [.updateTransaction(senderWallet, recipient, amount)](#Transaction+updateTransaction)
     * _static_
-        * [.validTransaction(transaction)](#Transaction.validTransaction) ÔçÆ <code>boolean</code>
-        * [.rewardTransaction(minerWallet)](#Transaction.rewardTransaction) ÔçÆ [<code>Transaction</code>](#Transaction)
+        * [.validTransaction(transaction)](#Transaction.validTransaction)  <code>boolean</code>
+        * [.rewardTransaction(minerWallet)](#Transaction.rewardTransaction)  [<code>Transaction</code>](#Transaction)
 
 <a name="new_Transaction_new"></a>
 
@@ -666,7 +666,7 @@ Creates a new transaction object.
 
 <a name="Transaction+createMap"></a>
 
-### transaction.createMap(senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, owner, bid) ÔçÆ [<code>outputMap</code>](#outputMap)
+### transaction.createMap(senderWallet, recipient, amount, Id, name, description, startingBid, auctionEndTime, owner, bid)  [<code>outputMap</code>](#outputMap)
 Creates a map representing the transaction based on the inputs given. The inputs given allow for automatic map generation selection.
 
 **Kind**: instance method of [<code>Transaction</code>](#Transaction)  
@@ -687,7 +687,7 @@ Creates a map representing the transaction based on the inputs given. The inputs
 
 <a name="Transaction+createBid"></a>
 
-### transaction.createBid(senderWallet, Id, bid) ÔçÆ [<code>outputMap</code>](#outputMap)
+### transaction.createBid(senderWallet, Id, bid)  [<code>outputMap</code>](#outputMap)
 Creates an outputMap representing a bid on an auction item.
 
 **Kind**: instance method of [<code>Transaction</code>](#Transaction)  
@@ -701,7 +701,7 @@ Creates an outputMap representing a bid on an auction item.
 
 <a name="Transaction+createAuctionItem"></a>
 
-### transaction.createAuctionItem(senderWallet, Id, name, description, startingBid, auctionEndTime, [owner]) ÔçÆ [<code>outputMap</code>](#outputMap)
+### transaction.createAuctionItem(senderWallet, Id, name, description, startingBid, auctionEndTime, [owner])  [<code>outputMap</code>](#outputMap)
 Creates an outputMap representing an auction item. An owner value by default is the creator of the auction unless the auctions ownership is being reassigned.
 
 **Kind**: instance method of [<code>Transaction</code>](#Transaction)  
@@ -719,7 +719,7 @@ Creates an outputMap representing an auction item. An owner value by default is 
 
 <a name="Transaction+createTransactionMap"></a>
 
-### transaction.createTransactionMap(senderWallet, recipient, amount) ÔçÆ [<code>outputMap</code>](#outputMap)
+### transaction.createTransactionMap(senderWallet, recipient, amount)  [<code>outputMap</code>](#outputMap)
 Creates an output map for a currency transaction.
 
 **Kind**: instance method of [<code>Transaction</code>](#Transaction)  
@@ -733,7 +733,7 @@ Creates an output map for a currency transaction.
 
 <a name="Transaction+createInput"></a>
 
-### transaction.createInput(senderWallet, outputMap) ÔçÆ [<code>inputMap</code>](#inputMap)
+### transaction.createInput(senderWallet, outputMap)  [<code>inputMap</code>](#inputMap)
 Creates an inputMap for the transaction.
 
 **Kind**: instance method of [<code>Transaction</code>](#Transaction)  
@@ -763,7 +763,7 @@ Updates the transaction by adding a new recipient and reducing the sender's bala
 
 <a name="Transaction.validTransaction"></a>
 
-### Transaction.validTransaction(transaction) ÔçÆ <code>boolean</code>
+### Transaction.validTransaction(transaction)  <code>boolean</code>
 Validates a transaction by checking the signature.
 
 **Kind**: static method of [<code>Transaction</code>](#Transaction)  
@@ -775,7 +775,7 @@ Validates a transaction by checking the signature.
 
 <a name="Transaction.rewardTransaction"></a>
 
-### Transaction.rewardTransaction(minerWallet) ÔçÆ [<code>Transaction</code>](#Transaction)
+### Transaction.rewardTransaction(minerWallet)  [<code>Transaction</code>](#Transaction)
 Creates a reward transaction for the miner who mined the block.
 
 **Kind**: static method of [<code>Transaction</code>](#Transaction)  
@@ -798,7 +798,7 @@ Event listener for incoming messages.
 
 <a name="cryptoHash"></a>
 
-## cryptoHash(...inputs) ÔçÆ <code>string</code>
+## cryptoHash(...inputs)  <code>string</code>
 Calculates the SHA256 hash of the inputs. May take several inputs
 
 **Kind**: global function  
@@ -810,7 +810,7 @@ Calculates the SHA256 hash of the inputs. May take several inputs
 
 <a name="verifySignature"></a>
 
-## verifySignature(publicKey, data, signature) ÔçÆ <code>boolean</code>
+## verifySignature(publicKey, data, signature)  <code>boolean</code>
 Verifies a cryptographic signature using the provided public key and data. Returns if its valid
 
 **Kind**: global function  
