@@ -54,10 +54,10 @@ Please note as of the 20/07/2023 due to continued hosting costs, the main root n
 <dt><a href="#message">message(messageObject)</a></dt>
 <dd><p>Event listener for incoming messages.</p>
 </dd>
-<dt><a href="#cryptoHash">cryptoHash(...inputs)</a> ÔçÆ <code>string</code></dt>
+<dt><a href="#cryptoHash">cryptoHash(...inputs)</a> <code>string</code></dt>
 <dd><p>Calculates the SHA256 hash of the inputs. May take several inputs</p>
 </dd>
-<dt><a href="#verifySignature">verifySignature(publicKey, data, signature)</a> ÔçÆ <code>boolean</code></dt>
+<dt><a href="#verifySignature">verifySignature(publicKey, data, signature)</a>  <code>boolean</code></dt>
 <dd><p>Verifies a cryptographic signature using the provided public key and data. Returns if its valid</p>
 </dd>
 </dl>
