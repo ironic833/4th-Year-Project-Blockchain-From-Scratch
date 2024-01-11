@@ -2,6 +2,11 @@
 
 Please note as of the 20/07/2023 due to continued hosting costs, the main root node has been deactivated and only self hosted or local instances will function correctly
 
+### Project winner of the SunLife Awards Waterford 2023!
+
+![FyAhKwsWYAAN0XI](https://github.com/ironic833/4th-Year-Project-Blockchain-From-Scratch/assets/39494199/ad90d32f-3e6a-40b7-a687-ceb9305c9962)
+
+
 ## Modules
 
 <dl>
